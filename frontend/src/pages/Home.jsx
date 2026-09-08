@@ -6,255 +6,78 @@ import {
   Sparkles,
   ChevronRight
 } from "lucide-react";
+import { useState } from "react";
+import { useLanguage } from "../context/LanguageContext";
 
 function Home({
   onNavigate
 }) {
 
+  const { t, language, transcript, isListening, voiceMessage, detectFromSpeech } = useLanguage();
+  const [question, setQuestion] = useState("");
+
+  const openChat = () => {
+    if (question.trim() || transcript) onNavigate("chat");
+  };
+
   return (
     <>
       <section className="citizen-welcome">
-
-        <div>
-
-          <div className="eyebrow">
-            SANYUKT VAANI AI
-          </div>
-
-          <h2>
-            Namaste! What do you need to know?
-          </h2>
-
-          <p>
-
-            Ask about loans, schemes,
-            crop insurance, PACS services
-            and cooperative procedures
-            in your own language.
-
-          </p>
-
+        <div className="welcome-copy">
+          <div className="eyebrow">{t.brandEyebrow}</div>
+          <h2>{t.welcome}</h2>
+          <p>{t.welcomeText}</p>
+          <div className="welcome-hello"><Sparkles size={16} /> {t.hello}</div>
         </div>
-
-        <div className="welcome-orb">
-
-          <Sparkles size={28} />
-
-        </div>
-
+        <div className="welcome-orb"><Sparkles size={28} /></div>
       </section>
-
 
       <section className="ask-card">
-
         <div className="ask-head">
-
           <span className="online-dot" />
-
-          AI is ready
-
-          <span className="auto-language">
-
-            <Languages size={14} />
-
-            Auto language detection
-
-          </span>
-
+          {t.ready}
+          <span className="auto-language"><Languages size={14} /> {t.auto}</span>
         </div>
 
-
-        <div className="ask-input">
-
-          <input
-            placeholder="Ask in Marathi, Hindi or English..."
-          />
-
-          <button
-            className="mic-btn"
-            onClick={() =>
-              onNavigate("chat")
-            }
-          >
-            <Mic size={20} />
-          </button>
-
-          <button
-            className="send-btn"
-            onClick={() =>
-              onNavigate("chat")
-            }
-          >
-            <Send size={18} />
-          </button>
-
-        </div>
-
-
-        <div className="suggestions">
-
-          <button
-            onClick={() =>
-              onNavigate("chat")
-            }
-          >
-            How can I get a PACS loan?
-          </button>
-
-          <button
-            onClick={() =>
-              onNavigate("chat")
-            }
-          >
-            पीक विम्याची माहिती
-          </button>
-
-          <button
-            onClick={() =>
-              onNavigate("chat")
-            }
-          >
-            How to file a grievance?
-          </button>
-
-        </div>
-
-      </section>
-
-
-      <div className="section-title">
-
-        <div>
-
-          <h3>
-            Explore verified information
-          </h3>
-
-          <p>
-            Powered by approved official documents
-          </p>
-
-        </div>
-
-        <button
-          className="text-btn"
-          onClick={() =>
-            onNavigate("sources")
-          }
-        >
-
-          View all
-
-          <ChevronRight size={15} />
-
+        <button className={`dashboard-voice ${isListening ? "listening" : ""}`} onClick={detectFromSpeech}>
+          <span className="dashboard-mic"><Mic size={24} /></span>
+          <span><strong>{isListening ? t.detecting : t.speak}</strong><small>{t.speakSub}</small></span>
+          <span className="voice-language-chip">{language.label}</span>
         </button>
 
-      </div>
+        <label className="ask-input-label">{t.type}</label>
+        <div className="ask-input">
+          <input value={question || transcript} onChange={(event) => setQuestion(event.target.value)} placeholder={t.placeholder} />
+          <button className="send-btn" onClick={openChat} aria-label={t.ask}><Send size={18} /></button>
+        </div>
+        {voiceMessage && <p className="voice-detection-note">{voiceMessage}</p>}
+      </section>
 
+      <div className="section-title">
+        <div><h3>{t.explore}</h3><p>{t.exploreSub}</p></div>
+        <button className="text-btn" onClick={() => onNavigate("sources")}>{t.viewAll}<ChevronRight size={15} /></button>
+      </div>
 
       <div className="info-grid">
-
-        <InfoCard
-          icon="🏦"
-          title="PACS Loans"
-          text="Eligibility, documents and application process"
-        />
-
-        <InfoCard
-          icon="🌾"
-          title="Crop Insurance"
-          text="Coverage, deadlines and claim process"
-        />
-
-        <InfoCard
-          icon="🏛️"
-          title="Government Schemes"
-          text="Benefits, eligibility and documents"
-        />
-
-        <InfoCard
-          icon="⚖️"
-          title="Rules & Grievances"
-          text="Procedures and complaint guidance"
-        />
-
+        <InfoCard icon="🏦" title={t.loans} text={t.loansText} onClick={() => onNavigate("chat")} />
+        <InfoCard icon="🌾" title={t.insurance} text={t.insuranceText} onClick={() => onNavigate("chat")} />
+        <InfoCard icon="🏛️" title={t.schemes} text={t.schemesText} onClick={() => onNavigate("chat")} />
+        <InfoCard icon="⚖️" title={t.grievance} text={t.grievanceText} onClick={() => onNavigate("chat")} />
       </div>
-
 
       <div className="trust-strip">
-
         <ShieldCheck size={22} />
-
-        <div>
-
-          <strong>
-            Why trust Sanyukt Vaani?
-          </strong>
-
-          <span>
-            Answers are grounded in approved
-            official documents and sources are
-            shown with important answers.
-          </span>
-
-        </div>
-
-        <div className="trust-stat">
-
-          <strong>128</strong>
-
-          <span>
-            verified sources
-          </span>
-
-        </div>
-
-        <div className="trust-stat">
-
-          <strong>08</strong>
-
-          <span>
-            languages
-          </span>
-
-        </div>
-
+        <div><strong>{t.trust}</strong><span>{t.trustText}</span></div>
+        <div className="trust-stat"><strong>128</strong><span>{t.sourcesCount}</span></div>
+        <div className="trust-stat"><strong>08</strong><span>{t.languages}</span></div>
       </div>
-
     </>
   );
 }
 
 
-function InfoCard({
-  icon,
-  title,
-  text
-}) {
-
-  return (
-    <button className="info-card">
-
-      <div className="info-icon">
-        {icon}
-      </div>
-
-      <div>
-
-        <strong>
-          {title}
-        </strong>
-
-        <span>
-          {text}
-        </span>
-
-      </div>
-
-      <ChevronRight size={17} />
-
-    </button>
-  );
+function InfoCard({ icon, title, text, onClick }) {
+  return <button className="info-card" onClick={onClick}><div className="info-icon">{icon}</div><div><strong>{title}</strong><span>{text}</span></div><ChevronRight size={17} /></button>;
 }
 
 export default Home;

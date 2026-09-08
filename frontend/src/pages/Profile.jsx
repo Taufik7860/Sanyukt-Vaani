@@ -6,8 +6,10 @@ import {
   Clock3,
   ChevronRight
 } from "lucide-react";
+import { useLanguage } from "../context/LanguageContext";
 
 function Profile() {
+  const { t } = useLanguage();
 
   return (
     <>
@@ -20,12 +22,11 @@ function Profile() {
           </div>
 
           <h2>
-            Profile & Settings
+            {t.profile}
           </h2>
 
           <p>
-            Manage language, voice and
-            privacy preferences.
+            {t.auto}
           </p>
 
         </div>
@@ -42,7 +43,7 @@ function Profile() {
           </h3>
 
           <p className="panel-desc">
-            Choose how Sanyukt Vaani
+            Choose how Sanyukt Vaani AI
             communicates with you.
           </p>
 

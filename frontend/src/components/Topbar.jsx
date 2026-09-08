@@ -2,13 +2,16 @@ import {
   Search,
   Bell,
   Menu,
-  UserRound
+  UserRound,
+  Languages
 } from "lucide-react";
+import { useLanguage } from "../context/LanguageContext";
 
 function Topbar({
   role,
   onMenu
 }) {
+  const { t, language } = useLanguage();
 
   return (
     <header className="topbar">
@@ -27,14 +30,20 @@ function Topbar({
         <input
           placeholder={
             role === "officer"
-              ? "Search documents, policies, updates..."
-              : "Search schemes, loans, services..."
+              ? t.searchOfficer
+              : t.searchCitizen
           }
         />
 
       </div>
 
       <div className="top-actions">
+
+        <div className="top-language-switcher" title="Language detected from speech">
+          <Languages size={16} />
+          <span>{language.label}</span>
+          <small>Auto</small>
+        </div>
 
         <button className="icon-btn notification">
 
@@ -67,7 +76,7 @@ function Topbar({
             <small>
               {role === "officer"
                 ? "Knowledge Authority"
-                : "Sanyukt Vaani User"
+                : "Sanyukt Vaani AI User"
               }
             </small>
 

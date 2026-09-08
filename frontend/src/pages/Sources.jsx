@@ -7,6 +7,7 @@ import {
 
 import SourceCard
   from "../components/SourceCard";
+import { useLanguage } from "../context/LanguageContext";
 
 const sources = [
   {
@@ -66,6 +67,7 @@ const sources = [
 ];
 
 function Sources() {
+  const { t } = useLanguage();
 
   return (
     <>
@@ -78,12 +80,11 @@ function Sources() {
           </div>
 
           <h2>
-            Official Sources
+            {t.sources}
           </h2>
 
           <p>
-            Explore approved documents
-            powering Sanyukt Vaani.
+            {t.exploreSub}
           </p>
 
         </div>

@@ -1,0 +1,13 @@
+{
+  "name": "sanyukt-vaani",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "predev": "node scripts/free-dev-ports.mjs",
+    "dev": "concurrently --kill-others-on-fail --names backend,frontend --prefix-colors blue,green \".\\.venv\\Scripts\\python.exe -m uvicorn backend.main:app --host 127.0.0.1 --port 8000\" \"npm --prefix frontend run dev -- --host 127.0.0.1 --port 5173 --strictPort\"",
+    "stop": "node scripts/free-dev-ports.mjs"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

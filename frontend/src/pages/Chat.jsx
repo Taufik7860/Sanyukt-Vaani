@@ -10,11 +10,13 @@ import {
 } from "lucide-react";
 
 import React, { useState } from "react";
+import { useLanguage } from "../context/LanguageContext";
 
 import ChatMessage
   from "../components/ChatMessage";
 
 function Chat() {
+  const { t } = useLanguage();
 
   const [input, setInput] =
     useState("");
@@ -75,17 +77,15 @@ function Chat() {
         <div>
 
           <div className="eyebrow">
-            AI ASSISTANT
+            {t.ask}
           </div>
 
           <h2>
-            Ask Sanyukt Vaani
+            {t.ask}
           </h2>
 
           <p>
-            Your multilingual,
-            source-backed cooperative
-            information assistant.
+            {t.welcomeText}
           </p>
 
         </div>
@@ -127,7 +127,7 @@ function Chat() {
 
               <Languages size={14} />
 
-              Auto Detect
+              {t.auto}
 
             </div>
 

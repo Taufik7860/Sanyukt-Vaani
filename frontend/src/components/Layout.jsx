@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
+import { useLanguage } from "../context/LanguageContext";
 
 function Layout({
   children,

@@ -11,6 +11,7 @@ import {
   Building2,
   ShieldCheck
 } from "lucide-react";
+import { useLanguage } from "../context/LanguageContext";
 
 function Sidebar({
   role,
@@ -20,31 +21,32 @@ function Sidebar({
   onClose,
   onLogout
 }) {
+  const { t } = useLanguage();
 
   const citizenMenu = [
     {
       id: "home",
-      label: "Dashboard",
+      label: t.dashboard,
       icon: LayoutDashboard
     },
     {
       id: "chat",
-      label: "Ask Sanyukt Vaani",
+      label: t.ask,
       icon: MessageCircle
     },
     {
       id: "sources",
-      label: "Official Sources",
+      label: t.sources,
       icon: FileCheck2
     },
     {
       id: "history",
-      label: "Conversation History",
+      label: t.history,
       icon: HistoryIcon
     },
     {
       id: "profile",
-      label: "Profile & Settings",
+      label: t.profile,
       icon: UserRound
     }
   ];
@@ -52,7 +54,7 @@ function Sidebar({
   const officerMenu = [
     {
       id: "officer",
-      label: "Officer Dashboard",
+      label: t.dashboard,
       icon: LayoutDashboard
     },
     {
@@ -94,8 +96,8 @@ function Sidebar({
           </div>
 
           <div>
-            <strong>संयुक्त वाणी</strong>
-            <small>Sanyukt Vaani AI</small>
+            <strong>Sanyukt Vaani AI</strong>
+            <small>Multilingual Cooperative Assistance</small>
           </div>
 
           <button
@@ -115,8 +117,8 @@ function Sidebar({
           }
 
           {role === "officer"
-            ? "Officer Portal"
-            : "Citizen Portal"
+            ? t.officer
+            : t.citizen
           }
 
           <span className="live-dot" />
@@ -124,7 +126,7 @@ function Sidebar({
         </div>
 
         <div className="nav-label">
-          MAIN MENU
+          {t.mainMenu}
         </div>
 
         <nav>
@@ -164,12 +166,11 @@ function Sidebar({
           <ShieldCheck size={20} />
 
           <strong>
-            Trusted Information
+            {t.trusted}
           </strong>
 
           <p>
-            Sanyukt Vaani uses verified
-            official knowledge sources.
+            {t.trustedText}
           </p>
 
         </div>
@@ -181,7 +182,7 @@ function Sidebar({
 
           <LogOut size={17} />
 
-          Switch / Logout
+          {t.logout}
 
         </button>
 
