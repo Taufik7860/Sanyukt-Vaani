@@ -15,7 +15,8 @@ import {
   CircleCheck
 } from "lucide-react";
 
-import { useState } from "react";
+import React, { useState } from "react";
+import { createOfficerKnowledge, getOfficerKnowledge, approveOfficerKnowledge } from "../services/api";
 
 const pendingDocuments = [
   {
@@ -113,7 +114,7 @@ function OfficerDashboard() {
           </h2>
 
           <p>
-            Keep Sanyukt Vaani updated with
+            Keep Sanyukt Vaani AI updated with
             verified government information.
           </p>
 
@@ -157,7 +158,7 @@ function OfficerDashboard() {
             Upload new loans, schemes,
             policies, rules and circulars.
             Review them and approve them.
-            Sanyukt Vaani will then use the
+            Sanyukt Vaani AI will then use the
             approved information.
 
           </p>
@@ -440,7 +441,7 @@ function OfficerDashboard() {
 
             <p>
               Latest changes published
-              to Sanyukt Vaani.
+              to Sanyukt Vaani AI.
             </p>
 
           </div>
@@ -634,8 +635,49 @@ function KnowledgeCenter({
   onBack
 }) {
 
-  const [uploaded, setUploaded] =
-    useState(false);
+  const [updates, setUpdates] = useState([]);
+  const [form, setForm] = useState({
+    title: "",
+    category: "policy",
+    year: new Date().getFullYear(),
+    authority: "",
+    version: "1.0",
+    summary: "",
+    source_url: "",
+  });
+  const [formMessage, setFormMessage] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  React.useEffect(() => {
+    getOfficerKnowledge()
+      .then((result) => setUpdates(result.items || []))
+      .catch((error) => setFormMessage(error.message));
+  }, []);
+
+  const submitUpdate = async (event) => {
+    event.preventDefault();
+    setSaving(true);
+    setFormMessage("");
+    try {
+      const created = await createOfficerKnowledge({ ...form, year: Number(form.year) });
+      setUpdates((items) => [created, ...items]);
+      setForm({ ...form, title: "", authority: "", summary: "", source_url: "" });
+      setFormMessage("Update saved and sent for verification.");
+    } catch (error) {
+      setFormMessage(error.message);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const approveUpdate = async (id) => {
+    try {
+      const approved = await approveOfficerKnowledge(id);
+      setUpdates((items) => items.map((item) => item.id === id ? approved : item));
+    } catch (error) {
+      setFormMessage(error.message);
+    }
+  };
 
   return (
     <>
@@ -710,7 +752,7 @@ function KnowledgeCenter({
       </div>
 
 
-      <div className="upload-card">
+      <form className="upload-card knowledge-update-form" onSubmit={submitUpdate}>
 
         <div className="upload-symbol">
 
@@ -724,67 +766,38 @@ function KnowledgeCenter({
             Add a new government update
           </h3>
 
-          <p>
-
-            Upload an official PDF,
-            circular, policy or guideline.
-
-          </p>
+          <p>Add a yearly policy, insurance, scheme, law, farmer loan or circular update.</p>
 
         </div>
 
-        <button
-          className="primary-btn"
-          onClick={() =>
-            setUploaded(true)
-          }
-        >
+        <div className="knowledge-form-fields">
+          <input required value={form.title} onChange={(event) => setForm({ ...form, title: event.target.value })} placeholder="Update title" />
+          <select value={form.category} onChange={(event) => setForm({ ...form, category: event.target.value })}>
+            <option value="policy">Policy</option>
+            <option value="insurance">Crop insurance</option>
+            <option value="scheme">Government scheme</option>
+            <option value="law">Law / bylaw</option>
+            <option value="farmer_loan">Farmer loan</option>
+            <option value="circular">Circular</option>
+          </select>
+          <input required type="number" min="2000" max="2100" value={form.year} onChange={(event) => setForm({ ...form, year: event.target.value })} aria-label="Year" />
+          <input required value={form.authority} onChange={(event) => setForm({ ...form, authority: event.target.value })} placeholder="Issuing authority" />
+          <input value={form.version} onChange={(event) => setForm({ ...form, version: event.target.value })} placeholder="Version" />
+          <input type="url" value={form.source_url} onChange={(event) => setForm({ ...form, source_url: event.target.value })} placeholder="Official source URL" />
+          <textarea value={form.summary} onChange={(event) => setForm({ ...form, summary: event.target.value })} placeholder="Short summary for reviewers" rows="2" />
+        </div>
+
+        <button className="primary-btn" type="submit" disabled={saving}>
 
           <UploadCloud size={16} />
 
-          {uploaded
-            ? "Document Added"
-            : "Choose Document"
-          }
+          {saving ? "Saving..." : "Save for review"}
 
         </button>
 
-      </div>
+      </form>
 
-
-      {uploaded && (
-
-        <div className="success-alert">
-
-          <CircleCheck size={19} />
-
-          <div>
-
-            <strong>
-              Demo upload successful.
-            </strong>
-
-            <span>
-              New Government Circular 2026
-              is waiting for verification.
-            </span>
-
-          </div>
-
-          <button
-            className="icon-btn"
-            onClick={() =>
-              setUploaded(false)
-            }
-          >
-
-            <X size={16} />
-
-          </button>
-
-        </div>
-
-      )}
+      {formMessage && <div className="success-alert"><CircleCheck size={19} /><span>{formMessage}</span></div>}
 
 
       <section className="panel">
@@ -792,11 +805,11 @@ function KnowledgeCenter({
         <div className="tabs">
 
           <button className="tab active">
-            Pending Review <b>6</b>
+            Pending Review <b>{updates.filter((item) => item.status === "pending").length}</b>
           </button>
 
           <button className="tab">
-            Approved <b>128</b>
+            Approved <b>{updates.filter((item) => item.status === "approved").length}</b>
           </button>
 
           <button className="tab">
@@ -808,12 +821,14 @@ function KnowledgeCenter({
 
         <div className="review-list spacious">
 
-          {pendingDocuments.map(
-            (doc, index) => (
+          {updates.length === 0 && <div className="knowledge-empty-state"><ShieldCheck size={20} /><strong>No yearly updates yet</strong><span>Add a policy, bima, scheme, law, farmer loan, or circular update above.</span></div>}
+
+          {updates.map(
+            (doc) => (
 
               <div
                 className="full-review"
-                key={index}
+                key={doc.id}
               >
 
                 <div className="review-file">
@@ -829,9 +844,7 @@ function KnowledgeCenter({
                   </strong>
 
                   <small>
-                    {doc.type}
-                    {" • "}
-                    {doc.date}
+                    {categoryLabel(doc.category)} • {doc.year} • {doc.authority}
                   </small>
 
                   <div className="review-actions">
@@ -846,9 +859,7 @@ function KnowledgeCenter({
 
                     </button>
 
-                    <button
-                      className="primary-btn small"
-                    >
+                    {doc.status === "pending" && <button type="button" className="primary-btn small" onClick={() => approveUpdate(doc.id)}>
 
                       <CheckCircle2
                         size={15}
@@ -856,7 +867,7 @@ function KnowledgeCenter({
 
                       Approve
 
-                    </button>
+                    </button>}
 
                   </div>
 
@@ -873,6 +884,18 @@ function KnowledgeCenter({
 
     </>
   );
+}
+
+function categoryLabel(category) {
+  const labels = {
+    policy: "Policy",
+    insurance: "Crop insurance",
+    scheme: "Government scheme",
+    law: "Law / bylaw",
+    farmer_loan: "Farmer loan",
+    circular: "Circular",
+  };
+  return labels[category] || category;
 }
 
 
@@ -928,7 +951,7 @@ function Analytics({
           </div>
 
           <h2>
-            Sanyukt Vaani Insights
+            Sanyukt Vaani AI Insights
           </h2>
 
           <p>

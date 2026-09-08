@@ -1,6 +1,50 @@
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL ||
-  "http://localhost:8000";
+  "http://127.0.0.1:8000";
+
+async function parseResponse(response, fallbackMessage) {
+  if (response.ok) return response.json();
+  const body = await response.json().catch(() => null);
+  throw new Error(body?.detail || fallbackMessage);
+}
+
+export async function officerLogin(email, password) {
+  const response = await fetch(`${API_BASE_URL}/api/officer/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
+  });
+  const result = await parseResponse(response, "Officer login failed");
+  sessionStorage.setItem("sanyukt-officer-token", result.access_token);
+  return result;
+}
+
+export async function getOfficerKnowledge() {
+  const response = await fetch(`${API_BASE_URL}/api/officer/knowledge`, {
+    headers: { Authorization: `Bearer ${sessionStorage.getItem("sanyukt-officer-token") || ""}` },
+  });
+  return parseResponse(response, "Unable to load knowledge updates");
+}
+
+export async function createOfficerKnowledge(update) {
+  const response = await fetch(`${API_BASE_URL}/api/officer/knowledge`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${sessionStorage.getItem("sanyukt-officer-token") || ""}`,
+    },
+    body: JSON.stringify(update),
+  });
+  return parseResponse(response, "Unable to save knowledge update");
+}
+
+export async function approveOfficerKnowledge(updateId) {
+  const response = await fetch(`${API_BASE_URL}/api/officer/knowledge/${updateId}/approve`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${sessionStorage.getItem("sanyukt-officer-token") || ""}` },
+  });
+  return parseResponse(response, "Unable to approve knowledge update");
+}
 
 
 export async function healthCheck() {
@@ -14,7 +58,7 @@ export async function healthCheck() {
     throw new Error(
       "Backend is not available"
     );
-
+ 
   }
 
   return response.json();

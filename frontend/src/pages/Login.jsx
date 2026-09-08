@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useLanguage } from "../context/LanguageContext";
+import { officerLogin } from "../services/api";
 
 import {
   ShieldCheck,
@@ -11,6 +13,10 @@ import {
   X,
   Headphones,
   MessageCircle,
+  LockKeyhole,
+  Mail,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 
 const LANGUAGES = [
@@ -21,7 +27,7 @@ const LANGUAGES = [
     speech: "mr-IN",
     content: {
       eyebrow: "बहुभाषिक सहकारी सहाय्य",
-      title: "संयुक्त वाणी",
+      title: "Sanyukt Vaani AI",
       tagline: "प्रत्येक भाषेत, योग्य माहिती.",
       badge: "AI सहाय्य उपलब्ध आहे",
       heading1: "शासकीय आणि सहकारी",
@@ -56,7 +62,7 @@ const LANGUAGES = [
     speech: "hi-IN",
     content: {
       eyebrow: "बहुभाषी सहकारी सहायता",
-      title: "संयुक्त वाणी",
+      title: "Sanyukt Vaani AI",
       tagline: "हर भाषा में, सही जानकारी।",
       badge: "AI सहायता उपलब्ध है",
       heading1: "सरकारी और सहकारी",
@@ -91,7 +97,7 @@ const LANGUAGES = [
     speech: "en-IN",
     content: {
       eyebrow: "MULTILINGUAL COOPERATIVE ASSISTANCE",
-      title: "Sanyukt Vaani",
+      title: "Sanyukt Vaani AI",
       tagline: "Right information, in every language.",
       badge: "AI assistance is available",
       heading1: "Government & cooperative",
@@ -126,7 +132,7 @@ const LANGUAGES = [
     speech: "gu-IN",
     content: {
       eyebrow: "બહુભાષી સહકારી સહાય",
-      title: "સંયુક્ત વાણી",
+      title: "Sanyukt Vaani AI",
       tagline: "દરેક ભાષામાં, સાચી માહિતી.",
       badge: "AI સહાય ઉપલબ્ધ છે",
       heading1: "સરકારી અને સહકારી",
@@ -161,7 +167,7 @@ const LANGUAGES = [
     speech: "kn-IN",
     content: {
       eyebrow: "ಬಹುಭಾಷಾ ಸಹಕಾರಿ ಸಹಾಯ",
-      title: "ಸಂಯುಕ್ತ ವಾಣಿ",
+      title: "Sanyukt Vaani AI",
       tagline: "ಪ್ರತಿ ಭಾಷೆಯಲ್ಲಿ, ಸರಿಯಾದ ಮಾಹಿತಿ.",
       badge: "AI ಸಹಾಯ ಲಭ್ಯವಿದೆ",
       heading1: "ಸರ್ಕಾರಿ ಮತ್ತು ಸಹಕಾರಿ",
@@ -196,7 +202,7 @@ const LANGUAGES = [
     speech: "sa-IN",
     content: {
       eyebrow: "बहुभाषिक सहकारी सहायता",
-      title: "संयुक्त वाणी",
+      title: "Sanyukt Vaani AI",
       tagline: "सर्वासु भाषासु, सम्यक् सूचना।",
       badge: "AI सहायता उपलब्धा अस्ति",
       heading1: "शासकीय तथा सहकारी",
@@ -226,31 +232,33 @@ const LANGUAGES = [
 ];
 
 function Login({ onLogin }) {
-  const [selectedLanguage, setSelectedLanguage] = useState("hi");
-  const [showLanguages, setShowLanguages] = useState(false);
+  const { languageId: detectedLanguageId, detectFromSpeech, isListening: contextListening, isAutoRotating, transcript, voiceMessage } = useLanguage();
   const [showHelp, setShowHelp] = useState(false);
+  const [showOfficerLogin, setShowOfficerLogin] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [officerEmail, setOfficerEmail] = useState("");
+  const [officerPassword, setOfficerPassword] = useState("");
+  const [officerError, setOfficerError] = useState("");
+  const [officerSubmitting, setOfficerSubmitting] = useState(false);
   const [isListening, setIsListening] = useState(false);
+  const [voiceStarted, setVoiceStarted] = useState(false);
 
   const language =
-    LANGUAGES.find((item) => item.id === selectedLanguage) ||
+    LANGUAGES.find((item) => item.id === detectedLanguageId) ||
     LANGUAGES[1];
 
   const t = language.content;
 
-  const handleLanguageChange = (id) => {
-    setSelectedLanguage(id);
-    setShowLanguages(false);
-  };
+  useEffect(() => {
+    if (voiceStarted && transcript && !isAutoRotating) {
+      onLogin("citizen");
+    }
+  }, [voiceStarted, transcript, isAutoRotating, onLogin]);
 
   const handleVoiceStart = () => {
-    setIsListening(true);
-
-    // DEMO ONLY
-    // Later connect this to actual microphone + STT + backend.
-    setTimeout(() => {
-      setIsListening(false);
-      onLogin("citizen");
-    }, 900);
+    const started = detectFromSpeech();
+    setVoiceStarted(started);
+    setIsListening(started || contextListening);
   };
 
   const handleHelp = () => {
@@ -258,23 +266,60 @@ function Login({ onLogin }) {
 
     if ("speechSynthesis" in window) {
       const helpMessages = {
-        mr: "संयुक्त वाणी मध्ये स्वागत आहे। बोलून विचारा बटण दाबा आणि आपला प्रश्न विचारा. आपली भाषा आपोआप ओळखली जाईल.",
-        hi: "संयुक्त वाणी में आपका स्वागत है। बोलकर पूछें बटन दबाएं और अपना सवाल बोलें। आपकी भाषा अपने आप पहचानी जाएगी।",
-        en: "Welcome to Sanyukt Vaani. Press Ask by Voice and speak your question. Your language will be detected automatically.",
-        gu: "સંયુક્ત વાણીમાં આપનું સ્વાગત છે. બોલીને પૂછો બટન દબાવો અને તમારો પ્રશ્ન પૂછો. તમારી ભાષા આપમેળે ઓળખવામાં આવશે.",
-        kn: "ಸಂಯುಕ್ತ ವಾಣಿಗೆ ಸ್ವಾಗತ. ಮಾತನಾಡಿ ಕೇಳಿ ಬಟನ್ ಒತ್ತಿ ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ಕೇಳಿ. ನಿಮ್ಮ ಭಾಷೆಯನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಗುರುತಿಸಲಾಗುತ್ತದೆ.",
-        sa: "संयुक्तवाण्याम् स्वागतम्। वाचा पृच्छतु इति बटन् नुत्वा स्वप्रश्नं वदतु। भवतः भाषा स्वयमेव ज्ञास्यते।",
+        mr: "Sanyukt Vaani AI मध्ये स्वागत आहे. बोलून विचारा बटण दाबा आणि आपला प्रश्न विचारा. तुमची भाषा आपोआप ओळखली जाईल.",
+        hi: "Sanyukt Vaani AI में आपका स्वागत है। बोलकर पूछें बटन दबाएं और अपना सवाल बोलें। आपकी भाषा अपने आप पहचानी जाएगी।",
+        en: "Welcome to Sanyukt Vaani AI. Press Ask by Voice and speak your question. The website will use your language.",
+        gu: "Sanyukt Vaani AI માં આપનું સ્વાગત છે. બોલીને પૂછો બટન દબાવો અને તમારો પ્રશ્ન બોલો. વેબસાઇટ તમારી ભાષામાં ચાલશે.",
+        kn: "Sanyukt Vaani AI ಗೆ ಸ್ವಾಗತ. ಮಾತನಾಡಿ ಕೇಳಿ ಬಟನ್ ಒತ್ತಿ ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ಹೇಳಿ. ವೆಬ್‌ಸೈಟ್ ನಿಮ್ಮ ಭಾಷೆಯಲ್ಲಿ ನಡೆಯುತ್ತದೆ.",
+        sa: "Sanyukt Vaani AI मध्ये स्वागतम्। वाचा पृच्छतु इति बटन् नुत्वा प्रश्नं वदतु। जालपुटं भवतः भाषायां भविष्यति।",
       };
 
-      const speech = new SpeechSynthesisUtterance(
-        helpMessages[selectedLanguage]
-      );
+      let hasSpoken = false;
+      let fallbackTimer;
+      const speakHelp = () => {
+        if (hasSpoken) return;
+        const voices = window.speechSynthesis.getVoices();
+        if (!voices.length) return;
 
-      speech.lang = language.speech;
-      speech.rate = 0.85;
+        const message = helpMessages[detectedLanguageId] || helpMessages.en;
+        const speech = new SpeechSynthesisUtterance(message);
+        const voiceLanguage = language.speech.toLowerCase().slice(0, 2);
+        const matchingVoices = voices.filter((voice) =>
+          voice.lang.toLowerCase().startsWith(voiceLanguage)
+        );
+        const preferredVoice = matchingVoices
+          .map((voice) => ({
+            voice,
+            score:
+              (voice.lang.toLowerCase() === language.speech.toLowerCase() ? 20 : 0) +
+              (/india|indian|google|microsoft|madhur|swara|heera|ravi|veena|lekha|neerja|prabhat|aditi|raveena|sangeeta/i.test(voice.name) ? 10 : 0) +
+              (voice.localService ? 2 : 0),
+          }))
+          .sort((first, second) => second.score - first.score)[0]?.voice;
 
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.speak(speech);
+        const isCorrectLanguageAvailable = Boolean(preferredVoice);
+        if (!isCorrectLanguageAvailable && detectedLanguageId !== "en" && !fallbackTimer) {
+          fallbackTimer = window.setTimeout(speakHelp, 1200);
+          return;
+        }
+
+        hasSpoken = true;
+
+        speech.lang = language.speech;
+        speech.rate = 0.95;
+        speech.pitch = 1;
+        speech.volume = 1;
+        speech.voice = preferredVoice || null;
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(speech);
+      };
+
+      if (window.speechSynthesis.getVoices().length) {
+        speakHelp();
+      } else {
+        window.speechSynthesis.addEventListener("voiceschanged", speakHelp, { once: true });
+        fallbackTimer = window.setTimeout(speakHelp, 1200);
+      }
     }
   };
 
@@ -308,7 +353,7 @@ function Login({ onLogin }) {
               </div>
 
               <h1>
-                {t.title} <span>AI</span>
+                Sanyukt Vaani <span>AI</span>
               </h1>
 
               <p>
@@ -385,59 +430,11 @@ function Login({ onLogin }) {
 
           <div className="voice-card">
 
-            {/* LANGUAGE TOGGLE */}
-            <div className="language-selector">
-
-              <div className="language-selector-label">
-                <Languages size={17} />
-                <span>{t.language}</span>
-              </div>
-
-              <button
-                className="language-toggle-button"
-                onClick={() =>
-                  setShowLanguages(!showLanguages)
-                }
-              >
-                <span>{language.short}</span>
-                <ChevronRight
-                  size={17}
-                  className={
-                    showLanguages ? "rotate-arrow" : ""
-                  }
-                />
-              </button>
-
-              {showLanguages && (
-                <div className="language-dropdown">
-
-                  {LANGUAGES.map((item) => (
-                    <button
-                      key={item.id}
-                      className={`language-option ${
-                        selectedLanguage === item.id
-                          ? "selected"
-                          : ""
-                      }`}
-                      onClick={() =>
-                        handleLanguageChange(item.id)
-                      }
-                    >
-
-                      <span className="language-name">
-                        {item.name}
-                      </span>
-
-                      {selectedLanguage === item.id && (
-                        <ShieldCheck size={16} />
-                      )}
-
-                    </button>
-                  ))}
-
-                </div>
-              )}
-
+            <div className="detected-language-banner">
+              <Languages size={17} />
+              <span>{isAutoRotating ? t.auto : t.detected}</span>
+              <strong>{language.name}</strong>
+              <small>{isAutoRotating ? "10 sec" : "Locked"}</small>
             </div>
 
             <div className="voice-card-header">
@@ -533,6 +530,10 @@ function Login({ onLogin }) {
 
             </div>
 
+            <p className="voice-detection-note">
+              {voiceMessage || t.hello}
+            </p>
+
             {/* ACCESSIBILITY */}
             <div className="accessibility-row">
 
@@ -599,7 +600,7 @@ function Login({ onLogin }) {
 
             <button
               className="officer-button"
-              onClick={() => onLogin("officer")}
+              onClick={() => setShowOfficerLogin(true)}
             >
 
               <div className="officer-button-icon">
@@ -700,7 +701,7 @@ function Login({ onLogin }) {
                   </strong>
 
                   <p>
-                    Auto Detect
+                    {t.auto}
                   </p>
                 </div>
 
@@ -736,6 +737,94 @@ function Login({ onLogin }) {
 
           </div>
 
+        </div>
+      )}
+
+      {showOfficerLogin && (
+        <div className="help-overlay" onMouseDown={() => setShowOfficerLogin(false)}>
+          <div className="officer-login-modal" onMouseDown={(event) => event.stopPropagation()}>
+            <button
+              className="help-close"
+              onClick={() => setShowOfficerLogin(false)}
+              aria-label="Close officer login"
+            >
+              <X size={20} />
+            </button>
+
+            <div className="officer-login-icon">
+              <Building2 size={25} />
+            </div>
+
+            <span className="small-label">{t.officer}</span>
+            <h2>{t.officer}</h2>
+            <p className="help-description">{t.officerSub}</p>
+
+            <form
+              className="officer-login-form"
+              onSubmit={(event) => {
+                event.preventDefault();
+                setOfficerError("");
+                setOfficerSubmitting(true);
+                officerLogin(officerEmail, officerPassword)
+                  .then(() => onLogin("officer"))
+                  .catch((error) => setOfficerError(error.message))
+                  .finally(() => setOfficerSubmitting(false));
+              }}
+            >
+              <label>
+                <span><Mail size={14} /> Official email</span>
+                <input
+                  type="email"
+                  value={officerEmail}
+                  onChange={(event) => setOfficerEmail(event.target.value)}
+                  placeholder="officer@department.gov.in"
+                  autoComplete="username"
+                  required
+                />
+              </label>
+
+              <label>
+                <span><LockKeyhole size={14} /> Password</span>
+                <div className="password-field">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    value={officerPassword}
+                    onChange={(event) => setOfficerPassword(event.target.value)}
+                    placeholder="Enter your password"
+                    autoComplete="current-password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    className="password-toggle"
+                    onClick={() => setShowPassword((visible) => !visible)}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                  >
+                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                  </button>
+                </div>
+              </label>
+
+              <div className="officer-login-options">
+                <label className="remember-option">
+                  <input type="checkbox" />
+                  <span>Remember me</span>
+                </label>
+                <button type="button" className="forgot-link">Forgot password?</button>
+              </div>
+
+              <button className="primary-btn full" type="submit">
+                <LockKeyhole size={16} />
+                {officerSubmitting ? "Signing in..." : "Sign in securely"}
+              </button>
+              {officerError && <p className="officer-login-error">{officerError}</p>}
+            </form>
+
+            <div className="officer-login-trust">
+              <ShieldCheck size={15} />
+              Authorized access · Verified knowledge management
+            </div>
+          </div>
         </div>
       )}
 

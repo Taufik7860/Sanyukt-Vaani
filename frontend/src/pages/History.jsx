@@ -4,6 +4,7 @@ import {
   ShieldCheck,
   ChevronRight
 } from "lucide-react";
+import { useLanguage } from "../context/LanguageContext";
 
 const history = [
   {
@@ -33,6 +34,7 @@ const history = [
 ];
 
 function History() {
+  const { t } = useLanguage();
 
   return (
     <>
@@ -45,12 +47,11 @@ function History() {
           </div>
 
           <h2>
-            Conversation History
+            {t.history}
           </h2>
 
           <p>
-            Review your previous questions
-            and answers.
+            {t.trustText}
           </p>
 
         </div>
