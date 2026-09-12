@@ -1,10 +1,12 @@
 {
-  "name": "sanyukt-vaani-ai",
-  "private": true,
+  "name": "sanyukt-vaani",
   "version": "1.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "concurrently --names backend,frontend --prefix-colors blue,green \".\\.venv\\Scripts\\python.exe -m uvicorn backend.main:app --host 127.0.0.1 --port 8000 --reload\" \"npm run frontend\"",
+    "frontend": "vite --host 127.0.0.1 --port 5173 --strictPort",
+    "backend": ".\\.venv\\Scripts\\python.exe -m uvicorn backend.main:app --host 127.0.0.1 --port 8000 --reload",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -15,6 +17,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^8.2.2",
     "vite": "^6.0.5"
   }
 }

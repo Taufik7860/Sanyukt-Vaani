@@ -1,13 +1,22 @@
-# backend/services/llm.py
+from __future__ import annotations
+
 from google import genai
+from google.genai import types
+
 from backend.config import settings
 
-client = genai.Client(api_key=settings.GEMINI_API_KEY)
+_client = genai.Client(api_key=settings.GEMINI_API_KEY)
+
 
 async def generate_response(prompt: str) -> str:
-    """Generates response text using Gemini 2.5 Flash."""
-    response = client.models.generate_content(
-        model="gemini-2.5-flash",
-        contents=prompt
+    if not settings.GEMINI_API_KEY:
+        raise RuntimeError("GEMINI_API_KEY is missing.")
+
+    response = _client.models.generate_content(
+        model=settings.GEMINI_MODEL,
+        contents=prompt,
+        config=types.GenerateContentConfig(
+            temperature=0.2,
+        ),
     )
-    return response.text
+    return response.text or ""
