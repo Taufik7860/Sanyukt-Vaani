@@ -84,7 +84,7 @@ const copy = {
     detecting: "सुन रहे हैं और भाषा पहचान रहे हैं...",
     detected: "पहचानी गई भाषा",
     verified: "सत्यापित जानकारी",
-    verifiedSub: "आधिकारिक स्रोतों से उत्तर",
+    verifiedSub: "आधिकारिक स्रोतों से जवाब",
     explore: "सत्यापित जानकारी देखें",
     exploreSub: "स्वीकृत आधिकारिक दस्तावेज़ों से",
     viewAll: "सभी देखें",
@@ -141,7 +141,7 @@ const copy = {
     schemesText: "लाभ, पात्रता आणि कागदपत्रे",
     grievance: "नियम आणि तक्रारी",
     grievanceText: "प्रक्रिया आणि तक्रार मार्गदर्शन",
-        trust: "Sanyukt Vaani AI वर विश्वास का ठेवावा?",
+    trust: "Sanyukt Vaani AI वर विश्वास का ठेवावा?",
     trustText: "उत्तरे मान्यताप्राप्त अधिकृत दस्तऐवजांवर आधारित आहेत.",
     sourcesCount: "सत्यापित स्रोत",
     languages: "भाषा",
@@ -149,7 +149,7 @@ const copy = {
   },
 };
 
-copy.gu = { ...copy.en, brandEyebrow: "બહુભાષી સહકારી સહાય", tagline: "દરેક ભાષામાં, સાચી માહિતી.", dashboard: "ડેશબોર્ડ", ask: "સંયુક્ત વાણીને પૂછો", sources: "સત્તાવાર સ્ત્રોતો", history: "વાતચીતનો ઇતિહાસ", profile: "પ્રોફાઇલ અને સેટિંગ્સ", citizen: "નાગરિક પોર્ટલ", officer: "અધિકારી પોર્ટલ", mainMenu: "મુખ્ય મેનૂ", hello: "નમસ્તે! બોલો, હું તમારી ભાષા ઓળખીશ.", welcome: "સરકારી અને સહકારી માહિતી હવે સરળ છે.", welcomeText: "લોન, યોજનાઓ, પાક વીમો, PACS સેવાઓ, નિયમો અને ફરિયાદ પ્રક્રિયા વિશે તમારી ભાષામાં પૂછો.", ready: "AI સહાય ઉપલબ્ધ છે", auto: "ભાષા આપમેળે ઓળખાશે", speak: "બોલીને પૂછો", speakSub: "માઇક્રોફોન દબાવીને નમસ્તે બોલો", type: "અથવા તમારો પ્રશ્ન લખો", placeholder: "નમસ્તે બોલો અથવા તમારી ભાષામાં પૂછો...", detecting: "સાંભળી રહ્યા છીએ અને ભાષા ઓળખી રહ્યા છીએ...", detected: "ઓળખાયેલી ભાષા", verified: "ચકાસાયેલ માહિતી", verifiedSub: "સત્તાવાર સ્ત્રોતોમાંથી જવાબ", explore: "ચકાસાયેલ માહિતી જુઓ", exploreSub: "મંજૂર સત્તાવાર દસ્તાવેજો દ્વારા", viewAll: "બધું જુઓ", loans: "PACS લોન", loansText: "પાત્રતા, દસ્તાવેજો અને અરજી પ્રક્રિયા", insurance: "પાક વીમો", insuranceText: "કવરેજ, સમયમર્યાદા અને દાવાની પ્રક્રિયા", schemes: "સરકારી યોજનાઓ", schemesText: "લાભ, પાત્રતા અને દસ્તાવેજો", grievance: "નિયમો અને ફરિયાદો", grievanceText: "પ્રક્રિયા અને ફરિયાદ માર્ગદર્શન", trust: "સંયુક્ત વાણી પર વિશ્વાસ શા માટે?", trustText: "જવાબો મંજૂર સત્તાવાર દસ્તાવેજો પર આધારિત છે.", sourcesCount: "ચકાસાયેલ સ્ત્રોતો", languages: "ભાષાઓ", voiceDetected: "તમારા અવાજથી વેબસાઇટની ભાષા આપમેળે બદલાઈ.", trusted: "વિશ્વસનીય માહિતી", trustedText: "ચકાસાયેલ સત્તાવાર સ્ત્રોતો પરથી જવાબો.", logout: "બદલો / લૉગઆઉટ", searchCitizen: "યોજનાઓ, લોન, સેવાઓ શોધો...", searchOfficer: "દસ્તાવેજો, નીતિઓ, અપડેટ શોધો..." };
+copy.gu = { ...copy.en, brandEyebrow: "બહુભાષી સહકારી સહાય", tagline: "દરેક ભાષામાં, સાચી માહિતી.", dashboard: "ડેશબોર્ડ", ask: "સંયુક્ત વાણીને પૂછો", sources: "સત્તાવાર સ્ત્રોતો", history: "વાતચીતનો ઇતિહાસ", profile: "પ્રોફાઇલ અને સેટિંગ્સ", citizen: "નાગરિક પોર્ટલ", officer: "અધિકારી પોર્ટલ", mainMenu: "મુખ્ય મેનૂ", hello: "નમસ્તે! બોલો, હું તમારી ભાષા ઓળખીશ.", welcome: "સરકારી અને સહકારી માહિતી હવે સરળ છે.", welcomeText: "લોન, યોજનાઓ, પાક વીમો, PACS સેવાઓ, નિયમો અને ફરિયાદ પ્રક્રિયા વિશે તમારી ભાષામાં પૂછો.", ready: "AI સહાય ઉપલબ્ધ છે", auto: "ભાષા આપમેળે ઓળખાશે", speak: "બોલીને પૂછો", speakSub: "માઇક્રોફોન દબાવીને નમસ્તે બોલો", type: "અથવા તમારો પ્રશ્ન લખો", placeholder: "નમસ્તે બોલો અથવા તમારી ભાષામાં પૂછો...", detecting: "સાંભળી રહ્યા છીએ અને ભાષા ઓળખી રહ્યા છીએ...", detected: "ઓળખાયેલી ભાષા", verified: "ચકાસાયેલ માહિતી", verifiedSub: "સત્તાવાર સ્ત્રોતોમાંથી જવાબ", explore: "ચકાસાયેલ માહિતી જુઓ", exploreSub: "મંજૂર સત્તાવાર દસ્તાવેજો દ્વારા", viewAll: "બધું જુઓ", loans: "PACS લોન", loansText: "પાત્રता, દસ્તાવેજો અને અરજી પ્રક્રિયા", insurance: "પાક વીમો", insuranceText: "કવરેજ, સમયમર્યાદા અને દાવાની પ્રક્રિયા", schemes: "સરકારી યોજનાઓ", schemesText: "લાભ, પાત્રતા અને દસ્તાવેજો", grievance: "નિયમો અને ફરિયાદો", grievanceText: "પ્રક્રિયા અને ફરિયાદ માર્ગદર્શન", trust: "સંયુક્ત વાણી પર વિશ્વાસ શા માટે?", trustText: "જવાબો મંજૂર સત્તાવાર દસ્તાવેજો પર આધારિત છે.", sourcesCount: "ચકાસાયેલ સ્ત્રોતો", languages: "ભાષાઓ", voiceDetected: "તમારા અવાજથી વેબસાઇટની ભાષા આપમેળે બદલાઈ.", trusted: "વિશ્વસનીય માહિતી", trustedText: "ચકાસાયેલ સત્તાવાર સ્ત્રોતો પરથી જવાબો.", logout: "બદલો / લૉગઆ웃", searchCitizen: "યોજનાઓ, લોન, સેવાઓ શોધો...", searchOfficer: "દસ્તાવેજો, નીતિઓ, અપડેટ શોધો..." };
 copy.kn = { ...copy.en, brandEyebrow: "ಬಹುಭಾಷಾ ಸಹಕಾರಿ ಸಹಾಯ", tagline: "ಪ್ರತಿ ಭಾಷೆಯಲ್ಲಿ, ಸರಿಯಾದ ಮಾಹಿತಿ.", dashboard: "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್", ask: "ಸಂಯುಕ್ತ ವಾಣಿಯನ್ನು ಕೇಳಿ", sources: "ಅಧಿಕೃತ ಮೂಲಗಳು", history: "ಸಂಭಾಷಣೆ ಇತಿಹಾಸ", profile: "ಪ್ರೊಫೈಲ್ ಮತ್ತು ಸೆಟ್ಟಿಂಗ್ಸ್", citizen: "ನಾಗರಿಕ ಪೋರ್ಟಲ್", officer: "ಅಧಿಕಾರಿ ಪೋರ್ಟಲ್", mainMenu: "ಮುಖ್ಯ ಮೆನು", hello: "ನಮಸ್ಕಾರ! ಮಾತನಾಡಿ, ನಿಮ್ಮ ಭಾಷೆಯನ್ನು ಗುರುತಿಸುತ್ತೇನೆ.", welcome: "ಸರ್ಕಾರಿ ಮತ್ತು ಸಹಕಾರಿ ಮಾಹಿತಿ ಈಗ ಸರಳ.", welcomeText: "ಸಾಲ, ಯೋಜನೆಗಳು, ಬೆಳೆ ವಿಮೆ, PACS ಸೇವೆಗಳು, ನಿಯಮಗಳು ಮತ್ತು ದೂರು ಪ್ರಕ್ರಿಯೆಗಳ ಬಗ್ಗೆ ನಿಮ್ಮ ಭಾಷೆಯಲ್ಲಿ ಕೇಳಿ.", ready: "AI ಸಹಾಯ ಲಭ್ಯವಿದೆ", auto: "ಭಾಷೆ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಗುರುತಿಸಲಾಗುತ್ತದೆ", speak: "ಮಾತನಾಡಿ ಕೇಳಿ", speakSub: "ಮೈಕ್ರೊಫೋನ್ ಒತ್ತಿ ನಮಸ್ಕಾರ ಎಂದು ಹೇಳಿ", type: "ಅಥವಾ ನಿಮ್ಮ ಪ್ರಶ್ನೆ ಬರೆಯಿರಿ", placeholder: "ನಮಸ್ಕಾರ ಎಂದು ಹೇಳಿ ಅಥವಾ ನಿಮ್ಮ ಭಾಷೆಯಲ್ಲಿ ಕೇಳಿ...", detecting: "ಕೇಳುತ್ತಿದ್ದೇವೆ ಮತ್ತು ಭಾಷೆ ಗುರುತಿಸುತ್ತಿದ್ದೇವೆ...", detected: "ಗುರುತಿಸಿದ ಭಾಷೆ", verified: "ಪರಿಶೀಲಿಸಿದ ಮಾಹಿತಿ", verifiedSub: "ಅಧಿಕೃತ ಮೂಲಗಳಿಂದ ಉತ್ತರ", explore: "ಪರಿಶೀಲಿಸಿದ ಮಾಹಿತಿ ನೋಡಿ", exploreSub: "ಅನುಮೋದಿತ ಅಧಿಕೃತ ದಾಖಲೆಗಳಿಂದ", viewAll: "ಎಲ್ಲವನ್ನೂ ನೋಡಿ", loans: "PACS ಸಾಲ", loansText: "ಅರ್ಹತೆ, ದಾಖಲೆಗಳು ಮತ್ತು ಅರ್ಜಿ ಪ್ರಕ್ರಿಯೆ", insurance: "ಬೆಳೆ ವಿಮೆ", insuranceText: "ಕವರೇಜ್, ಗಡುವು ಮತ್ತು ಕ್ಲೈಮ್ ಪ್ರಕ್ರಿಯೆ", schemes: "ಸರ್ಕಾರಿ ಯೋಜನೆಗಳು", schemesText: "ಪ್ರಯೋಜನಗಳು, ಅರ್ಹತೆ ಮತ್ತು ದಾಖಲೆಗಳು", grievance: "ನಿಯಮಗಳು ಮತ್ತು ದೂರುಗಳು", grievanceText: "ಪ್ರಕ್ರಿಯೆ ಮತ್ತು ದೂರು ಮಾರ್ಗದರ್ಶನ", trust: "ಸಂಯುಕ್ತ ವಾಣಿಯನ್ನು ಏಕೆ ನಂಬಬೇಕು?", trustText: "ಉತ್ತರಗಳು ಅನುಮೋದಿತ ಅಧಿಕೃತ ದಾಖಲೆಗಳನ್ನು ಆಧರಿಸಿವೆ.", sourcesCount: "ಪರಿಶೀಲಿಸಿದ ಮೂಲಗಳು", languages: "ಭಾಷೆಗಳು", voiceDetected: "ನಿಮ್ಮ ಧ್ವನಿಯಿಂದ ವೆಬ್‌ಸೈಟ್ ಭಾಷೆ ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಬದಲಾಗಿದೆ.", trusted: "ವಿಶ್ವಾಸಾರ್ಹ ಮಾಹಿತಿ", trustedText: "ಪರಿಶೀಲಿಸಿದ ಅಧಿಕೃತ ಮೂಲಗಳಿಂದ ಉತ್ತರಗಳು.", logout: "ಬದಲಿಸಿ / ಲಾಗ್‌ಔಟ್", searchCitizen: "ಯೋಜನೆಗಳು, ಸಾಲಗಳು, ಸೇವೆಗಳನ್ನು ಹುಡುಕಿ...", searchOfficer: "ದಾಖಲೆಗಳು, ನೀತಿಗಳು, ಅಪ್‌ಡೇಟ್‌ಗಳನ್ನು ಹುಡುಕಿ..." };
 copy.gu.ask = "Sanyukt Vaani AI ને પૂછો";
 copy.gu.trust = "Sanyukt Vaani AI પર વિશ્વાસ શા માટે?";
@@ -163,6 +163,11 @@ const LanguageContext = createContext(null);
 
 function detectLanguage(text) {
   if (!text) return "en";
+  const trimmed = text.trim();
+  // Check if Latin script (English)
+  if (/^[A-Za-z0-9\s.,?!'-]+$/.test(trimmed)) {
+    return "en";
+  }
   if (/જ|છ|ટ|ડ|ણ|ળ/.test(text)) return "gu";
   if (/ಕ|ತ|ನ|ಮ|ಳ|ವ/.test(text)) return "kn";
   if (/ज्ञ|श्र|संस्कृत|पृच्छ/.test(text)) return "sa";
@@ -192,9 +197,10 @@ export function LanguageProvider({ children }) {
 
     const timer = window.setInterval(() => {
       setRotationIndex((currentIndex) => {
-        const nextIndex = (currentIndex + 1) % AUTO_ROTATION_LANGUAGE_IDS.length;
-        setLanguageId(AUTO_ROTATION_LANGUAGE_IDS[nextIndex]);
-        return nextIndex;
+        const nextIndex = (currentIndex + 1) + AUTO_ROTATION_LANGUAGE_IDS.length;
+        const normalizedIndex = nextIndex % AUTO_ROTATION_LANGUAGE_IDS.length;
+        setLanguageId(AUTO_ROTATION_LANGUAGE_IDS[normalizedIndex]);
+        return normalizedIndex;
       });
     }, 10000);
 
@@ -213,17 +219,18 @@ export function LanguageProvider({ children }) {
   const detectFromSpeech = () => {
     const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!Recognition) {
-      setVoiceMessage("Speech recognition is not supported in this browser. You can type Hello to continue.");
+      setVoiceMessage("Speech recognition is not supported in this browser. You can type to continue.");
       return false;
     }
 
     const recognition = new Recognition();
     recognition.continuous = false;
     recognition.interimResults = false;
-    // Listen in the language currently shown on the welcome screen.
-    recognition.lang = language.speech;
+    // Omit or set multi/default so browser can accurately recognize English, Hindi, or Marathi based on user speech
+    recognition.lang = ""; 
     setIsListening(true);
     setVoiceMessage(t.detecting);
+
     recognition.onresult = (event) => {
       const text = event.results[0][0].transcript;
       const detected = detectLanguage(text);
@@ -231,15 +238,27 @@ export function LanguageProvider({ children }) {
       setRotationIndex(LANGUAGES.findIndex((item) => item.id === detected));
       setIsAutoRotating(false);
       setLanguageId(detected);
-      setVoiceMessage(copy[detected].voiceDetected);
+      setVoiceMessage(copy[detected] ? copy[detected].voiceDetected : copy.en.voiceDetected);
     };
-    recognition.onerror = () => setVoiceMessage("Microphone access was not available. Please try again or type your question.");
-    recognition.onend = () => setIsListening(false);
-    recognition.start();
-    return true;
+
+    recognition.onerror = () => {
+      setVoiceMessage("Microphone access was not available. Please try again or type your question.");
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    try {
+      recognition.start();
+      return true;
+    } catch (e) {
+      setIsListening(false);
+      return false;
+    }
   };
 
-  const value = useMemo(() => ({ language, languageId, languages: LANGUAGES, t, transcript, isListening, isAutoRotating, voiceMessage, setLanguage, detectFromSpeech }), [language, languageId, t, transcript, isListening, isAutoRotating, voiceMessage]);
+  const value = useMemo(() => ({ language, languageId, languages: LANGUAGES, t, transcript, setTranscript, isListening, isAutoRotating, voiceMessage, setLanguage, detectFromSpeech }), [language, languageId, t, transcript, isListening, isAutoRotating, voiceMessage]);
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
 

@@ -17,6 +17,9 @@ import {
   Mail,
   Eye,
   EyeOff,
+  User,
+  Bot,
+  Send
 } from "lucide-react";
 
 const LANGUAGES = [
@@ -52,6 +55,9 @@ const LANGUAGES = [
       officerSub: "Knowledge update & verification",
       security: "सुरक्षित · सत्यापित · स्रोत आधारित",
       ready: "तयार",
+      auto: "स्वचालित ओळख",
+      detected: "ओळखलेली भाषा",
+      hello: "आपला प्रश्न विचारण्यासाठी मायक्रोफोन दाबा",
     },
   },
 
@@ -87,6 +93,9 @@ const LANGUAGES = [
       officerSub: "Knowledge update & verification",
       security: "सुरक्षित · सत्यापित · स्रोत आधारित",
       ready: "तैयार",
+      auto: "स्वचालित पहचान",
+      detected: "पहचानी गई भाषा",
+      hello: "अपना सवाल पूछने के लिए माइक्रोफोन दबाएं",
     },
   },
 
@@ -122,6 +131,9 @@ const LANGUAGES = [
       officerSub: "Knowledge update & verification",
       security: "Secure · Verified · Source-based",
       ready: "Ready",
+      auto: "Auto Detect",
+      detected: "Detected Language",
+      hello: "Press the microphone button to ask your question",
     },
   },
 
@@ -157,6 +169,9 @@ const LANGUAGES = [
       officerSub: "Knowledge update & verification",
       security: "સુરક્ષિત · ચકાસાયેલ · સ્ત્રોત આધારિત",
       ready: "તૈયાર",
+      auto: "સ્વચાલિત ઓળખ",
+      detected: "ઓળખાયેલ ભાષા",
+      hello: "તમારો પ્રશ્ન પૂછવા માટે માઇક્રોફોન દબાવો",
     },
   },
 
@@ -192,6 +207,9 @@ const LANGUAGES = [
       officerSub: "Knowledge update & verification",
       security: "ಸುರಕ್ಷಿತ · ಪರಿಶೀಲಿಸಿದ · ಮೂಲ ಆಧಾರಿತ",
       ready: "ಸಿದ್ಧ",
+      auto: "ಸ್ವಯಂಚಾಲಿತ ಪತ್ತೆ",
+      detected: "ಗುರುತಿಸಲಾದ ಭಾಷೆ",
+      hello: "ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ಕೇಳಲು ಮೈಕ್ರೊಫೋನ್ ಒತ್ತಿ",
     },
   },
 
@@ -227,12 +245,24 @@ const LANGUAGES = [
       officerSub: "Knowledge update & verification",
       security: "सुरक्षित · सत्यापित · स्रोत आधारित",
       ready: "सज्जम्",
+      auto: "स्वयमेव अभिज्ञानम्",
+      detected: "अभिज्ञाता भाषा",
+      hello: "स्वप्रश्नं प्रष्टुं सूक्ष्मध्वनियन्त्रं नुदतु",
     },
   },
 ];
 
 function Login({ onLogin }) {
-  const { languageId: detectedLanguageId, detectFromSpeech, isListening: contextListening, isAutoRotating, transcript, voiceMessage } = useLanguage();
+  const {
+    languageId: detectedLanguageId,
+    detectFromSpeech,
+    isListening: contextListening,
+    isAutoRotating,
+    transcript,
+    setTranscript,
+    voiceMessage,
+  } = useLanguage();
+
   const [showHelp, setShowHelp] = useState(false);
   const [showOfficerLogin, setShowOfficerLogin] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -240,25 +270,73 @@ function Login({ onLogin }) {
   const [officerPassword, setOfficerPassword] = useState("");
   const [officerError, setOfficerError] = useState("");
   const [officerSubmitting, setOfficerSubmitting] = useState(false);
+  
   const [isListening, setIsListening] = useState(false);
   const [voiceStarted, setVoiceStarted] = useState(false);
 
+  const [aiAnswer, setAiAnswer] = useState("");
+  const [isLoadingAnswer, setIsLoadingAnswer] = useState(false);
+  const [editableTranscript, setEditableTranscript] = useState("");
+
   const language =
-    LANGUAGES.find((item) => item.id === detectedLanguageId) ||
-    LANGUAGES[1];
+    LANGUAGES.find((item) => item.id === detectedLanguageId) || LANGUAGES[1];
 
   const t = language.content;
 
   useEffect(() => {
-    if (voiceStarted && transcript && !isAutoRotating) {
-      onLogin("citizen");
+    if (transcript) {
+      setEditableTranscript(transcript);
     }
-  }, [voiceStarted, transcript, isAutoRotating, onLogin]);
+  }, [transcript]);
+
+  useEffect(() => {
+    if (voiceStarted && !contextListening && editableTranscript) {
+      handleFetchAnswer(editableTranscript);
+      setVoiceStarted(false);
+    }
+  }, [contextListening, editableTranscript, voiceStarted]);
 
   const handleVoiceStart = () => {
+    setAiAnswer("");
     const started = detectFromSpeech();
     setVoiceStarted(started);
     setIsListening(started || contextListening);
+  };
+
+  const handleFetchAnswer = async (queryText) => {
+    if (!queryText.trim()) return;
+
+    setIsLoadingAnswer(true);
+    setAiAnswer("");
+
+    try {
+      const res = await fetch("http://127.0.0.1:8000/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query: queryText,
+          language: detectedLanguageId,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to reach server");
+      }
+
+      const data = await res.json();
+      setAiAnswer(data.answer || "No response text received.");
+
+      if ("speechSynthesis" in window && data.answer) {
+        window.speechSynthesis.cancel();
+        const speech = new SpeechSynthesisUtterance(data.answer);
+        speech.lang = language.speech;
+        window.speechSynthesis.speak(speech);
+      }
+    } catch (err) {
+      setAiAnswer("An error occurred connecting to the AI: " + err.message);
+    } finally {
+      setIsLoadingAnswer(false);
+    }
   };
 
   const handleHelp = () => {
@@ -271,7 +349,7 @@ function Login({ onLogin }) {
         en: "Welcome to Sanyukt Vaani AI. Press Ask by Voice and speak your question. The website will use your language.",
         gu: "Sanyukt Vaani AI માં આપનું સ્વાગત છે. બોલીને પૂછો બટન દબાવો અને તમારો પ્રશ્ન બોલો. વેબસાઇટ તમારી ભાષામાં ચાલશે.",
         kn: "Sanyukt Vaani AI ಗೆ ಸ್ವಾಗತ. ಮಾತನಾಡಿ ಕೇಳಿ ಬಟನ್ ಒತ್ತಿ ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ಹೇಳಿ. ವೆಬ್‌ಸೈಟ್ ನಿಮ್ಮ ಭಾಷೆಯಲ್ಲಿ ನಡೆಯುತ್ತದೆ.",
-        sa: "Sanyukt Vaani AI मध्ये स्वागतम्। वाचा पृच्छतु इति बटन् नुत्वा प्रश्नं वदतु। जालपुटं भवतः भाषायां भविष्यति।",
+        sa: "Sanyukt Vaani AI मध्ये स्वागतम्। वाचा पृच्छतु इति बटन् नुत्वा प्रश्नं वदतु। जालपुटं भवतः भाषायां भविष्यति.",
       };
 
       let hasSpoken = false;
@@ -287,6 +365,7 @@ function Login({ onLogin }) {
         const matchingVoices = voices.filter((voice) =>
           voice.lang.toLowerCase().startsWith(voiceLanguage)
         );
+
         const preferredVoice = matchingVoices
           .map((voice) => ({
             voice,
@@ -337,34 +416,25 @@ function Login({ onLogin }) {
       <div className="login-glow glow-two" />
 
       <div className="login-container">
-
         {/* LEFT SIDE */}
         <section className="login-left">
-
           <div className="login-brand">
-
             <div className="brand-mark large">
               <Sparkles size={28} />
             </div>
 
             <div>
-              <div className="eyebrow">
-                {t.eyebrow}
-              </div>
+              <div className="eyebrow">{t.eyebrow}</div>
 
               <h1>
                 Sanyukt Vaani <span>AI</span>
               </h1>
 
-              <p>
-                {t.tagline}
-              </p>
+              <p>{t.tagline}</p>
             </div>
-
           </div>
 
           <div className="login-introduction">
-
             <div className="welcome-badge">
               <span className="status-dot" />
               {t.badge}
@@ -373,20 +443,14 @@ function Login({ onLogin }) {
             <h2>
               {t.heading1}
               <br />
-              {t.heading2}{" "}
-              <span>{t.headingHighlight}</span>
+              {t.heading2} <span>{t.headingHighlight}</span>
             </h2>
 
-            <p>
-              {t.description}
-            </p>
-
+            <p>{t.description}</p>
           </div>
 
           <div className="login-highlights">
-
             <div className="highlight-item">
-
               <div className="highlight-icon">
                 <ShieldCheck size={19} />
               </div>
@@ -395,11 +459,9 @@ function Login({ onLogin }) {
                 <strong>{t.verified}</strong>
                 <span>{t.verifiedSub}</span>
               </div>
-
             </div>
 
             <div className="highlight-item">
-
               <div className="highlight-icon">
                 <Languages size={19} />
               </div>
@@ -408,28 +470,18 @@ function Login({ onLogin }) {
                 <strong>{t.language}</strong>
                 <span>{t.languageSub}</span>
               </div>
-
             </div>
-
           </div>
 
           <div className="login-trust">
-
             <ShieldCheck size={17} />
-
-            <span>
-              {t.security}
-            </span>
-
+            <span>{t.security}</span>
           </div>
-
         </section>
 
         {/* RIGHT SIDE */}
         <section className="login-right">
-
           <div className="voice-card">
-
             <div className="detected-language-banner">
               <Languages size={17} />
               <span>{isAutoRotating ? t.auto : t.detected}</span>
@@ -438,35 +490,25 @@ function Login({ onLogin }) {
             </div>
 
             <div className="voice-card-header">
-
               <div>
-                <span className="small-label">
-                  QUICK ACCESS
-                </span>
-
-                <h3>
-                  {t.ask}
-                </h3>
+                <span className="small-label">QUICK ACCESS</span>
+                <h3>{t.ask}</h3>
               </div>
 
               <div className="voice-status">
                 <span />
                 {t.ready}
               </div>
-
             </div>
 
             {/* BIG VOICE BUTTON */}
             <button
-              className={`big-voice-button ${
-                isListening ? "active" : ""
-              }`}
+              type="button"
+              className={`big-voice-button ${isListening ? "active" : ""}`}
               onClick={handleVoiceStart}
               aria-label={t.ask}
             >
-
               <div className="voice-ring">
-
                 {isListening ? (
                   <div className="voice-animation">
                     <span />
@@ -476,119 +518,104 @@ function Login({ onLogin }) {
                     <span />
                   </div>
                 ) : (
-                  <Mic
-                    size={48}
-                    strokeWidth={1.8}
-                  />
+                  <Mic size={48} strokeWidth={1.8} />
                 )}
-
               </div>
 
               <div className="voice-main-text">
-
-                <strong>
-                  {isListening
-                    ? t.listening
-                    : t.ask}
-                </strong>
-
-                <span>
-                  {isListening
-                    ? t.listeningSub
-                    : t.askSub}
-                </span>
-
+                <strong>{isListening ? t.listening : t.ask}</strong>
+                <span>{isListening ? t.listeningSub : t.askSub}</span>
               </div>
 
               <div className="voice-arrow">
                 <ChevronRight size={21} />
               </div>
-
             </button>
-
-            {/* AUTO LANGUAGE */}
-            <div className="language-info">
-
-              <div className="language-info-icon">
-                <Languages size={18} />
-              </div>
-
-              <div>
-                <strong>
-                  {t.language}
-                </strong>
-
-                <span>
-                  Auto Detect · {language.name}
-                </span>
-              </div>
-
-              <ShieldCheck
-                size={18}
-                className="verified-icon"
-              />
-
-            </div>
-
-            <p className="voice-detection-note">
+            
+            <p className="voice-detection-note" style={{ marginTop: '10px' }}>
               {voiceMessage || t.hello}
             </p>
 
+            {/* CHAT / TEXT INTERFACE */}
+            {(editableTranscript || isListening || aiAnswer) && (
+              <div style={{ marginTop: '15px', display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                
+                {/* User Input Textbox */}
+                <div style={{ background: 'rgba(0,0,0,0.03)', padding: '12px', borderRadius: '10px', border: '1px solid rgba(0,0,0,0.1)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', fontWeight: '600', color: '#64748b', marginBottom: '8px' }}>
+                    <User size={14} /> Your Query
+                  </div>
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <input
+                      type="text"
+                      value={editableTranscript}
+                      onChange={(e) => setEditableTranscript(e.target.value)}
+                      placeholder="Your voice will appear here..."
+                      style={{
+                        flex: 1, padding: '10px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '14px'
+                      }}
+                    />
+                    <button
+                      onClick={() => handleFetchAnswer(editableTranscript)}
+                      disabled={isLoadingAnswer || !editableTranscript}
+                      style={{
+                        padding: '0 16px', borderRadius: '6px', background: '#2563eb', color: 'white', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px'
+                      }}
+                    >
+                      <Send size={14} />
+                      {isLoadingAnswer ? "..." : "Send"}
+                    </button>
+                  </div>
+                </div>
+
+                {/* AI Answer Textbox */}
+                {(isLoadingAnswer || aiAnswer) && (
+                  <div style={{ background: '#f0fdf4', padding: '12px', borderRadius: '10px', border: '1px solid #bbf7d0' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', fontWeight: '600', color: '#166534', marginBottom: '6px' }}>
+                      <Bot size={14} /> AI Response
+                    </div>
+                    <p style={{ margin: 0, color: '#15803d', fontSize: '14.5px', lineHeight: '1.5' }}>
+                      {isLoadingAnswer ? "Generating response..." : aiAnswer}
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+
             {/* ACCESSIBILITY */}
-            <div className="accessibility-row">
-
+            <div className="accessibility-row" style={{ marginTop: '20px' }}>
               <div className="accessibility-card">
-
                 <div className="access-icon">
                   <Volume2 size={20} />
                 </div>
 
                 <div>
-                  <strong>
-                    {t.easy}
-                  </strong>
-
-                  <span>
-                    {t.easySub}
-                  </span>
+                  <strong>{t.easy}</strong>
+                  <span>{t.easySub}</span>
                 </div>
-
               </div>
 
               <div className="accessibility-card">
-
                 <div className="access-icon">
                   <Volume2 size={20} />
                 </div>
 
                 <div>
-                  <strong>
-                    {t.answer}
-                  </strong>
-
-                  <span>
-                    {t.answerSub}
-                  </span>
+                  <strong>{t.answer}</strong>
+                  <span>{t.answerSub}</span>
                 </div>
-
               </div>
-
             </div>
 
             {/* HELP */}
             <button
+              type="button"
               className="listen-help"
               onClick={handleHelp}
             >
-
               <Headphones size={17} />
-
-              <span>
-                {t.help}
-              </span>
-
+              <span>{t.help}</span>
               <ChevronRight size={16} />
-
             </button>
 
             {/* OFFICER */}
@@ -599,53 +626,36 @@ function Login({ onLogin }) {
             </div>
 
             <button
+              type="button"
               className="officer-button"
               onClick={() => setShowOfficerLogin(true)}
             >
-
               <div className="officer-button-icon">
                 <Building2 size={20} />
               </div>
 
               <div className="officer-button-content">
-
-                <strong>
-                  {t.officer}
-                </strong>
-
-                <span>
-                  {t.officerSub}
-                </span>
-
+                <strong>{t.officer}</strong>
+                <span>{t.officerSub}</span>
               </div>
 
               <ChevronRight size={19} />
-
             </button>
 
             <div className="security-footer">
-
               <ShieldCheck size={14} />
-
-              <span>
-                {t.security}
-              </span>
-
+              <span>{t.security}</span>
             </div>
-
           </div>
-
         </section>
-
       </div>
 
       {/* HELP MODAL */}
       {showHelp && (
         <div className="help-overlay">
-
           <div className="help-modal">
-
             <button
+              type="button"
               className="help-close"
               onClick={closeHelp}
               aria-label="Close"
@@ -657,93 +667,54 @@ function Login({ onLogin }) {
               <Volume2 size={28} />
             </div>
 
-            <span className="small-label">
-              {t.easy}
-            </span>
-
-            <h2>
-              {t.title}
-            </h2>
-
-            <p className="help-description">
-              {t.help}
-            </p>
+            <span className="small-label">{t.easy}</span>
+            <h2>{t.title}</h2>
+            <p className="help-description">{t.help}</p>
 
             <div className="help-steps">
-
               <div className="help-step">
-
-                <div className="step-number">
-                  1
-                </div>
-
+                <div className="step-number">1</div>
                 <div>
-                  <strong>
-                    {t.ask}
-                  </strong>
-
-                  <p>
-                    {t.askSub}
-                  </p>
+                  <strong>{t.ask}</strong>
+                  <p>{t.askSub}</p>
                 </div>
-
               </div>
 
               <div className="help-step">
-
-                <div className="step-number">
-                  2
-                </div>
-
+                <div className="step-number">2</div>
                 <div>
-                  <strong>
-                    {t.language}
-                  </strong>
-
-                  <p>
-                    {t.auto}
-                  </p>
+                  <strong>{t.language}</strong>
+                  <p>{t.auto}</p>
                 </div>
-
               </div>
 
               <div className="help-step">
-
-                <div className="step-number">
-                  3
-                </div>
-
+                <div className="step-number">3</div>
                 <div>
-                  <strong>
-                    {t.answer}
-                  </strong>
-
-                  <p>
-                    {t.answerSub}
-                  </p>
+                  <strong>{t.answer}</strong>
+                  <p>{t.answerSub}</p>
                 </div>
-
               </div>
-
             </div>
 
             <button
+              type="button"
               className="primary-btn full"
               onClick={closeHelp}
             >
               <MessageCircle size={17} />
               {t.ask}
             </button>
-
           </div>
-
         </div>
       )}
 
+      {/* OFFICER LOGIN MODAL */}
       {showOfficerLogin && (
         <div className="help-overlay" onMouseDown={() => setShowOfficerLogin(false)}>
           <div className="officer-login-modal" onMouseDown={(event) => event.stopPropagation()}>
             <button
+              type="button"
               className="help-close"
               onClick={() => setShowOfficerLogin(false)}
               aria-label="Close officer login"
@@ -813,7 +784,7 @@ function Login({ onLogin }) {
                 <button type="button" className="forgot-link">Forgot password?</button>
               </div>
 
-              <button className="primary-btn full" type="submit">
+              <button className="primary-btn full" type="submit" disabled={officerSubmitting}>
                 <LockKeyhole size={16} />
                 {officerSubmitting ? "Signing in..." : "Sign in securely"}
               </button>
@@ -827,7 +798,6 @@ function Login({ onLogin }) {
           </div>
         </div>
       )}
-
     </div>
   );
 }
