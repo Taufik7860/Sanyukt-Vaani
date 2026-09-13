@@ -1,0 +1,410 @@
+[
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_1",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 0,
+    "text": "1\n\nGovernment of India\nMinistry of Cooperation\n\nImplementing Agency: NABARD\n\nPROJECT GUIDELINES\nCentrally Sponsored Project for\n‘Computerisation of\nPrimary Agricultural Credit Societies’\n\n2"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_2",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 1,
+    "text": "Table of Content\n1 Introduction............................................................................................................. 3\n2 Aims & Objectives of the Project............................................................................. 3\n3 Project Details......................................................................................................... 4\n3.1 Title of the Project............................................................................................. 4\n3.2 Sponsoring Agency........................................................................................... 4\n3.3 Duration of the Project...................................................................................... 4\n3.4 Sunset Date of the Project................................................................................ 5\n3.5 Type of Project.................................................................................................. 5\n3.6 Project Beneficiaries........."
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_3",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 2,
+    "text": "Type of Project.................................................................................................. 5\n3.6 Project Beneficiaries......................................................................................... 5\n3.7 Implementation Mechanism.............................................................................. 5\n3.8 Project Cost, Sources of Funds & Funding Pattern.......................................... 7\n3.9 Phasing of the project..................................................................................... 12\n3.9 Basic Architecture of the Project................................................................. 13\n3.11 Data Management........................................................................................ 15\n3.11 Selection of PACS................................................................................... 15\n4 Project Monitoring Units (PMUs)/Support Teams.............................................. 16\n4.1 Central PMU:......"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_4",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 3,
+    "text": "........................... 15\n4 Project Monitoring Units (PMUs)/Support Teams.............................................. 16\n4.1 Central PMU:.................................................................................................. 16\n4.2 State PMUs:................................................................................................... 17\n4.3 Support Teams at District/ Cluster levels........................................................ 17\n5 Stakeholders..................................................................................................... 18\n5.1 Roles and responsibilities of various stakeholders of the project.................... 18\n6 Legal Framework.............................................................................................. 22\n7 Upkeep and maintenance of assets created..................................................... 23\n8 Deliverables of the Project............................................................................"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_5",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 4,
+    "text": "......................................... 23\n8 Deliverables of the Project................................................................................ 24\n8.1 Transparent and Complete accounting System.............................................. 24\n8.2 Governance.................................................................................................... 24\n8.3 Enablement.................................................................................................... 24\n9. Expected Outcomes of the Project:...................................................................... 25\n9.1 Statutory Audit................................................................................................ 25\n9.2 Transparency in Operations and Productive Manpower Deployment............. 25\n9.3 Integration....................................................................................................... 25"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_6",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 5,
+    "text": "..................................................................... 25"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_7",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 6,
+    "text": "1\n\nGovernment of India\nMinistry of Cooperation\n\nImplementing Agency: NABARD\n\nPROJECT GUIDELINES\nCentrally Sponsored Project for\n‘Computerisation of\nPrimary Agricultural Credit Societies’\n\n2\n\n3\n\nPACS Computerisation Project - Guidelines\n1 Introduction"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_8",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 7,
+    "text": "The Primary Agriculture Credit Societies (PACS) form the vital third tier in the three -\ntier structure of the Short Term Cooperative Credit Structure (STCCS). The other two\ntiers are comprised of District Central Cooperative Bank (DCCBs) (2nd tier) and State\nCooperative Bank (StCBs) (1 st tier). National Bank for Agriculture and Rural\nDevelopment (NABARD), has earlier taken the initiative to bring most of the StCBs\nand DCCBs on Core Banking Solutions (CBS) platform which has enabled them to\ngive modern- day technology -based banking facilities to their clients. However, the\nPACS have so far been largely out of the ambit of the technology support.\nPACS are owned by farmers, rural artisans etc. and aim at promoting thrift and\nmutual help among the m embers; cater to their credit requirements and provide\ncredit-linked services like input supply, storage and marketing of agricultural produce\netc. DCCBs provide direct linkages to the PACS through direct financing. The StCBs\nare primarily r"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_9",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 8,
+    "text": "pply, storage and marketing of agricultural produce\netc. DCCBs provide direct linkages to the PACS through direct financing. The StCBs\nare primarily responsible for control and coordination of the finances of DCCBs.\nThe large out-reach of PACS to the Small and Marginal Farmers (SMFs) make them\na systemically important class of agricultural credit purveying institutions. Further,\nthere is a felt need to develop cooperatives as vibrant business enterprises by\nenabling them to provide multiple services to their members with support of\ntechnology in order to fulfil members’ requirements.\nKeeping in view the above and to make PACS self -reliant in tune with ‘Atmanirbhar\nBharat Abhiyaan’, the Government of India (GoI) has, on 29th June 2022 approved\nthe Centrally Sponsored Project for Computerisation of Primary Agricultur al Credit\nSocieties for a period of five years from 2022-23 to 2026-27.\n2 Aims & Objectives of the Project"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_10",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 9,
+    "text": "r a period of five years from 2022-23 to 2026-27.\n2 Aims & Objectives of the Project"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_11",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 10,
+    "text": "1\n\nGovernment of India\nMinistry of Cooperation\n\nImplementing Agency: NABARD\n\nPROJECT GUIDELINES\nCentrally Sponsored Project for\n‘Computerisation of\nPrimary Agricultural Credit Societies’\n\n2\n\n3\n\nPACS Computerisation Project - Guidelines\n1 Introduction\n\nThe aims and objectives of the project inter alia include the following:\na. To bring in efficiency, accountability, transparency at PACS and improve\nprofitability.\nb. To bring in accuracy and uniformity in the conduct of business, accounting with\n\n4"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_12",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 11,
+    "text": "entries originating at the transaction level and reporting thereof through\nstandardization of processes, implementation of Common Accounting System\n(CAS) and Management Information System (MIS) and compliance to\nstipulations.\nc. To transform PACS into multi service entities, offering to members in particular\nand the rural population in general, an array of services covering agriculture and\nallied activities; financial and non-financial products.\nd. To seamlessly connect PACS with the higher -tier institutions and Government\ndepartments in the domains of agriculture, banking and rural development for\ndissemination of knowledge to grassroots.\ne. To leverage on the unique strength of PACS i.e. their captive member base, to\ndesign and offer personalized products and services and thereby improve the\nsocio-economic landscape of rural India.\nf. To ensure accurate delivery of funds and subsidies through DBT to the targeted\nbeneficiary groups.\ng. To enable PACS to provide doorstep banking servi"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_13",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 12,
+    "text": "To ensure accurate delivery of funds and subsidies through DBT to the targeted\nbeneficiary groups.\ng. To enable PACS to provide doorstep banking services to facilitate easier access\nto banking services.\nh. To enable PACS to utilize digital acceptance infrastructure like Point of Sale\n(POS)/ mobile POS (mPoS)/ QR Code Readers/Green Pin solution /BHIM\nAadhaar pay device, etc. in the establishments run by PACS like fertilizer shops,\nSeed Processing units, etc. to facilitate cashless/digital transactions.\ni. To expand financial services to unbanked villages / areas, improve the overall\nperformance and efficiency of PACS and STCCS, increase rural employment\nopportunities and reduce migration to urban areas."
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_14",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 13,
+    "text": "1\n\nGovernment of India\nMinistry of Cooperation\n\nImplementing Agency: NABARD\n\nPROJECT GUIDELINES\nCentrally Sponsored Project for\n‘Computerisation of\nPrimary Agricultural Credit Societies’\n\n2\n\n3\n\nPACS Computerisation Project - Guidelines\n1 Introduction\n\nThe aims and objectives of the project inter alia include the following:\na. To bring in efficiency, accountability, transparency at PACS and improve\nprofitability.\nb. To bring in accuracy and uniformity in the conduct of business, accounting with\n\n4\n\n3 Project Details\n\n3.1 Title of the Project\nCentrally Sponsored Project for ‘ Computerisation of Primary Agricultur al\nCredit Societies’.\n3.2 Sponsoring Agency\nMinistry of Cooperation, Government of India.\n3.3 Duration of the Project\nFor a period of five years from 2022-23 to 2026-27.\n\n5"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_15",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 14,
+    "text": "3.4 Sunset Date of the Project\nSunset date of the project will be 31 March 2027.\n3.5 Type of Project\nCentrally Sponsored Project with one- time assistance from the GoI. Extant\nCentrally Sponsored Scheme (CSS) guidelines are applicable.\n\n3.6 Project Beneficiaries\n63000 PACS, LAMPS etc. will benefit directly through computerization of their\ncredit/ non- credit business activities related to Agriculture and Allied activities.\n(In North East and Tribal Areas of the country, due to thinly populated area,\nLarge Area Multipurpose Societies (LAMPS) are prevalent which funct ion more\nor less like PACS. Such LAMPS or any other societies similar to PACS will also\nbe covered in this project within the proposed budget outlay)."
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_16",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 15,
+    "text": "3.7 Implementation Mechanism\n3.7.1 Formation of Implementation and Monitoring Committees\nNational and State level Implementation and Monitoring Committees shall be\nconstituted as detailed hereunder for implementation of this project. These\ncommittees will ensure real -time monitoring and effective feed- back about the\nimplementation of the scheme.\ni) National Level Monitoring and Implementation Committee (NLMIC):\na) Members of NLMIC:\ni. Secretary (M/o Cooperation, GoI) (Chairman)\nii. Additional Secretary & Financial Advisor (M/o Cooperation, GoI)\niii. Joint Secretary (M/o Cooperation, GoI)\niv. Chairman, NABARD\nv. Principal Secretaries (Cooperation) of selected States\nvi. Representative of NITI Ayog\nvii. CEOs of selected State Cooperative Banks\nviii. Deputy Managing Director ( Institutional Development Department ),\nNABARD -Member Secretary\n\nb) Role of NLMIC:\ni. Guide and steer the implementation of the project.\n\n6"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_17",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 16,
+    "text": "ii. Approve the guidelines for implementation of the project.\niii. Review the progress of implementation of the project periodically.\niv. To consider and authorize the appropriation of the funds from one\ncomponent of the pr oject to another within the overall budget outlay of the\nproject, if required.\nv. Monitor functioning of central Project Monitoring Unit (PMU).\nvi. Act as final Grievance Redressal Authority for the project."
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_18",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 17,
+    "text": "NABARD will be responsible for implementation of the project at the central level\nunder the guidance and directions of NLMIC and Ministry of Cooperation,\nGovernment of India. It will establish a core team of its officers for this purpose which\nwill be assisted by a Project Monitoring Unit (PMU) manned by professionals and\nexperts. Further, NABARD will also act as a custodian on behalf of GoI of the\ncommon software and all the financial and personal data generated/captured on t he\nsoftware. After completion of the project, NABARD will manage the system in\ncoordination with the State Governments and will be responsible for its sustainability.\nii) State level Implementation & Monitoring Committee (SLIMC)\na) Members of SLIMC\ni. Addl. Chief Secretary/Principal Secretary/Secretary, Co-operation -\nChairperson\nii. Principal Secretary/Secretary (Finance) - Member\niii. Registrar of Cooperative Societies (RCS) - Member\niv. Chief General Manager (CGM)/OIC, NABARD - Member\nv. Three DCCBs by rotatio"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_19",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 18,
+    "text": "inance) - Member\niii. Registrar of Cooperative Societies (RCS) - Member\niv. Chief General Manager (CGM)/OIC, NABARD - Member\nv. Three DCCBs by rotation - Members\nvi. MD/CEO-State Cooperative Bank - Member Secretary"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_20",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 19,
+    "text": "ii. Approve the guidelines for implementation of the project.\niii. Review the progress of implementation of the project periodically.\niv. To consider and authorize the appropriation of the funds from one\ncomponent of the pr oject to another within the overall budget outlay of the\nproject, if required.\nv. Monitor functioning of central Project Monitoring Unit (PMU).\nvi. Act as final Grievance Redressal Authority for the project.\n\nb) Role of SLIMC\n To implement the approved guidelines at the state level and provide feedback\nto NLMIC.\n To guide and steer the implementation of the project in the state.\n To examine and recommend the proposals to be taken up in this project.\n Any other role assigned to it by the NLMIC.\n\niii) District Level Implementation & Monitoring Committee (DLIMC)\n\n7"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_21",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 20,
+    "text": "a) Members of the DLIMC:\ni. District Collector/District Magistrate - Chairperson\nii. District Development Manager (DDM), NABARD - Member\niii. Officials notified by the respective State/UT Governments – Members\niv. MD, District Cooperative Bank/ Suitable official nominated by StCB (for states\nwith 2 tier system)- Member Convener\nv. Representation of selected PACS – Members\n\nb) Role of DLIMC:\ni. To be the first line of implementation and monitoring system within the\noverall framework.\nii. It will be responsible for the smooth implementation of the project as per\napproved guidelines and provide necessary support like power,\nconnectivity, etc.\niii. Any other role assigned to it by the NLMIC/ SLIMC.\n\n3.8 Project Cost, Sources of Funds & Funding Pattern\n3.8.1 Project Cost:\nThe total cost of the project is estimated at ₹2516.00 crore to be shared as under:\nAgency Cost share (₹ Crore)\nGovernment of India (60.73%) 1528\nState Govt. (29.25%) 736\nNABARD (10.02%) 252\nTotal 2516"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_22",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 21,
+    "text": "However, the exact cost of the project shall be finalised by NABARD following due\nprocedure for procurement through open bidding as per the relevant procurement\nguidelines.\n3.8.2 Component wise Cost Sharing Pattern:\n\nComponent Cost Sharing pattern\nComprehensive software To be shared by GoI and NABARD. NABARD will\n\n8"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_23",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 22,
+    "text": "Component Cost Sharing pattern\n(including cyber security and\ndata storage) and Training\ncontribute ₹252.00 crore (about 10% of the project\ncost) and the remaining will be borne by GoI.\nOther Components\n(Hardware, Digitization and\nsupport system)\nTo be shared as per the extant guidelines of\nCentrally Sponsored Project.\n• Share of GOI: State will be 60:40.\n• For Northeastern and Hilly States share will\nbe 90 (GoI):10(State).\n• For UTs (without legislature) 100% by GoI.\n• For UTs (with legislature) share will be 80\n(GoI):20(State).\nPMU and Administrative Cost This cost will be borne by GoI upto ₹ 50.00 crore.\nAny additional expenditure beyond ₹ 50.00 crore,\nwill be borne by NABARD."
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_24",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 23,
+    "text": "3.8.3 Item wise cost estimate per PACS\nThe item-wise cost estimate per PACS is given as under:-\nSN Item\nAmount in\n₹ per PACS\nA Per PACS project cost\n(i)\nHardware –Computer, Multi-functional Devices (MFD),\nUPS, webcam, bio -metric scanner, external HDD,\nincluding 5 years of AMC for hardware, tablet/mobile,\npassbook printer, electrical arrangements/power\nswitches etc.\n\n1,22,158/-\n(ii)\nA Comprehensive ERP solution covering Membership,\nfinancial services – deposits; lending including ST, MT\nand LT, procurement, processing units, PDS,\nBusiness planning, warehousing, merchandising,\nborrowings, asset management, human resource\nmanagement, RuPay / KCC integrations, etc. with\ncyber security and data storage facility.\n\n72,103/-\n\n9"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_25",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 24,
+    "text": "SN Item\nAmount in\n₹ per PACS\n(iii) Training 10,198/-\n(iv)\na. Implementation Services including data preparation,\ndigitization, verification till final reconciliation and\nporting into the ERP solution for Operationalization\n(Rs. 1,10,000/-)\nb. Maintenance and Handholding support (Rs.\n76,910/-)\n\n1,86,910/-\n(v) Total cost (per PACS) Rs.3,91,369/-\n\nHowever, the exact item-wise cost per PACS shall be finalised by NABARD following\ndue procedure for procurement through open bidding as per the relevant\nprocurement guidelines.\n3.8.4 Component wise Fund Flow Mechanism\nThe component wise Fund Flow mechanism of the project will be as under:\n\nSl\nNo"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_26",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 25,
+    "text": "Component\nCost\nper\nPACS\n(in ₹)\nTotal cost\n(in ₹ crore)\nSource of\nfunds\nRelease of Fund\n1 Software\nwith cyber\nsecurity\nand data\nstorage\n72,103 454.24 Shared by GoI\nand NABARD.\nNABARD will\ncontribute\n₹252.00 crore\n(about 10% of\nthe project\ncost) and the\nremaining will\nbe borne by\n1. GoI share towards\nthe software with\ncyber security and\ndata storage, will be\npassed on to\nNABARD.\n2. Vendor bills will be\nsettled by NAB ARD\nas per provisions of\nthe contract.\n\n10\n\nSl\nNo"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_27",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 26,
+    "text": "Component\nCost\nper\nPACS\n(in ₹)\nTotal cost\n(in ₹ crore)\nSource of\nfunds\nRelease of Fund\nGoI.\n2 Hardware 1,22,158 769.59 As per the\nextant\nguidelines of\nCentrally\nSponsored\nProject.\na. Share of\nGOI: State\nwill be\n60:40.\nb. For North-\neastern and\nHilly States\nshare will be\n90 (GoI):10\n(State).\nc. For UTs\n(without\nlegislature)\n100% by\nGoI.\nd. For UTs\n(with\nlegislature)\nshare will be\n80 (GoI):20\n(UT).\n1. GoI share towards\nhardware will be passed\nto the State Government\ndirectly.\n2. State Government will\nput in place suitable\nmechanism for settling\nvendor bills.\n3. The DLIMCs will\nreview the acceptance\nchallans signed by the\nrespective PACS\nsecretaries and res olve\nissues if any.\n3 Digitization 1,10,000 693 1. GoI share towards\ndigitization will be passed\non to the State\nGovernment directly.\n2. State Government will\nput in place suitable\nmechanism for settling\nvendor bills.\n3. The DLIMCs will\nreview the certificate of\ncompletion of the\nrespective stage signed\nby the respective PACS\n\n11"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_28",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 27,
+    "text": "Sl\nNo\n\nComponent\nCost\nper\nPACS\n(in ₹)\nTotal cost\n(in ₹ crore)\nSource of\nfunds\nRelease of Fund\nsecretaries and resolve\nissues, if any.\n4 Support\nSystem\n76,910 484.53 1. GoI share towards\nsupport system will be\npassed on to the State\nGovernment directly by\nGoI.\n2. State Government will\nput in place suitable\nmechanism for settling\nvendor bills on the basis\nof recommendation of\nSLIMC.\n3. The DLIMCs will\nreview the certificate s of\navailability of the service,\nsigned by the respective\nPACS secretaries and\nresolve issues, if any.\n5 Training 10,198 64.24 1. GoI share towards\nsupport system will be\npassed on to NABARD\ndirectly.\n2. NABARD will settle\nbills from the training\ninstitutions on the basis\nof documentation/\nlocation/ number of\ntrainees etc.\n\n12\n\nSl\nNo"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_29",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 28,
+    "text": "Component\nCost\nper\nPACS\n(in ₹)\nTotal cost\n(in ₹ crore)\nSource of\nfunds\nRelease of Fund\n6 PMU and\nadministratio\nn\n7936.50 50 This cost will\nbe borne by\nGoI upto\n₹50.00 crore.\nAny additional\nexpenditure\nbeyond ₹50.00\ncrore will be\nborne by\nNABARD.\nBills raised by state level\nPMUs in respect of\ncontract staff and other\nincidental expenses etc.\nand the same for central\nPMU will be settled by\nNABARD and adjusted\nagainst the GoI share\nupto a limit of ₹ 50.00\ncrores.\nSalaries of regular staff\nof NABARD engaged in\nthe PMU will not be\nbooked under PMU\nexpenses.\nTotal 2516\n(approx.)\n\n3.9 Phasing of the project\n\nYear\nTotal No. of PACS to be\ncomputerized\nMaintenance and hand-\nholding support\nYear I 2022-23 13,000\nHandholding support of\ntotal 5 years from 2022- 23\nto 2026-27.\nYear II 2023-24 20,000\nYear III 2024-25 30,000\nYear IV 2025-26\n\nYear V 2026-27\nTotal 63,000\n\n13\n\n3.9 Basic Architecture of the Project"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_30",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 29,
+    "text": "3.10.1 One common ERP software will be provided to all the PACS in the project,\nacross the country, to capture data on all functionalities of PACS, both credit\nand non-credit. This software would be customisable for state specific needs.\nAt the national level, NABARD will engage a vendor namely National Level\nPACS Software Vendor (NLPSV) to provide the common software including\ncyber security and data storage through open bidding as per the relevant\nprocurement guidelines.\n3.10.2 NABARD will prepare and publish a central panel of System Integrators\n(SIs) through open bidding. States are to select the SIs from this central\npanel with a ceiling on number of PACS that one SI can take up. SIs will\nprepare legacy data, digitise and port this data into software, recommend\nstate specific customization required in the common software and provide\nthe support system. In the project, there will also be a provision to run the\nsoftware on offline mode and later upload the data in the system in case"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_31",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 30,
+    "text": "the support system. In the project, there will also be a provision to run the\nsoftware on offline mode and later upload the data in the system in case of\nnetwork issue.\nPACS in various States are at various levels of computerization. This\nmeans that some PACS have been computerised (mostly working on a\nstand-alone basis) while others not computerised at all. In respect of PACS\nwhich have been computerised, expenditure will be reimbursed to States\n₹50,000/- per PACS subject to the condition that,\n(i) They integrate their software with the National PACS Software,\n(ii) Their hardware meets the required specifications and\n(iii) The computerization of PACS was commissioned by the State on or\nafter 01 February 2017 i.e. the date of budget announcement by Central\nGovernment for computerization of PACS.\nPACS which have not been computerised by such states will be taken up\nunder this project at full cost.\nFor sustainability of the project, maintenance and handholding of the\nsoftware and hardwar"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_32",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 31,
+    "text": "ch states will be taken up\nunder this project at full cost.\nFor sustainability of the project, maintenance and handholding of the\nsoftware and hardware is considered critical. For this purpose, the Project\nenvisages a support system by setting up one support centre on an\naverage at cluster of around 200 PACS/ District Level. These support"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_33",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 32,
+    "text": "Component\nCost\nper\nPACS\n(in ₹)\nTotal cost\n(in ₹ crore)\nSource of\nfunds\nRelease of Fund\n6 PMU and\nadministratio\nn\n7936.50 50 This cost will\nbe borne by\nGoI upto\n₹50.00 crore.\nAny additional\nexpenditure\nbeyond ₹50.00\ncrore will be\nborne by\nNABARD.\nBills raised by state level\nPMUs in respect of\ncontract staff and other\nincidental expenses etc.\nand the same for central\nPMU will be settled by\nNABARD and adjusted\nagainst the GoI share\nupto a limit of ₹ 50.00\ncrores.\nSalaries of regular staff\nof NABARD engaged in\nthe PMU will not be\nbooked under PMU\nexpenses.\nTotal 2516\n(approx.)\n\n3.9 Phasing of the project\n\nYear\nTotal No. of PACS to be\ncomputerized\nMaintenance and hand-\nholding support\nYear I 2022-23 13,000\nHandholding support of\ntotal 5 years from 2022- 23\nto 2026-27.\nYear II 2023-24 20,000\nYear III 2024-25 30,000\nYear IV 2025-26\n\nYear V 2026-27\nTotal 63,000\n\n13\n\n3.9 Basic Architecture of the Project\n\n14"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_34",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 33,
+    "text": "centres, to be set up by the System Integrator(s), will report to State PMUs\nwhich will also serve as State level support centre. This entire support\nsystem will be under the overall supervision and control of the State\nGovernments and will be operated by the concerned SI.\nStates/UTs to procure hardware for the project through Government e-\nMarketplace (GeM) Portal."
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_35",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 34,
+    "text": "3.10.3 The basic responsibility of training on use of software will lie with NLPSV.\nNLPSV will provide necessary inputs to State level SIs and National Level\nTraining Institutions to facilitate creation of trainers at National and State\nLevel. The trainers will be drawn from al l training institutions in cooperative\nsector. After migration to the software, employee(s) of the PACS will be\ngiven adequate trainings about functioning of the software and how to work\non it. Hands on training will be given through National Council for\nCooperative Training (NCCT) institutions and Scheme of Financial\nAssistance for Training of Cooperative Banks Personnel (SOFTCOB)\nassisted Institutions like Agricultural Cooperative Staff Training Institutes\n(ACSTIs) and other Cooperative Training Institutes under the administrative\ncontrol of State Government. Expenditure on this account will be shared by\nGoI and NABARD. A training calendar will be prepared by NABARD\nmapping every PACS under the project."
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_36",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 35,
+    "text": "3.10.4 For implementation and monitoring of the project, creation of a core team at\nNABARD, Head Office with the team members constituted from its officers\nhas been envisaged. This core team will be assisted by Project Monitoring\nUnit (PMU) hired by NABARD for th e project. NABARD may hire\nstaff/professional or technical experts for the PMU on contractual basis.\nSimilarly, NABARD will set up state PMUs to assist states in\nimplementation and monitoring of the project at state level, which will also\nfunction as the s tate level support centers. These State PMUs will also be\nmanned by NABARD officials and contractual staff/ experts.\n\n15\n\n3.11 Data Management"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_37",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 36,
+    "text": "The data shall be housed at the National Level Data Repository (NLDR). Data\ngenerated at PACS would be routed, ei ther through the DCCBs or State Data\nCenters, to the National Level Data Repository (NLDR). All data will be shared with/\ndeposited and maintained at NLDR, in conformity with the rules and regulations.\nGiven availability of connectivity, all data will be available at NLDR level as at the\nend of the previous day.\nThe data will be maintained at NLDR and will be available for use by Central\nGovernment, State Government and other authorised stakeholders. The data will be\nutilized to generate various national/ state/ district level reports for Government of\nIndia, State Governments, NABARD, StCB, DCCB and other stakeholders, for the\npurpose of information based effective policy making.\n3.11 Selection of PACS"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_38",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 37,
+    "text": "• All functional PACS will be eligible for joining the p roject. A PACS will be\ndeemed functional if it fulfils the necessary condition i.e. completion of Audit of\naccounts of PACS for the financial year 2021-22. If the selection is being done\nin FY 2023- 24 or FY 2024- 25, then audit of the respective previous year will\nbe the cut-off date for audit.\n• For deciding upon the order in which the eligible PACS are to be taken up\nunder the project, the following norm for prioritization will be followed:\no PACS without computerization - priority\no PACS with some computerization but needs upgradation - second\npriority\no PACS with computerization achieved through State Govt./ StCBs/\nDCCBs – Third Priority\n• The DCCBs/ StCBs will make their se lections, based on the allocation, also\nconsidering aspects such as prioritising backward areas and ensuring\nfunctional sustainability of the project.\n• The selection will be recommended by the DLIMC to the SLIMC. After that,\nSLIMC will send their final"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_39",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 38,
+    "text": "ring\nfunctional sustainability of the project.\n• The selection will be recommended by the DLIMC to the SLIMC. After that,\nSLIMC will send their final proposal to NABARD for its implementation."
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_40",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 39,
+    "text": "The data shall be housed at the National Level Data Repository (NLDR). Data\ngenerated at PACS would be routed, ei ther through the DCCBs or State Data\nCenters, to the National Level Data Repository (NLDR). All data will be shared with/\ndeposited and maintained at NLDR, in conformity with the rules and regulations.\nGiven availability of connectivity, all data will be available at NLDR level as at the\nend of the previous day.\nThe data will be maintained at NLDR and will be available for use by Central\nGovernment, State Government and other authorised stakeholders. The data will be\nutilized to generate various national/ state/ district level reports for Government of\nIndia, State Governments, NABARD, StCB, DCCB and other stakeholders, for the\npurpose of information based effective policy making.\n3.11 Selection of PACS\n\n16\n\n4 Project Monitoring Units (PMUs)/Support Teams"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_41",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 40,
+    "text": "4.1 Central PMU:\na. Roles and responsibilities of central PMU\nCentral PMU will:\ni. Be set up by NABARD and manned by Management & Technical Experts.\nii. Finalize project design and implementation strategy.\niii. Undertake stakeholder consultation with States, Central Government, RBI,\nBanks etc.\niv. Finalize the requirement of hardware and functionali ties of software for the\nproject.\nv. Undertake bidding and shor t listing exercise as per the provisions of\nGeneral Financial Rules (GFR), 2017.\nvi. Provide technical support during and after the implementation of the\nproposed Project.\nvii. Guide the NLPSV regarding cu stomization of the central software based\non the state-wise feedback/needs.\nviii. Provide guidance to the state level PMUs.\nix. Provide necessary inputs to the National level Monitoring and\nImplementing Committee (NLMIC).\nx. Prepare necessary reports and dashboards (MIS etc.) for facilitating\nreview at National/ State Level.\nxi. Ensure periodical reporting of the progress to"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_42",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 41,
+    "text": "pare necessary reports and dashboards (MIS etc.) for facilitating\nreview at National/ State Level.\nxi. Ensure periodical reporting of the progress to the Government of India.\nxii. Provide guidance on the business aspects to the PACS as well as monitor\nthe implementation carried out by the selected vendors.\nxiii. Undertake planning and execution of the training and capacity building at\nall levels.\nxiv. Ensure the preservation of the data and provide measures for data\nanalysis & analytics.\nxv. Undertake all other matters necessary for the successful implement ation\nof the project, duly consulting NABARD/ GoI."
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_43",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 42,
+    "text": "The data shall be housed at the National Level Data Repository (NLDR). Data\ngenerated at PACS would be routed, ei ther through the DCCBs or State Data\nCenters, to the National Level Data Repository (NLDR). All data will be shared with/\ndeposited and maintained at NLDR, in conformity with the rules and regulations.\nGiven availability of connectivity, all data will be available at NLDR level as at the\nend of the previous day.\nThe data will be maintained at NLDR and will be available for use by Central\nGovernment, State Government and other authorised stakeholders. The data will be\nutilized to generate various national/ state/ district level reports for Government of\nIndia, State Governments, NABARD, StCB, DCCB and other stakeholders, for the\npurpose of information based effective policy making.\n3.11 Selection of PACS\n\n16\n\n4 Project Monitoring Units (PMUs)/Support Teams\n\nThe team will be physically present at NABARD, HO and will be supported by the\n\n17"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_44",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 43,
+    "text": "NLPSV, teams of data analysts, programmers, documentation specialists and other\nteam members from respective locations.\n4.2 State PMUs:"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_45",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 44,
+    "text": "a. Roles and responsibilities of State PMU\nPMUs at the State level will:\ni. Be manned by NABARD’s officials and Management & Technical Experts.\nii. Will function under the overall guidance of the Central PMU and report to State\nSecretary of Co-operation Department.\niii. Provide management/technical support during and after the implementation of\nthe proposed Project.\niv. Assist in i dentification of functional PACS for computerization in consultation\nwith State Government within overall project guidelines.\nv. Be responsible for identifying the customization needs at the state level and\nreport to the central PMU/SI.\nvi. Liaise with state level stakeholders.\nvii. Arranging for stakeholder capacity building at the state level.\nviii. Follow up with stakeholders for successful implementation at the state level.\nix. Provide guidance on the business aspects to the PACS as well as monitor the\nimplementation carried out by the selected vendors.\nx. Prepare necessary reports (MIS etc.) for facilit"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_46",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 45,
+    "text": "ess aspects to the PACS as well as monitor the\nimplementation carried out by the selected vendors.\nx. Prepare necessary reports (MIS etc.) for facilitating review at State Level.\nxi. Facilitate planning and successful execution of the training and capacity\nbuilding at all State/ PACS level as advised by Central PMU.\nxii. Undertake all other matters necessary for the successful implementation of the\nproject, duly consulting all the stakeholders."
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_47",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 46,
+    "text": "NLPSV, teams of data analysts, programmers, documentation specialists and other\nteam members from respective locations.\n4.2 State PMUs:\n\n4.3 Support Teams at District/ Cluster levels\n\nThere will be field level ‘support teams’, set up and maintained by System Integrator,\nat a cluster of about 200 PACS/ District Level, manned and assisted by persons with\nqualifications/ experience in installation of computers/ trouble shooting for hardware\nand software, field level on the job training etc. These support teams will continue to\n\n18\n\nwork throughout the project period. In the post project period, suitable pay for use\nmodels will be developed for sustained support for PACS. However, some states\nwith much less number of PACS like the NER/Goa/ Andaman and Nicobar Islands,\nwill have teams of smaller size.\n5 Stakeholders"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_48",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 47,
+    "text": "5.1 Roles and responsibilities of various stakeholders of the project\n5.1.1 Government of India:\nGovernment of India i.e. Ministry of Cooperation will be responsible for\nguiding the overall implementation and monitoring of the project through\nNLMIC.\n5.1.2 State Governments:\na. State Governments will be responsible for implementation and monitoring\nof the project in their respective states through the State L evel\nImplementation and Monitoring Committee (SLIMC) and District Level\nImplementation and Monitoring Committee (DLIMC).\nb. To hold meetings of the SLIMC regularly, record discussions and\ndecisions, communicate the same to relevant stakeholders and follow up\nfor action thereon.\nc. Ensure that list of PACS, to be taken up for computerisation, is approved\nby the SLIMC, based on eligibility criteria.\nd. Ensure that District Level Implementation and Monitoring Committees\n(DLIMCs) are set up in the relevant districts with involvement of the DCCB\nand other stakeholders as indicated in th"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_49",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 48,
+    "text": "ntation and Monitoring Committees\n(DLIMCs) are set up in the relevant districts with involvement of the DCCB\nand other stakeholders as indicated in the project guidelines and ensure\nregular meetings thereof.\ne. Where there are more than one DCCB working in a district, States through\nStCB to involve all DCCBs to act on behalf of their respective PACS.\nf. To coordinate with the NLMIC and also maintain/ share data on the\nprogress of the project.\ng. Facilitate custom isation of the national level PACS Computerisation\nSoftware (PCS) as per requirement of the PACS in the state including"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_50",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 49,
+    "text": "NLPSV, teams of data analysts, programmers, documentation specialists and other\nteam members from respective locations.\n4.2 State PMUs:\n\n4.3 Support Teams at District/ Cluster levels\n\nThere will be field level ‘support teams’, set up and maintained by System Integrator,\nat a cluster of about 200 PACS/ District Level, manned and assisted by persons with\nqualifications/ experience in installation of computers/ trouble shooting for hardware\nand software, field level on the job training etc. These support teams will continue to\n\n18\n\nwork throughout the project period. In the post project period, suitable pay for use\nmodels will be developed for sustained support for PACS. However, some states\nwith much less number of PACS like the NER/Goa/ Andaman and Nicobar Islands,\nwill have teams of smaller size.\n5 Stakeholders\n\n19"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_51",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 50,
+    "text": "modules and MIS.\nh. Ensure that the System Integrator (s) (SI) is identified for the state through\ndue process.\ni. Ensure data readiness and infrastructure preparedness of the PACS for\nmigration.\nj. Enter into Service Level Agreement with SI, monitor their work and release\nfunds to these agencies, based on the approved performance milestones.\nk. Ensure inflow of funds from GoI (through NABARD) for proper\nimplementation of the project as also maintain necessary accounts.\nl. To procure hardware as indicated at para 3.8.3 A (i) herein, through GeM\nPortal. SI can be included in the procurement committee formed by the\nState Government / UT Administration, if required.\nm. General Financial Rules (GFR), 2017 and other extant guidelines issued\nby Government of India in this regard, shall be followed in the procurement\nprocess.\nn. To ensure AMC for the hardware for the entire project duration, i.e. for five\nyears (2022-23 to 2026-27).\no. The hardware shall conform to the specifications indicate"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_52",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 51,
+    "text": "r the hardware for the entire project duration, i.e. for five\nyears (2022-23 to 2026-27).\no. The hardware shall conform to the specifications indicated by NABARD to\nensure compatibility with the National Level PACS Software.\np. The purchased hardware shall be delivered and installed at PACS\npremises and hardware vendor shall provide on site support during\nwarranty/AMC period. He shall also provide demo and duly advise\nmaintenance requirements to the PACS staff.\nq. The work or der to the vendor shall be issued by the State Government /\nUT, with the approval of State Level Implementation & Monitoring\nCommittee (SLIMC)."
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_53",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 52,
+    "text": "NLPSV, teams of data analysts, programmers, documentation specialists and other\nteam members from respective locations.\n4.2 State PMUs:\n\n4.3 Support Teams at District/ Cluster levels\n\nThere will be field level ‘support teams’, set up and maintained by System Integrator,\nat a cluster of about 200 PACS/ District Level, manned and assisted by persons with\nqualifications/ experience in installation of computers/ trouble shooting for hardware\nand software, field level on the job training etc. These support teams will continue to\n\n18\n\nwork throughout the project period. In the post project period, suitable pay for use\nmodels will be developed for sustained support for PACS. However, some states\nwith much less number of PACS like the NER/Goa/ Andaman and Nicobar Islands,\nwill have teams of smaller size.\n5 Stakeholders\n\n19\n\n5.1.3 NABARD:"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_54",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 53,
+    "text": "a. NABARD will implement the project and act as project manager for the\nPACS Computerisation Project at Central level under the guidance and\ndirections of National Level Monitoring and Implementation Committee and\nMinistry of Cooperation.\nb. NABARD will establi sh a core team of its officers f or this purpose which\n\n20\n\nwill be assisted by a Project Monitoring Unit (PMU) manned by\nprofessionals and experts at national and state level.\n\n5.1.4 State Cooperative Bank:"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_55",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 54,
+    "text": "a. Form a dedicated PACS Computerisation Cell, equipped with IT trained\nmanpower, within the Bank for this Project.\nb. Act in capacity of Member Secretary of the State Level Implementation\nand Monitoring Committee (SLIMC).\nc. Play the role of coordinator between the DLIMC and SLIMC.\nd. Obtain authorisation from DCCBs and PACS for entering into agreements\nwith SI or any other stakeholders on behalf of the DCCBs and PACS.\ne. Take any other action necessary for successful implementation of the\nproject within the overall time frame of the project.\n\n5.1.5 District Central Cooperative Banks:"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_56",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 55,
+    "text": "a. Form a dedicated PACS computerisation cell within the Bank for this\nproject.\nb. Act in the capacity of Member Secretary of the District Level Monitoring\nand Implementation Committee (DLIMC). As Member Secretary of the\nDLIMC, convene meetings of the DLIMC, record discussions and\ndecisions, communicate the same to relevant stakeholders and follow up\nfor action thereon.\nc. Arrange to prepare list of eligible PACS as per approved eligibility criteria\nand prioritise the same as per the prioritisation norms, get it recommended\nby the DLIMC and refer to SLIMC for approval.\nd. Procure letters of authorisation permitting StCB to enter into agreements\non its behalf from each of the participating PACS and issue letter of\nauthorisation to StCB, based on the same.\ne. Ensure data readiness and infrastructure readiness of the PACS.\nf. Guide and monitor the progress of implementation of the project at the\nPACS.\ng. Ensure that implementation problems are resolved by the SI or escalated\n\n21"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_57",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 56,
+    "text": "to the DLIMC/ SLIMC, as may be required.\nh. Put in place a mechanism to ensure that the data at End of Day (EoD) is\nsent to the Data Repository, after Go-live of the PACS.\n\n5.1.6 Primary Agricultural Credit Societies:"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_58",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 57,
+    "text": "a. Check own eligibility as per norms.\nb. If eligible, then check priority status as per norms.\nc. If some criteria are not fulfilled, arrange to plug the gaps.\nd. Submit application to the DCCB/StCB (in case of states with 2 tier\nstructure) for inclusion in the list of eligible PACS.\ne. Issue letter of authorisation to the StCB, through DCCB, authorising StCB\nto enter into agreements on its behalf for this project.\nf. Ensure onsite data readiness and infrastructure readiness.\ng. Maintain data on the progress of the project to be shared with DCCB. This\ninvolves issuance of installation certificate after the hardware is installed,\nAMC contract with hardware vendor for five years, signing the migration\ncertificate after the data is migrated to the new software and other such\nmilestones.\nh. Ensure regular use of the software after migration.\ni. Take full advantage of the handholding support provided under the project.\nj. Ensure regular transfer of data to the National Data Repository, if"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_59",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 58,
+    "text": "i. Take full advantage of the handholding support provided under the project.\nj. Ensure regular transfer of data to the National Data Repository, if the\nPACS is working on offline mode.\nk. Ensure that sanctity of the IT environment is maintained by following steps\nas advised by the SI.\nl. Report problems in implementation to the DCCB, to be resolved either at\nDLIMC or escalated to SLIMC, as may be necessary.\nm. Liaise closely with SI for ensuring that all activities of the PACS and\naccounts are captured appropriately."
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_60",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 59,
+    "text": "to the DLIMC/ SLIMC, as may be required.\nh. Put in place a mechanism to ensure that the data at End of Day (EoD) is\nsent to the Data Repository, after Go-live of the PACS.\n\n5.1.6 Primary Agricultural Credit Societies:\n\n5.1.7 National Level PACS Software Vendor (NLPSV):\n\na. Provide a national level PACS Computerisation Software (PCS).\nb. Customise the software based on the requirement of each state.\n\n22\n\nc. Facilitate the SIs, in deployment of the PACS software.\nd. Provide help desk support to PACS during the project period.\ne. Provide training solutions on the software to trainers under Training of\nTrainers (TOT) arrangement.\n\n5.1.8 National Level Data Repository Vendor (NLDRV):\n\na. Be responsible for national level data storage, security and data\nmanagement.\nb. Generate reports required at\ni. National Level\nii. State Level\niii. NABARD\niv. Other stakeholders as directed by GoI/ NABARD/ State\ngovernments"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_61",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 60,
+    "text": "5.1.9 System Integrator (SI) state-wise:\na. SI will coordinate with States/UTs for installation of software prepared by\nNLPSV.\nb. Digitise existing manual/ semi computerised/ computerised data of\nPACS, including legacy data.\nc. Migrate PACS data to the new software and obtain migration certificate\nfrom the PACS / DCCB.\nd. Integrate the software installed at the PACS with the National Data\nRepository to ensure that the data is stored at the Data Repository.\ne. Train DCCB personnel as Master Trainers and train PACS personnel on\nsoftware usage and hardware maintenance.\nf. Handhold PACS, on dedicated basis for at least 2 weeks from the date\nof go-live. Thereafter, provide handholding on cluster mode.\n6 Legal Framework\n\nThe project will adhere to the respective State Cooperative Acts under which the\nPACS are working. The implementation of the project shall be bound by the following\n\n23"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_62",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 61,
+    "text": "agreements:\n(a) A Service Level Agreement (SLA) will be executed between NABARD and\nthe Nation al Level PACS Software Vendor (NLP SV) as also between\nNABARD and the National Level Data Repository Vendor (NLDRV).\n(b) A Service Level Agreement (SLA) will also be executed between StCBs/\nDCCBs and the System Integrator(s) (SI).\n\n7 Upkeep and maintenance of assets created\n\n7.1 The software maintenance, in terms of upgrades/ antivirus and incorporation\nof new modules for new / innovative activities initiated by the PACS, as also\nmaintenance of the data repository, will be done under contract given to vendors at\nNABARD level with NABARD as facilitator for initial five years.\n7.2 Maintenance of the hardware installed at PACS will be the responsibility of the\nrespective PACS, DCCBs/ StCBs on an ongoing basis even after completion of the\nproject period."
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_63",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 62,
+    "text": "7.3 The central infrastructure facility and common software will be maintained and\nupdated by NABARD periodically. A suitable Pay per use arrangement will be\nfinalised by NABARD in consultation with StCB/State Govt. for the period beyond the\ncurrent project period of 5 years.\n\n7.4 This will be a periodic contractual exercise, which will be funded from\ncontributions by various tiers of the system during and beyond the project period, as\nper the requirements.\n\n7.5 State Level support teams will continue to work under aegis of StCB and\nState Government and suitable pay per use models will be designed for financial\nclosure for such continued functioning of support teams. NABARD shall guide and\nhandhold the support teams / StCBs/ State Governments on an ongoing basis.\n\n24\n\n8 Deliverables of the Project"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_64",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 63,
+    "text": "8.1 Transparent and Complete accounting System\nAccounting as per CAS (Common Accounting System) & MIS (Management\nInformation System) prescribed by NABARD – Origination of accounts on the basis\nof the member transactions and automation of all the businesses, their business\nprocesses and associated calculations for all financial transactions. In an ideal\nautomated accounting system, every single entry, based on transaction of any\nnature, shall:\n1. Enable automatic posting and recording in all relevant heads of accounts.\n2. Be in conformity with all pre-sets like rate of interest, period (including days) of\ninterest applicability, etc.,\n3. Appropriate amounts to various heads of accounts as per the prescribed\npriorities.\n4. Generation of accurate NPA, Interest subvention statements covering the\nState and Central components and other important & relevant disclosure\nstatements."
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_65",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 64,
+    "text": "8.2 Governance\n1. Alerts on the conduct of Board Meetings and General Body meetings.\n2. Prompting on Agenda preparation.\n3. Record Keeping of Board & General Body Meeting proceedings.\n4. Real time information flow and access to all stakeholders.\n\n8.3 Enablement\na. Optimal use of Infrastructure – currently substantial warehouse capacities are\nbeing created under Atmanirbhar Bharat program.\nb. Market connectivity – access to the agri -produce information of members can\nfacilitate the institution for procurement, processing and marketing thereof\nresulting in better price realization to farmers.\nc. Providing multiple financial and non-financial products, citizen services etc.\n\n25"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_66",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 65,
+    "text": "9. Expected Outcomes of the Project:\ni. PACS functions will be faster, transparent and accountable.\nii. Migration of the legacy data.\niii. Timely generation of MIS.\niv. Improved facilities (credit & non- credit) to members at PACS level.\nv. Financial irregularities can be prevented on time.\nvi. Increase in work efficiency of the PACS staff.\nvii. Enhanced financial inclusion and business opportunities for the members."
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_67",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 66,
+    "text": "9.1 Statutory Audit\nAn automated accounting and audit process delivers prompt and accurate audit\nstatements leading to completion of audit within 2 to 3 days from the date of closure\nof financial accounts (31st March) – the current practice of manual accounting and\npreparation of audit statements often results in inaccuracies and delays in\ncompleting financial audits.\n9.2 Transparency in Operations and Productive Manpower Deployment\nFurther, automation of all the businesses and their business processes will lead to\ncomplete transparency and ease of use besides providing quality time for the PACS\nstaff and administration to plan and undertake other profitable businesses and\nservices.\n9.3 Integration\nSeamless integration with all the relevant governmental agencies and departments\nand more specifically the higher financi ng agencies leading to better financial\nmanagement and account reconciliations.\n*********\n\n18"
+  },
+  {
+    "chunk_id": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_68",
+    "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+    "chunk_index": 67,
+    "text": "Ministry of Cooperation\nAtal Akshya Urja Bhawan, CGO Complex, New Delhi - 110003\nWebsite: http://cooperation.gov.in/\nPh:20849021, 20849022\n\nसहका%रता से समृि,"
+  }
+]

@@ -1,0 +1,749 @@
+[
+    {
+        "source_file": "documents\\cooperative_laws\\202504241686281365.pdf",
+        "output_file": "knowledge_base\\extracted_text\\cooperative_laws__202504241686281365.txt",
+        "category": "cooperative_laws",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 178564,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\cooperative_laws\\20250424318315897.pdf",
+        "output_file": "knowledge_base\\extracted_text\\cooperative_laws__20250424318315897.txt",
+        "category": "cooperative_laws",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 381427,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\cooperative_laws\\20250424988972838.pdf",
+        "output_file": "knowledge_base\\extracted_text\\cooperative_laws__20250424988972838.txt",
+        "category": "cooperative_laws",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 117641,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\cooperative_laws\\202504271040806114.pdf",
+        "output_file": "knowledge_base\\extracted_text\\cooperative_laws__202504271040806114.txt",
+        "category": "cooperative_laws",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 13569,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\cooperative_laws\\20260302791643950.pdf",
+        "output_file": "knowledge_base\\extracted_text\\cooperative_laws__20260302791643950.txt",
+        "category": "cooperative_laws",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 580921,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\cooperative_laws\\202608131680998144.pdf",
+        "output_file": "knowledge_base\\extracted_text\\cooperative_laws__202608131680998144.txt",
+        "category": "cooperative_laws",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 342914,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\crop_insurance\\aws_gui_cre.pdf",
+        "output_file": "knowledge_base\\extracted_text\\crop_insurance__aws_gui_cre.txt",
+        "category": "crop_insurance",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 185333,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\crop_insurance\\FINAL_UPISOGs_23.03.2016.pdf",
+        "output_file": "knowledge_base\\extracted_text\\crop_insurance__FINAL_UPISOGs_23.03.2016.txt",
+        "category": "crop_insurance",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 43635,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\crop_insurance\\FINAL_WBCIS_OGs_23.03.2016.pdf",
+        "output_file": "knowledge_base\\extracted_text\\crop_insurance__FINAL_WBCIS_OGs_23.03.2016.txt",
+        "category": "crop_insurance",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 22721,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\crop_insurance\\Hindi.pdf",
+        "output_file": "knowledge_base\\extracted_text\\crop_insurance__Hindi.txt",
+        "category": "crop_insurance",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 2616,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\crop_insurance\\NAIS_SCHEME.pdf",
+        "output_file": "knowledge_base\\extracted_text\\crop_insurance__NAIS_SCHEME.txt",
+        "category": "crop_insurance",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 74570,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\crop_insurance\\New Schemes-english_.pdf",
+        "output_file": "knowledge_base\\extracted_text\\crop_insurance__New_Schemes-english.txt",
+        "category": "crop_insurance",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 60575,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\crop_insurance\\operational_guidelines_pmfby.pdf",
+        "output_file": "knowledge_base\\extracted_text\\crop_insurance__operational_guidelines_pmfby.txt",
+        "category": "crop_insurance",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 595808,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\crop_insurance\\PMFBY_Features.pdf",
+        "output_file": "knowledge_base\\extracted_text\\crop_insurance__PMFBY_Features.txt",
+        "category": "crop_insurance",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 5633,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\crop_insurance\\PMFBY_WINDS_Manual_2023_for_Hyperlocal_Weather_Data_Procurement_120923.pdf",
+        "output_file": "knowledge_base\\extracted_text\\crop_insurance__PMFBY_WINDS_Manual_2023_for_Hyperlocal_Weather_Data_Procurement_120923.txt",
+        "category": "crop_insurance",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 286252,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\crop_insurance\\Revamped Operational Guidelines_17th August 2020.pdf",
+        "output_file": "knowledge_base\\extracted_text\\crop_insurance__Revamped_Operational_Guidelines_17th_August_2020.txt",
+        "category": "crop_insurance",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 425540,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\crop_insurance\\RWBCIS_Revised_Guidelines_1.pdf",
+        "output_file": "knowledge_base\\extracted_text\\crop_insurance__RWBCIS_Revised_Guidelines_1.txt",
+        "category": "crop_insurance",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 37361,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\financial_literacy\\03FARMERS20042018.pdf",
+        "output_file": "knowledge_base\\extracted_text\\financial_literacy__03FARMERS20042018.txt",
+        "category": "financial_literacy",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 9842,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\financial_literacy\\0908181013Cir 184.pdf",
+        "output_file": "knowledge_base\\extracted_text\\financial_literacy__0908181013Cir_184.txt",
+        "category": "financial_literacy",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 421828,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\government_schemes\\202504241169512910.pdf",
+        "output_file": "knowledge_base\\extracted_text\\government_schemes__202504241169512910.txt",
+        "category": "government_schemes",
+        "file_type": ".pdf",
+        "extraction_method": "ocr",
+        "text_length": 2808,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\government_schemes\\202504241862180282.pdf",
+        "output_file": "knowledge_base\\extracted_text\\government_schemes__202504241862180282.txt",
+        "category": "government_schemes",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 7502,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\government_schemes\\20250424197488567.pdf",
+        "output_file": "knowledge_base\\extracted_text\\government_schemes__20250424197488567.txt",
+        "category": "government_schemes",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 8243,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\government_schemes\\202504241998840242.pdf",
+        "output_file": "knowledge_base\\extracted_text\\government_schemes__202504241998840242.txt",
+        "category": "government_schemes",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 7591,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\government_schemes\\20250424202012976.pdf",
+        "output_file": "knowledge_base\\extracted_text\\government_schemes__20250424202012976.txt",
+        "category": "government_schemes",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 8223,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\government_schemes\\20250424508513168.pdf",
+        "output_file": "knowledge_base\\extracted_text\\government_schemes__20250424508513168.txt",
+        "category": "government_schemes",
+        "file_type": ".pdf",
+        "extraction_method": "ocr",
+        "text_length": 9366,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\government_schemes\\2025042452587289.pdf",
+        "output_file": "knowledge_base\\extracted_text\\government_schemes__2025042452587289.txt",
+        "category": "government_schemes",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 7121,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\government_schemes\\2025042495599424.pdf",
+        "output_file": "knowledge_base\\extracted_text\\government_schemes__2025042495599424.txt",
+        "category": "government_schemes",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 4852,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\grievance_redressal\\ComprehensiveGuidelinesForHandlingThePublicGrievances.pdf",
+        "output_file": "knowledge_base\\extracted_text\\grievance_redressal__ComprehensiveGuidelinesForHandlingThePublicGrievances.txt",
+        "category": "grievance_redressal",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 25538,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\grievance_redressal\\dpgcircular.pdf",
+        "output_file": "knowledge_base\\extracted_text\\grievance_redressal__dpgcircular.txt",
+        "category": "grievance_redressal",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 8971,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\grievance_redressal\\LS USQ 439 English.pdf",
+        "output_file": "knowledge_base\\extracted_text\\grievance_redressal__LS_USQ_439_English.txt",
+        "category": "grievance_redressal",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 6983,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\grievance_redressal\\StrengtheningofMachineryforRedressalofPublicGrievanceCPGRAMS.pdf",
+        "output_file": "knowledge_base\\extracted_text\\grievance_redressal__StrengtheningofMachineryforRedressalofPublicGrievanceCPGRAMS.txt",
+        "category": "grievance_redressal",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 6184,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\grievance_redressal\\UserManualCitizenEnglish.pdf",
+        "output_file": "knowledge_base\\extracted_text\\grievance_redressal__UserManualCitizenEnglish.txt",
+        "category": "grievance_redressal",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 16715,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\202502101695545761.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__202502101695545761.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 510171,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\202502141769496274.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__202502141769496274.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 503193,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\202504241197910263.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__202504241197910263.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "ocr",
+        "text_length": 64216,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\202504241260474363.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__202504241260474363.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "ocr",
+        "text_length": 1844,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\202504241686281365.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__202504241686281365.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 178564,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\202504241793532905.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__202504241793532905.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 621262,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\20250424318315897.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__20250424318315897.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 381427,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\20250424680845804.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__20250424680845804.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "ocr",
+        "text_length": 107946,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\20250424705871774.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__20250424705871774.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 5614,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\20250424988972838.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__20250424988972838.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 117641,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\20250426104692180.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__20250426104692180.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 6160,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\202504261077524155.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__202504261077524155.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 8890,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\202504261460944496.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__202504261460944496.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 3837,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\202504271040806114.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__202504271040806114.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 13569,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\202504271204469818.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__202504271204469818.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 713640,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\202504271509219247.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__202504271509219247.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 712092,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\202504271940320225.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__202504271940320225.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 706417,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\202504272090578848.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__202504272090578848.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 708742,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\2025042784502995.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__2025042784502995.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 72566,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\20250428147252288.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__20250428147252288.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 1416,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\20250428317374291.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__20250428317374291.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "ocr",
+        "text_length": 10098,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\202504291109938535.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__202504291109938535.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "ocr",
+        "text_length": 307048,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\202504291117719265.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__202504291117719265.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 590,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\202504291351094891.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__202504291351094891.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 23876,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\20250429355206969.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__20250429355206969.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 2755,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\20250429482573015.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__20250429482573015.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "ocr",
+        "text_length": 15054,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\20250429850323449.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__20250429850323449.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 1615,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\202506251119486445.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__202506251119486445.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "ocr",
+        "text_length": 9214,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\20250717657149374.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__20250717657149374.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "ocr",
+        "text_length": 3927,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\202507231990199285.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__202507231990199285.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "ocr",
+        "text_length": 37957,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\202507241057344949.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__202507241057344949.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 1535,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\202507251730458074.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__202507251730458074.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 47198,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\202507311596937226.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__202507311596937226.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "ocr",
+        "text_length": 4398,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\202511041697616418.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__202511041697616418.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "ocr",
+        "text_length": 4985,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\20260122116804359.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__20260122116804359.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "ocr",
+        "text_length": 1962,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\2026012285555908.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__2026012285555908.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 17989,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\20260310413826591.pdf",
+        "output_file": null,
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "failed",
+        "text_length": 0,
+        "status": "failed"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\20260418448942157.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__20260418448942157.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "ocr",
+        "text_length": 4981,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\202604201115488183.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__202604201115488183.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "ocr",
+        "text_length": 4995,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\202608031764180219.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__202608031764180219.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 220,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\20260812521696708.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__20260812521696708.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 215,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\maharashtra_cooperation\\202608131680998144.pdf",
+        "output_file": "knowledge_base\\extracted_text\\maharashtra_cooperation__202608131680998144.txt",
+        "category": "maharashtra_cooperation",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 342914,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\official government documents\\202504241686281365.pdf",
+        "output_file": "knowledge_base\\extracted_text\\official_government_documents__202504241686281365.txt",
+        "category": "official government documents",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 178564,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\official government documents\\20250424318315897.pdf",
+        "output_file": "knowledge_base\\extracted_text\\official_government_documents__20250424318315897.txt",
+        "category": "official government documents",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 381427,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\official government documents\\20250424988972838.pdf",
+        "output_file": "knowledge_base\\extracted_text\\official_government_documents__20250424988972838.txt",
+        "category": "official government documents",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 117641,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\official government documents\\202504271040806114.pdf",
+        "output_file": "knowledge_base\\extracted_text\\official_government_documents__202504271040806114.txt",
+        "category": "official government documents",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 13569,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\official government documents\\20260302791643950.pdf",
+        "output_file": "knowledge_base\\extracted_text\\official_government_documents__20260302791643950.txt",
+        "category": "official government documents",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 580921,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\official government documents\\202608131680998144.pdf",
+        "output_file": "knowledge_base\\extracted_text\\official_government_documents__202608131680998144.txt",
+        "category": "official government documents",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 342914,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\pacs\\Corrigendum and letter Jun 12, 2023.pdf",
+        "output_file": "knowledge_base\\extracted_text\\pacs__Corrigendum_and_letter_Jun_12,_2023.txt",
+        "category": "pacs",
+        "file_type": ".pdf",
+        "extraction_method": "ocr",
+        "text_length": 5010,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\pacs\\Model Byelaws 05.01.02023.pdf",
+        "output_file": "knowledge_base\\extracted_text\\pacs__Model_Byelaws_05.01.02023.txt",
+        "category": "pacs",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 59186,
+        "status": "success"
+    },
+    {
+        "source_file": "documents\\pacs\\Revised Scheme guidelines (Computerization of PACS project).pdf",
+        "output_file": "knowledge_base\\extracted_text\\pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+        "category": "pacs",
+        "file_type": ".pdf",
+        "extraction_method": "pypdf",
+        "text_length": 40279,
+        "status": "success"
+    }
+]

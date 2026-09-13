@@ -1,0 +1,423 @@
+{
+  "total_documents": 83,
+  "total_chunks": 18890,
+  "chunk_size": 1000,
+  "chunk_overlap": 150,
+  "documents": [
+    {
+      "source_file": "cooperative_laws__202504241686281365.txt",
+      "chunk_file": "cooperative_laws__202504241686281365.json",
+      "num_chunks": 251
+    },
+    {
+      "source_file": "cooperative_laws__20250424318315897.txt",
+      "chunk_file": "cooperative_laws__20250424318315897.json",
+      "num_chunks": 642
+    },
+    {
+      "source_file": "cooperative_laws__20250424988972838.txt",
+      "chunk_file": "cooperative_laws__20250424988972838.json",
+      "num_chunks": 153
+    },
+    {
+      "source_file": "cooperative_laws__202504271040806114.txt",
+      "chunk_file": "cooperative_laws__202504271040806114.json",
+      "num_chunks": 18
+    },
+    {
+      "source_file": "cooperative_laws__20260302791643950.txt",
+      "chunk_file": "cooperative_laws__20260302791643950.json",
+      "num_chunks": 947
+    },
+    {
+      "source_file": "cooperative_laws__202608131680998144.txt",
+      "chunk_file": "cooperative_laws__202608131680998144.json",
+      "num_chunks": 655
+    },
+    {
+      "source_file": "crop_insurance__aws_gui_cre.txt",
+      "chunk_file": "crop_insurance__aws_gui_cre.json",
+      "num_chunks": 279
+    },
+    {
+      "source_file": "crop_insurance__FINAL_UPISOGs_23.03.2016.txt",
+      "chunk_file": "crop_insurance__FINAL_UPISOGs_23.03.2016.json",
+      "num_chunks": 62
+    },
+    {
+      "source_file": "crop_insurance__FINAL_WBCIS_OGs_23.03.2016.txt",
+      "chunk_file": "crop_insurance__FINAL_WBCIS_OGs_23.03.2016.json",
+      "num_chunks": 35
+    },
+    {
+      "source_file": "crop_insurance__Hindi.txt",
+      "chunk_file": "crop_insurance__Hindi.json",
+      "num_chunks": 5
+    },
+    {
+      "source_file": "crop_insurance__NAIS_SCHEME.txt",
+      "chunk_file": "crop_insurance__NAIS_SCHEME.json",
+      "num_chunks": 87
+    },
+    {
+      "source_file": "crop_insurance__New_Schemes-english.txt",
+      "chunk_file": "crop_insurance__New_Schemes-english.json",
+      "num_chunks": 92
+    },
+    {
+      "source_file": "crop_insurance__operational_guidelines_pmfby.txt",
+      "chunk_file": "crop_insurance__operational_guidelines_pmfby.json",
+      "num_chunks": 962
+    },
+    {
+      "source_file": "crop_insurance__PMFBY_Features.txt",
+      "chunk_file": "crop_insurance__PMFBY_Features.json",
+      "num_chunks": 7
+    },
+    {
+      "source_file": "crop_insurance__PMFBY_WINDS_Manual_2023_for_Hyperlocal_Weather_Data_Procurement_120923.txt",
+      "chunk_file": "crop_insurance__PMFBY_WINDS_Manual_2023_for_Hyperlocal_Weather_Data_Procurement_120923.json",
+      "num_chunks": 501
+    },
+    {
+      "source_file": "crop_insurance__Revamped_Operational_Guidelines_17th_August_2020.txt",
+      "chunk_file": "crop_insurance__Revamped_Operational_Guidelines_17th_August_2020.json",
+      "num_chunks": 727
+    },
+    {
+      "source_file": "crop_insurance__RWBCIS_Revised_Guidelines_1.txt",
+      "chunk_file": "crop_insurance__RWBCIS_Revised_Guidelines_1.json",
+      "num_chunks": 65
+    },
+    {
+      "source_file": "financial_literacy__03FARMERS20042018.txt",
+      "chunk_file": "financial_literacy__03FARMERS20042018.json",
+      "num_chunks": 21
+    },
+    {
+      "source_file": "financial_literacy__0908181013Cir_184.txt",
+      "chunk_file": "financial_literacy__0908181013Cir_184.json",
+      "num_chunks": 624
+    },
+    {
+      "source_file": "government_schemes__202504241169512910.txt",
+      "chunk_file": "government_schemes__202504241169512910.json",
+      "num_chunks": 3
+    },
+    {
+      "source_file": "government_schemes__202504241862180282.txt",
+      "chunk_file": "government_schemes__202504241862180282.json",
+      "num_chunks": 13
+    },
+    {
+      "source_file": "government_schemes__20250424197488567.txt",
+      "chunk_file": "government_schemes__20250424197488567.json",
+      "num_chunks": 15
+    },
+    {
+      "source_file": "government_schemes__202504241998840242.txt",
+      "chunk_file": "government_schemes__202504241998840242.json",
+      "num_chunks": 12
+    },
+    {
+      "source_file": "government_schemes__20250424202012976.txt",
+      "chunk_file": "government_schemes__20250424202012976.json",
+      "num_chunks": 13
+    },
+    {
+      "source_file": "government_schemes__20250424508513168.txt",
+      "chunk_file": "government_schemes__20250424508513168.json",
+      "num_chunks": 13
+    },
+    {
+      "source_file": "government_schemes__2025042452587289.txt",
+      "chunk_file": "government_schemes__2025042452587289.json",
+      "num_chunks": 13
+    },
+    {
+      "source_file": "government_schemes__2025042495599424.txt",
+      "chunk_file": "government_schemes__2025042495599424.json",
+      "num_chunks": 8
+    },
+    {
+      "source_file": "grievance_redressal__ComprehensiveGuidelinesForHandlingThePublicGrievances.txt",
+      "chunk_file": "grievance_redressal__ComprehensiveGuidelinesForHandlingThePublicGrievances.json",
+      "num_chunks": 44
+    },
+    {
+      "source_file": "grievance_redressal__dpgcircular.txt",
+      "chunk_file": "grievance_redressal__dpgcircular.json",
+      "num_chunks": 14
+    },
+    {
+      "source_file": "grievance_redressal__LS_USQ_439_English.txt",
+      "chunk_file": "grievance_redressal__LS_USQ_439_English.json",
+      "num_chunks": 11
+    },
+    {
+      "source_file": "grievance_redressal__StrengtheningofMachineryforRedressalofPublicGrievanceCPGRAMS.txt",
+      "chunk_file": "grievance_redressal__StrengtheningofMachineryforRedressalofPublicGrievanceCPGRAMS.json",
+      "num_chunks": 8
+    },
+    {
+      "source_file": "grievance_redressal__UserManualCitizenEnglish.txt",
+      "chunk_file": "grievance_redressal__UserManualCitizenEnglish.json",
+      "num_chunks": 21
+    },
+    {
+      "source_file": "maharashtra_cooperation__202502101695545761.txt",
+      "chunk_file": "maharashtra_cooperation__202502101695545761.json",
+      "num_chunks": 862
+    },
+    {
+      "source_file": "maharashtra_cooperation__202502141769496274.txt",
+      "chunk_file": "maharashtra_cooperation__202502141769496274.json",
+      "num_chunks": 792
+    },
+    {
+      "source_file": "maharashtra_cooperation__202504241197910263.txt",
+      "chunk_file": "maharashtra_cooperation__202504241197910263.json",
+      "num_chunks": 84
+    },
+    {
+      "source_file": "maharashtra_cooperation__202504241260474363.txt",
+      "chunk_file": "maharashtra_cooperation__202504241260474363.json",
+      "num_chunks": 2
+    },
+    {
+      "source_file": "maharashtra_cooperation__202504241686281365.txt",
+      "chunk_file": "maharashtra_cooperation__202504241686281365.json",
+      "num_chunks": 251
+    },
+    {
+      "source_file": "maharashtra_cooperation__202504241793532905.txt",
+      "chunk_file": "maharashtra_cooperation__202504241793532905.json",
+      "num_chunks": 918
+    },
+    {
+      "source_file": "maharashtra_cooperation__20250424318315897.txt",
+      "chunk_file": "maharashtra_cooperation__20250424318315897.json",
+      "num_chunks": 642
+    },
+    {
+      "source_file": "maharashtra_cooperation__20250424680845804.txt",
+      "chunk_file": "maharashtra_cooperation__20250424680845804.json",
+      "num_chunks": 129
+    },
+    {
+      "source_file": "maharashtra_cooperation__20250424705871774.txt",
+      "chunk_file": "maharashtra_cooperation__20250424705871774.json",
+      "num_chunks": 8
+    },
+    {
+      "source_file": "maharashtra_cooperation__20250424988972838.txt",
+      "chunk_file": "maharashtra_cooperation__20250424988972838.json",
+      "num_chunks": 153
+    },
+    {
+      "source_file": "maharashtra_cooperation__20250426104692180.txt",
+      "chunk_file": "maharashtra_cooperation__20250426104692180.json",
+      "num_chunks": 10
+    },
+    {
+      "source_file": "maharashtra_cooperation__202504261077524155.txt",
+      "chunk_file": "maharashtra_cooperation__202504261077524155.json",
+      "num_chunks": 16
+    },
+    {
+      "source_file": "maharashtra_cooperation__202504261460944496.txt",
+      "chunk_file": "maharashtra_cooperation__202504261460944496.json",
+      "num_chunks": 7
+    },
+    {
+      "source_file": "maharashtra_cooperation__202504271040806114.txt",
+      "chunk_file": "maharashtra_cooperation__202504271040806114.json",
+      "num_chunks": 18
+    },
+    {
+      "source_file": "maharashtra_cooperation__202504271204469818.txt",
+      "chunk_file": "maharashtra_cooperation__202504271204469818.json",
+      "num_chunks": 1048
+    },
+    {
+      "source_file": "maharashtra_cooperation__202504271509219247.txt",
+      "chunk_file": "maharashtra_cooperation__202504271509219247.json",
+      "num_chunks": 977
+    },
+    {
+      "source_file": "maharashtra_cooperation__202504271940320225.txt",
+      "chunk_file": "maharashtra_cooperation__202504271940320225.json",
+      "num_chunks": 903
+    },
+    {
+      "source_file": "maharashtra_cooperation__202504272090578848.txt",
+      "chunk_file": "maharashtra_cooperation__202504272090578848.json",
+      "num_chunks": 906
+    },
+    {
+      "source_file": "maharashtra_cooperation__2025042784502995.txt",
+      "chunk_file": "maharashtra_cooperation__2025042784502995.json",
+      "num_chunks": 104
+    },
+    {
+      "source_file": "maharashtra_cooperation__20250428147252288.txt",
+      "chunk_file": "maharashtra_cooperation__20250428147252288.json",
+      "num_chunks": 2
+    },
+    {
+      "source_file": "maharashtra_cooperation__20250428317374291.txt",
+      "chunk_file": "maharashtra_cooperation__20250428317374291.json",
+      "num_chunks": 14
+    },
+    {
+      "source_file": "maharashtra_cooperation__202504291109938535.txt",
+      "chunk_file": "maharashtra_cooperation__202504291109938535.json",
+      "num_chunks": 403
+    },
+    {
+      "source_file": "maharashtra_cooperation__202504291117719265.txt",
+      "chunk_file": "maharashtra_cooperation__202504291117719265.json",
+      "num_chunks": 1
+    },
+    {
+      "source_file": "maharashtra_cooperation__202504291351094891.txt",
+      "chunk_file": "maharashtra_cooperation__202504291351094891.json",
+      "num_chunks": 39
+    },
+    {
+      "source_file": "maharashtra_cooperation__20250429355206969.txt",
+      "chunk_file": "maharashtra_cooperation__20250429355206969.json",
+      "num_chunks": 6
+    },
+    {
+      "source_file": "maharashtra_cooperation__20250429482573015.txt",
+      "chunk_file": "maharashtra_cooperation__20250429482573015.json",
+      "num_chunks": 18
+    },
+    {
+      "source_file": "maharashtra_cooperation__20250429850323449.txt",
+      "chunk_file": "maharashtra_cooperation__20250429850323449.json",
+      "num_chunks": 2
+    },
+    {
+      "source_file": "maharashtra_cooperation__202506251119486445.txt",
+      "chunk_file": "maharashtra_cooperation__202506251119486445.json",
+      "num_chunks": 14
+    },
+    {
+      "source_file": "maharashtra_cooperation__20250717657149374.txt",
+      "chunk_file": "maharashtra_cooperation__20250717657149374.json",
+      "num_chunks": 5
+    },
+    {
+      "source_file": "maharashtra_cooperation__202507231990199285.txt",
+      "chunk_file": "maharashtra_cooperation__202507231990199285.json",
+      "num_chunks": 45
+    },
+    {
+      "source_file": "maharashtra_cooperation__202507241057344949.txt",
+      "chunk_file": "maharashtra_cooperation__202507241057344949.json",
+      "num_chunks": 2
+    },
+    {
+      "source_file": "maharashtra_cooperation__202507251730458074.txt",
+      "chunk_file": "maharashtra_cooperation__202507251730458074.json",
+      "num_chunks": 62
+    },
+    {
+      "source_file": "maharashtra_cooperation__202507311596937226.txt",
+      "chunk_file": "maharashtra_cooperation__202507311596937226.json",
+      "num_chunks": 9
+    },
+    {
+      "source_file": "maharashtra_cooperation__202511041697616418.txt",
+      "chunk_file": "maharashtra_cooperation__202511041697616418.json",
+      "num_chunks": 6
+    },
+    {
+      "source_file": "maharashtra_cooperation__20260122116804359.txt",
+      "chunk_file": "maharashtra_cooperation__20260122116804359.json",
+      "num_chunks": 3
+    },
+    {
+      "source_file": "maharashtra_cooperation__2026012285555908.txt",
+      "chunk_file": "maharashtra_cooperation__2026012285555908.json",
+      "num_chunks": 22
+    },
+    {
+      "source_file": "maharashtra_cooperation__20260310413826591.txt",
+      "chunk_file": "maharashtra_cooperation__20260310413826591.json",
+      "num_chunks": 566
+    },
+    {
+      "source_file": "maharashtra_cooperation__20260418448942157.txt",
+      "chunk_file": "maharashtra_cooperation__20260418448942157.json",
+      "num_chunks": 6
+    },
+    {
+      "source_file": "maharashtra_cooperation__202604201115488183.txt",
+      "chunk_file": "maharashtra_cooperation__202604201115488183.json",
+      "num_chunks": 8
+    },
+    {
+      "source_file": "maharashtra_cooperation__202608031764180219.txt",
+      "chunk_file": "maharashtra_cooperation__202608031764180219.json",
+      "num_chunks": 1
+    },
+    {
+      "source_file": "maharashtra_cooperation__20260812521696708.txt",
+      "chunk_file": "maharashtra_cooperation__20260812521696708.json",
+      "num_chunks": 1
+    },
+    {
+      "source_file": "maharashtra_cooperation__202608131680998144.txt",
+      "chunk_file": "maharashtra_cooperation__202608131680998144.json",
+      "num_chunks": 655
+    },
+    {
+      "source_file": "official_government_documents__202504241686281365.txt",
+      "chunk_file": "official_government_documents__202504241686281365.json",
+      "num_chunks": 251
+    },
+    {
+      "source_file": "official_government_documents__20250424318315897.txt",
+      "chunk_file": "official_government_documents__20250424318315897.json",
+      "num_chunks": 642
+    },
+    {
+      "source_file": "official_government_documents__20250424988972838.txt",
+      "chunk_file": "official_government_documents__20250424988972838.json",
+      "num_chunks": 153
+    },
+    {
+      "source_file": "official_government_documents__202504271040806114.txt",
+      "chunk_file": "official_government_documents__202504271040806114.json",
+      "num_chunks": 18
+    },
+    {
+      "source_file": "official_government_documents__20260302791643950.txt",
+      "chunk_file": "official_government_documents__20260302791643950.json",
+      "num_chunks": 947
+    },
+    {
+      "source_file": "official_government_documents__202608131680998144.txt",
+      "chunk_file": "official_government_documents__202608131680998144.json",
+      "num_chunks": 655
+    },
+    {
+      "source_file": "pacs__Corrigendum_and_letter_Jun_12,_2023.txt",
+      "chunk_file": "pacs__Corrigendum_and_letter_Jun_12,_2023.json",
+      "num_chunks": 7
+    },
+    {
+      "source_file": "pacs__Model_Byelaws_05.01.02023.txt",
+      "chunk_file": "pacs__Model_Byelaws_05.01.02023.json",
+      "num_chunks": 108
+    },
+    {
+      "source_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt",
+      "chunk_file": "pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).json",
+      "num_chunks": 68
+    }
+  ]
+}

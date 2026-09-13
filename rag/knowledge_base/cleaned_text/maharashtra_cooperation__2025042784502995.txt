@@ -1,0 +1,1194 @@
+Sr. No. Transaction
+ID
+Empanement
+No.
+Auditor
+Grade Auditor Name Auditor Type Address Taluka District PIN
+Code Email Id Mobile No.
+“ ”
+13514 45260 1016726 Grade C1 SONALI PANDURANG JADHAV Individual Certified Auditor
+105, LUISE APARTMENT, Wagale Estate, Thane,
+Municipal Corporations, MAHARASHTRA, 400604 NEAR
+MANPASAND MITHAI, VEER SAWARKAR NAGAR
+Thane Thane 400604 sonajadhav350@gmail.co
+m 9970470976
+13515 45269 1016729 Grade C1 Pandit Shankarrao Jadhav Individual Certified Auditor Flat No 103, Shree Complex, Vasantrao Naik Chowk, Secter-
+48, Nerul Seawoods Thane Thane 400706 panditjadhav1956@gmail.
+com 8097033555
+13516 45320 1016764 Grade C1 SHAILAJA NANDIRAJU RAO Individual Certified Auditor FLAT NO.501,SATYAM HIGHTS PLOT NO.66 SECTOR-
+20,KOPARKHAIRANE OPPOSITE SECTOR-20 GARDEN Thane Thane 400709 nnnr0306@rediffmail.com 9821640611
+13517 45321 1016765 Grade C1 Sumaiya Salman Shaikh Individual Certified Auditor Flat No.201,K-Raavi Apartment 1st Rabodi, Dr.Ansari Road,
+Thane ( West ) Near Jumma Masjid Thane Thane 400601 sumaiyasshaikh123@gmai
+l.com 7021003042
+13518 45334 1016777 Grade C1 SHRIDHAR SAKHARAM
+SHINGTE Individual Certified Auditor 3/14,Shri Krishna Sadan Shivmandir Lane Kisan Nagar-
+3,WagleEstate, Thane (W) Thane Thane 400604 shridharshingte18@gmail.
+com 8082784265
+13519 45422 1016861 Grade C1 DILIP VASUDEO MOHITE Individual Certified Auditor VAIBHAV CHS H-210/01 SECTOR 26 VASHI SWAMI
+VIVEKASNAND HIGHSCHOOL Thane Thane 400703 dikshamohite@gmail.com 9833883259
+13520 45424 1016863 Grade C1 RAJENDRA JAGGANATH
+DESHPANDE Individual Certified Auditor 303,GANESH BHUVAN CHS OLD MUMBAI PUNE ROAD
+OPP. PRAMILA HOSPITAL KALWA WEST THANE Thane Thane 400605 rajendrapositive2020@gm
+ail.com 9987253087
+13521 4545 11829 Grade B2 RAJU AKARAM PATNEKAR Individual Certified Auditor 102,AMRUT KUNJ CO-OP-HSG SOC LTD DAWLE NAGAR
+PADA NO 3 LOKMANYA NAGAR BUS DEPO Thane Thane 400606 rajupatnekar@ymail.com 9768732109
+13522 45455 1016882 Grade C1 Swapnali Sachin Thorat Individual Certified Auditor Room No 204 Building No B6, 2nd Floor Shree Ganesh Co
+op Hsg Society Nerul Navi Mumbai Terna College Thane Thane 400706 swapnaliw93@gmail.com 8600789629
+13523 4546 11830 Grade B2 RAMESH SHRIPATI MARATHE Individual Certified Auditor SS2 FIRST FLOR ROOM NO 198 SECTOR 18 KOPAR
+KHAAIRANE NAVI MUMBAI Thane Thane 400709 rameshsmarathe@rediffm
+ail.com 8380807707
+13524 45473 1016899 Grade C1 SUREKHA LAHU
+TALASHILKAR Individual Certified Auditor B-6, Room No. 9, 2nd Floor Sector 10, Sanpada, Navi
+Mumbai Nr. Ryan International School Thane Thane 400705 surekhatalashilkar@gmail.
+com 9773620746
+13525 45479 1016903 Grade C1 BABURAO PANDURANG
+KHANDAGALE Individual Certified Auditor SS 3, ROOM NO 986 SECTOR 05 KOPAR KHAIRANE
+NAVI MUMBAI Thane Thane 400709 ap744636@gmail.com 9702643192
+13526 45503 1016926 Grade C1 Varsha Dnyandeep Jadhav Individual Certified Auditor 38/269, Shree Samarth Society Pokhran Road No. 1 New
+Chicken Centre Thane Thane 400606 jadhavvarsha2833@gmail.
+com 7506162815
+13527 45506 1016927 Grade C1 TEJASHRI BABURAO
+KHANDAGALE Individual Certified Auditor ROOM NO 301 HOUSE NO 324 SECTOR 5 SANPADA
+SANPADA NAVI MUMBAI Thane Thane 400703 Pawarteju419@gmail.com 8600869642
+13528 45509 1016929 Grade C1 Anaya Anil Patil Individual Certified Auditor B-2/0:2, EKTA C.H.S.LTD. SECTOR-9, KOPARKHAIRANE,
+NAVI MUMBAI Opp. R. F. Naik School Thane Thane 400709 anaya25jan@gmail.com 7208072807
+13529 45598 1017189 Grade C1 TANUJA GANESH INGALE Individual Certified Auditor ROOM NO 09 A 1 MAHALAXMI SOCIETY SECTOR 16A Thane Thane 400706 tanuja.dhumal197@gmail.
+com 8286809886
+13530 45728 1020848 Grade C1 sanjay baba walve Individual Certified Auditor
+A-403, DATTA PRATIK CHS. LTD, NEAR PRAGATI CHS.
+LTD OLD MUMBAI PUNA ROAD PAKHADI, KHAREGAON,
+KALWA (W),
+Thane Thane 400605 sanjaybvalve@gmail.com 9322219778
+13531 45734 1021074 Grade C1 TAPAN NANIGOPAL
+CHAKRABORTY Individual Certified Auditor B-9, NISARGA DATTA NIWAS, LOKMANY NAGAR, PADA
+NO - 4 NEAR RAJA SHIVAJI HIGH SCHOOL, Thane Thane 400606 shiltap@rediffmail.com 9967584925
+13532 45884 1017453 Grade C1 SHIVPRAKASH MAURYA Individual Certified Auditor C-44/004 SECTOR-5, SHANTI NAGAR MIRA ROAD E Thane Thane 401107 services4u07@gmail.com 9324268848
+13533 46108 1017714 Grade C1 AKSHATA RISHINATH
+WADEKAR Individual Certified Auditor
+SHIVNERI CHS, A/1, ROOM NO 1, 3RD FLOOR SECTOR-
+18 NODE 3 NERUL WEST NAVI MUMBAI NEAR VIDHYA
+BHAVAN SCHOOL
+Thane Thane 400706 akshata.wadekar2013@g
+mail.com 8828252905
+13534 46166 1017755 Grade C1 RAVINDRA PARSHURAM
+KUWLEKAR Individual Certified Auditor C-53 UJALA C.H.S SECTOR-1 NEAR PARSIK BANK Thane Thane 400708 rkhousingsolution@gmail.c
+om 9833973091
+13535 46190 1017784 Grade C1 VISHAL ATMARAM RANE Individual Certified Auditor Thane Thane 400705 shreeramqms@yahoo.co
+m 8689888894
+Page 598 of 610
+
+Sr. No. Transaction
+ID
+Empanement
+No.
+Auditor
+Grade Auditor Name Auditor Type Address Taluka District PIN
+Code Email Id Mobile No.
+“ ”
+13536 46202 1017797 Grade C1 Rupali Sumant Jadhav Individual Certified Auditor Plot No. 30, Room No. 2, Panchsheel CHS Ltd Shivai
+Nagar, Pokharan Road NO. 1 Shiv Sena Shakha Thane Thane 400606 rupams30@gmail.com 9987708654
+13537 46264 1017847 Grade C1 Suverna Mangesh Gurav Individual Certified Auditor C/1/202, Shital Palace chs Ltd M.T.N.L Road Shital Nagar Thane Thane 401107 guravsuvarna20@gmail.co
+m 9867388104
+13538 46280 1021201 Grade C1 SAKSHI UPESH NAGVEKAR Individual Certified Auditor SOMA APT 5TH FLOOR FLAT NO 505 SECTOR-9 DIVA
+GAON AIROLI NAVI MUMBAI VITTHAL RAKMAI MANDIR Thane Thane 400708 sakshiupeshnagvekar305
+@gmail.com 8879495997
+13539 46305 1017980 Grade C1 PRIYANKA SAMEER MHATRE Individual Certified Auditor 302, SHIV KIRAN CHS LTD PLOT NO B169, SECTOR
+19/20, BELAPUR Thane Thane 400614 samy.mhatre@gmail.com 9768382077
+13540 46340 1018005 Grade C1 VIJAY KUMAR DUBEY Individual Certified Auditor A Wing Cluster 1, Flat 104 Shanti Park Balaji Hotel Thane Thane 401107 service4u1973@gmail.co
+m 9833837598
+13541 46347 1018008 Grade C1 VIKAS SAHEBRAO ANDHALE Individual Certified Auditor Thane Thane 400706 vikasandhale491@gmail.c
+om 9175878762
+13542 46348 1021235 Grade C1 BHAGYASHREE MAHESH
+YEOLA Individual Certified Auditor
+NEW HARSHAL APARTMENT, ROOM NO. 101, 1 ST
+FLOOR, MANISHA NAGAR, NEAR TARANG TALAV,
+KALWA THANE
+Thane Thane 400605 bhagyashreeyeola@gmail.
+com 9322807563
+13543 46503 1019288 Grade C1 SWAPNALI VISHAL RANE Individual Certified Auditor Thane Thane 400705 infoshcert@gmail.com 9224768088
+13544 46639 1018733 Grade C1 Reshma Ramchandra Tandel Individual Certified Auditor Vrundavan Society Bedekar Nagar, Diva Thane Thane 400612 reshmatandel118@gmail.c
+om 9969403889
+13545 46905 1021188 Grade C1 Anurag Venkatakrishnan Individual Certified Auditor Thane Thane 401107 service4u1987@gmail.co
+m 9653404765
+13546 46988 1019147 Grade C1 Manali Suresh Khutal Individual Certified Auditor C-1/103, Shri Rajlaxmi Park CHS Ltd Vitthal Mandir,
+Kharegaon, Kalwa West Thane Thane 400605 manali.khutal1996@gmail.
+com 9819774267
+13547 47009 1019154 Grade C1 Roshan Nandkumar Sharma Individual Certified Auditor Flat No B2, Indu CHS Ltd, Plot No 12 & 13 Sector No 14,
+Vashi, Navi Mumbai Thane Thane 400703 sharma.roshan88@gmail.
+com 9870217723
+13548 47082 1016876 Grade C1 Rajashree Jaywant Vidhate Individual Certified Auditor D-41/S-15,Amarjyoti Co-op.Hsg.Soc.,M.G.Complex Sector-
+14,Vashi,Navi Mumbai Near Gaondevi Mandir Thane Thane 400703 vidhaterajashree@gmail.c
+om 9920368760
+13549 47099 1016910 Grade C1 PRASHANT SOMCHAND
+GOSAR Individual Certified Auditor F/501, 12A SONAM TOWER SHRI ADDESHWAR JAIN
+MANDIR MARG MITHALAL JAIN BUNGLOW SAMOR Thane Thane 401105 prashantgosar978@gmail.
+com 9819414818
+13550 47220 1017096 Grade C1 NARESH SHANTILAL JAIN Individual Certified Auditor A-227 SHANTI SHOPPING CENTRE OPP RAILWAY
+STATION MIRA ROAD EAST RAILWAY STATION Thane Thane 401107 naresh.jain8991@gmail.co
+m 8097393389
+13551 47276 1017134 Grade C1 Pawan Kamlesh Pandey Individual Certified Auditor 401 Deva Apartment Sainath wadi Kirti Kable Thane Thane 400708 pawanpandey2121@gmai.
+com 8369448876
+13552 47280 1017137 Grade C1 PRADEEP DAYARAM YADAV Individual Certified Auditor KAMLESH NAGAR BABLI BHAT-2 MIRA ROAD EAST Thane Thane 401107 yadavpradeep060594@g
+mail.com 9167924477
+13553 47340 1017232 Grade C1 Nayeem Amirali Patel Individual Certified Auditor FLAT NO C 302 TANWAR MANZIL DONGRE NAGAR
+KAUSA Thane Thane 400612 advnayeempatel@gmail.c
+om 9869428278
+13554 47396 1017413 Grade C1 Ulhas Vasant Raut Individual Certified Auditor D 4, 2/2, Sukhshanti CHS, Sector 10, Airoli Thane Thane 400709 ulhas3012@gmail.com 8779084381
+13555 47421 1017461 Grade C1 GADGE SHIVAJI KUNDLIK Individual Certified Auditor G 13/1-2 Geetanjali Co-Op Housing society Sector-4,
+Sanpada, Navi Mumbai Near Vivekanand Highschool Thane Thane 400705 efilingexpress23@gmail.c
+om 8850348344
+13556 47464 1017716 Grade C1 DEVID MOSES PATIL Individual Certified Auditor DONGARI CHOWK NEAR U TERN RESORT Thane Thane 401106 devidpatil103@gmail.com 9167827475
+13557 47469 1017739 Grade C1 Sambhaji Shripati Patil Individual Certified Auditor A1-801, Nandanvan Homes Parsik Nagar, Kalwa West.
+Opposite Reliance Market Thane Thane 400605 sambhajipatil136@gmail.c
+om 9820492800
+13558 47509 1017852 Grade C1 Dhananjay Subhash Dhumal Individual Certified Auditor Flat No. 007, Trimurti View Chs Sector-16A Meenatai
+Thakare Maidan Thane Thane 400706 ddhumal41@gmail.com 9892140471
+Page 599 of 610
+
+Sr. No. Transaction
+ID
+Empanement
+No.
+Auditor
+Grade Auditor Name Auditor Type Address Taluka District PIN
+Code Email Id Mobile No.
+“ ”
+13559 47592 1017935 Grade C1 ASHOK VITTHAL CHAVAN Individual Certified Auditor T-75, SECTOR 4 AIROLI NEAR DURGA MATA MANDIR Thane Thane 400708 ashokvc13@gmail.com 7039500490
+13560 47639 1018250 Grade C1 Ramesh Dagdu Bangar Individual Certified Auditor A-102 Saisagar Co-Op Housing Society Ltd Sector-2,
+Sanpada, Navi Mumbai Thane Thane 400705 rd_bangar@yahoo.com 7506782525
+13561 47663 1018322 Grade C1 sanath Shetty Individual Certified Auditor 807/808 Arena-3 Chs ltd Poonam Garden S K Stone, Mira
+Road East Thane Thane 401107 bamboozled9309@gmail.c
+om 8108744315
+13562 47682 1018413 Grade C1 SONAVANE VINOD LAXMAN Individual Certified Auditor AL-6/25/03,PANCHAVATI APARTMENT,SECTOR-
+05,AIROLI THANE BELAPUR ROAD SAHAKAR BAZAR Thane Thane 400708 vlsonvane@gmail.com 9004004850
+13563 47699 1018447 Grade C1 SUSHMA HARSHAL PATIL Individual Certified Auditor A2/401, SHREEJI PARK CHS,PARSIK NAGAR,KALWA
+PARSIK NAGAR,KALWA SNEH PARK Thane Thane 400605 sh.patil248@gmail.com 8779149376
+13564 47713 1021060 Grade C1 Bharat Damodar Palkar Individual Certified Auditor 204 Savani Mileninum Tower CHSL SERVICE ROAD Thane Thane 400602 bharatpalkar725@gmail.c
+om 9004672826
+13565 47787 1018587 Grade C1 Vishakha Vijay Pimplapure Individual Certified Auditor 16, Shivtirth Society, M. G. Road Near Dr. Godbole Hospital,
+Naupada Thane Thane 400602 vishakhap2508@gmail.co
+m 9920119219
+13566 4782 11942 Grade B2 MAHEBOOB RASUL PATHAN Individual Certified Auditor
+15/A, REHNUMA CHS LTD., NOORI BAUG, OPP.
+SANJAYNAGAR, OLD M.P.ROAD, MUMBRA NEXT TO
+BABAJI PATIL WADI
+Thane Thane 400612 mrpathan91@yahoo.com 9029551331
+13567 4794 1019004 Grade C1 DILIP DNYANESHWAR
+KHARPUDE Individual Certified Auditor ROOM NO.281, BUILDING NO.08 KOPARI COLONY
+NEAR VEGETABLE MARKET Thane Thane 400603 dilipdk2004@gmail.com 9653660655
+13568 47960 1018097 Grade C1 AMITKUMAR RAMCHANRA
+VISHWAKARMA Individual Certified Auditor Room no.44 gali no 03 Road number 34 Near agriculture
+office Thane Thane 400604 soluationatapex@gmail.co
+m 8655534981
+13569 4859 11974 Grade B2 MAHENDRA VITTHAL
+RAVERKAR Individual Certified Auditor E/152 SECTOR 3, AIROLI Thane Thane 400708 mvraverkar@gmail.com 9823359123
+13570 5045 12071 Grade B2 BABAN RADHAKRISHNA
+KAWARE Individual Certified Auditor
+Akshya CHS Ltd. Plot No. 117, Room No. D-7, Swami
+Vivekanandnagar, Pokharan Road No.2, Near Vasant
+Vihar, MHADA
+Thane Thane 400610 babankaware@gmail.com 9987283000
+13571 5194 12151 Grade B2 BAKSHETTI SANTOSH
+SHANKAR Individual Certified Auditor FLAT NO. 01, BASANT CHS STATION ROAD, KUMBHAR
+ALI NEAR MANGALDHAM CHS KALWA WEST Thane Thane 400605 bakshetti@gmail.com 9869155651
+13572 529 10005 Grade B2 AWATE PRABHAKAR SAHADU Individual Certified Auditor AL 1 ROOM NO 501 SHIVSHANKAR APARTMENT
+SECTOR 16 AIROLI NAVI MUMBAI RMV SCHOOL Thane Thane 400708 awate_prabhakar@rediffm
+ail.com 9833692377
+13573 5292 12213 Grade B2 SUSHIL MANOHAR SAWANT Individual Certified Auditor M-3/12, SIDDHIVINAYAK CHSL, KASHISH PARK
+L.B.S.ROAD NEAR MULUND CHECK NAKA Thane Thane 400604 gdcasmsawant@gmail.co
+m 9869277219
+13574 5389 17052 Grade B2 SANCHITA SACHIN
+GHOSALKAR Individual Certified Auditor 303, SAICHAYA BUILDING KHAREGAON PAKHADI
+MAYUR HOTEL Thane Thane 400605 swatighosalkar26@gmail.c
+om 9594709977
+13575 5421 12270 Grade B2 Shyam Bajirao Dhanawade Individual Certified Auditor 202,A,WING SWAMI SAMARTH COPLEX AIROLI
+CIRCLE SECTOR 9 DIVA GAON AIROLI NAVI MUMBAI Thane Thane 400708 shyamdhanawade@gmail.
+com 9820729152
+13576 5427 1011389 Grade B2 Minaxi Suhas Shinde Individual Certified Auditor 201, Panchaparmeshwar Apt., Savarkar Nagar, Rd.no.33
+Nr. Chhatrapati Shivaji Highschool, Thane Thane 400606 minaxi.sawant@gmail.com 9967034724
+13577 5633 12378 Grade C1 PRITI RAMESH BHOIR Individual Certified Auditor MANGESH NIWAS 2ND RABODI KRUSHANA APT Thane Thane 400601 pritib660@gmail.com 9969513733
+13578 6040 12595 Grade B2 Dipak Jayhind Chavan Individual Certified Auditor
+C 102,RAMCHANDRA NIWAS CO OP HOUSING SOC LTD
+PLOT NO 21 AND 22 SECTOR 12 A OPP KALASH UDYAN, KOPARKHAIRANE NAVI MUMBAI
+Thane Thane 400709 deepakchavan999@gmail.
+com 9167775880
+13579 6117 17060 Grade B2 KALPANA DATTATRAY
+CHAWANDE Individual Certified Auditor
+FLAT NO E/316 GAURAV GARDEN COMPLEX CO-OP.
+HSG SOC. LTD. MIRA BHAYANDER ROAD OPP. SAI
+PETROL PUMP,
+Thane Thane 401107 kapu_chawande@rediffma
+il.com 9819268569
+13580 615 17491 Grade C1 SWAPNIL BABAN CHAUDHARI Individual Certified Auditor 2/101 1st FLOOR BAMAM CHSL OLD THANE BELAPUR
+ROAD JAKAT NAKA Thane Thane 400605 adv.swapnilc89@gmail.co
+m 9867353700
+Page 600 of 610
+
+Sr. No. Transaction
+ID
+Empanement
+No.
+Auditor
+Grade Auditor Name Auditor Type Address Taluka District PIN
+Code Email Id Mobile No.
+“ ”
+13581 6453 12808 Grade B2 ASHOK LAXMAN GAWADE Individual Certified Auditor B-201, SHRI LAXMI PARK 1, BLDG. NO.7,
+P.L.DESHPANDE MARG,VARTAK NAGAR RUNVAL PARK Thane Thane 400606 algawade2507@gmail.co
+m 9967505196
+13582 6566 12874 Grade B2 Mangesh Yashwant Shirke Individual Certified Auditor
+63/A, BLDG-5, 4TH FLOOR, SUDAMA CO OP HSG SOC
+LTD STATION ROAD SUDAMA NAGAR, KALWA(W),
+THANE
+Thane Thane 400605 mangeshshirke999@gmail.com 9867356996
+13583 6841 13008 Grade B2 Madhukar Laxman Gawade Individual Certified Auditor b-104,Shree Laxmi Park-1,Building no-6 CHSL P.L.
+Deshpande Marg Vartak Nagar,Runwal Park Thane Thane 400606 mlgawade1971@gmail.co
+m 9987120745
+13584 6843 18559 Grade B2 NAVIN AMARNATH KANGO Individual Certified Auditor 112, MAHAVIR MARKET SECTOR NO 18 VASHI HOTEL
+SAI SATKAR Thane Thane 400705 navinkango@gmail.com 9820682925
+13585 6856 13013 Grade B2 Barku Kondiba Borchate Individual Certified Auditor Shradha Chs Ltd, Plot No.175, F-3 Sector 16A, Nerul, Navi
+Mumbai, Thane Thane 400706 barkuborchate24@gmail.c
+om 9869501563
+13586 6883 18999 Grade B2 Sanjay Raghunath Chavan Individual Certified Auditor B-6/3:3, Bhimashankar Chs., Plot 13 sector 19 A Uran Fata,
+Navi Mumbai Thane Thane 400706 srchavan.auditor@gmail.c
+om 9892150770
+13587 7325 17754 Grade B2 ASHOK HADU DESAI Individual Certified Auditor Room No. 1, Sai Sadan, Shivaji Nagar, Naudada, B Cabin,
+Opp. TBZ Showroom, Thane Thane 400602 Adv.ashokdesai@gmail.co
+m 9820493952
+13588 7369 13250 Grade C1 Priyanka Nitin Rokade Individual Certified Auditor SMRUTI CHS PLOT NO 59,B-5 MHADA VASAHAT
+SAVARKAR NAGAR THAKUR SCHOOL Thane Thane 400606 priyanitin1974@gmail.com 8108135101
+13589 7385 18382 Grade B2 VINAY ASHOK DESAI Individual Certified Auditor A/201, Dhanashri Apt CHS, Mumbai Pune Road, Kalwa
+Manisha Nagar, Nr. Sayba Bunglow, Thane Thane 400605 vinaydesai123@gmail.co
+m 9920900218
+13590 7416 13264 Grade B2 Vishwas Ragunath Nalawade Individual Certified Auditor A/102,Avantika CHS Ltd Manisha Nagar Mumbai Pune Road
+Thane Bharat Sahakari Bank,Kalva Branch Thane Thane 400605 vishwasnalavade@gmail.c
+om 9619396264
+13591 7438 13274 Grade B2 Mangesh Ravji Gurav Individual Certified Auditor D/2/004, Mira Dham CHS Ltd Mira Road East Hanuman
+Temple Thane Thane 401107 sksocietyservices4@gmail.com 9892388315
+13592 7449 13280 Grade B2 Ghansham Bapu Kawthankar Individual Certified Auditor plot No.B-14 Sec-4, Airoli, Navimumbai Fire Brigade Thane Thane 400708 gbkawthankar@gmail.com 9324210326
+13593 7492 13297 Grade C1 Suvrna Pradip Shinde Individual Certified Auditor EWS, 25-4, SECTOR NO-10, NERUL (W) Thane Thane 400706 suvarnapshinde@gmail.co
+m 9702556347
+13594 7732 13372 Grade B2 Shantaram Sayaji Padekar Individual Certified Auditor S-3 SANT TULSI MARG SECTOR-4.AIROLI,NAVI
+MUMBAI Thane Thane 400708 sspadekar@gmail.com 9987197937
+13595 7773 13385 Grade B2 SARLA ANIL JAGTAP Individual Certified Auditor A/104,Shree Swami Krupa Phase 2, Dhokali Naka, Kolshet
+Road KOLSHET ROAD DHOKALI NAKA Thane Thane 400607 sarlajagtap72@gmail.com 7666645625
+13596 7853 1017275 Grade B2 Jotsna Madhukar Dhoble Individual Certified Auditor plot no-204, sector-18A shiv mandir road near shankar
+mandir Thane Thane 400706 jotsnadhoble@gmail.com 9082214912
+13597 8067 18064 Grade B2 NITIN SONBA MORE Individual Certified Auditor ROOM NO. 10, SUKHLAXMI CHS LTD. SHREENAGAR,
+WAGLE ESTATE, THANE (W) - 400 604 Thane Thane 400604 auditormore@gmail.com 7718813006
+13598 8397 13543 Grade B2 Narendra Kumar Nayak Individual Certified Auditor B-6/B/2:1. Gangotri CHS LTD Sector 18, Nerul, Navi
+Mumbai Thane Thane 400706 navimumbaisms@yahoo.c
+om 9892492254
+13599 8547 1015035 Grade C1 WANI SHARADA VITHAL Individual Certified Auditor E 152, SECTOR 3, AIROLI AIROLI NAVI MUMBAI
+NAKSHATRA JWEELERS Thane Thane 400708 shardawani3@gmail.com 9423717075
+13600 8919 13678 Grade C1 Sangeeta Ashok Todkar Individual Certified Auditor 201,Swastik CHS Plot No b-77 Sector no-9 Airoli Thane Thane 400708 sangeetatodkar24.1612@r
+ediffmail.com 9820151412
+13601 9065 1014843 Grade C1 Shivaji Balwant Pawar Individual Certified Auditor 302A OM DWARKANATH CO OP HSG SECTOR 19A
+NERUL NAVI MUMBAI GOKUL CO OPSOCIETY Thane Thane 400706 amrutwelnagari@yahoo.co.in 9867780740
+13602 9322 13764 Grade C1 Dilip Ananda Patil Individual Certified Auditor Sai-Krupa Chs Ltd, Buldg-7, 2/12 Sector-10, Sanpada Navi
+Mumbai Rayn School Thane Thane 400705 patildilip19721@gmail.com 9224340872
+13603 9510 1011366 Grade B2 SANJAY VAMAN MULAY Individual Certified Auditor A-2/504 Golden Park Complex Old L.B.S. Road Majiwada
+Flyover Thane Thane 400601 smulay62@gmail.com 9324817252
+Page 601 of 610
+
+Sr. No. Transaction
+ID
+Empanement
+No.
+Auditor
+Grade Auditor Name Auditor Type Address Taluka District PIN
+Code Email Id Mobile No.
+“ ”
+13604 9545 13832 Grade B2 MANJREKAR GANESH
+TUKARAM Individual Certified Auditor R:1, ROOM NO:814, GAONDEVI GRUH SANKUL,
+PANCHPAKHADI NAMDEV WADI Thane Thane 400602 ganeshm_28@rediffmail.c
+om 9867402454
+13605 9646 13863 Grade B2 BHERE DHANESH LAXMAN Individual Certified Auditor 405 GAJVAKRA CO-OP HSG SOC LTD. SHIVAJI PATH
+ROAD M.H SCHOOL Thane Thane 400601 bheredhanesh@gmail.com 9222225539
+13606 9734 1011378 Grade B2 SHAILESH NANDLAL GAGLANI Individual Certified Auditor G/9, ARIHANT KRUPA B CHS LTD STATION ROAD,
+NEAR BHATEVA JAIN TEMPLE BHANAYDAR WEST Thane Thane 401101 business.siddhivinayak@g
+mail.com 9322261220
+13607 9920 13938 Grade B2 Pandurang Hari Sonavane Individual Certified Auditor Shekhar Smruti Chawl, R.No.11, surya nagar, vitave Sumnai
+Vidyamandir Thane Thane 400605 panduranghari1522@gmai
+l.com 9322881522
+13608 9921 13939 Grade B2 Anilkumar Yashawant Athale Individual Certified Auditor A-5, Mukeshnagar chs ltd., Tilak raod, Kopari Nakhawa
+school Thane Thane 400603 ayathale@gmail.com 9867456552
+13609 9940 13951 Grade B2 NAVEED MOHD USMAN
+SARVAR Individual Certified Auditor B-102, SAHYOG PARK, TALAO PALI ROAD NEAR
+JILANI PARK Thane Thane 400612 naveed_sarvar@rediffmail.com 8898162941
+13610 13182 1012219 Grade B2 Bapu Motiram Yeshi Individual Certified Auditor Bk. No. 151, Room No. 4 Tejumal Chakki Tejumal Chakki Ulhasnagar Thane 421001 bapumyeshi@gmail.com 9890020051
+13611 14365 14585 Grade B2 KRISHNA PANDURANG PATIL Individual Certified Auditor
+202, SUVARNA SANKET CO-OP HAS SOC. LTD OPP.
+WATER SUPPLY OFFICE, LALCHAKKI ULHASNAGAR
+421004
+Ulhasnagar Thane 421004 patil.krishna59@yahoo.in 9175968421
+13612 15159 18159 Grade C1 MHATRE SUNIL PANDURANG Individual Certified Auditor VADOL GAON O.T.SECTION NR.ST.JOSEPH BETHANY
+CONVENT HIGH SCHOOL,ULHASNAGAR 3 Ulhasnagar Thane 421003 pratiksmhatre1973@gmail.com 7709760805
+13613 16677 15268 Grade B2 JAYASHREE MADAN
+CHORGHADE Individual Certified Auditor 109 SATNAM SAKHI CHS TEKDI ROAD LALCHAKKI
+DASHMESH GURUDWARA Ulhasnagar Thane 421004 jaishreechorghade@gmail.
+com 9970885705
+13614 17864 15602 Grade B2 Madan Govind Chorghade Individual Certified Auditor 109 SATNAM SAKHI CHS TEKDI ROAD LALCHAKKI
+DASHMESH GURUDWARA Ulhasnagar Thane 421004 madanchorghade@gmail.
+com 8600732273
+13615 26136 1011066 Grade B2 Swapnali Madan Chorghade Individual Certified Auditor 109 SATNAM SAKHI CHS TEKDI ROAD LALCHAKKI
+DASHMESH GURUDWARA Ulhasnagar Thane 421004 siyachorghade@gmail.co
+m 9890194500
+13616 29325 1012110 Grade C1 Manoj Ramneval Singh Individual Certified Auditor SHANTINIKETAN BR NO. 114 MIDC ROAD NEAR BIRLA
+MANDIR Ulhasnagar Thane 421001 manoj18586@gmail.com 8655493554
+13617 30850 1013043 Grade C1 LAXMAN PIRAJI MOREY Individual Certified Auditor Room No.03, Chawl No.07, Panch Pandav Colony
+Brahampada, Ulhasnagar-4, Ulhasnagar Ulhasnagar Thane 421004 laxmanmorey1@gmail.co
+m 7276394648
+13618 31521 1011936 Grade C1 SANDIP TUSHAR SHEJAV Individual Certified Auditor CHAWL NO. B 1/6 SAIBABA NAGAR SUBHASH TEKDI
+DR. AMBEDKAR CHOWK Ulhasnagar Thane 421004 sndpshjv@gmail.com 8149946112
+13619 31691 1017290 Grade C1 PRABHA KISHORE PESHORI Individual Certified Auditor 201/202 MARUTI SHOPPING COMPLEX ULHASNAGAR
+R.K.T COLLEGE BACKGATE Ulhasnagar Thane 421003 prabhapeshori@gmail.co
+m 9820050867
+13620 32070 1014635 Grade C1 NIRMAL SOPAN SAHANE Individual Certified Auditor OPP BLOCK NO 982 KAILSAH COLONY ULHASNAGAR
+CAMP NO 5 Ulhasnagar Thane 421005 NIRMALSAHANE09@GM
+AIL.COM 7387808088
+13621 33034 1015147 Grade C1 Jeetendra Srichand Kshatriya Individual Certified Auditor 305, Ankleshwar Palace Gandhi Road Kuldevi Mandir Ulhasnagar Thane 421005 jeetendra.khatri@gmail.co
+m 9920860883
+13622 33234 1014532 Grade C1 MANISH BALANI Individual Certified Auditor B-14 WOODLAND COMPLEX NEW LINK ROAD OPP.
+REGENCY MARRIAGE HALL Ulhasnagar Thane 421003 balanim11@gmail.com 9320272510
+13623 3347 11244 Grade B2 PANDURANG MAHIPATI PATIL Individual Certified Auditor
+SUVARANA SANKET CO-OP HSG SOC LTD, A-202 OPP.
+WATER SUPPLY OFFICE, LALCHAKKI ULHASNAGAR
+421004
+Ulhasnagar Thane 421004 panmah.patil@gmail.com 9763798787
+13624 37552 1014502 Grade B2 Vijaykumar sugriv Singh Individual Certified Auditor BK. No. 735, SHASTRINAGAR, RADHA KRISHNA
+TEMPLE, ULHASNAGAR Ulhasnagar Thane 421003 vijaykumarssinghauditor@
+gmail.com 9421970609
+13625 38059 1014488 Grade C1 Manoj Bharat Makawana Individual Certified Auditor Sonam Villa Balkan ji bari road, Near saibaba colony,
+central hospital area, Ulhasnagar Thane 421002 manojmakawana1978@g
+mail.com 9323117339
+Page 602 of 610
+
+Sr. No. Transaction
+ID
+Empanement
+No.
+Auditor
+Grade Auditor Name Auditor Type Address Taluka District PIN
+Code Email Id Mobile No.
+“ ”
+13626 4327 11726 Grade B2 NITIN SAHEBRAO PATIL Individual Certified Auditor
+SATNAM SAKHI CO-OP HSG SOC LTD FLAT NO.406,
+LALCHAKKI, BEHIND GURUDWARA ULHASNAGAR
+421004
+Ulhasnagar Thane 421004 meetnitinpatil2@gmail.co
+m 9422077307
+13627 43791 1018327 Grade C1 Poonam Bhimrao Suryavanshi Individual Certified Auditor B-Wing, Flat No. 302, Paras Apartment, Kalyan-Ambernath
+Road, Shantinagar, Ulhasnagar-3 Ulhasnagar Thane 421003 suryavanshipoonam25@g
+mail.com 8177960652
+13628 44988 1020846 Grade C1 SHRIRAM GOKUL GAIKWAD Individual Certified Auditor Flat no 301 Mid Town Galaxy 39 Section Shvisena Shakha
+Ulhasnagar - 5 Ulhasnagar Thane 421005 gaikwadram89@gmail.co
+m 9922847390
+13629 4512 11806 Grade B2 RAJASHRI NITIN PATIL Individual Certified Auditor
+SATNAMSAKHI CO-OP HSG SOC LTD, FLAT NO.406,
+LALCHAKKI, BEHIND GURUDWARA ULHASNAGAR
+421004
+Ulhasnagar Thane 421004 rajashree1978@gmail.co
+m 7058747059
+13630 4591 16999 Grade B2 TEJRAO SHAMRAO BANSODE Individual Certified Auditor A-403, VRUNDAVAN HSG CO-OP SOC NR.
+GURUDWARA DARBAR, LALCHAKKI ULHASNAGAR
+421004
+Ulhasnagar Thane 421004 tejraobansode@defiancein.com 7039072964
+13631 8964 17729 Grade B2 SOPAN SAHEBRAO TOTE Individual Certified Auditor A-404, FOURTH FLOOR, SEASTIK APARTMENT KALYAN
+AMBARNATH ROAD, SHANTINAGAR ULHASNAGAR 3 Ulhasnagar Thane 421002 sstote786@gmail.com 9763107226
+13632 27914 16750 Grade B2 NAMDEO RAMCHANDRARAO
+KALOKAR Individual Certified Auditor SAI NAGAR, Arvi Sai Bichhayat Kendra, Arvi Arvi Wardha 442201 N.R.KALOKAR@GMAIL.C
+OM 9421816459
+13633 35367 1011793 Grade C1 SUYOG ARUN BAKALE Individual Certified Auditor SAI NAGAR ARVI WARDHA ROAD FRONT OF
+SWAPNAPURTI APPARTMENT Arvi Wardha 442201 suyogmeher@gmail.com 9665759523
+13634 2749 10912 Grade B2 Vijay gangaramji salvikar Individual Certified Auditor ward no 4 vital mandir road vittal mandir Ashti Wardha 442202 vijay.salvikar@gmail.com 9834708725
+13635 34941 1011785 Grade C1 Raghunath Anandrao Ingle Individual Certified Auditor GANDHINAGAR PULGAON Deoli Wardha 442302 raghunathingle630@gmail.
+com 8308878365
+13636 18232 15713 Grade B2 krishna pralhad khatri Individual Certified Auditor SANT DNYANESHWAR WARD LAXMI NAGAR KUNAWAR
+LEOUT HINGANGHAT Hinganghat Wardha 442301 kkhatri1975@gmail.com 9175122467
+13637 19287 15829 Grade B2 ANANT ANILRAO BAKHARE Individual Certified Auditor QRT NO 4 BEHIND SHIVAJI PARK MHADA COLONY
+TAHASIL WARD HINGANGHAT Hinganghat Wardha 442301 anant.bakhare08@gmail.c
+om 8007861279
+13638 19301 15830 Grade C1 ritesh madhaorao waghmare Individual Certified Auditor SANT DNYANESHWAR WARD BEHIND SANTOSHI MATA
+MANDIR WARD HINGANGHAT Hinganghat Wardha 442301 riteshmwaghmare@gmail.
+com 9823748698
+13639 26391 16326 Grade B2 YASHWANT MANOHARRAO
+DOLAS Individual Certified Auditor Mahavir ward, Hinganghat Hinganghat Wardha 442301 yashwantdolas@yahoo.in 9881664432
+13640 34296 1011764 Grade B2 Dinkar Wasudeorao Kale Individual Certified Auditor Sant Tukdoji Ward Hinganghat Hinganghat Wardha 442301 dinkarkale224@gmail.com 9765241980
+13641 4819 11959 Grade B2 Naresh Gajananraao Parbat Individual Certified Auditor Shastri Ward, Behind Prakash Dal Mil Shastri Ward Road
+Near Marothi Hospital Hinganghat Wardha 442301 nareshparbat1976@gmail.
+com 9637657251
+13642 14845 14728 Grade B2 Hemraj Bharatram Bannagare Individual Certified Auditor Suyog Colony, Dabha Road, Karanja (Ghadge) Dabha Road
+MSEB Office Karanja Wardha 442203 hemrajbannagare@gmail.
+com 9921308060
+13643 16295 15198 Grade B2 Anant Shivprabhu Motewar Individual Certified Auditor Plot No. 14 Daphe Leyout, Swagat Colony Pipari (Meghe)
+Durga Mata Mandir Wardha Wardha 442001 anantmotewar@gmail.com 9730230299
+13644 16774 17822 Grade B2 Rajendra Bhaiyyaji Borikar Individual Certified Auditor Sudhampuri Near Eknath Mandir Wardha Wardha 442001 rajendraborikar2013@gm
+ail.com 7507204106
+13645 25322 15965 Grade B2 Vasant Janrao Sabane Individual Certified Auditor pratapnagar sabanelayout Wardha Wardha 442001 vasantsabane@gmail.com 9960218822
+13646 25325 17944 Grade C1 RAJESH GULABRAO
+MATHANKAR Individual Certified Auditor 1 ARVI ROAD Giripeth Bhongade Layout Pipari (Meghe)
+Wardha Wardha Wardha 442001 rmathankar20@gamil.com 9096000711
+13647 2639 10845 Grade B2 SWARUPADEVI VIJAYRAO
+HAJARE Individual Certified Auditor
+RAMNAGAR GAJANAN CYCLE STORE NAGAJI
+MAHARAJ ST SEPOT ROAD NEAR VIDYUT BILL
+BHARNA KENDRA WARDHA
+Wardha Wardha 442001 swarupa_hajare@rediffma
+il.com 9209367861
+Page 603 of 610
+
+Sr. No. Transaction
+ID
+Empanement
+No.
+Auditor
+Grade Auditor Name Auditor Type Address Taluka District PIN
+Code Email Id Mobile No.
+“ ”
+13648 28461 16871 Grade B2 MANOJ JANARDHAN BODADE Individual Certified Auditor OPPOSITE MANAS MANDIR POST MANAS MANDIR
+NEAR ARVI NAKA Wardha Wardha 442001 manojbodade100@gmail.c
+om 9881004811
+13649 33232 1015182 Grade C1 SHRIKANT GAJANANRAO
+DEOTARE Individual Certified Auditor WARD NO 1 GAJANAN NAGAR NEAR PIMPALE
+PATWARI HOUSE WARDHA Wardha Wardha 442001 shrikantdeotare10@gmail.
+com 9011150721
+13650 33525 1012344 Grade C1 Kiran Rajesh Kamble Individual Certified Auditor C-202,vaishnavi apartment, BELAVALI, BADLAPUR (W)
+ambarnath road near talathi office Wardha Wardha 421503 krkambale79@gmail.com 9922896600
+13651 35898 1018149 Grade C1 NIKITA CHANDRAKANT
+GOMASE Individual Certified Auditor QRT L.32 NEW MADA COLONY PIPARI MEGHE
+WARDHA YAVATMAL ROAD PETROL PUMP Wardha Wardha 442001 ncgomase@gmail.com 8104358819
+13652 3596 11377 Grade B2 Pawan Surendra kumar Jain Individual Certified Auditor SABLE PLOT,DHANTOLI, WARDHA Wardha Wardha 442001 pawanjain059@gmail.com 9423643756
+13653 3925 11543 Grade B2 GAJANAN DAMODHARRAO
+UMAK Individual Certified Auditor Swapnil Lay out, Lahari Nagar, Bahind New Arts College, Wardha Wardha 442001 gdumak@gmail.com 9665617705
+13654 40528 1019049 Grade C1 VISHAL RAMESHRAO
+JAMODKAR Individual Certified Auditor WARD NO 2 Salod (Hirapur) Wardha Wardha 442001 vishaljamodkar14@gmail.
+com 9673448474
+13655 43151 1020143 Grade C1 PANDHARINATH ZITRUJI
+KHADASE Individual Certified Auditor 7018 SAI SADAN NIWAS PIMPALGAON ROAD SANT
+TUKDOJI WARD HINGANGHAT Wardha Wardha 442301 pandharikhadse12@gmail.
+com 9158141955
+13656 43324 1018969 Grade C1 Arun Damduji Ramteke Individual Certified Auditor Plot No.67 Ravi Nager Narayan Chuna Company Masala
+post Nalwadi Wardha Wardha 442001 9822827024ramteke@gm
+ail.com 9822827024
+13657 44870 1016300 Grade C1 Rupananda Vishwanath Pothare Individual Certified Auditor Ward No 1 Vikramshila Nagar Sindi Meghe Near Buddha
+Vihar Wardha Wardha 442001 rupasardare2@gmail.com 8007952292
+13658 46265 1017960 Grade B2 Shubhash Digamber More Individual Certified Auditor 552 Gharpure Layout Hind Nager Wardha Ghangde Lawn
+Road Ghangde Lawn Wardha Wardha 442001 subhashmore16@gmail.co
+m 9175959503
+13659 46271 1021281 Grade C1 ASHISH WAMANRAO PARISE Individual Certified Auditor WARD NO 10 PRATAP NAGAR NEAR GAJANAN
+MAHARAJ MANDIR WARDHA Wardha Wardha 442001 ashishparise11@gmail.co
+m 9890512267
+13660 6320 12738 Grade C1 MANOJ DYANESHWARRAO
+PIMPLE Individual Certified Auditor AT PANDHARKAWADA POST YELAKELI NEAR VITTHAL
+MANDIR Wardha Wardha 442001 pimplemanoj75@gmail.co
+m 9960496392
+13661 6379 12775 Grade B2 HARISH RAMDAS KANOJE Individual Certified Auditor GAJANANNAGAR WARD NO. 1, NEAR Z. P. SCHOOL
+NEAR ARVI NAKA Wardha Wardha 442001 harishkanoje001@gmail.c
+om 9822715823
+13662 6575 12878 Grade B2 ASHOK RAMDAS RAUT Individual Certified Auditor AT POST WAIFAD TA DIST WARDHA WARDHA
+PULGAON RASULABAD ROAD WARD NO 03 Wardha Wardha 442107 ashokraut5373@gmail.co
+m 9764972734
+13663 25796 16104 Grade B2 DIPAK DATTUJI DHOLE Individual Certified Auditor SHANTI NAGAR NEAR KARANJA LAD GAUTAM NAGAR
+RAILWAY STATION KARANJA LAD Karanja Washim 444105 dipakdhole71@gmail.com 9595283402
+13664 29344 1012656 Grade C1 SANTOSH MANIKARAO
+WANKHADE Individual Certified Auditor K.N.COLLEGE WARD NO 7 KARANJALAD Karanja Washim 444105 smwankhede05@gmail.co
+m 9623570587
+13665 29746 1015231 Grade C1 MILIND PURUSHOTTAM
+TRIKANDE Individual Certified Auditor
+HOUSE NAME RADHAKRUSHNA RENUKA COLONY
+MURTIZAPUR ROAD KARANJA LAD MURTIZAPUR
+ROAD RENUKA COLONY
+Karanja Washim 444105 mtrikande@gmail.com 9822021857
+13666 31732 1012643 Grade C1 MANISHA PRASANNA
+WANKHADE Individual Certified Auditor GURU MANDIR GURU MANDIR BARABHAU RAM
+MANDIR Karanja Washim 444105 mwankhase73@rediffmail.
+com 9011874871
+13667 42081 1018092 Grade C1 HEMANT YAHWANT
+DESHMUKH Individual Certified Auditor
+TUSHAR COLONY NEAR REST HOUSE KARANJA LAD
+RUSHAR COLONY DARWHA ROAD KARANJA LAD REST
+HOUSE
+Karanja Washim 444105 hemantdeshmukh907@g
+mail.com 9326150563
+13668 43588 1018608 Grade C1 GOPICHAND SHIVLAL PAWAR Individual Certified Auditor RENUKA COLONY MURTIZAPUR ROAD KARANJA LAD
+MURTIZAPUR ROAD RENUKA COLONY Karanja Washim 444105 ashapawar21843@gmail.c
+om 9923153231
+13669 43672 1020941 Grade C1 PRADNESH MUKUNDRAO
+FUKTE Individual Certified Auditor NEVI PURA KARANJA LAD SHANI MANDIR ROAD NEVI
+PURA NEVI PURA Karanja Washim 444105 padyf89@rediffmail.com 8087269831
+13670 13232 14249 Grade C1 SHILA BANDU AWACHAR Individual Certified Auditor JAULAKA (RELEY) JAULAKA (RELEY) JAULAKA (RELEY) Malegaon Washim 444503 shilaawachar@gmial.com 9309185184
+Page 604 of 610
+
+Sr. No. Transaction
+ID
+Empanement
+No.
+Auditor
+Grade Auditor Name Auditor Type Address Taluka District PIN
+Code Email Id Mobile No.
+“ ”
+13671 18963 15743 Grade C1 sanjay bhagwan bajad Individual Certified Auditor AT SHIRSALA POST MOHAJA TA MALEGAON DIST
+WASHIM - - Malegaon Washim 444503 bajadsanjay@rediffmail.co
+m 9209224030
+13672 30414 1013464 Grade C1 ANIL DATTARAO DESHMUKH Individual Certified Auditor AT. WAGHLUD POST.HIVARA ROHILA Malegaon Washim 444503 anildeshmukhw@gmail.co
+m 9665124451
+13673 32799 1012653 Grade C1 RAVINDRA SUBHASH
+BHALERAO Individual Certified Auditor AT IRALA POST KALAMBESHWAR TQ MALEGAON Malegaon Washim 444503 ravipatil9764@gmail.com 9764252791
+13674 34810 1012645 Grade C1 PADMAKAR RAJARAM
+MITKARI Individual Certified Auditor AT DHORKHEDA POST KHANDALA TA MALEGAON Malegaon Washim 444504 mitakaripadmakar@gmail.
+com 7972837052
+13675 41711 1018022 Grade C1 NAGESH RAM GARKAL Individual Certified Auditor NEAR JAIN MANDIR MALI VETAL Malegaon Washim 444503 nageshgarkal128@gmail.c
+om 9373330753
+13676 44776 1020881 Grade C1 VIDYA KISANRAO KHODE Individual Certified Auditor ASHIRWAD NIWAS MEHKAR ROAD OPPOSITE HONDA
+SHOWROOM MALEGAON Malegaon Washim 444503 vidyakhode5925@gmail.c
+om 7719886114
+13677 16987 15352 Grade B2 Dive Ganesh Bhimrao Individual Certified Auditor AT POST KAVTHAL TA MANGRULPIR DIST WASHIM - - Mangrulpir Washim 444403 ganeshdive72@gmail.com 9922018044
+13678 19179 15801 Grade B2 MANIKRAO WAMANRAO
+TOPALE Individual Certified Auditor 1458 KRISHNA MANDIR NEAR KRUSHNA MANDIR NEW
+SONKHAS MANGRULPIR Mangrulpir Washim 444403 vicky.topale@yahoo.com 9527807351
+13679 36203 1012655 Grade C1 SANTOSDH LAXMAN BHAGAT Individual Certified Auditor SHAHAPUR KHU IDEA TOWER,Mangrulpir Mangrulpir Washim 444403 santoshbhagat142@gmail.
+com 9075255991
+13680 44368 1019063 Grade C1 SHILPA RAMDAS MORE Individual Certified Auditor CHEHEL DHANORA KOTHARI Mangrulpir Washim 444403 shilpamore317@gmail.co
+m 9527976392
+13681 31747 1020944 Grade C1 GAJANAN TUKARAM
+NACHANE Individual Certified Auditor SANTOSHI MATA NAGAR MAIN ROAD POST MANORA Manora Washim 444404 gajanan_1974@rediffmail.
+com 8308797545
+13682 16672 15266 Grade B2 Gouri Pravin Banchare Individual Certified Auditor c/o " Shringar Gift Palace" Civil line Road - Risod Washim 444506 gouribanchare@gmail.co
+m 9422862602
+13683 25309 1011248 Grade C1 babarao munjarao kale Individual Certified Auditor at post mohajabandi Risod Washim 444506 kalebaban300@gmail.com 9049973885
+13684 27591 1012661 Grade C1 SUDHAKAR RAJARAM GAWAI Individual Certified Auditor AT PO RITHAD Risod Washim 444510 sudhakargawai1975@gma
+il.com 9689925937
+13685 28605 16922 Grade B2 SUBHASH SAKHARAM
+BORKAR Individual Certified Auditor AT POST RITHAD Risod Washim 444510 subhashborkar98@gmail.c
+om 9823686698
+13686 35383 1012647 Grade C1 PAVAN PRAKASH AWCHAR Individual Certified Auditor AT POST KINKHEDA Risod Washim 444504 pavanawachar123@gmail.
+com 8975202921
+13687 43267 1018430 Grade C1 bhanudas tukaram dhande Individual Certified Auditor AT.KARDAD POST.MOTHEGOAN Risod Washim 444506 bhanudasdhande5@gmail.
+com 9552351555
+13688 47870 1020236 Grade C1 GJAJANAN SHANKARRAO
+JADHAV Individual Certified Auditor nijampur Risod Washim 444506 gajananjadhav1974@gmai
+l.com 9423851611
+13689 12493 14067 Grade B2 Vivek Marotrao Dabhade Individual Certified Auditor 11 Nandanwan colony civil line Washim Washim 444505 vevek_dabhade@rediffmai
+l.com 8390622336
+13690 25526 16018 Grade B2 GAJANAN TRYAMBAK REKHE Individual Certified Auditor PARAS PALAZA, 02 RISOD ROAD, -WASHIM
+H.D.F.C.BANK Washim Washim 444505 ngrtaxreturn@rediffmail.co
+m 9850710822
+13691 25637 16054 Grade C1 MADAN DHONDIRBARAO
+AWACHAR Individual Certified Auditor NEW IUDP COLLONY WASHIM - - Washim Washim 444505 madanawachar22@gmail.
+com 9922585275
+13692 27195 16591 Grade B2 ATUL BALKISAN CHANDAK Individual Certified Auditor GRURUWAR BAZAR KATIVESH NEAR RAJASTHAN
+STORES Washim Washim 444505 anandbchandak@rediffmai
+l.com 9850154466
+13693 35244 1012626 Grade C1 GAJANAN RAMCHANDRA
+JAWALE Individual Certified Auditor IUPR COLONY WASHIM Washim Washim 444505 jawalagajanan@gmail.co
+m 9623667328
+13694 37847 1012662 Grade C1 suhas marotrao dabhade Individual Certified Auditor 11 nandanwan colony civil lines washim Washim Washim 444505 suhas728@rediffmail.com 7249640424
+Page 605 of 610
+
+Sr. No. Transaction
+ID
+Empanement
+No.
+Auditor
+Grade Auditor Name Auditor Type Address Taluka District PIN
+Code Email Id Mobile No.
+“ ”
+13695 45234 1020951 Grade C1 SANTOSH PANDURANG
+JADHAV Individual Certified Auditor C/O SANJAY BAJAD,DATTA NAGAR LAKHALA WASHIM Washim Washim 444505 jadhavsantosh0990@gmai
+l.com 7666613342
+13696 26915 19118 Grade C1 SHRIKANT RAMESHRAO
+GEETE Individual Certified Auditor LAXMI NIVAS SHIVAJI NAGAR,ARNI GVOT. GODWON Arni Yavatmal 445103 shrikant.gite@gmail.com 8421279342
+13697 42689 1017824 Grade C1 AMOL MANOHAR DESHMUKH Individual Certified Auditor SAMBHAJI NAGAR ARNI Arni Yavatmal 445103 deshmukh.amol98@gmail.
+com 9890016522
+13698 28172 16800 Grade B2 Sachin dhananjay mudholkar Individual Certified Auditor sr no 121/1 C plot no 15 government hospital back side
+bapuji nagar Darwha laddha nagar Darwha Yavatmal 445202 sachinmudholkar@yahoo.
+com 8888305072
+13699 36933 1012798 Grade C1 Sanjay Radheshyam Tiwari Individual Certified Auditor TIWARI NIWAS NEAR VEER SAWARKAR ENGLISH
+MEDIUM SCHOOL EKTA CHOWK DARWHA Darwha Yavatmal 445202 sanjayrtiwari0007@gmail.
+com 9423433872
+13700 41111 1016190 Grade C1 SHARAD VIJYARAO MAHADIK Individual Certified Auditor WARD NO. 17 RAILWAY STATION ROAD NEAR
+AWADHUT MANDIR DARWHA Darwha Yavatmal 445202 sharadmahadik55@gmail.
+com 8275188948
+13701 26477 16360 Grade B2 Prakash Shivdas Dushetwar Individual Certified Auditor AT.PO.Tuptakali Aasra chowk tuptakali Digras Yavatmal 445203 dushetwarprakash@gmail.
+com 7385655868
+13702 30214 1015477 Grade C1 ROHIT GANESHRAO DUDHE Individual Certified Auditor S/O GANESHRAO DUDHE BARABHAI MOHALLA DIGRAS
+SHREEKRUSHNA TAKIJ DIGRAS Digras Yavatmal 445203 rohitdudhe31@gmail.com 9921863865
+13703 36763 1015511 Grade C1 VINOD TARACHAND RATHOD Individual Certified Auditor AT PO ARAMBHI Digras Yavatmal 445203 vr412370@gmail.com 9404419133
+13704 40922 1016062 Grade C1 Sunil Vinayakrao Lakhdive Individual Certified Auditor HINDNAGAR NEAR PALESHWAR MANDIR Digras Yavatmal 445203 sunilassistant143@gmail.c
+om 9309508959
+13705 40961 1016085 Grade C1 Pallavi Dinesh Nichat Individual Certified Auditor Old Deurwadi Road Behind Dinabai School Bapu Nagar,
+Digras Digras Yavatmal 445203 pundlikdudhe@gmail.com 8007096966
+13706 42681 1017806 Grade C1 ONKAR DATTA KALE Individual Certified Auditor SUDARSHAN NAGAR, ISAPUR GURUKUL ENGLISH
+MEDIUM SCHOOL Digras Yavatmal 445203 onkarkale.114@gmail.com 8329137061
+13707 43533 1020785 Grade C1 Swapnil Mukinda Pakhale Individual Certified Auditor Ambika Nagar Digras Digras Yavatmal 445203 swapnilpakhle2017@gmail.com 8975054043
+13708 43536 1020221 Grade C1 Mukinda Kisanrao Pakhale Individual Certified Auditor AMBIKA NAGAR DIGRAS KHANDAI RAOD DIGRAS NEW
+BUS STOP Digras Yavatmal 445203 swpanilpakhle2017@gmail.com 9420550001
+13709 45120 1016569 Grade C1 RAJESH BALIRAM SHELOTE Individual Certified Auditor Digras Yavatmal 445203 rajeshshelote@gmail.com 7499115165
+13710 46356 1018012 Grade C1 SHARDA MAHADEVRAO
+THORAT Individual Certified Auditor 00 DREAMLAND CITY PARK DIGRAS KHANDAI ROAD
+DIGRAS Digras Yavatmal 445203 shitalhodgir84@gmail.com 9373341273
+13711 46903 1019046 Grade C1 ASHISH UTTAMRAO
+SHASTRAKAR Individual Certified Auditor ADIV NAGAR DIGRAS MANORA ROAD NEAR KANHOBA
+PETROL PUMP DIGRAS Digras Yavatmal 445203 ashishshastrakar2017@g
+mail.com 7507500968
+13712 14343 18564 Grade B2 Vitthal Domaji Lingarwar Individual Certified Auditor Akhada Ward Old water Tank Pandhatkwada Near Gotul
+English Midium school Kelapur Yavatmal 445302 vitthallingarwar@gmail.co
+m 8329022765
+13713 41343 1016400 Grade C1 NAYNA PRADIPRAO
+MEHKARKAR Individual Certified Auditor AT. HIWARI POST. ARLI Kelapur Yavatmal 445305 arunyeltiwar1986@gmail.c
+om 9403605645
+13714 44702 1016179 Grade C1 PAYAL NARAYAN KARNEWAR Individual Certified Auditor AT GANDHI WARD OM TALKIES ROAD
+PANDHARKAWADA Kelapur Yavatmal 445302 karnewar.payal@gmail.co
+m 7620134417
+13715 45240 1016705 Grade C1 Varsha Bhaurao Waghmare Individual Certified Auditor Waghmare Shastri Ward, At.Pandharkawada Near Mukesh
+Ray's House Kelapur Yavatmal 445302 varshawaghmare.pkd@g
+mail.com 7517824873
+13716 45271 1019119 Grade C1 LEENA KISHOR SOYAM Individual Certified Auditor 01 DINDAYAL UPADHYAY WARD PANDHARKAWADA Kelapur Yavatmal 445302 soyamleena1996@gmail.c
+om 8669358505
+13717 45285 1020815 Grade C1 MAHESH PRALHADRAO
+AKKEWAR Individual Certified Auditor DP ROAD, VISHWARUPE LAY OUT JANGODAI TEKADI
+PANDHARKAWADA Kelapur Yavatmal 445302 mahesh.akkewar07@gmai
+l.com 8275394765
+13718 45312 1020816 Grade C1 Bhaurao Sitaram Waghmare Individual Certified Auditor Waghmare Shastri Ward, At.Pandharkawada Near Mukesh
+Ray's House Kelapur Yavatmal 445302 bhauraow22@gmail.com 9673898359
+Page 606 of 610
+
+Sr. No. Transaction
+ID
+Empanement
+No.
+Auditor
+Grade Auditor Name Auditor Type Address Taluka District PIN
+Code Email Id Mobile No.
+“ ”
+13719 46243 1017949 Grade C1 PRANOTI DIWAKAR NIKODE Individual Certified Auditor SHIVAJI WARD PKD Kelapur Yavatmal 445302 pranotinikode22@gmail.co
+m 8275333222
+13720 40977 1016088 Grade C1 Vaibhav Sureshrao Bagmare Individual Certified Auditor Tolipura Ner Ner Yavatmal 445102 bagmarevaibhav143@gm
+ail.com 7620439444
+13721 46514 1018538 Grade C1 CHANDANSINGH
+MOHANSINGH THAKUR Individual Certified Auditor WARD NO 2 AJANTI NER Ner Yavatmal 445102 chandanthakur2206@gma
+il.com 9322663363
+13722 37167 1013465 Grade C1 Naredra nanarao Patil Individual Certified Auditor AT Waltur (Rly) Post Bhojala Pusad Yavatmal 445204 narendra8283@gmail.com 7588189452
+13723 37294 1015502 Grade C1 Uttam Nivruti Wankhede Individual Certified Auditor Pawan Nagar Umarkhed Road Pusad Pusad Yavatmal 445204 uttamwankhede40@gmail.
+com 9604759797
+13724 40243 1018313 Grade C1 PRADEEP MAROTI NARWADE Individual Certified Auditor 36 Vasant Nagar Behind Satyashanti hospital Masajjid road Pusad Yavatmal 445204 pradeepnarwade.04@gma
+il.com 9604976784
+13725 43130 1016032 Grade B2 Prakash Kisanlal Jaiswal Individual Certified Auditor Sainath Building Near Water Tank, Motinagar Pusad Pusad Yavatmal 445204 pkjaiswal005@gmail.com 9822682776
+13726 44369 1015899 Grade C1 REVICHAND DUDHARAM
+JADHAO Individual Certified Auditor MU. HANVAT KHEDA PO. ROHDA TA PUSAD PUSAD
+PUSAD DIST YAVATMAL Pusad Yavatmal 445215 jadhaosandip639@gmail.c
+om 8551946855
+13727 44572 1016028 Grade C1 MOHD EHTESHAM AKHTAR
+ABDUL AQUEEL Individual Certified Auditor BEHIND URDU HIGH SCHOOL AND JR COLLGE MASJID
+WARD Pusad Yavatmal 445204 akhtarehtesham@gmail.co
+m 8624822511
+13728 46672 1018754 Grade C1 Anuradha Subhash Chavhan Individual Certified Auditor At. Lohra Ta. Pusad Dist. Yavatmal Pusad Yavatmal 445204 anusubhashchavhan@gm
+ail.com 8591612197
+13729 47856 1018342 Grade C1 ASHWAJIT GOVIND KAMBLE Individual Certified Auditor KAMBLE NIWAS GULAB NABI COLLAGE ROAD, PUSAD
+GULAB NABI COLLAGE, PUSAD Pusad Yavatmal 445204 ashwajitkamble02@gmail.
+com 9850378932
+13730 40967 1016086 Grade C1 PANKAJ RAMESH JADHAV Individual Certified Auditor WARD NO.1 AT WADHONA BAZAR TAL.RALEGAON
+DIST YAVATMAL NEAR HANUMAN MANDIR Ralegaon Yavatmal 445402 pankajjadhaogst@gmail.c
+om 8459485564
+13731 34874 1012708 Grade C1 NARAYAN TUKARAMJI
+MOHURLE Individual Certified Auditor MULAWA MULAWA MULAWA Umarkhed Yavatmal 445211 n.mohurle093@gmail.com 9423652327
+13732 39854 1019698 Grade C1 DIPAK SHANTARAM
+BHAGWAT Individual Certified Auditor DAYANAND COLONY UMARKHED UMARKHED Umarkhed Yavatmal 445206 dishanbhagwat@gmail.co
+m 9657361000
+13733 44101 1018816 Grade C1 KAJAL PRADIP ADE Individual Certified Auditor D/O PRADIP ADE, KARODI RAOD JAWAHAR WAARD
+UAMRKHED UMARKHED Umarkhed Yavatmal 445206 adekajal1996@gmail.com 7083928715
+13734 27006 16527 Grade C1 Ramdas Marotrao Warate Individual Certified Auditor Ward No.2, Anand Nagar Wani Yavatmal 445304 societyaudit19@gmail.co
+m 8329039752
+13735 33605 1012639 Grade C1 Mahadev Maroti Ghagi Individual Certified Auditor Ward No.2 Wadgaon Road Anand Nagar Wani Yavatmal 445304 mmghagi@gmail.com 9420773479
+13736 35373 1015498 Grade C1 SURAJ BHANUDAS
+PANDHARE Individual Certified Auditor SUKNEGOAN, YAVATMAL YAVATMAL SUKNEGOAN Wani Yavatmal 445304 surajpandhare2017@gmai
+l.com 8208274913
+13737 40506 1018999 Grade C1 ASHOK SHANKARRAO
+CHAWALE Individual Certified Auditor NANDEPERA ROAD TILAK NAGAR WARD NO.1 WANI Wani Yavatmal 445304 ashokschawale@gmail.co
+m 9421852602
+13738 42622 1017708 Grade C1 CHANDRAKANT BANDU
+BONDE Individual Certified Auditor 0 AT PURAD PO NEAR TA WANI Wani Yavatmal 445304 cbb.gst@gmail.com 9595249003
+13739 45151 1016618 Grade C1 PUNDALIK SHAMRAO MATTE Individual Certified Auditor wARD NO 16 tAGORE SQUARE NEAR STATE BANK
+RANGARIPURA WANI TA. WANI DIST.YAVATMAL Wani Yavatmal 445304 pundalikmatte@gmail.com 9552254641
+13740 13024 14195 Grade C1 GIRISH NANAJI SHEJPAL Individual Certified Auditor 4,MADHAVI APPT. CIVIL LINE RANADE
+HOSPITAL,DESHMUKH WADA Yavatmal Yavatmal 445001 girispal777@gmail.com 9422865460
+13741 13389 14293 Grade B2 AMARDEEP BANSIDHAR
+BAJPAI Individual Certified Auditor CHANDORE APPARMENT STATE BANK CHOWK CIVIL
+LINES Yavatmal Yavatmal 445001 jad.ytl@gmail.com 9423124874
+13742 15301 14854 Grade C1 LAXMIKANTH VISHWANATH
+KHOND Individual Certified Auditor House no.22 Bhosa Road Behind Renuka Mangal Karyalaya Yavatmal Yavatmal 445001 khondlaxmikant570@gmai
+l.com 9860256209
+Page 607 of 610
+
+Sr. No. Transaction
+ID
+Empanement
+No.
+Auditor
+Grade Auditor Name Auditor Type Address Taluka District PIN
+Code Email Id Mobile No.
+“ ”
+13743 15463 1011400 Grade C1 Chandramani Haribhau
+Bhongade Individual Certified Auditor V.H.B Society Near Renumaka Mangalam Yavatmal Yavatmal Yavatmal 445001 chbhongade25@gmail.co
+m 9822369194
+13744 18095 17195 Grade B2 sudhakar narayanrao dangore Individual Certified Auditor 3,sahakar nagar arni-road yavatmal ganpati temple Yavatmal Yavatmal 445001 sndangore@gmail.com 7276243344
+13745 19103 1015448 Grade C1 Milind Madhukarrao Dehankar Individual Certified Auditor 24 Sahakar Nagar Aarni Road Ganapti Mandeer Yavatmal Yavatmal 445001 milinddehankar.MD@gmai
+l.com 9422867753
+13746 20875 15890 Grade C1 Sunil Shankarrao Bansod Individual Certified Auditor Renuka appartment Arni Road Rana pratap gate yavatmal Yavatmal Yavatmal 415002 s12bansod@gmail.com 9420547573
+13747 25798 16105 Grade B2 Dnyaneshwar Dattarao
+Galchelwar Individual Certified Auditor 1772, Sai Gajanan Nagar Darwha Road Maroti Car
+Showroom Yavatmal Yavatmal 445001 ddgalchelwar28@gmail.co
+m 9371570168
+13748 25939 16153 Grade C1 Baburao nathuji sontakke Individual Certified Auditor Wadgoan Road Sainath leout, Juna Umarsara Yavatmal Yavatmal 445001 baburao.sontakke15@ge
+mil.com 8605033782
+13749 26005 16178 Grade B2 Rajendra Madhukarrao Gatlewar Individual Certified Auditor Balaji Mandir Road Neharu chowk, Yavatmal Yavatmal Yavatmal 445001 rajendra.gatlewar176@gm
+ail.com 9422865176
+13750 26096 16213 Grade B2 sanjay manoharprasad trivedi Individual Certified Auditor Manohar sadan ARNI ROAD, Yavatmal H.P. PETROL
+PUMP, yavatmal Yavatmal Yavatmal 445001 trived.sanjay1967@gimel.
+com 9422868033
+13751 26230 16261 Grade B2 Madhukar Vitthalrao Baviskar Individual Certified Auditor Renuka Nagar, Dandekar Lay out Wadgaon, Yavatmal Yavatmal Yavatmal 445001 advbaviskar31yml@gmail.
+com 9881217271
+13752 26300 16289 Grade B2 chardrashekhar shankarrao
+umare Individual Certified Auditor 3 sahakar nagar arni road ganesh temple Yavatmal Yavatmal 445001 chardrashekharumare@g
+mail.com 9422865614
+13753 27145 1011247 Grade C1 Rangrao Nama Lambe Individual Certified Auditor At. Malmhasola Po. Arjuna Tq. Yavatmal Yavatmal Yavatmal 445105 rnamalambe@gmail.com 9421948124
+13754 27191 17605 Grade C1 Vijaya Laxmikant Khond Individual Certified Auditor Behind Renuka Mangalam House No. 22, Borole Nagar,
+Yavatmal Yavatmal Yavatmal 445001 vijaya.khond@rediffmail.c
+om 8805624431
+13755 27261 16603 Grade B2 AKASH PRAMOD YERAWAR Individual Certified Auditor 124-A GURUDEV NAGAR NEAR ANAND NAGAR Yavatmal Yavatmal 445001 akashyerawar2009@gmail.com 9822644464
+13756 27550 16671 Grade B2 Rambhau Keshaorao Hivarkar Individual Certified Auditor 34 Sahakar nagar arni road yavatmal ganpati temple Yavatmal Yavatmal 445001 rambhauhivarkar@gmail.c
+om 9421010112
+13757 28274 16824 Grade C1 Ku Manjush Moreshwar
+Gawande Individual Certified Auditor Kolhe layout Part-II Darwha Road Yavatmal Yavatmal 445001 mmgawande80@gmail.co
+m 9404140285
+13758 28302 16826 Grade B2 Santosh Pandurang Shinde Individual Certified Auditor Police Mitra society Bhag _2 Darwha Road,Lohara,
+Yavatmal Yavatmal Yavatmal 445001 shindesp1976@rediffmail.
+com 9420628799
+13759 28725 16968 Grade B2 Rahul Madhukarrao Shendre Individual Certified Auditor 44 'MADHUPUSHPPA' prerna nagar, umarsara,
+Sahastrabuddhey Lay Out, Prerna Nagar Yavatmal Yavatmal 445001 rahulsirkaid@gmail.com 9850315880
+13760 28793 16982 Grade B2 Vishweshwar Manikrao Yende Individual Certified Auditor 26 Renuka nagar Dandekar Ley out Wadgaon Yavatmal Yavatmal 445001 vishal.yende@yahoo.co.in 8975171027
+13761 29106 1012606 Grade C1 AKASH MADHUKAR
+KATARMAL Individual Certified Auditor 26 MAHALAXMI NAGAR BEHIND SARANG SOCIETY Yavatmal Yavatmal 445001 akash131086@gmail.com 9975481251
+13762 29377 1012637 Grade C1 Kawdu Raghoji Nagrale Individual Certified Auditor 13 Bhosa Road Arunoday Society, Yavatmal Yavatmal Yavatmal 445001 kawdunagrale@gmail.com 8412069393
+13763 30333 1012634 Grade C1 Jagdish Atmaram Gawande Individual Certified Auditor Wadgaon Road Sarang Society, Near Mulki Yavatmal Yavatmal Yavatmal 445001 jagawande@gmail.com 9011741629
+13764 3214 11166 Grade B2 sanjay narayanrao chandure Individual Certified Auditor Yavatmal Yavatmal 445001 sanjay.chandure4@gmail.
+com 9765548681
+13765 33276 1015440 Grade C1 MANGESH WALMIKRAO
+SABANE Individual Certified Auditor TEJAS ENG. WORK SHOP, MAHATMA JYOTI FULE
+SOCEITY WAGHAPUR ROAD C/O VIDYA VILAS WADE Yavatmal Yavatmal 445001 mangeshsabane3433@g
+mail.com 7350689204
+13766 3342 11242 Grade B2 PRAKASH MAROTRAO RAUT Individual Certified Auditor SAIBABA NAGAR OLD UMARASARA GODHANI KOTHA Yavatmal Yavatmal 445001 sbsraut@gmail.com 9421773788
+Page 608 of 610
+
+Sr. No. Transaction
+ID
+Empanement
+No.
+Auditor
+Grade Auditor Name Auditor Type Address Taluka District PIN
+Code Email Id Mobile No.
+“ ”
+13767 34933 1015508 Grade C1 VINAY NAMDEORAO
+SHIRBHATE Individual Certified Auditor SARANG SOCIETY WADGAON WADGAON YAVATMAL Yavatmal Yavatmal 445001 vinay2shirbhate@gmail.co
+m 9325358432
+13768 35528 1012786 Grade C1 SANDIP BHOJRAJ DHOTE Individual Certified Auditor ASHIRWAD NAGAR JAM ROAD WADGAON Yavatmal Yavatmal 445001 Sbd_22222@rediffmail.co
+m 9270030308
+13769 35535 1012778 Grade C1 ROSHAN WASUDEO
+CHAUKADE Individual Certified Auditor JAMANKAR NAGAR UMARSARA NEAR RAVINDRA
+KIRANA STORES Yavatmal Yavatmal 445001 roshan.chaukade3@gmail.
+com 8605456177
+13770 35567 1015497 Grade C1 Sonal Dnyaneshwarrao Alaspure Individual Certified Auditor 53 Darwha Road Gajanan Maharaj Tempal, Kolhe Layout,
+yavatmal Yavatmal Yavatmal 445001 sdalaspure@gmail.com 9370029849
+13771 35679 1015722 Grade C1 CHINTAMAN BHIMRAO
+MARASKOLHE Individual Certified Auditor RAJARANI APARTMENT ARNI ROAD YAVATMAL ARNI
+ROAD NEAR RANAPRATAP GATE Yavatmal Yavatmal 445001 chintamanmaraskolhe@g
+mail.com 9422868388
+13772 3671 11415 Grade B2 Arun Wamanrao Tapke Individual Certified Auditor 1st Arni Road Near Vyanktesh Tiles Yavatmal Yavatmal 445001 aruntapke@gmail.com 9890474789
+13773 36969 1018475 Grade C1 DIPALI BABAN KADAM Individual Certified Auditor Yavatmal Yavatmal 445001 dipali_yende@yahoo.co.in 8975171027
+13774 38813 1020084 Grade C1 AJAY VITTHAL DAL Individual Certified Auditor AT PO BHAMB RAJA BHAMB RAJA GRAMPANCHAYAT Yavatmal Yavatmal 445001 adassociategst@gmail.co
+m 9527466390
+13775 38956 1020118 Grade C1 SONALI SURESH LONDE Individual Certified Auditor PLOT NO.24 VEDDHARINI NAGAR NEAR ANAND NAGAR Yavatmal Yavatmal 445001 sonali.londe1988@gmail.c
+om 8208650260
+13776 40282 1020926 Grade C1 PRADIP KRUSHNARAO
+PANDHARKAR Individual Certified Auditor Plot no 8 renuka arni road Back side of prajapati nagar
+bhupesh nagar Wadgaon yavatmal Yavatmal Yavatmal 445001 pkpandharkar@gmail.com 9423625576
+13777 40622 1019383 Grade C1 Manohar Mahadeorao
+Bhendarkar Individual Certified Auditor 29, "Parvati Krupa", Sarang Society Wadgaon road,
+Yavatmal near Mulki Yavatmal Yavatmal 445001 manoharbhendarkar@gm
+ail.com 9423434154
+13778 40952 1016077 Grade C1 POONAM PRITAM KATARMAL Individual Certified Auditor Plot No. 17 Keshwai, Sarang Society Wadgaon Road Near
+Shardha Nagar Yavatmal Yavatmal 445001 pritamkatarmal@gmail.co
+m 9860596800
+13779 41571 1016560 Grade C1 SARIKA GANESHPURI
+GOSWAMI Individual Certified Auditor GOPIKRUSHNA PARK DAMALE LAYOUT ARNI ROAD Yavatmal Yavatmal 445001 rameshgiriauditor@gmail.c
+om 9423135493
+13780 42506 1017558 Grade C1 PALLAVI AVINASH BHAGAT Individual Certified Auditor AT. BELORA Yavatmal Yavatmal 445105 pallavibhagat94@gmail.co
+m 8805509533
+13781 43168 1019826 Grade C1 JYOTSNA DILIP PAWAR Individual Certified Auditor NEAR GANPATI MANDIR ARNI ROAD SAHAKAR NAGAR Yavatmal Yavatmal 445001 pawarjyotsna.112@gmail.
+com 9881364123
+13782 43938 1020844 Grade C1 RAMESH DEVIDAS NANDANE Individual Certified Auditor PLOT NO 94 SURANA LAYOUT AMBIKA NAGAR NP
+SCHOOL NO 5 Yavatmal Yavatmal 445001 rameshnandne22@gmail.c
+om 9860936284
+13783 44247 1020786 Grade C1 SURESH SAMBHAJI KANNAKE Individual Certified Auditor SAHYOG SOCIETY WAGHAPUR MAHAVEER SCHOOL Yavatmal Yavatmal 445001 sureshkannake03@gmail.
+com 9767732120
+13784 44519 1015999 Grade C1 SMITA MAHADEORAO
+PAWASE Individual Certified Auditor RENUKA NAGAR DANDEKAR LAYOUT ARNI ROAD Yavatmal Yavatmal 445001 smitapawase1984@gmail.
+com 8788767190
+13785 44569 1016025 Grade C1 SONALI CHANDRASHEKHAR
+PADDAKHE Individual Certified Auditor W/O DATTATRAY YENDE, PLOT NO 46 BHARAT
+NAGAR, WADGAON ROAD YAVATMAL Yavatmal Yavatmal 445001 sonaliyende643@gmail.co
+m 9637010464
+13786 44664 1016153 Grade C1 GUNWANT NILKANTHRAO
+JADHAO Individual Certified Auditor C/O SHYAMRAO BELE 33, SAHAKAR NAGAR WADGAON Yavatmal Yavatmal 445001 gunwatjadhav2017@gmail.com 9960486997
+13787 44773 1016218 Grade C1 Mayuri Nilkanth Ganvir Individual Certified Auditor Godhani Road, Godhani Kotha Saibaba Nagar Yavatmal
+Old Umarsara Yavatmal Yavatmal 445001 mayuriganvir1996@gmail.
+com 9518708428
+13788 45026 1016456 Grade C1 SUSHILA DNYANESHHWAR
+NAGDIVE Individual Certified Auditor UTAKRSH NAGAR LOHARA NEAR SHAHU MAHARAJ
+PRIMARY SCHOOL Yavatmal Yavatmal 445001 sahilnagdive28153@gmail.com 7385998003
+13789 45137 1016583 Grade C1 PRITI ARUN KANKAL Individual Certified Auditor SARANG GRUHNIRMAN SOCIETY JAMB ROAD NEAR
+SHRADHA NAGAR Yavatmal Yavatmal 445001 sureshraokatarmal@gmail.com 7758064768
+Page 609 of 610
+
+परिरिष्ट - ब
+लेखापिीक्षक आरि संस्ांची वर्गवािी
+( कलम 81 आरि रियम 69 (1)(फ)(सात) अन्वये )
+
+महािाष्र सहकािी संस्ा अरिरियम 1960 चे कलम 81 व त्याखालील रियम 1961 चे रियम 69 मिील
+तितुदी अन्वये संस्ांच्या प्रकािािुसाि ‘अ’ ‘ब’ ‘क’ मध्ये वर्ीकिि क े ले असूि लेखापिीक्षकांची िैक्षरिक
+पात्रता/अिुभव रवचािात घेवूि लेखापिीक्षकांची ‘अ’ ‘ब’ ‘क’ सूची किण्यात आली आहे.
+‘अ’ वर्ीकििात समारवष्ट असलेले लेखापिीक्षक व सहकािी संस्ांचा तपिील
+वर्ग लेखापिीक्षकांचा तपिील लेखापिीक्षि किावयाच्या सहकािी संस्ां
+अ
+(A)
+अ 1 (A 1)
+- सनदी /परिव्यय लेखापाल फर्म,
+- सहकािी संस्ांच्या लेखापिीक्षणचा
+रकर्ान 5 ककवा त्यापेक्षा जासत
+वर्षांचा अनुभव असणािे सनदी/
+परिव्यय लेखापाल.
+- शासनाचे सहकाि खात्यातील
+सहरनबंधक (लेखापिीक्षण)
+*(1) र्हािाष्ट्र िाज्य सहकािी बँक
+(2) रजल्हा र्ध्यवती सहकािी बँक
+(3) रु.25 कोटी पेक्षा जासत ठेवी असणाऱ्या नागिी सहकािी बँका
+(4) पगािदाि नोकिांच्या सहकािी बँका
+*(5) र्हािाष्ट्र िाज्य सहकािी पणन र्हासंघ
+*(6) र्हािाष्ट्र िाज्य सहकािी कापूस पणन र्हासंघ
+*(7) र्हािाष्ट्र िाज्य सहकािी दूध संघ (र्हानंदा)
+(8) र्हािाष्ट्र िाज्य सहकािी भूरवकास बँक
+अ 2 (A 2)
+परिरवक्षाधीन कालावधी पूणम क े लेले
+शासनाचे सहकाि खात्यातील रवशेर्ष
+लेखापिीक्षक वगम 1
+
+(9) र्हािाष्ट्र िाज्य सहकािी गृहरनर्ाण रवत्त र्हार्ंडळ
+(10) र्हािाष्ट्र िाज्य आरदवासी रवकास र्हार्ंडळ
+(11) र्हािाष्ट्र िाज्य सहकािी संघ व रतचे रवभागीय बोडम
+(12) र्हािाष्ट्र िाज्य सहकािी र्त्सय व्यवसाय संघ
+(13) र्हािाष्ट्र िाज्य सहकािी ग्राहक र्हासंघ
+(14) र्हािाष्ट्र िाज्य सहकािी सूतरगिणी र्हासंघ
+(15) र्हािाष्ट्र िाज्य सहकािी यंत्रर्ाग र्हासंघ
+(16) र्हािाष्ट्र िाज्य सहकािी टेक्सटाईल र्हासंघ
+(17) र्हािाष्ट्र िाज्य सहकािी हातर्ाग र्हासंघ
+(18) र्हािाष्ट्र िाज्य सहकािी कापूस उत्पादक प्ररिया संस्ा
+(19) र्हािाष्ट्र िाज्य र्जूि सहकािी संस्ा र्हासंघ
+(20) र्हािाष्ट्र िाज्य नागिी सहकािी बँक असोरसएशन
+(21) र्हािाष्ट्र िाज्य सहकािी पतसंस्ांचा फ े डिेशन
+(22) र्हािाष्ट्र िाज्य सहकािी जंगल कार्गाि फ े डिेशन
+(23) र्हािाष्ट्र िाज्य सहकािी साखि कािखाना फ े डिेशन
+(24) र्हािाष्ट्र सटेट को ऑप शुगि इंडस्ट्सरज डेव्हलपर्ेंट सोसा.
+(25) र्हािाष्ट्र सटेट को-ऑप. क े डि फ े डिेशन व रडसरीक्ट को-ऑप
+क े डि बोडम
+(26) र्हािाष्ट्र िाज्य औद्योरगक सहकािी संस्ांचे फ े डिेशन
+(27) उपिोक्त उल्लेख क े ले गेलेल्या व्यरतरिक्त अन्य िाष्ट्रीय व
+िाज्यसतिीय सहकािी संस्ांचे फ े डिेशन
+(28) सहकािी सूतरगिणी/रवणकि संस्ा
+(29) सहकािी साखि कािखाने
+(30) रजल्हा सहकािी दूध संघ
+(31) रजल्हा भूरवकास बँक
+(32) रनबंधक वेळोवेळी वगीक ृ त कितील अशा संस्ा
+
+ रटप: * अ.ि. 1,5, 6 आरण 7 र्धील संस्ांचे लेखापिीक्षण फक्त अ 1 (A 1) वगातील लेखापिीक्षक
+कितील. ब आरण क वगातील लेखापिीक्षक अ वगातील संस्ांचे लेखापिीक्षण किण्यास पात्र असणाि
+नाहीत. सहकािी नागिी बँकांचे बाबतीत शासकीय लेखापिीक्षक फ े िलेखापिीक्षण, चाचणी लेखापिीक्षण व
+रवशेर्ष लेखापिीक्षण करू शकतील.
+‘ब ’ वर्ीकििात समारवष्ट असलेले लेखापिीक्षक व सहकािी संस्ांचा तपिील:
+वर्ग लेखापिीक्षकांचा तपिील लेखापिीक्षि किावयाच्या सहकािी संस्ां
+ब
+(B)
+ब 1 (B 1)
+- रकर्ान 1 वर्षाचा सहकािी
+संस्ांच्या लेखापिीक्षणचा अनुभव
+असणािे सनदी/ परिव्यय
+लेखापाल.
+- परिरवक्षाधीन कालावधी पूणम
+क े लेले शासनाचे सहकाि
+खात्यातील रवशेर्ष लेखापिीक्षक
+वगम 2
+*(1) रु. 25 कोटी पयंत ठेवी असणाऱ्या नागिी सहकािी बँका व
+पगािदाि सेवकांच्या सहकािी बँका
+* (2) रु.10 कोटी व त्यापेक्षा जासत ठेवी असणाऱ्या नागिी सहकािी
+पतसंस्ा व ग्रार्ीण रबगि क ृ र्षी पतसंस्ा
+(3) रु. 10 कोटी व त्यापेक्षा जासत खेळते भांडवल असणाऱ्या
+पगािदाि नोकिांच्या सहकािी पतसंस्ा
+(4) सहकािी सटाचम कािखाने
+(5) सहकािी औद्योरगक वसाहती
+(6) रजल्हा र्जूि सहकािी फ े डिेशन
+ब 2 (B 2)
+- रकर्ान 10 वर्षापेक्षा जासत
+कालावधीचा सहकािी संस्ांच्या
+लेखापिीक्षणचा अनुभव असणािे
+प्रर्ारणत लेखापिीक्षक.
+- परिरवक्षाधीन कालावधी पूणम
+क े लेले शासनाचे सहकाि
+खात्यातील लेखापिीक्षक श्रेणी 1
+
+(7) खिेदी रविी सहकािी संघ ( रजल्हा व तालुका)
+(8) 100 व त्यापेक्षा जासत सभासद असणाऱ्या गृहरनर्ाण संस्ा
+(9) सहकािी कपजणी व गासडया बांधणी संस्ा/ भात रगिण्या व
+तेल रगिण्या
+(10) तालुका सतिीय दुध संघ/ रु.50 लाख पेक्षा अरधक उलाढाल
+असणाऱ्या प्रा्रर्क दूध सहकािी संस्ा
+(11) रु.25 लाखापेक्षा अरधक उलाढाल असणाऱ्या प्रा्रर्क
+क ु क्क ु ट पालन, विाह पालन व पशूपालन संस्ा
+(12) रु.50 लाखापेक्षा अरधक उलाढाल असणाऱ्या प्रा्रर्क
+र्स्ट्च्िर्ाि सहकािी संस्ा
+(13) रजल्हा/ र्ध्यवती रवणकि सहकािी संस्ा
+(14) रजल्हा आरण र्ध्यवती ग्राहक सहकािी भांडाि
+(15) सहकािी रूग्णालये
+(16)
+
+र्ुळा प्रविा इलेक्रीक सहकािी संस्ा व अन्य इलेक्रीकल
+संस्ा
+(17) रजल्हा सहकािी बोडम
+(18) रजल्हा गृहरनर्ाण फ े डिेशन
+(19) वि नर्ूद न क े लेले इति रजल्हा फ े डिेशन
+(20) रनबंधक वेळोवेळी वगीक ृ त कितील अशा संस्ा
+
+ रटप: * अ.ि. 1 व 2 र्धील संस्ांचे लेखापिीक्षण फक्त ब 1 ( B 1) वगातील लेखापिीक्षक कितील. अ
+वगातील लेखापिीक्षक ब वगातील संस्ांचे लेखापिीक्षण किण्यास पात्र िाहतील. क वगातील लेखापिीक्षक
+ब वगातील संस्ांचे लेखापिीक्षण किण्यास पात्र असणाि नाहीत.
+
+‘क ’ वर्गीकरणात समाववष्ट असलेले लेखापरीक्षक व सहकारी संस्ांचा तपशील:
+वर्गग लेखापरीक्षकांचा तपशील लेखापरीक्षण करावयाच्या सहकारी संस्ां
+क
+(C)
+क 1 (C 1)
+- किमान 3 वर्षाचा सहिारी
+संस्ांच्या लेखापरीक्षणचा
+अनुभव असणारे प्रमाकणत
+लेखापरीक्षि.
+- पकरकवक्षाधीन िालावधी पूणण
+ि े लेले शासनाचे सहिार
+खात्यातील लेखापरीक्षि श्रेणी 2
+- पकरकवक्षाधीन िालावधी पूणण
+ि े लेले शासनाचे सहिार
+खात्यातील उपलेखापरीक्षि
+1 प्रा्कमि ि ृ र्षी पतपुरवठा सहिारी संस्ा (कव.िा.स.संस्ा)
+आकण प्रा्कमि ि ृ र्षि आकण अकिवाशी सेवा/ग्रेन बँि.
+2 रु.10 िोटी पेक्षा िमी ठेवी असणाऱ्या नागरी सहिारी
+पतसंस्ा व ग्रामीण कबगर ि ृ र्षी पतसंस्ा
+3 रु.10 िोटी पेक्षा िमी खेळते भांडवल असणाऱ्या पगारिार
+नोिरांच्या संस्ा
+4 रु.50 लाखापेक्षा िमी उलाढाल असणाऱ्या प्रा्कमि िुध
+सहिारी संस्ा
+5 रु.25 लाखापेक्षा िमी उलाढाल असणाऱ्या प्रा्कमि
+ि ु क्ि ु ट पालन, वराहपालन व पशुपालन संस्ा
+6 रु.50 लाखापेक्षा िमी उलाढाल असणाऱ्या प्रा्कमि
+मच्च्िमार सहिारी संस्ा
+7 ऊस पुरवठा सहिारी संस्ा/ वाहतूि सहिारी संस्ा
+8 ि ृ र्षि सहिारी संस्ा, सामुिाकयि शेती संस्ा
+9 100 पेक्षा िमी सभासि असणाऱ्या गृहकनमाण संस्ा
+10 उपसा जलससचन संस्ा
+11 मजूर सहिारी संस्ा
+12 जंगल िामगार सहिारी संस्ा
+13 सवण प्रिारच्या प्रा्कमि पणन संस्ा व ि ृ र्षी प्रक्रीया संस्ा
+14 प्रा्कमि कवणिर सहिारी संस्ा (हातमाग व यंत्रमाग)
+15 प्रा्कमि औद्योकगि सहिारी संस्ा
+16 बलुतेिार सहिारी संस्ा
+17 प्रा्कमि ग्राहि सहिारी संस्ा
+18 सेवाकवर्षयि सहिारी संस्ा व बेरोजगार संस्ा
+19 तालुिा सुपरवायझींग संस्ा
+20 कनबंधि वेळोवेळी वगीि ृ त िरतील अशा इतर संस्ा
+
+ कटप: अ आकण ब वगातील लेखापरीक्षि ि वगातील संस्ांचे लेखापरीक्षण िरण्यास पात्र राहतील.
+
+परिरिष्ट - क
+अटी व िर्ती
+
+सहकारी संस्ांचे लेखापरीक्षण व तदनुषंगाने करावयाची काययवाही सहकारी अधिधनयम, धनयम व
+कायालयीन पधरपत्रकीय सुचनांप्रमाणे धनिारीत मुदतीत धवहीत पद्धतीने पूणय होणेसाठी लेखापरीक्षक
+नामताधलक े वर धनयुक्त क े लेल्या लेखापरीक्षकांनी सहकारी संस्ांचे लेखापरीक्षण करताना खालील नमूद
+क े लेल्या अटी व शतीचे काटेकोरपणे पालन करणे आवश्यक आहे.
+
+1) 'अ' वगीकरणामध्ये समाधवष्ट असणाऱ्या संस्ांनी, ' अ' सूचीमध्ये समाधवष्ट असणाऱ्या
+लेखापरीक्षकांचीच नेमणूक करावयाची आहे.
+2) 'अ' वगीकरणामध्ये समाधवष्ट असणारे लेखापरीक्षक 'अ' 'ब' 'क' वगीकरणात समाधवष्ट असणाऱ्या
+संस्ांचे लेखापरीक्षणास पात्र राहतील.
+3) 'अ' वगीकरणामध्ये समाधवष्ट असणाऱ्या संस्ांपैकी i) महाराष्र राज्य सहकारी बँक मुंबई,
+ii) महाराष्र राज्य सहकारी पणन महासंघ, iii) महाराष्र राज्य सहकारी कापूस पणन महासंघ व
+iv) महाराष्र राज्य सहकारी दुि संघ (महानंदा) या संस्ांचे लेखापरीक्षण करण्यासाठी 'अ' सुचीत
+समाधवष्ट असलेले सनदी लेखापाल फर्म, सनदी लेखापाल व सहरनबंधक पात्र असर्तील.
+4) 'ब' वगीकरणामध्ये समाधवष्ट असणाऱ्या संस्ांनी, 'अ' ककवा 'ब' वगीकरणात समाधवष्ट असणाऱ्या
+लेखापरीक्षकांचीच नेमणूक करावयाची आहे.
+5) 'ब' वगीकरणामध्ये समाधवष्ट असणारे लेखापरीक्षक 'ब' ककवा 'क' वगीकरणात समाधवष्ट असणाऱ्या
+संस्ांचे लेखापरीक्षणास पात्र राहतील. म्हणजेच 'अ' वगीकरणातील संस्ांचे लेखापरीक्षणास पात्र
+राहणार नाहीत.
+6) 'ब' वगीकरणामध्ये समाधवष्ट असणाऱ्या रुपये 25 कोटी पेक्षा कमी ठेवी असणाऱ्या नागरी सहकारी
+बँका तसेच रुपये 10 कोटी व त्यापेक्षा जासत ठेवी असणाऱ्या नागरी सहकारी पतसंस्ांचे व ग्रामीण
+धबगर क ृ षी पतसंस्ांचे लेखापरीक्षण करण्यासाठी 'ब' सुचीत समाधवष्ट असलेले सनदी लेखापाल व
+रविेष लेखापिीक्षक वर्म 2 पात्र असर्तील. लेखापरीक्षक श्रेणी 1 व प्रमाणीत लेखापरीक्षक पात्र
+राहणार नाहीत.
+7) 'क' वगीकरणामध्ये समाधवष्ट असणाऱ्या संस्ां, ' अ' ककवा 'ब' ककवा 'क' वगीकरणात समाधवष्ट
+असणाऱ्या लेखापरीक्षकांची नेमणूक करू शकतील.
+8) 'क' वगीकरणामध्ये समाधवष्ट असणारे लेखापरीक्षक क े वळ 'क' वगीकरणात समाधवष्ट असणाऱ्या
+संस्ांचे लेखापरीक्षण करण्यास पात्र राहतील. म्हणजेच 'क' सुचीतील लेखापरीक्षक 'अ' ककवा 'ब'
+वगीकरणात समाधवष्ट असणाऱ्या संस्ांचे लेखापरीक्षण करू शकणार नाहीत.
+9) प्रत्येक संस्ेने आपल्या अधिमंडळाच्या वार्षषक बैठकीत (Annual General Meeting) उपरोक्त
+नमूद क े लेल्या सुचीनुसार लेखापरीक्षकाची ककवा लेखापरीक्षण करणाऱ्या फमयची नेमणूक करणे आधण
+अधिमंडळाच्या वार्षषक बैठकीच्या धदनांकापासून 30 धदवसांच्या आत नेमणूक क े लेल्या लेखापालाच्या
+फमयचे/लेखापरीक्षांचे नाव आधण संस्ेच्या लेख्याचे लेखापरीक्षण करण्यासाठीची त्याची लेखी संमती हे
+धववरणपत्राच्या सवरूपात संबंिीत संस्ेच्या धनबंिकाकडे सादर करणे आवश्यक राहील तसेच
+संबंिीत लेखापरीक्षकाने सदर ठरावाची प्रत व आपले संमतीपत्र वर नमूद क े लेल्या मुदतीत संबंिीत
+संस्ेच्या धनबंिकास व सदर संस्ा ज्या धजल्यात असेल त्या धजल्हा धवशेष लेखापरीक्षक यांना पोहोच
+होईल असे पाहावे.
+
+10) संस्ेच्या अधिमंडळाच्या वार्षषक बैठकीमध्ये त्याच लेखापरीक्षकाची नेमणूक लागोपाठ 3 वषाहून
+अधिक कालाविीसाठी करता येणार नाही याची दक्षता संस्ा आधण लेखापरीक्षक यांनी घ्यावयाची
+आहे.
+11) कोणत्याही लेखापरीक्षकास रुपये 1 लाखापेक्षा कमी भरणा झालेले भागभांडवल असणाऱ्या संस्ा
+वगळता, एका धवत्तीय वषात लेखापरीक्षण करण्यासाठी एक ू ण 20 पेक्षा अधिक संस्ांचे लेखापरीक्षण
+स्सवकारता येणार नाही.
+12) सहकारी संस्ांचे लेखापरीक्षक म्हणून धनयुक्ती धमळालेल्या लेखापरीक्षकांनी महाराष्र सहकारी संस्ा
+अधिधनयम 1960 कलम 81 व त्या अनुषंगाने महाराष्र सहकारी संस्ा धनयम 1961 मिील
+तरतूदीनुसार व ऑधडटींग सटॅण्डडयनुसार लेखापरीक्षण पूणय करावयाचे आहे. प्रत्येक लेखापरीक्षकाने
+संस्ेच्या हातावरील रोख धशल्लक ही आरंभीची रोख धशल्लक अचानकपणे व संस्ेस कोणतीही
+पूवयकल्पना न देता तपासावी. तसेच लेखापरीक्षकांच्या अहवालात खालील बाबींचा समावेश असणे
+आवश्यक राहील.
+(अ) लेखापरीक्षकाच्या अहवालात धनदशयनास आलेले दोष ककवा अधनयधमतता यांचा सवय तपशील
+असेल आधण आर्ष्क अधनयधमतता व धनिीचा दुर्षवधनयोग ककवा अपहार ककवा लबाडी
+याबाबतीत, लेखापरीक्षक अन्वेषण करील आधण त्या बाबतची काययपद्धती, गुंतलेली रक्कम व
+त्यास जबाबदार व्यक्ती याचा अहवाल देईल आधण धनिीचा असा दुर्षवधनयोग ककवा अपहार ककवा
+लबाडी याबाबत आवश्यक त्या सवय पुराव्यांसह सधमतीचे पदाधिकारी, सदसय, संस्ेचे अधिकारी,
+कमयचारी ककवा य्ास्स्ती, कोणतीही अन्य व्यक्ती यांची जबाबदारी धनस्श्चत करेल.
+(ब) लेखापरीक्षकाने संस्ेचा नफा वा तोटा यावरील तद्नुरूप पधरणामांसह अहवालात लेख्यांची
+अधनयधमतता आधण त्यांच्या धवत्तीय धववरणपत्रांवरील अपेधक्षत भाराचे तपशीलवार धववेचन
+करावे. संस्ेच्या नफ्यावर पधरणाम करणाऱ्या बाबी लेखापरीक्षण अहवाल भाग 1 मध्ये धलहून
+त्यांचा नफयावर धकती पधरणाम झाला, संस्ेस नफा आहे ककवा कसे व तो धकती याबाबत
+लेखापरीक्षण दाखल्यात नमूद करावे. याबाबत ऑधडटींग सटॅण्डडय नं.700 चे उल्लंघन होणार
+नाही हे लेखापरीक्षकाने पहावे.
+(क) लेखापरीक्षकांनी संस्ेच्या सधमती व उपसधमत्या यांच्या कामकाजाची तपासणी करून कोणतीही
+अधनयधमतता ककवा उल्लंघन धनदशयनास आल्यास ककवा कळधवण्यात आल्यास, अशा
+अधनयधमतता ककवा उल्लंघन याबद्दल जबाबदारी य्ोधचत धरत्या धनस्श्चत करावी.
+(ड) लेखापरीक्षकाने संस्ेच्या धमळालेल्या माधहतीवरून सवत:चे अनुभव व ज्ञानाप्रमाणे आधण
+शासनाची व धनबंिकांची पधरपत्रक े, सूचना, संस्ेचे पोटधनयम, महाराष्र सहकारी संस्ा
+अधिधनयम व त्याखालील धनयम याचा अभ्यास करून संस्ेचे लेखापरीक्षण करावे व त्यानुसार
+सवय बाबींचा उल्लेख लेखापरीक्षण अहवालात करावा.
+(इ) लेखापरीक्षकाने संस्ेचे वार्षषक धहशोब पत्रक े तपासून ही पत्रक े, संस्ेचे दप्तर कागदपत्रे व संस्ेचे
+सभा वृत्तांत इ. बाबींशी जुळतात ककवा नाही याची खात्री करावी व लेखापरीक्षण अहवालात तसा
+सपष्ट उल्लेख करावा.
+(फ) लेखापरीक्षण अहवाल पुढील अनुक्रमानुसार सादर करणे आवश्यक आहे. संस्ेस लेखापरीक्षण
+अहवाल अग्रेधषत क े लेले पत्र, अनुक्रमधणका, संस्ेचा लेखापरीक्षक नेमणूकीचा ठराव, त्यानुसार
+धदलेले लेखापरीक्षकाचे संमतीपत्राची प्रत, नमुना क्र.1, संस्ेच्या प्रकारानुसार आवश्यक नमुना,
+कलम 81 (2) नुसार 1 ते 9 बाबींचे धववेचन, भाग ‘अ’ ‘ ब’ ‘ क’ मिील धववेचन,
+लेखापरीक्षकांचा दाखला (बँकांसाठी एन-1 व इतर संस्ांसाठी एन-2 या नमुन्यात) व 1 ते 6
+पधरधशष्टे, आर्ष्क पत्रक े व त्या अनुषंधगक याद्या, लेखापरीक्षण वगयवारीचा गुणतक्ता व बँक े चे /
+
+पतसंस्ेचे बाबतीत N. P. A. प्रमाणपत्र, बँक े ने / पतसंस्ेने दाखधवलेला एन.पी.ए. चुकीचा
+असेल व काही खाती एन.पी.ए. मध्ये असताना पी.ए. मध्ये दाखधवली असतील तर खालील
+नमुन्यातील तक्ता जोडावा.
+
+अ.
+क्र.
+कजयदाराचे नाव येणे बाकी येणे व्याज लेखापरीक्षकाचे मतानुसार
+वगीकरण
+बँक े ने / पतसंस्ेने
+क े लेले वगीकरण
+1 2 3 4 5 6
+
+लेखापरीक्षकाचे
+मतानुसार आवश्यक
+तरतूद
+बँक े ने /
+पतसंस्ेने
+क े लेली तरतूद
+कमी /
+जादा
+तरतूद
+लेखापरीक्षकाचे
+मते दखवावयाचे
+्कव्याज
+बँक े ने / पतसंस्ेने
+दाखधवलेले
+्कव्याज
+कमी /
+जादा
+तरतूद
+7 8 9 10 11 12
+
+लाँग फॉमय ऑडीट धरपोटय (LFAR) व धरझवय बँक/ नाबाडय/ धनबंिकांनी वेळोवेळी धनगयधमत क े लेल्या
+पधरपत्रकाद्वारे आदेशीत क े लेल्या बाबी अनुक्रमे जोडाव्यात. ‘अ’ भागात संस्ेचे गंभीर सवरूपाचे दोष,
+आर्ष्क अधनयधमतता, प्रशासकीय/ फौजदारी कारवाई करणे आवश्यक असणाऱ्या बाबींचा उल्लेख
+असणे आवश्यक आहे.
+13) लेखापरीक्षक आपल्या लेखापरीक्षण अहवालात, कोणतीही व्यक्ती, लेख्यासंबंिातील कोणत्याही
+अपरािाबद्दल ककवा इतर कोणत्याही अपरािाबद्दल भारतीय दंड संधहते नुसार (IPC) दोषी आहे, या
+धनष्कषा पयंत आला असेल त्याबाबतीत त्याने, त्याचा लेखापरीक्षण अहवाल सादर क े ल्याच्या
+धदनांकापासून 15 धदवसांच्या कालाविीच्या आत धनबंिकाकडे धवधनर्षदष्ट अहवाल (Specific
+Report) दाखल करणे व धनबंिकाची लेखी परवानगी प्राप्त क े ल्यानंतर अपरािाचा प्र्म माधहती
+अहवाल (FIR) संबंधित पोधलस ठाण्यात दाखल करणे बंिनकारक राहील, जो लेखापरीक्षक
+अपरािाचा प्र्ममाधहती अहवाल (FIR) दाखल करण्यास कसूर करील तो अनहयतेस पात्र ठरेल आधण
+त्याचे नाव लेखापरीक्षकांच्या नामताधलक े तून काढून टाकण्यास पात्र ठरेल. तसेच धनबंिकास योग्य
+वाटेल अशा कोणत्याही अन्य कारवाईस देखील पात्र ठरेल.
+14) लेखापरीक्षक े च्या धनष्कषावरून, लेखापरीक्षकाला असे धदसून आले की, सधमतीचे कोणतेही सदसय
+ककवा संस्ेचे अधिकारी ककवा इतर कोणतीही व्यक्ती यांनी क े लेल्या आर्ष्क व प्रशासकीय
+अधनयधमततांच्या िडिडीत बाबींमुळे संस्ेला तोटा आला असेल तेव्हा त्याने, धवशेष अहवाल तयार
+करून आपल्या लेखापरीक्षण अहवालासह धनबंिकाकडे सादर करणे बंिनकारक राहील. असा धवशेष
+अहवाल दाखल न करण्याची बाब ही त्याच्या कतयव्यातील धनष्काळजीपणा या सदरात जमा होईल
+आधण तो लेखापरीक्षक म्हणून धनयुक्तीसाठी ककवा धनबंिकास योग्य वाटेल अशा इतर कोणत्याही
+कारवाईस पात्र ठरेल.
+15) लेखापरीक्षकाने लेखापरीक्षण अहवाल, लेखापरीक्षण पूणय झाल्यापासून 1 मधहन्याच्या कालाविीच्या
+आत आधण कोणत्याही पधरस्स्तीत अधिमंडळाच्या वार्षषक बैठकीची सूचना (नोटीस) देण्यापूवी
+खालील कायालयांना सादर करावा.
+1) संस्ा, 2) संबंधित धनबंिक, 3) धजल्हा धवशेष लेखापरीक्षक, 4) ज्या धवत्तीय संस्ांकडून कजे
+घेतले असतील त्या धवत्तीय संस्ेला, 5) रूपये 5 लाखांपेक्षा जासत भागभांडवल असेल तर सधचव
+त्ा सहधनबंिक (लेखापरीक्षण), राज्यसतरीय लेखा सधमती, महाराष्र राज्य, 5 बी. जे. रोड, पुणे,
+6) संस्ेचे काययक्षेत्र काहीही असले तरी संस्ेचे मुख्यालय ज्या धजल्यात आहे, ते धजल्हा उपधनबंिक व
+धजल्हा धवशेष लेखापरीक्षक.
+
+16) लेखापरीक्षकाने आपला अहवाल सादर क े ल्यानंतर अहवालात नमूद क े लेल्या दोषांची संस्ेमाफ य त
+संपूणय दुरूसती करेपयंत संस्ेच्या दुरूसती अहवालावर आपले बाबधनहाय अधभप्राय देणे आधण
+धनबंिकाला व संस्ेला आपला अहवाल सादर करणे ही संबंधित लेखापरीक्षकाची जबाबदारी राहील.
+17) अंतगयत तसेच सतत व समवती लेखापरीक्षण करणारे लेखापरीक्षक त्याच संस्ेचे वैिाधनक
+लेखापरीक्षण करण्यास पात्र राहणार नाहीत.
+18) संस्ेकडून कजय घेणारे लेखापरीक्षक त्या संस्ेचे लेखापरीक्षण करण्यास पात्र राहणारा नाहीत.
+19) नाधमक े वरील लेखापरीक्षक ककवा त्यांचे नातेवाईक ज्या संस्ेचे संचालक असतील त्या संस्ेचे
+वैिाधनक लेखापरीक्षण करण्यास पात्र राहणार नाहीत, नातेवाईकांचा तपधशल कायदा कलम 75 (2)
+मध्ये धदला आहे.
+20) अनुक्रमांक 15 मध्ये नमूद क े ल्यानुसार जे लेखापरीक्षक लेखापरीक्षण अहवाल वेळेत सादर करणार
+नाधहत ते नाधमक े वर राहण्यास पात्र राहणार नाहीत.
+21) लेखापरीक्षक जर त्या संस्ेचा आजी / माजी कमयचारी असेल तर तो लेखापरीक्षक त्या संस्ेच्या
+लेखापरीक्षणास पात्र असणार नाही.
+22) सहकार खात्याचे लेखापरीक्षकांच्या बाबतीत लेखापरीक्षकाने क ु ठल्याही संस्ेचे लेखापरीक्षण क े ले तरी
+तो ज्या आस्ापनेवर काययरत आहे त्या आस्ापनेच्या लेखापरीक्षण शुल्काच्या धशषाखालीच
+लेखापरीक्षण शुल्क भरुन घ्यावे.
+23) लेखापरीक्षकाने लेखापरीक्षण अहवालाचा भाग अ, लेखापरीक्षकाचा दाखला व लेखापरीधक्षत आर्ष्क
+पत्रक े सहकार खात्याच्या वेबसाईवर अपलोड करावीत.
+24) लेखापरीक्षकांनी संस्ेचे लेखापरीक्षण अहवाल सादर करताना लेखापरीक्षणामध्ये धनदशयनास आलेल्या
+संस्ा व्यवहारातील गंभीर बाबी, अधनयधमतता, अफरातफर, गैरव्यवहार, गैरधवधनयोग व संस्ेची
+आर्ष्क व सांपधत्तक स्स्ती इ. बाबींचा संक्षीप्त तपशीलाचा गोषवारा (Executive Summery) सादर
+करावा. संक्षीप्त गोषवाऱ्यामध्ये संस्ेने क े लेल्या चांगल्या तसेच ज्या बाबींमध्ये सुिारणा करावयाची
+आवश्यकता आहे, त्या बाबींचा समावेश करावा. संक्षीप्त तपशीलाचा गोषवारा (Executive
+Summery) धशवाय लेखापरीक्षण अहवाल स्सवक ृ त क े ला जाणार नाही.
+25) लेखापरीक्षकांनी जर लेखापरीक्षणात धनष्काळजीपणा क े ला, गंभीर बाबी, अपहार, गैरव्यवहार,
+फसवणूक, लबाडी इ. बाबी लेखापरीक्षण अहवालात नमूद करण्याचे टाळले आधण अशा बाबी चाचणी
+लेखापरीक्षण / धफरतेप्क तपासणी / धवशेष लेखापरीक्षण / फ े रलेखापरीक्षणाचे वेळी धनदशयनास
+आल्यास संबंिीत मूळ लेखापरीक्षकांधवरुद्ध अधिधनयमातील तरतुदीनुसार कारवाई करणेत येईल.
+26) वरील नमूद वगीकरणानुसार संस्ेने त्यांचे वगासाठी उपलब्ि असणाऱ्या लेखापरीक्षकाची धनयुक्ती न
+करता कधनष्ट वगाच्या लेखापरीक्षकांची धनयुक्ती क े ल्यास सदर बाब संबंिीत लेखापरीक्षकाने
+धनबंिकांच्या धनदशयनास आणून द्यावी.
+
+उपरोक्त संस्ा व लेखापरीक्षक वगीकरण आधण अटी व शती धवचारात घेवूनच संस्ांनी त्यांचे
+वगीकरणानुसार लेखापरीक्षकांची धनयुक्ती करावयाची आहे.
+
+प्रसतूत नामताधलका ही शासनाच्या धनदेशानुसार वेळोवेळी सुिारीत करण्यात येईल.

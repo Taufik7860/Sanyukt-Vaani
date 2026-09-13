@@ -1,0 +1,1008 @@
+1
+
+1
+
+Table of Contents
+Background ........................................................................................................................................... 3
+1. Introduction .................................................................................................................................... 5
+2. Vision, Mission and Objectives .................................................................................................. 8
+3. Strategic Mission Pillar I: Strengthening the Foundation .................................................... 11
+4. Strategic Mission Pillar II: Promoting Vibrancy ...................................................................... 16
+5. Strategic Mission Pillar III: Making Cooperatives Future Ready ......................................... 18
+6. Strategic Mission Pillar IV: Promoting Inclusivity and Deepening Reach .......................... 21
+7. Strategic Mission Pillar V: Entering New and Emerging Sectors ........................................ 23
+8. Strategic Mission Pillar VI: Shaping Young Generation for Cooperative Growth ............. 25
+9. Monitoring and Implementation Structure .............................................................................. 28
+
+2
+
+List of Abbreviations
+Abbreviation Definition
+ARDB Agriculture and Rural Development Bank
+BBSSL Bharatiya Beej Sahakari Samiti Limited
+CEF Cooperative Education Fund
+CRCS Central Registrar of Cooperative Societies
+DCCB District Central Cooperative Bank
+DEH Districts as Export Hubs
+EBP Ethanol Blending Programme
+ERP Enterprise Resource Planning
+FPO Farmer Producer Organization
+FISHCOPFED National Federation of Fishermen’s Cooperatives Limited
+FFPO Fish Farmer Producer Organization
+GDP Gross Domestic Product
+GeM Government e-Marketplace
+GI Geographical Indication
+GoI Government of India
+HEI Higher Education Institution
+IFFCO Indian Farmers Fertilizer Cooperative Limited
+IoT Internet of Things
+IPR Intellectual Property Rights
+KPI Key Performance Indicators
+KRIBHCO Krishak Bharati Cooperative Limited
+MoC Ministry of Cooperation
+MSCS Multi-State Cooperative Societies
+NABARD National Bank for Agriculture and Rural Development
+NAFCUB National Federation of Urban Cooperative Banks and Credit Societies Limited
+NAFED National Agricultural Cooperative Marketing Federation of India Limited
+NAFSCOB National Federation of State Cooperative Banks Limited
+NCCT National Council for Cooperative Training
+NCD National Cooperative Database
+NCDC National Cooperative Development Corporation
+NCDFI National Cooperative Dairy Federation of India
+NCEL National Cooperative Exports Limited
+NCOL National Cooperative Organics Limited
+NCP National Cooperation Policy
+NCUI National Cooperative Union of India
+NDDB National Dairy Development Board
+NFDB National Fisheries Development Board
+NUCFDC National Urban Cooperative Finance & Development Corporation
+ODOP One District One Product
+ONDC Open Network for Digital Commerce
+PACS Primary Agricultural Credit Societies
+PMU Project Management Unit
+RBI Reserve Bank of India
+RCS Registrar of Cooperative Societies
+SC/ST Scheduled Castes and Scheduled Tribes
+SEI Social Enterprise Incubators
+SRO Self-Regulatory Organization
+StCB State Cooperative Bank
+UCB Urban Cooperative Bank
+VAMNICOM Vaikunth Mehta National Institute of Cooperative Management
+
+3
+
+Background
+
+I. Cooperation is embedded in the fabric of Indian society, which drives the spirit
+of collaboration to achieve common socio-economic goals.
+
+II. Cooperativism is a socio -economic system based on collective participation,
+democratic members’ control, and shared benefits, where individuals voluntarily
+unite to form cooperatives for mutual support and economic development. It
+embodies a synergistic approach —leveraging the efficiency, innovation, and
+market dynamism while championing the equity, inclusivity, and social welfare
+principles. This fusion offers a strong alternative to the current economic systems,
+providing a model that prioritizes both economic growth and collective well-being.
+
+III. India is home to more than one-fourth of the world's cooperatives, with about one-
+third of its rural population directly connected to them as members for their diverse
+socio-economic needs.
+
+IV. The Indian cooperative movement has been the flag bearer of a participatory,
+people-led development model aimed at socio -economic upliftment at the
+grassroots level for more than a century. Coperatives in India are guided by core
+cooperative principles and they are owned by members, operated by members,
+and for the benefit of members.
+
+V. A separate Ministry of Cooperation was formed in the year 2021 by the Hon’ble
+Prime Minister of India, Shri Narendra Modi , to develop the rural economy of the
+country, to strengthen the cooperative movement and to take it to every household.
+
+VI. Over the last decade , rural India has witnessed unprecedented development in
+terms of physical infrastructure – roads, housing, telecom, electricity, toilets, and
+other basic institutional infrastructure. This has raised the aspirations of the rural
+population manifold. Now the basic infrastructure has been prepared and the rural
+economy needs to be further strengthened, organized and connected to the
+market. In such a situation, the cooperative-based economic model will become
+the second engine of India's development and will help in achieving the goal of a
+developed India by 2047.
+
+VII. The objective of the ‘National Cooperative Policy 2025’ - To realize the vision of
+the Hon’ble Prime Minister of India, Shri Narendra Modi, of ‘Sahkar-se-Samriddhi’
+(Cooperation to Prosperity) . Under this, the people ’s aspirations and resources
+would be integrated with the cooperative system, so that the cooperative sector
+
+4
+
+can contribute significantly to the India's Gross Domestic Product (GDP) and a
+new era of inclusive development can begin.
+
+VIII. The Policy recognizes the need to promote the cooperatives as an effective
+instrument for economic growth by virtue of their inherent characteristic s of
+mutuality, community orientation, equitable distribution of profits , and democratic
+functioning. It also acknowledges the critical role of national federations/unions in
+the overall development and growth of the cooperative sector.
+
+IX. Under the guidance of Hon'ble Home and Cooperation Minister Shri Amit Shah, a
+48-member National -level Committee was constituted by the Ministry of
+Cooperation in September 2022 to draft a new cooperation policy. The
+chairmanship of this committee was entrusted to Shri Suresh Prabhu, former Union
+Minister. The committee comprised members from national/state cooperative
+federations and societies across all levels and sectors, representatives from
+related Central and State Government Ministries/Departments, and academia.
+
+X. The Policy was drafted after multi-level consultations and regional workshops with
+cooperative sector stakeholders and State/UT Governments. The Committee held
+17 meetings and 4 regional workshops (in Ahmedabad, Bengaluru, Gurugram, and
+Patna), receiving a total of 648 inputs from the consultation process. These inputs
+were thoroughly analyzed and incorporated into the policy after elaborate
+discussions.
+
+5
+
+NATIONAL COOPERATION POLICY 2025
+1. Introduction
+
+1.1. A cooperative is an autonomous association of persons , united voluntarily to
+meet their common economic, social , and cultural needs and aspirations
+through a jointly owned and democratically member-controlled enterprise.
+
+1.2. India has more than 8 lakh cooperative societies, comprising around 2 lakh
+credit cooperatives and 6 lakh non -credit cooperatives. Non-
+credit cooperatives primarily operate in sectors such as housing, dairy,
+labour, and others , including sugar, consumer, marketing, fisheries, textiles,
+services, processing, hospitals, etc. Moreover, with about 30 crore total
+members in the cooperative sector, PACS alone have more than 13 crore
+members spread across the country.
+
+1.3. The last policy on cooperatives, released in 2002, focused on the basic
+dimensions of efficiently organizing economic activities by cooperatives. Over
+the last 20 years, the world has witnessed radical changes at individual,
+societal, national, and global levels . They have been driven by globalization
+and technological advancements, especially in communications and
+information technology. Given these developments, it became essential to
+revisit the policy and formulate a new one to suit the evolving requirements of
+the cooper ative sector and to ensure the sustainability of this sector in the
+current economic scenario.
+
+1.4. Recognizing the formation of cooperative societies as a fundamental right
+under the Constitution of India and the establishment of a separate Ministry of
+Cooperation marked a new era . This era requires transformation of the
+cooperative movement with “farmers, women and rural development” at its
+centre, along with strengthening cooperative societies, making national
+federations lead the way, and ensuring both Central and State Governments
+provide the needed support and recognition for these institutions to grow.
+Hence, there is an urgent need for a new national policy.
+
+1.5. The vision of ‘Sahkar-se-Samriddhi’ as articulated by the Hon’ble Prime
+Minister of India gives an endearing message motivating the stakeholders and
+instilling confidence in the sector. It has motivated the Ministry and the
+cooperative sector to work together towards achieving the above vision.
+
+6
+
+1.6. The task before the policymakers was to frame a well-crafted policy to create a
+roadmap that translates the above vision into reality, by capitalizing on the
+young demography, rising aspirations , and advancements
+made on the technological front.
+
+1.7. To lay a roadmap for realizing the vision of ‘Sahkar-se-Samriddhi’, through
+a well-designed consultative process, the Ministry has formulated the National
+Cooperation Policy 202 5. This p olicy intends to facilitate a systematic and
+orderly, all-around development of the sector , focused on fast-tracking the
+growth of the rural economy.
+
+1.8. Since its e stablishment in 2021, the Ministry of Cooperation has already
+undertaken several initiatives to fulfil the above vision. Major initiatives include:
+a) Strengthening of cooperative societies
+i. New model by-laws to make PACS multipurpose,
+ii. SOP (Standard Operating Procedures) launched for the formation of 2
+lakh n ew PACS/dairy/fishery primary cooperatives in uncovered
+panchayats,
+iii. SOP launched for cooperative-led “White Revolution 2.0”,
+iv. Multi-purpose PACS to diversify businesses into non-credit areas,
+v. World’s largest decentralized grain storage plan at the PACS level,
+vi. Cooperative societies included as buyers on the GeM portal, etc.
+b) Cooperation among cooperatives
+i. Three new multi-state cooperative societies at the national level in the
+fields of exports, organic products, and seeds,
+
+ii. SOP launched for nation-wide implementation of cooperation among
+cooperatives campaign for primary cooperatives as “Bank Mitra” of
+cooperative banks, distribution of RuPay KCC to members of primary
+cooperatives, etc.
+c) Changes in the Income Tax Act, 1961 for cooperative societies
+i. Surcharge for societies with income between ₹1 crore to ₹10 crore
+reduced from 12% to 7%,
+ii. MAT rate reduced from 18.5% to 15%,
+iii. Increase in cash withdrawal limit of cooperatives from ₹ 1 crore to ₹ 3
+crore without deducting tax at source, etc.
+
+7
+
+d) Important decisions taken to overcome the difficulties faced by
+cooperative banks
+i. Establishment of Umbrella Organization for UCBs,
+ii. UCBs to open new branches to expand their business
+iii. Cooperative banks to make one-time settlements of outstanding loans
+like commercial banks, etc.
+e) Strengthening of cooperative sugar mills
+i. Relief from additional income tax for paying higher sugarcane prices to
+farmers up to Fair and Remunerative or State Advised Prices,
+ii. Allowed to claim as expenditure payments made to sugarcane farmers
+for the period before 2016–17,
+iii. GST on molasses reduced from 28% to 5%, etc.
+f) Initiatives taken by the Central Registrar's Office and the NCDC
+i. Multi-State Co-operative Societies (Amendment) Act, 2023,
+ii. Refund to investors of cooperative societies of the Sahara Group,
+iii. Formation of new FPO at PACS level by NCDC,
+iv. Formation of FFPO by NCDC, etc.
+1.9. Carrying forward the intent and the spirit of the above initiatives, this policy
+intends to augment and extend the ambit of reforming and revamping
+different dimensions of the cooperative sector.
+
+8
+
+2. Vision, Mission and Objectives
+
+Vision: To significantly contribute to India’s collective ambition of becoming ‘viksit'
+by 2047 through the promotion of an environment conducive to sustainable
+cooperative development, following the vision of 'Sahkar -se-samriddhi'.
+Mission: To create an enabling legal, economic, and institutional framework that will
+strengthen and deepen the cooperative movement at the grassroots level and
+facilitate the transformation of cooperative enterprises into professionally managed,
+transparent, technology -enabled, vibrant, and responsive economic entities to
+support production by the masses (members).
+The policy’s mission will be achieved through six strategic mission pillars as follows:
+I. Strengthening the Foundation: Creating a strong foundation for the
+cooperative movement.
+II. Promoting Vibrancy: Creating a vibrant and self-sustaining ecosystem.
+III. Making Cooperatives Future Ready : Transforming cooperatives into
+professional and sustainable economic entities.
+IV. Promoting Inclusivity and Deepening Reach: Promoting cooperative -led
+inclusive development and cooperatives as a people’s movement.
+V. Entering New and Emerging Sectors: Promoting the entry of cooperatives
+into new and emerging sectors.
+VI. Shaping Young Generation for Cooperative Growth: Inspiring the young
+generation and providing them with cooperative-oriented experiential learning
+that develops connect with the rural cooperative milieu.
+
+9
+
+Objectives: The policy mission will be achieved through the following 16 objectives over
+the next 10 years, grouped under six strategic mission pillars:
+
+Strengthening the foundation by
+
+1. Creating a conducive legal and regulatory environment through timely reforms to
+provide autonomy, promote transparency, ease of doing business, good
+governance, and provide a level playing field for cooperatives
+
+2. Fostering accessible and affordable finance and equal business opportunities akin
+to other economic institutions.
+
+3. Enhancing cooperation among cooperatives, strengthening the cooperative
+structure, and expanding the geographical reach.
+
+Promoting vibrancy by
+
+4. Promoting the development of a cooperative business ecosystem.
+
+5. Encouraging multi-dimensional expansion , including access to international
+markets and increasing members’ income.
+
+Making cooperatives future ready by
+
+6. Enhancing technology adoption for efficient and transparent management.
+
+7. Enabling the transformation of cooperatives into professionally managed
+economic entities based on cooperative principles.
+
+Promoting inclusivity and deepening reach by
+
+8. Promoting inclusivity and member centrality, and reaching out to every corner of
+the country and the population through the cooperative setup.
+
+9. Promoting cooperatives as a people’s movement, particularly involving youth and
+women, to further strengthen the movement.
+
+10
+
+Entering new and emerging sectors by:
+
+10. Promoting and encouraging the entry of cooperatives in new and emerging
+sectors.
+11. Promoting environment-friendly practices and a circular economy for sustainability.
+Shaping Young Generation for Cooperative Growth:
+12. Motivating and inspiring youth, especially those in rural and semi -urban areas, to
+pursue long-term careers in cooperative enterprises.
+
+13. Promoting the development of standardized, high -quality, cooperative -focused
+courses and the creation of authoritative content.
+
+14. Promoting an ecosystem for skilling and upskilling of youth and women for
+employment in the cooperative sector.
+
+15. Ensuring the availability of cooperative sector practitioners as part-time resource
+persons, quality teachers, instructors, trainers, and visiting faculty in sufficient
+numbers, in the cooperative sector.
+
+16. Developing an ecosystem that facilitates the ease of hiring of suitable candidates
+by cooperatives and simplifies the job search process for potential candidates.
+
+11
+
+3. Strategic Mission Pillar I: Strengthening the Foundation
+
+The foundation of the cooperative movement will be strengthened by addressing the
+challenges, creating an enabling environment, and capitalizing on available opportunities
+to ensure its reach to the grassroots level. A conducive legal and regulatory framework,
+access to affordable finance, cooperation among cooperatives , and enhancing
+geographical reach should be taken as the pathways to achieving this goal.
+
+3.1. To create a conducive legal and regulatory environment through timely
+reforms to provide autonomy, promote transparency, ease of doing
+business, good governance, and provide a level playing field for
+cooperatives
+
+Strategies to achieve the objective
+
+3.1.1. Encourage States/UTs to suitably amend their respective Cooperative
+Societies Acts and Rules to provide autonomy, enhance the ease of doing
+business and good governance in order to:
+
+3.1.1.1. ensure autonomous functioning and democratic member control,
+3.1.1.2. ensure a time-bound and transparent system for the delivery of services to
+cooperative societies,
+3.1.1.3. ensure free and fair elections of Board of Directors and office bearers,
+3.1.1.4. ensure transparent recruitment processes,
+3.1.1.5. infuse democratic, transparent, and data-driven decision-making.
+
+3.1.2. Encourage States/UTs to adopt the best prevailing provisions by suitably
+amending their respective Cooperative Societies Acts, Rules, and
+cooperatives’ by e-laws. Additionally, support the compilation of these best
+practices from the Cooperative Societies Acts and Rules of any States/UTs or
+from those outside India.
+
+3.1.3. Encourage States to formulate/reformulate their State Cooperative Policy, in a
+manner that both State and Central Governments work towards common goals
+for the development of cooperatives.
+
+3.1.4. Encourage States/UTs to completely digitalize all processes of States’
+Registrar offices (as provisioned in their respective Acts) to make them
+paperless to:
+
+12
+
+3.1.4.1. Facilitate all types of communications and interactions with cooperative
+societies with the Registrar offices through online digital means, such as
+web portals, e-mail messaging, mobile phone-based messaging, etc.,
+
+3.1.4.2. Establish a State/UT-level database of cooperative societies and enable it
+to integrate with the existing NCD maintained by the Ministry of Cooperation
+for real-time updates.
+
+3.1.5. Encourage States/UTs to establish an institutional mechanism for the revival of
+sick cooperatives.
+
+3.1.6. Bring down cooperative taxes wherever higher than corporate taxes and make
+cooperatives eligible for sector -specific financial incentives and concessions
+available to corporates.
+
+3.1.7. Converge various programmes and schemes related to cooperatives,
+implemented by various Departments/Ministries of the Government of India, to
+bring in synergies based on the Whole of Government approach.
+
+3.1.8. Strengthen the role of PACS by designating them as an implementing agency
+for various Government schemes being implemented at the grassroots level
+and incentivizing the well-performing PACS.
+
+3.1.9. Encourage the development of sector -wise and state -wise composite
+performance indices for the ranking of cooperatives on a continuous basis
+through a web portal to promote healthy competition and learning from the best
+in the spirit of competitiveness & cooperation.
+
+3.2. To foster accessible, affordable finance and equal business opportunities
+akin to other economic institutions
+
+Strategies to achieve the objective
+
+3.2.1. Preserve and promote the three-tier credit structure (PACS, DCCB, and StCB)
+to dispense affordable credit and maintain democratic character.
+
+3.2.2. Work jointly with the States/UTs to promote the setting up of one PACS in every
+panchayat, one DCCB in every district, and one UCB in every urban centre, in
+
+13
+
+uncovered areas, to achieve financial inclusion through cooperatives, subject
+to viability.
+
+3.2.3. Encourage cooperative banks to expand their reach and scope by opening new
+branches and diversifying financial products and services, subject to viability,
+to increase their footprints.
+
+3.2.4. Promote formation of an apex cooperative bank at the national-level to enhance
+cooperation among various tiers of cooperative banks so as to harness their
+true potential and to provide support, capacity building, professionalism,
+business opportunities, etc.
+
+3.2.5. Promote the adoption of digital technology in the cooperative credit and
+banking sector for improved customer experience, enhanced operational
+efficiency, and robust cybersecurity to prevent risk and fraud, including –
+
+3.2.5.1. common banking software for different layers of cooperative banks,
+
+3.2.5.2. building a strong institutional arrangement to provide shared IT-infra to rural
+cooperative banks.
+
+3.2.6. Encourage the recently established Umbrella Organization (NUCFDC) of UCBs
+to work in the direction of strengthening UCBs by:
+
+3.2.6.1. developing and professionally managing a common technology platform to
+enable UCBs to provide a modern banking experience to its customers,
+
+3.2.6.2. subscribing to the equity of the UCBs,
+
+3.2.6.3. supporting for short-term liquidity,
+
+3.2.6.4. obtaining SRO status from RBI to frame rules & regulations and enforce
+them to protect the customer and promote ethics, equality, and
+professionalism, etc.
+
+3.2.7. Facilitate the strengthening of cooperative banks to become eligible to handle
+government businesses.
+
+3.2.8. Promote the cooperative credit structure, in addition to ARDBs, for dispensing
+long-term credit.
+
+14
+
+3.2.9. Form a task force to holistically examine the challenges faced by cooperative
+credit institutions (DCCB, PACS, ARDB and land development banks, etc.) and
+suggest measures to address these challenges, including issues of long-term
+credit and recommend a roadmap to increase the deposits of DCCBs, etc.
+
+3.2.10. Encourage NCDC, NABARD, and similar institutions to help prepare model
+DPRs, business feasibility studies, and bankable project reports for
+cooperatives.
+
+3.2.11. Expand the scale and scope of activities of the NCDC and enable it to access
+cheaper capital for lending at concessional rates to cooperatives.
+
+3.3. To enhance cooperation among cooperatives, strengthen the cooperative
+structure, and expand the geographical reach
+
+Strategies to achieve the objective
+
+3.3.1. Encourage cooperatives to create new infrastructure and share existing
+infrastructure on mutually beneficial terms, including:
+
+3.3.1.1. sharing physical infrastructure at the panchayat/district level to provide
+common services for food and seed quality control testing lab s, including
+organic product certification, non -food quality control lab s, soil testing
+facilities, veterinary services, warehouse s, cold storage for fast perishable
+goods (such as fish, vegetables, etc.), and responsive and efficient supply
+chain and logistics,
+
+3.3.1.2. promoting the development of shared digital infrastructure ( such as cloud
+computing, data centre support, and cybersecurity operations) to alleviate
+the challenges of high costs in technology adoption.
+
+3.3.2. Encourage sectoral national federations to develop a repository of success
+stories on prevailing best practices in the cooperative sector to promote the
+spirit of cooperation and their emulation.
+
+3.3.3. Encourage cooperatives and their members to open their bank accounts and
+to avail of financial services from cooperative banks.
+
+3.3.4. Enable primary cooperatives, including PACS, to work as ‘Bank Mitra’ of
+DCCBs to provide banking products and services, including Rupay Kisan Credit
+Card to members, at their doorsteps.
+
+15
+
+3.3.5. Encourage the creation of multipurpose PACS, primary dairy cooperatives,
+primary fisheries cooperatives , and other sectoral primary cooperatives to
+cover all uncovered panchayats within the next five years.
+
+3.3.6. Enhancing reach and strengthening cooperatives in the North Eastern region ,
+including remote areas , by providing the requisite institutional and financial
+support,
+
+3.3.7. Promote strengthening the upper tiers of the cooperatives to take on larger
+responsibilities in supporting their primary members to become more
+competitive.
+
+3.3.8. Encourage primary societies, district , and state -level federations to become
+members of national cooperatives , such as IFFCO, KRIBHCO, NAFED, etc. ,
+and the newly formed three national-level MSCS – NCOL, NCEL, and BBSSL.
+
+3.3.9. Encourage the national -level federations/unions to play lead ing roles in
+revitalizing the cooperative sector by helping member cooperatives to develop
+and adopt best practices for transparency and good governance, and
+deepening the cooperative movement through cooperative advocacy,
+awareness and member education.
+
+16
+
+4. Strategic Mission Pillar II: Promoting Vibrancy
+
+The policy envisions vibrant and economically self -reliant cooperatives as the support
+structure for members to earn higher incomes. It identifies the promotion of a vibrant
+cooperative ecosystem and its multidimensional expansion as the key pathways to
+achieve this goal.
+
+4.1. To promote the development of a cooperative business ecosystem
+
+Strategies to achieve the objective
+
+4.1.1. Encourage the creation of a vibrant ecosystem for the growth and development
+of cooperative business by promoting a self-sustainable business support
+system. This system will provide accessible finance, business research and
+advisory services for marketing, branding, etc., alongside support from sectoral
+development and capacity-building institutions.
+4.1.2. Encourage States/UTs to develop at least one model cooperative village per
+district, centred around a multipurpose PACS as the growth engine.
+Multipurpose PACS will be encouraged to develop good governance and
+business management practices for different business verticals. Other villages
+in the district will be prodded and encouraged to first catch up with the model
+village, and subsequently aspire to become one of the best in the state.
+
+4.1.3. Encourage States/UTs to promote cooperative-led economic clusters for niche
+rural produce such as honey, spices, coffee, tea, medicinal and aromatic
+plants, silkworms, fruits, mushrooms, floriculture, poultry produce, etc.
+
+4.1.4. Encourage cooperatives to explore marketing opportunities through
+Geographical Indications (GI), Intellectual Property Rights (IPR), and
+trademarks.
+
+4.1.5. Encourage the branding of all organic, agricultural, and dairy products under
+the aegis of the ‘Bharat’ Brand as an umbrella brand, and leverage the
+established brands of the states.
+
+4.1.6. Promote the participation of cooperatives in various fairs and exhibitions at the
+international, national, and state levels. This will showcase their brand s and
+provide them access to markets.
+
+17
+
+4.2. To promote multi-dimensional expansion, including access to
+international markets, and enhance members’ income
+
+Strategies to achieve the objective:
+
+4.2.1. Encourage cooperatives to identify and align with export-oriented products
+under the One District One Product-Districts as Export Hubs initiative.
+
+4.2.2. Promote dairy cooperatives to initiate ‘White Revolution 2.0’ for the holistic
+development of dairy cooperatives, employment generation , and women ’s
+empowerment.
+
+4.2.3. Emphasize promoting fishery cooperatives , including fish seed production in
+areas where fisheries are the main source of livelihood, especially in districts
+where basic infrastructure is weak.
+
+4.2.4. Promote the cooperative sector to become the leader in the organic products
+market.
+
+4.2.5. Promote exports of cooperative sector products to international markets and
+enhance the share of the cooperative sector in the total export of the country.
+
+4.2.6. Promote millets production through farmer members of primary cooperatives
+and encourage national cooperatives such as NAFED, NCCF, etc., to procure
+it for food and nutritional security and popularize it to make it a part of
+everybody’s diet.
+
+4.2.7. Promote production of pulses, oilseeds, and maize through farmer members of
+primary cooperatives by changing cropping patterns and encourage national
+cooperatives such as NAFED, NCCF, etc. to procure them to attain
+‘atmanirbharta’ in edible oil and pulses and reduce dependence on imports.
+
+4.2.8. Encourage sugar cooperatives to produce ethanol using alternate feedstocks,
+including maize, to support the Ethanol Blending Programme, to reduce
+dependence on crude oil imports.
+
+4.2.9. Promote the enhancement of existing processing capacities , including the
+manufacturing of value -added products through capital infusion , to increase
+members’ incomes.
+
+4.2.10. Constitute a task force to envision and recommend pathways for creating an
+economic framework aimed at including atleast 50 crore people within the ambit
+of cooperatives and enhancing the cooperative sector ’s contribution to the
+Indian economy by three times in the next 10 years.
+
+18
+
+5. Strategic Mission Pillar III: Making Cooperatives Future Ready
+
+Cooperative societies need to adapt to the latest technologies to bridge the digital divide
+and become professionally managed economic entities to enhance their operational
+efficiency, manage infrastructure, products, and services effectively.
+
+5.1. To promote technology adoption for efficient and transparent
+management
+
+Strategies to achieve the objective
+
+5.1.1. Facilitate the design and development of a ‘Cooperative Stack’ for data-driven
+decision-making and enhance service delivery. This initiative aims to
+consolidate high-quality data within cooperatives and make it readily accessible
+to stakeholders for innovation and the creation of new services. The stack may
+be developed on a foundation of the existing NCD, incorporating other suitable
+databases, and ensuring integration with the Agri-stack, which , amongst
+others, would facilitate seamless data integration of cooperative banks with the
+Agriculture Ministry’s database for real-time release of interest subvention.
+
+5.1.2. Promote national sectoral federations to actively support technological
+upgradation across different cooperative levels and sectors.
+
+5.1.3. Promote cooperatives to leverage e-commerce platforms , such as the
+Government e -marketplace (GeM ) and the Open Network for Digital
+Commerce (ONDC), to access a large customer base and achieve better
+pricing.
+
+5.2. To enable the transformation of cooperatives into professionally
+managed economic entities based on cooperative principles
+
+Strategies to achieve the objective
+
+5.2.1. Promote the organizational management of cooperative societies along
+professional lines through the creation of an integrated, standardized , and
+quality-conscious national -level institutional structure for industry -oriented
+education and need -based capacity building . This may be achieved by
+establishing an apex organization to:
+
+5.2.1.1. act as a national-level body by creating a pan -India network of existing
+education and training institutes/centres in the cooperative sector through
+
+19
+
+affiliation, and to regulate their teachers’ recruitment, admission criteria,
+course content and curriculum, examinations, etc.,
+
+5.2.1.2. ensure a stable and adequate supply of young and qualified manpower for
+the cooperative sector,
+
+5.2.1.3. appropriately synergize with existing skill development centres/institutes for
+conducting skill-related courses,
+
+5.2.1.4. design curricula and courses to meet the requirements of the cooperative
+sector,
+
+5.2.1.5. conduct and promote research and development in the cooperative sector,
+
+5.2.1.6. seek institutionalization of sponsored research/practice track Chairs from
+the cooperative and private sectors,
+
+5.2.1.7. develop Centres of Excellence for focused and quality education,
+incubation, and research in the cooperative sector,
+
+5.2.1.8. promote social enterprise incubators (SEIs) in new and emerging sectors
+for providing need-based assistance.
+
+5.2.2. Promote cooperative-centric courses in higher education institutions.
+
+5.2.3. Encourage the utilization of funds available in the Cooperative Education Fund
+(CEF) of the Central/State Governments, and with other Ministries of the
+Government of India , for cooperative training , skill development , and the
+creation of cooperative-specific quality academic content in different Indian
+languages for various levels and types of courses on cooperatives.
+
+5.2.4. Facilitate the establishment of an institutional mechanism for Innovation and
+Incubation in the cooperative sector , to be led by the proposed apex
+organization to:
+
+5.2.4.1. develop and spread sustainable and innovative business practices and
+technologies around the locally available resources and means,
+
+5.2.4.2. incubate new cooperatives in emerging fields,
+
+20
+
+5.2.4.3. promote and spread entrepreneurial skills in the cooperative sector.
+
+5.2.5. Encourage cooperative societies to amend their by e-laws suitably to include
+training, leadership development, management development , and other
+organizational capacity -building program mes for their board members and
+employees as an essential element for building human resource capabilities for
+different categories of jobs.
+
+5.2.6. Strive for member education based on cooperative principles and values
+across all cooperative societies , including new ones , in a time-bound and
+universal manner.
+
+5.2.7. Encourage national/state cooperative societies/federations to institute
+fellowships to support research scholars in reputed universities/colleges in
+pursuing their doctoral and post -doctoral research in important areas of
+cooperatives.
+
+5.2.8. Encourage national and state cooperative societies, federations, and unions to
+establish cooperative learning cent res at the grassroots level. These cent res
+should preferably use vernacular languages for extension and capacity -
+building activities to ensure better uptake.
+
+5.2.9. Encourage federations to develop Key Performance Indicators (KPIs) to
+evaluate the performance of member cooperatives. Sectoral ratings may be
+developed to identify the areas of strength for cooperatives.
+
+5.2.10. Promote a higher level of professionalism in fostering responsive governance,
+leadership, and employee competence through technology-enabled
+recruitment reforms.
+
+21
+
+6. Strategic Mission Pillar IV: Promoting Inclusivity and Deepening Reach
+
+This policy prioritizes the inclusion of youth and women to ensure increased representation
+across all sections of society. It envisions the partnership and collaboration of cooperative
+federations/societies to promote cooperatives as a people’s movement.
+
+6.1. To promote inclusivity and member centrality
+
+Strategies to achieve the objective
+
+6.1.1. Encourage the participation of women, youth, small & marginal farmers, and
+weaker sections (SC/ST, specially-abled, etc.) to foster inclusivity and assign
+them significant roles in cooperatives.
+
+6.1.2. Strengthen and promot e cooperatives for the weaker and ma rginalized
+sections in sectors like fisheries, dairy, handloom weaving, handicrafts, minor
+forest produce, etc.
+
+6.1.3. Support the development of disaggregated data on gender, weaker section s,
+etc. and recommend its inclusion in the NCD for targeted interventions.
+
+6.1.4. Facilitate the development and adoption of model by e-laws for cooperatives
+across different tiers and sectors with a focus on strengthening members to:
+
+6.1.4.1. ensure the active participation of members,
+
+6.1.4.2. make provision for a mechanism that collects member-centric feedback and
+promote the activation of dormant members,
+
+6.1.4.3. promote membership among women and weaker sections of the
+community,
+
+6.1.4.4. ensure centrality of members in decision-making,
+
+6.1.4.5. ensure transparent and corruption-free organizational governance,
+
+6.1.4.6. promote the induction of young and qualified manpower for various
+positions.
+
+6.1.5. Strengthen member s of primary cooperative societies by encouraging
+national/state federations/ unions to:
+
+22
+
+6.1.5.1. promote an effective and continuous member education programme based
+on cooperative principles and values that educates, sensitizes, and makes
+members aware of their rights, duties, and responsibilities,
+
+6.1.5.2. focus on enhancing members’ entrepreneurial skills,
+
+6.1.5.3. encourage primary cooperatives to enhance members’ income levels.
+
+6.2. Cooperatives as a people’s movement
+
+Strategies to achieve the objective
+
+6.2.1. Promote cooperative s as a subject in the school curricula across various
+grades.
+
+6.2.2. Encourage national-level federations/unions to take a leading role in enhancing
+advocacy and awareness about the benefits of cooperatives among the
+younger generation, particularly women and the weaker sections . This will
+enhance people’s confidence in a cooperative-led economic model, leading to
+an increase in membership:
+
+6.2.2.1. by fostering mass-level awareness to motivate the young generation,
+particularly women and the weaker sections, to actively participate in the
+cooperative movement,
+
+6.2.2.2. by showcasing and disseminating success stories of cooperatives that
+highlight how they contribute to the emancipation of the poor and
+marginalized,
+
+6.2.2.3. by leveraging various channels, including social media, to share success
+stories, utilizing the existing social media infrastructure of national
+cooperative federations/unions/societies.
+
+23
+
+7. Strategic Mission Pillar V: Entering New and Emerging Sectors
+
+The policy encourages cooperative societies to enter into new and emerging sectors
+suitable for cooperatives to enhance their presence and member base in future. It
+encourages cooperatives to practice environment -friendly practices to help achieve
+sustainable development goals ( SDGs) such as clean energy, sustainable agriculture,
+reverse land degradation, etc.
+
+7.1. To promote and encourag e the entry of cooperatives in new and
+emerging sectors
+
+Strategies to achieve the objective
+
+7.1.1. Encourage primary cooperative societies to convert into multipurpose
+cooperatives to diversify their businesses into new areas such as PM Jan
+Aushadhi Kendra, warehousing, Common Service Centre, Fair Price Shop,
+LPG distributorship, petrol/diesel retail outlet, PM Kisan Samriddhi Kendra ,
+operation & maintenance of rural piped water supply scheme , etc., subject to
+viability, for transforming them into financially and operationally self -reliant
+entities.
+
+7.1.2. Promote the entry and strengthening of cooperatives in new and emerging
+sectors, in both urban and rural space, such as micro -insurance, renewable
+energy, water distribution, health, education, waste management,
+transportation, biogas production, mobile application -based aggregator
+services ( for example – cooperative of taxi drivers , individuals providing
+household services ( like plumber, electrician, etc.)), etc., to enhance
+diversification and increase member income.
+
+7.2. To promote environment-friendly practices and a circular economy for
+sustainability
+
+Strategies to achieve the objective
+
+7.2.1. Encourage the adoption of circular economy practices through the promotion
+of digitalization and disruptive technologies such as Internet of Things ( IoT),
+blockchain, reverse logistics, etc., by:
+
+7.2.1.1. promoting suitable use cases as pilots to assess their applicability in the
+cooperative sector for adoption.
+
+7.2.2. Encourage PACS member farmers to adopt climate-resilient cropping patterns,
+
+24
+
+and harvest renewable energy such as solar, wind, etc. on farm bunds, with a
+special focus on reducing the carbon footprint and mitigating climate risks.
+
+7.2.3. Encourage the practice of o rganic, natural farming, agroforestry, and the
+reclamation of degraded land through PACS. The Central/State Governments
+could prioritize the implementation of schemes in this regard through PACS.
+
+7.2.4. Promote biogas production in villages through primary dairy cooperatives in a
+decentralized manner.
+
+25
+
+8. Strategic Mission Pillar VI: Shaping Young Generation for Cooperative
+Growth
+Inspiring the young generation through success stories of individual cooperative societies
+and biographies of veteran cooperators ; Providing cooperative -oriented experiential
+learning that develops a fair understanding of the rural economy, cooperative values &
+principles and working of cooperative societies ; Imparting professional education &
+training in multiple domains, such as cooperative history, laws, auditing and accounting,
+finance, governance and operations, and cooperative -focused business management.
+This also includes equipping and enhancing the technical skills of rural youth for
+meaningful employment in the cooperative sector. The proposed apex organization and
+its affiliated institutions will lead all activities under this initiative.
+
+8.1. To motivate and inspire youth, especially those in rural and semi -urban
+areas, to pursue long-term careers in cooperative enterprises.
+
+Strategies to achieve the objectives
+
+8.1.1. Initiate a nationwide movement at the district level for youth through seminars,
+workshops, dramas, films, and videos and share success stories in schools,
+colleges and social media platforms. The proposed apex organization will drive
+the initiative with s upport from state -level cooperative education and training
+institutes, including national/state federations.
+
+8.1.2. Promote the development of future cooperative leaders to manage cooperative
+societies professionally.
+
+8.2. To promote the development of standardized, high -quality, cooperative-
+focused courses and the creation of authoritative content.
+
+Strategies to achieve the objectives
+
+8.2.1. To identify, design and develop cooperative-focused courses for professional
+diploma and degree programs, including certification courses through a multi -
+layered consultation process with stakeholders , including national/state-level
+cooperative societies/federations, etc. This will ensure that upon course
+completion, candidates are employment-ready and can secure suitable jobs in
+the cooperative sector that match their competencies and skill sets.
+
+8.2.2. To encourage higher education institutions (HEIs) that offer degrees and
+diplomas in social sciences to also offer apex organization -certified diplomas,
+degrees, and certification courses, thereby making cooperative courses
+universally accessible.
+
+26
+
+8.3. To promote an ecosystem for skilling and upskilling of youth and women
+for employment in the cooperative sector
+
+Strategies to achieve the objectives
+
+8.3.1. Create a database of training institutions established/funded by central and
+state governments offering programs for training and skill development of
+ground-level workers for both technical and non -technical jobs in cooperative
+societies.
+
+8.3.2. Develop a pan -India ecosystem of training and skill development institutions
+through partnerships/MoUs.
+
+8.3.3. Promote financial & digital literacy among rural and semi-urban youth to make
+them employable in the cooperative sector.
+
+8.4. To ensure the availability of cooperative sector practitioners as part-time
+resource person s, quality teachers, instructors, trainers, and visiting
+faculty in sufficient numbers, in the cooperative sector.
+
+Strategies to achieve the objectives
+
+8.4.1. Develop and recommend a standardized recruitment process and eligibility
+criteria (such as educational qualification, teaching experience, etc.) for various
+categories of teachers, instructors, trainers, and resource persons, including
+visiting faculty and part-time resource persons, for affiliated institutes.
+
+8.4.2. Design an appropriate and attractive remuneration structure for various levels
+of teaching personnel in the affiliated institutes.
+
+8.4.3. Create a pool of newly certified teachers and instructors through a well -
+structured system, while enhancing the academic capabilities of existing
+teachers and instructors in the cooperative sector.
+
+8.4.4. Establish a nationwide database of cooperative teachers, instructors, resource
+persons, and trainers, including information on their location, experience, and
+area of expertise.
+
+27
+
+8.5. To develop an ecosystem that facilitates the ease of hiring of suitable
+candidates by cooperatives and simplifies the job search process for
+potential candidates.
+
+Strategies to achieve the objectives
+
+8.5.1. Establish and manage a national digital cooperative employment exchange
+through the proposed apex organization. This digital platform will efficiently
+match the job seekers with new employment opportunities in the cooperative
+sector.
+
+28
+
+9. Monitoring and Implementation Structure
+
+9.1. The implementation of the policy will adhere to the principles of cooperative
+federalism.
+
+9.2. Considering the structure of the cooperative sector, the smooth and effective
+implementation of the policy requires the active participation of relevant
+Ministries/Departments of the Central Government, State/UT Governments,
+and national/state-level cooperative societies/federations/unions . It also
+involves sectoral development institutions such as NABARD, NCDC, NDDB,
+and NFDB.
+
+9.3. To ensure the policy is implemented effectively and within a set timeframe, an
+‘Implementation Cell’ will be created within the Ministry of Cooperation . This
+cell will receive support from a dedicated Project Management Unit for technical
+assistance on the subject, documentation, coordination, monitoring, reporting,
+and more.
+
+9.4. A detailed action plan , complete with intervention-specific timelines for the
+implementation of the policy , will be finalized soon after the release of the
+Policy.
+
+9.5. Put in place an institutional mechanism for monitoring the implementation of
+the Policy through:
+
+9.5.1. A ‘National Steering Committee on Cooperation Policy ’, chaired by the Union
+Minister of Cooperation, to be constituted for overall guidance, inter-ministerial
+coordination, periodic policy review, etc . This committee may include the
+Hon’ble Minister-in-charge of related Ministries of the Government of India as
+members,
+
+9.5.2. A national-level ‘Policy Implementation and Monitoring Committee’, chaired by
+the Union Cooperation Secretary , to be established for central -state
+coordination, troubleshooting implementation bottlenecks, periodic monitoring
+and evaluation, etc . It may comprise members, including the Secretary of
+related Ministries of the Government of India, Secretaries/Principal
+Secretaries/Additional Chief Secretaries of the Cooperative Department of all
+States/Union Territories, a representative from NITI Aayog, and
+Chairpersons/MDs of national cooperative federations/unions/societies,
+NABARD, NDDB, NCDC, NCCT, VAMNICOM, etc.
