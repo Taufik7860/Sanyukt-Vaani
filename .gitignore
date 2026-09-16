@@ -9,3 +9,9 @@ dist/
 .DS_Store
 __pycache__/
 *.pyc
+
+# Generated RAG data
+rag/knowledge_base/extracted_text/
+rag/knowledge_base/cleaned_text/
+rag/knowledge_base/chunks/
+rag/knowledge_base/embeddings/
