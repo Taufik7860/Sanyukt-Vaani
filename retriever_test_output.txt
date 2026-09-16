@@ -1,0 +1,1696 @@
+================================================================================
+SANYUKT VAANI - V5.1.9 FINAL RETRIEVER
+================================================================================
+
+[1/7] Loading embedding model...
+Embedding model: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+
+[2/7] Loading Jina multilingual reranker...
+Reranker: jinaai/jina-reranker-v2-base-multilingual
+
+[3/7] Loading embeddings...
+Embeddings shape: (18890, 384)
+
+[4/7] Loading embedding metadata...
+Total chunks: 18890
+
+[5/7] Connecting to Qdrant...
+Qdrant collection: sanyuktvaani_kb
+
+[6/7] Building local chunk index...
+Sources indexed: 83
+
+[7/7] Retriever initialization complete.
+Vectors: 18890
+Dimension: 384
+Collection: sanyuktvaani_kb
+================================================================================
+
+
+================================================================================
+V5.1.9 FINAL RETRIEVER TEST
+================================================================================
+
+
+################################################################################
+TEST 1/10
+################################################################################
+
+Query: What is KCC?, what is NABARD refinance, what documents are needed for crop insurance and how can I complain against a cooperative?
+
+
+================================================================================
+SANYUKT VAANI RETRIEVAL RESULT
+================================================================================
+Original Query: What is KCC?, what is NABARD refinance, what documents are needed for crop insurance and how can I complain against a cooperative?
+Detected Language: English (en)
+Question Count: 2
+Batch Gemini Allowed: True
+
+
+--------------------------------------------------------------------------------
+QUESTION 1
+--------------------------------------------------------------------------------
+Question      : What is KCC
+Language      : English (en)
+Domains       : ['agricultural_loan']
+Intents       : ['definition']
+Sub-Intents   : ['agri_kcc']
+Required Topics: ['kcc']
+Expanded Terms: 8
+Qdrant candidates: 50
+Lexical candidates: 50
+Combined candidates: 82
+After hard domain filter: 28
+Final evidence count: 4
+STATUS        : PARTIAL
+Evidence Completeness: 1.0000
+Answerable    : True
+Gemini Allowed: True
+TTS Language  : en
+Answer Rule   : Respond ONLY in English. Do not translate the answer into Hindi or Marathi. Keep official scheme names, acronyms, numbers and dates unchanged.
+
+TOP EVIDENCE
+--------------------------------------------------------------------------------
+
+#1
+Chunk ID: financial_literacy__03FARMERS20042018_chunk_6
+Source: financial_literacy__03FARMERS20042018.txt
+Chunk Index: 5
+Semantic: 0.6334
+Lexical: 0.375
+Jina: 0.4506
+Final: 0.5706
+Neighbor: False
+Text:
+5
+FINANCIAL LITERACY for Farmers
+While 10 per cent of the short-term limit under KCC can be used for household consumption purposes, it is
+advisable not to divert more funds for consumption expenditure.
+Why?
+The purpose of KCC is to meet your crop loan requirements. Large amounts spent on household expenses from
+KCC funds will affect your capacity to generate income. The income from your farm activities helps you repay
+the outstanding loans under KCC. When you divert funds away from crop activities, you may not be in a position
+to repay your loan.
+
+#2
+Chunk ID: financial_literacy__03FARMERS20042018_chunk_7
+Source: financial_literacy__03FARMERS20042018.txt
+Chunk Index: 6
+Semantic: 0.599
+Lexical: 0.5
+Jina: 0.3821
+Final: 0.5021
+Neighbor: False
+Text:
+6
+FINANCIAL LITERACY for Farmers
+Message 2: Prompt Repayment of Crop Loans has Several Benefits
+Features of KCC
+KCC borrowers shall be issued an ATM-cum -Debit card to enable them to withdraw
+money from KCC accounts through ATMs and make payments through PoS terminals.1
+The KCC will be in the nature of a revolving account. Credit balance in the account, if any, will fetch
+interest at the savings bank rate.2
+A 4 per cent rate of interest for short-term crop loans up to Rs. 3 lakhs
+during 2017ΓÇô18 (Interest Subvention Schemes as announced by the
+Government of India from time to time)*
+High interest rate. Collateral may or may not be required.
+├á Credit score improvement
+├á Higher loan amount next time
+├á Reduced interest costs
+Borrowing from bank
+Borrowing from unregistered
+entities/moneylenders
+Advantage of repaying loan and
+interest on time
+Collateral security is waived
+for a loan limit of up to
+Rs. 1 lakh.
+* To be eligible for the 4 per cent rate, a farmer should repay the loan within the
+
+#3
+Chunk ID: financial_literacy__03FARMERS20042018_chunk_10
+Source: financial_literacy__03FARMERS20042018.txt
+Chunk Index: 9
+Semantic: 0.0
+Lexical: 0.8075
+Jina: 0.3208
+Final: 0.4408
+Neighbor: False
+Text:
+7
+FINANCIAL LITERACY for Farmers
+Message 3: Avoid Distress Sale of Farm Produce ΓÇô
+Use Financing against Warehouse Receipts
+Even when you have a good harvest, the job is only half done. You need to sell your produce at good prices.
+DonΓÇÖt sell at low prices!
+Use warehouses
+If you feel you are not getting a fair price, store your produce in warehouses against warehouse receipts.# You
+will get financing from the bank for your immediate cash needsΓÇöthe benefit of interest subvention will be
+available to small and marginal farmers having a Kisan Credit Card (KCC). This will be for a further period of
+up to six months post-harvest and at a rate of 7 per cent * against negotiable warehouse receipts for keeping
+their produce in warehouses.
+* The Government of IndiaΓÇÖs latest subvention scheme announced from time to time.
+# Issued by warehouses accredited to the Warehousing Development and Regulatory Authority (WDRA).
+
+#4
+Chunk ID: financial_literacy__0908181013Cir_184_chunk_344
+Source: financial_literacy__0908181013Cir_184.txt
+Chunk Index: 343
+Semantic: 0.5881
+Lexical: 0.0
+Jina: 0.2069
+Final: 0.3269
+Neighbor: False
+Text:
+1. Number of live KCC Accounts in affiliated PACS:
+2. Number of SB KCC Accounts opened in the Bank in respect of these borrowers:
+3. Number of RuPay Kisan Cards proposed to be issued by the Bank:
+4. Status of adoption of Card technology in ΓÇªΓÇªΓÇªΓÇªΓÇªΓÇªΓÇª DCCB is as follows:
+Sr. No. Activities Date of
+completion
+a. IIN Number:
+b. Name of Switch Vendor:
+c. Name of Card Vendor:
+d. Name of Card Management Vendor
+e. EMV chip certification from NPCI (date of certification/
+application)
+
+f. Number of RuPay Kisan Cards ordered /proposed to be
+issued
+
+g. Purchase Order date for RuPay Kisan Cards - if order has
+been placed
+
+We request you to sanction an amount of Rs..___________ towards procurement
+of______ RuPay Kisan cards as indicated above.
+
+Yours faithfully
+
+Name of authorized Officer:
+Designation:
+Name of the Bank:
+Date:
+
+170
+
+Annexure II
+(On the Letter Head of the Bank)
+
+Format for submission of Claim by the bank
+The Chief General Manager
+___________ Regional Office
+NABARD
+
+Dear Sir
+
+
+--------------------------------------------------------------------------------
+QUESTION 2
+--------------------------------------------------------------------------------
+Question      : , what is NABARD refinance, what documents are needed for crop insurance and how can I complain against a cooperative
+Language      : English (en)
+Domains       : ['agricultural_loan', 'pmfby', 'grievance_redressal']
+Intents       : ['definition', 'documents', 'procedure', 'complaint']
+Sub-Intents   : ['agri_refinance', 'nabard', 'pmfby_enrollment_documents', 'cooperative_complaint']
+Required Topics: ['refinance', 'nabard', 'pmfby', 'documents', 'complaint']
+Expanded Terms: 24
+Qdrant candidates: 50
+Lexical candidates: 50
+Combined candidates: 93
+After hard domain filter: 93
+Final evidence count: 5
+STATUS        : PARTIAL
+Evidence Completeness: 0.6000
+Answerable    : True
+Gemini Allowed: False
+TTS Language  : en
+Answer Rule   : Respond ONLY in English. Do not translate the answer into Hindi or Marathi. Keep official scheme names, acronyms, numbers and dates unchanged.
+
+TOP EVIDENCE
+--------------------------------------------------------------------------------
+
+#1
+Chunk ID: crop_insurance__operational_guidelines_pmfby_chunk_114
+Source: crop_insurance__operational_guidelines_pmfby.txt
+Chunk Index: 113
+Semantic: 0.0
+Lexical: 0.9509
+Jina: 0.4811
+Final: 0.4649
+Neighbor: False
+Text:
+including Aadhaar
+Number, Mobile Number, validated land records and insured area, name of IUs,
+Crops and Bank Account details etc.
+6.3.3 Uploading copies of the requisite documents e.g. Land Possession/Ownership
+Certificate, Copy of Bank Passbook/Bank Account details & Crop Sowing certificate
+as per the requirements of the State Governments/UT Administrations, by all
+channels except for the enrolments done through banks for loanee farmers.
+6.3.4 Timely remittance of farmer's premium through payment gateway linked with NCIP
+strictly as per timelines to implementing Insurance Companies.
+6.3.5 Grievance redressal and resolution of complaints and queries of farmers raised
+through any of the mode including Krishi Rakshak Portal & Helpline within timelines
+outlined in the SOP/Manual of Grievance Redressal which shall be issued by the GoI
+separately.
+6.4 Submission of UID (AADHAAR) by Farmer
+6.4.1 Aadhaar has been made mandatory for availing Crop insurance from Kharif
+2017 season onwards. Th
+
+#2
+Chunk ID: crop_insurance__Revamped_Operational_Guidelines_17th_August_2020_chunk_589
+Source: crop_insurance__Revamped_Operational_Guidelines_17th_August_2020.txt
+Chunk Index: 588
+Semantic: 0.5998
+Lexical: 0.5558
+Jina: 0.3372
+Final: 0.4266
+Neighbor: False
+Text:
+ll submit the duly ∩¼ülled proposal/application form along
+with the copy of Aadhaar Card, Bank Passbook, Land Ownership proof /contract
+document or any other document de∩¼üned by the concerned State Government to
+identify share-cropper/tenant farmer, sowing certi∩¼ücate or self declaration of intent
+to sow the proposed crop.
+35.10.10 Non-Loanee farmer should ensure that the crop on the same land is not insured
+more than once or insured through two different agencies. If any such cases are
+reported/ identi∩¼üed, the insurance cover will be terminated, the premium shall be
+forfeited and necessary administrative and legal action may also be taken for
+malpractice.
+35.10.11 Give information of any loss due to a localized risk or a post-harvest loss due to the
+speci∩¼üed perils to the concerned bank-branch/ ∩¼ünancial institution/ channel
+partner/insurer within 72 hours.
+36 Enhanced Version of National Crop Insurance Portal (EV-NCIP)
+for administration of Crop Insurance Program (www.pmfby.gov.in):
+36.1
+
+#3
+Chunk ID: crop_insurance__Revamped_Operational_Guidelines_17th_August_2020_chunk_587
+Source: crop_insurance__Revamped_Operational_Guidelines_17th_August_2020.txt
+Chunk Index: 586
+Semantic: 0.5491
+Lexical: 0.5032
+Jina: 0.3531
+Final: 0.4174
+Neighbor: False
+Text:
+www.pmfby.gov.in
+Revamped Operational Guidelines of PMFBY
+along with the copy of LPC/Land Records/contract document or any other
+document de∩¼üned by the concerned State Government to identify
+share-cropper/tenant farmer, sowing certi∩¼ücate or self declaration of intent to sow
+the proposed crop and copy of Pass Book to the Bank/Intermediary.
+35.10.3 All non-loanee farmers willing to enrol through CSCs are compulsorily required to
+submit mobile phone numbers and Aadhaar numbers. They must authenticate
+themselves through Aadhaar enabled e-KYC for enrolment under crop insurance
+before the prescribed cut-off date along with the copy of LPC/Land
+Records/contract document or any other document de∩¼üned by the concerned State
+Government to identify share-cropper/tenant farmer, sowing certi∩¼ücate or self
+declaration of intent to sow the proposed crop, and the copy of Pass Book.
+35.10.4 The farmer desiring coverage under crop insurance should open/operate an
+account in the branch of the designated ba
+
+#4
+Chunk ID: crop_insurance__Revamped_Operational_Guidelines_17th_August_2020_chunk_588
+Source: crop_insurance__Revamped_Operational_Guidelines_17th_August_2020.txt
+Chunk Index: 587
+Semantic: 0.5981
+Lexical: 0.5032
+Jina: 0.283
+Final: 0.3517
+Neighbor: False
+Text:
+and the copy of Pass Book.
+35.10.4 The farmer desiring coverage under crop insurance should open/operate an
+account in the branch of the designated bank, and the details should be provided in
+the proposal/application form.
+35.10.5 The farmer should mention his/her land identi∩¼ücation number in the
+proposal/application.
+35.10.6 The farmer must provide documentary evidence with regard to the possession of
+cultivable land.
+35.10.7 To notify implementing Insurance Company in the event of change of crop or sown
+area being different from the details declared in the proposal form, the CSC or other
+channel.
+35.10.8 The farmer must furnish area sown con∩¼ürmation certi∩¼ücate/self declaration of intent
+to sow the proposed noti∩¼üed crop(s).
+35.10.9 Non-loanee farmers being covered through other than online channels of CSC and
+direct through NCIP etc. shall submit the duly ∩¼ülled proposal/application form along
+with the copy of Aadhaar Card, Bank Passbook, Land Ownership proof /contract
+document or any
+
+#5
+Chunk ID: crop_insurance__operational_guidelines_pmfby_chunk_115
+Source: crop_insurance__operational_guidelines_pmfby.txt
+Chunk Index: 114
+Semantic: 0.0
+Lexical: 0.0
+Jina: 0.3608
+Final: 0.3254
+Neighbor: True
+Text:
+ately.
+6.4 Submission of UID (AADHAAR) by Farmer
+6.4.1 Aadhaar has been made mandatory for availing Crop insurance from Kharif
+2017 season onwards. Therefore, all enrolment agencies are advised to
+mandatorily obtain Aadhaar Number of their farmers.
+6.4.2 Farmers not having Aadhaar Identity (ID) may also enroll under PMFBY subject to
+their enrolment for Aadhaar and submission of proof of such enrolment as per
+noti∩¼ücation No. 334.dated 8th February 2017 issued by the GoI under Section 7 of
+Aadhaar Act 2016 (Targeted Delivery of Financial and other Subsidies, Bene∩¼üts and
+Services). Copy of the noti∩¼ücation may be perused on www.pmfby.gov.in. This may
+be subject to further directions issued by the Government from time to time.
+6.4.3 All enrolment agencies including banks have to compulsorily take Aadhaar/Aadhaar
+enrolment number as per the noti∩¼ücation under the Aadhaar Act before the enrollment
+or sanction of crop loan under Kisan Credit Card. Hence the coverage of Loanee
+farmers without Aa
+
+
+================================================================================
+END RESULT
+================================================================================
+
+
+################################################################################
+TEST 2/10
+################################################################################
+
+Query: αñòαñ┐αñ╕αñ╛αñ¿ αñòαÑìαñ░αÑçαñíαñ┐αñƒ αñòαñ╛αñ░αÑìαñí αñòαÑìαñ»αñ╛ αñ╣αÑê, NABARD αñ¬αÑüαñ¿αñ░αÑìαñ╡αñ┐αññαÑìαññ αñòαÑìαñ»αñ╛ αñ╣αÑê, αñ½αñ╕αñ▓ αñ¼αÑÇαñ«αñ╛ αñòαÑç αñ▓αñ┐αñÅ αñòαÑîαñ¿ αñ╕αÑç αñªαñ╕αÑìαññαñ╛αñ╡αÑçαñ£ αñÜαñ╛αñ╣αñ┐αñÅ αñöαñ░ αñ╕αñ╣αñòαñ╛αñ░αÑÇ αñ╕αñ«αñ┐αññαñ┐ αñòαÑç αñûαñ┐αñ▓αñ╛αñ½ αñ╢αñ┐αñòαñ╛αñ»αññ αñòαÑêαñ╕αÑç αñòαñ░αÑçαñé?
+
+
+================================================================================
+SANYUKT VAANI RETRIEVAL RESULT
+================================================================================
+Original Query: αñòαñ┐αñ╕αñ╛αñ¿ αñòαÑìαñ░αÑçαñíαñ┐αñƒ αñòαñ╛αñ░αÑìαñí αñòαÑìαñ»αñ╛ αñ╣αÑê, NABARD αñ¬αÑüαñ¿αñ░αÑìαñ╡αñ┐αññαÑìαññ αñòαÑìαñ»αñ╛ αñ╣αÑê, αñ½αñ╕αñ▓ αñ¼αÑÇαñ«αñ╛ αñòαÑç αñ▓αñ┐αñÅ αñòαÑîαñ¿ αñ╕αÑç αñªαñ╕αÑìαññαñ╛αñ╡αÑçαñ£ αñÜαñ╛αñ╣αñ┐αñÅ αñöαñ░ αñ╕αñ╣αñòαñ╛αñ░αÑÇ αñ╕αñ«αñ┐αññαñ┐ αñòαÑç αñûαñ┐αñ▓αñ╛αñ½ αñ╢αñ┐αñòαñ╛αñ»αññ αñòαÑêαñ╕αÑç αñòαñ░αÑçαñé?
+Detected Language: Hindi (hi)
+Question Count: 1
+Batch Gemini Allowed: False
+
+
+--------------------------------------------------------------------------------
+QUESTION 1
+--------------------------------------------------------------------------------
+Question      : αñòαñ┐αñ╕αñ╛αñ¿ αñòαÑìαñ░αÑçαñíαñ┐αñƒ αñòαñ╛αñ░αÑìαñí αñòαÑìαñ»αñ╛ αñ╣αÑê, NABARD αñ¬αÑüαñ¿αñ░αÑìαñ╡αñ┐αññαÑìαññ αñòαÑìαñ»αñ╛ αñ╣αÑê, αñ½αñ╕αñ▓ αñ¼αÑÇαñ«αñ╛ αñòαÑç αñ▓αñ┐αñÅ αñòαÑîαñ¿ αñ╕αÑç αñªαñ╕αÑìαññαñ╛αñ╡αÑçαñ£ αñÜαñ╛αñ╣αñ┐αñÅ αñöαñ░ αñ╕αñ╣αñòαñ╛αñ░αÑÇ αñ╕αñ«αñ┐αññαñ┐ αñòαÑç αñûαñ┐αñ▓αñ╛αñ½ αñ╢αñ┐αñòαñ╛αñ»αññ αñòαÑêαñ╕αÑç αñòαñ░αÑçαñé?
+Language      : Hindi (hi)
+Domains       : ['agricultural_loan', 'grievance_redressal', 'pmfby']
+Intents       : ['definition', 'documents', 'procedure', 'complaint']
+Sub-Intents   : ['agri_kcc', 'agri_refinance', 'nabard', 'pmfby_enrollment_documents', 'cooperative_complaint']
+Required Topics: ['kcc', 'refinance', 'nabard', 'pmfby', 'documents', 'complaint']
+Expanded Terms: 32
+Qdrant candidates: 50
+Lexical candidates: 50
+Combined candidates: 86
+After hard domain filter: 86
+Final evidence count: 6
+STATUS        : PARTIAL
+Evidence Completeness: 0.5000
+Answerable    : True
+Gemini Allowed: False
+TTS Language  : hi
+Answer Rule   : Respond ONLY in Hindi (Devanagari script). Do not answer in English or Marathi. Keep official scheme names, acronyms, numbers, dates and document names unchanged where necessary.
+
+TOP EVIDENCE
+--------------------------------------------------------------------------------
+
+#1
+Chunk ID: crop_insurance__Revamped_Operational_Guidelines_17th_August_2020_chunk_589
+Source: crop_insurance__Revamped_Operational_Guidelines_17th_August_2020.txt
+Chunk Index: 588
+Semantic: 0.5501
+Lexical: 0.3575
+Jina: 0.4069
+Final: 0.4354
+Neighbor: False
+Text:
+ll submit the duly ∩¼ülled proposal/application form along
+with the copy of Aadhaar Card, Bank Passbook, Land Ownership proof /contract
+document or any other document de∩¼üned by the concerned State Government to
+identify share-cropper/tenant farmer, sowing certi∩¼ücate or self declaration of intent
+to sow the proposed crop.
+35.10.10 Non-Loanee farmer should ensure that the crop on the same land is not insured
+more than once or insured through two different agencies. If any such cases are
+reported/ identi∩¼üed, the insurance cover will be terminated, the premium shall be
+forfeited and necessary administrative and legal action may also be taken for
+malpractice.
+35.10.11 Give information of any loss due to a localized risk or a post-harvest loss due to the
+speci∩¼üed perils to the concerned bank-branch/ ∩¼ünancial institution/ channel
+partner/insurer within 72 hours.
+36 Enhanced Version of National Crop Insurance Portal (EV-NCIP)
+for administration of Crop Insurance Program (www.pmfby.gov.in):
+36.1
+
+#2
+Chunk ID: financial_literacy__03FARMERS20042018_chunk_2
+Source: financial_literacy__03FARMERS20042018.txt
+Chunk Index: 1
+Semantic: 0.6507
+Lexical: 0.27
+Jina: 0.3425
+Final: 0.379
+Neighbor: False
+Text:
+3
+FINANCIAL LITERACY for Farmers
+Kisan Credit Card Scheme
+ΓÇô Primarily for crop loan
+requirements and partly for
+consumption purposes.
+Prompt repayment of crop
+loans has several benefits ΓÇô
+Interest Subvention Scheme*
+Avoid distress sale of farm
+produce ΓÇô Use post-harvest
+financing against warehouse
+Receipts.#
+Insure your crop and safeguard
+yourself ΓÇô Crop insurance through
+Pradhan Mantri Fasal Bima Yojana
+(PMFBY).
+Do not lose hope
+even if you lose your crop during
+natural calamities ΓÇô Inform your bank
+of the extent of crop loss and seek
+assistance from the banks in the
+form of restructuring.
+* As announced by the Government of India from time to time.
+# For small and marginal farmers only.
+
+#3
+Chunk ID: crop_insurance__operational_guidelines_pmfby_chunk_613
+Source: crop_insurance__operational_guidelines_pmfby.txt
+Chunk Index: 612
+Semantic: 0.6143
+Lexical: 0.2825
+Jina: 0.3657
+Final: 0.3468
+Neighbor: False
+Text:
+ords, revenue records and KCC loan application of insured farmers against the
+details of individual insured farmers as available on NCIP. Integration of digitized
+land records with the NCIP is ongoing to resolve the problem of multiple coverage
+or excess coverage on the same parcel of land. Any misreporting in acreage will be
+veri∩¼üed and validated by the concerned Insurance Companies with the Digital land
+record portals of the States/UTs and the same can also be verified from the
+concerned bank branches in case of loanee farmers.The scheme also covers the
+risk of prevented sowing/germination failure which is not included in the final sowing
+area furnished by the State/UT Government for arriving at end of season sown area
+of respective crops during the season. Hence, the comparison of insured coverage
+without removing prevented sowing/germination failure acreage with the final
+season end sown area is not justi∩¼üable. However, misreporting of area insured or
+misrepresentation of, non-cult
+
+#4
+Chunk ID: crop_insurance__Revamped_Operational_Guidelines_17th_August_2020_chunk_40
+Source: crop_insurance__Revamped_Operational_Guidelines_17th_August_2020.txt
+Chunk Index: 39
+Semantic: 0.6144
+Lexical: 0.295
+Jina: 0.3675
+Final: 0.3331
+Neighbor: False
+Text:
+/tenant farmers and the same should
+be de∩¼üned by the respective States in the noti∩¼ücation itself. Such farmers are also
+required to essentially submit Aadhaar Number and declaration about the crop
+sown/ crops intended to be sown.
+3.1.1 Farmers availing the Kisan Credit Card (KCC)/Crop loan/Loanee Farmers:
+3.1.1.1 The scheme is optional for all farmers including farmers who have been sanctioned
+short-term Seasonal Agricultural Operations (SAO) loans/Kisan Credit Card (KCC)
+for the noti∩¼üed crops from de∩¼üned FIs (hereinafter referred to as Loanee farmers).
+Existing Loanee farmers who do not want to get covered under the scheme have
+the option of opting-out from the Schemes by submitting requisite declaration to
+loan sanctioning bank branches any time during the year but at least seven days
+prior to the cut-off date for enrolment of farmers for the respective season. All those
+farmers who do not submit the declaration would be essentially covered.
+3.1.1.2 Farmer whose KCC /crop loan has be
+
+#5
+Chunk ID: financial_literacy__03FARMERS20042018_chunk_3
+Source: financial_literacy__03FARMERS20042018.txt
+Chunk Index: 2
+Semantic: 0.6728
+Lexical: 0.27
+Jina: 0.2121
+Final: 0.3321
+Neighbor: False
+Text:
+4
+FINANCIAL LITERACY for Farmers
+The Kisan Credit Card Scheme aims at providing timely and adequate credit to farmers to meet their needs
+at the time of crop production (cultivation expenses), besides meeting contingency expenses. It also covers
+expenses related to ancillary activities through simplified procedures in obtaining loans as and when needed.
+1
+To meet the short-term
+credit requirements for
+cultivation of
+crops.
+Post-harvest
+expenses.
+2
+Loan for marketing of
+farm produce
+3
+Consumption
+requirements of
+farmer households.
+5
+Investment credit requirement for
+agriculture and allied activities like
+pump sets, sprayers, dairy
+animals, etc.
+6
+Working capital for maintenance
+of farm assets and activities allied
+to agriculture, like dairy animals,
+inland fishery, etc.
+4
+Note:
+1 to 5 will form the
+short-term credit limit
+portion and 6 will form
+the long-term credit
+limit portion.
+Message 1: Kisan Credit Card Scheme ΓÇô Primarily for Crop Loan Requirements
+and Partly for Consumption Purpo
+
+#6
+Chunk ID: crop_insurance__Revamped_Operational_Guidelines_17th_August_2020_chunk_590
+Source: crop_insurance__Revamped_Operational_Guidelines_17th_August_2020.txt
+Chunk Index: 589
+Semantic: 0.0
+Lexical: 0.0
+Jina: 0.3051
+Final: 0.3048
+Neighbor: True
+Text:
+ithin 72 hours.
+36 Enhanced Version of National Crop Insurance Portal (EV-NCIP)
+for administration of Crop Insurance Program (www.pmfby.gov.in):
+36.1 In the implementation of the scheme, multiple stake holders are involved from
+enrolment of farmers to the claim disbursement to farmers. A hallmark of the
+Scheme is leveraging technology adoption for the effective scheme administration.
+In an endeavour to integrate technology in the implementation and execution of the
+Scheme, the Ministry of Agriculture & Farmer's Welfare, Government of India has
+designed and developed a National Crop Insurance Portal (NCIP)
+(https://pmfby.gov.in) which serves as a centralized digital platform for all
+stakeholders. The idea behind developing a web-based, integrated digital platform
+is to speed up service delivery, unify fragmented databases, achieve a single view
+111
+
+
+================================================================================
+END RESULT
+================================================================================
+
+
+################################################################################
+TEST 3/10
+################################################################################
+
+Query: αñòαñ┐αñ╕αñ╛αñ¿ αñòαÑìαñ░αÑçαñíαñ┐αñƒ αñòαñ╛αñ░αÑìαñí αñ«αÑìαñ╣αñúαñ£αÑç αñòαñ╛αñ»?
+
+
+================================================================================
+SANYUKT VAANI RETRIEVAL RESULT
+================================================================================
+Original Query: αñòαñ┐αñ╕αñ╛αñ¿ αñòαÑìαñ░αÑçαñíαñ┐αñƒ αñòαñ╛αñ░αÑìαñí αñ«αÑìαñ╣αñúαñ£αÑç αñòαñ╛αñ»?
+Detected Language: Hindi (hi)
+Question Count: 1
+Batch Gemini Allowed: False
+
+
+--------------------------------------------------------------------------------
+QUESTION 1
+--------------------------------------------------------------------------------
+Question      : αñòαñ┐αñ╕αñ╛αñ¿ αñòαÑìαñ░αÑçαñíαñ┐αñƒ αñòαñ╛αñ░αÑìαñí αñ«αÑìαñ╣αñúαñ£αÑç αñòαñ╛αñ»?
+Language      : Hindi (hi)
+Domains       : []
+Intents       : ['definition']
+Sub-Intents   : ['agri_kcc']
+Required Topics: ['kcc']
+Expanded Terms: 8
+Qdrant candidates: 0
+Lexical candidates: 0
+Combined candidates: 0
+After hard domain filter: 0
+Final evidence count: 0
+STATUS        : OUT_OF_SCOPE
+Evidence Completeness: 0.0000
+Answerable    : False
+Gemini Allowed: False
+TTS Language  : hi
+Answer Rule   : Respond ONLY in Hindi (Devanagari script). Do not answer in English or Marathi. Keep official scheme names, acronyms, numbers, dates and document names unchanged where necessary.
+
+TOP EVIDENCE
+--------------------------------------------------------------------------------
+
+
+================================================================================
+END RESULT
+================================================================================
+
+
+################################################################################
+TEST 4/10
+################################################################################
+
+Query: how can I complain against a cooperative?
+
+
+================================================================================
+SANYUKT VAANI RETRIEVAL RESULT
+================================================================================
+Original Query: how can I complain against a cooperative?
+Detected Language: English (en)
+Question Count: 1
+Batch Gemini Allowed: True
+
+
+--------------------------------------------------------------------------------
+QUESTION 1
+--------------------------------------------------------------------------------
+Question      : how can I complain against a cooperative?
+Language      : English (en)
+Domains       : ['grievance_redressal']
+Intents       : ['procedure', 'complaint']
+Sub-Intents   : ['cooperative_complaint']
+Required Topics: ['complaint']
+Expanded Terms: 7
+Qdrant candidates: 50
+Lexical candidates: 50
+Combined candidates: 84
+After hard domain filter: 62
+Final evidence count: 5
+STATUS        : STRONG
+Evidence Completeness: 1.0000
+Answerable    : True
+Gemini Allowed: True
+TTS Language  : en
+Answer Rule   : Respond ONLY in English. Do not translate the answer into Hindi or Marathi. Keep official scheme names, acronyms, numbers and dates unchanged.
+
+TOP EVIDENCE
+--------------------------------------------------------------------------------
+
+#1
+Chunk ID: grievance_redressal__LS_USQ_439_English_chunk_11
+Source: grievance_redressal__LS_USQ_439_English.txt
+Chunk Index: 10
+Semantic: 0.6318
+Lexical: 0.4375
+Jina: 0.6151
+Final: 0.6883
+Neighbor: False
+Text:
+The Cooperative Societies with members from one State only are registered under the
+provisions of concerned State Cooperative Societies Act and are regulated by the concerned
+State Registrar of the Cooperative Societies. Whenever complaints against societies registered
+under the respective State Cooperative Societies Act are received in the office of CRCS, the
+same are forwarded to the Registrar of Cooperative Societies of the State/ UT concerned for
+their redressal as per respective State Cooperative Societies Act.
+****
+
+#2
+Chunk ID: grievance_redressal__LS_USQ_439_English_chunk_10
+Source: grievance_redressal__LS_USQ_439_English.txt
+Chunk Index: 9
+Semantic: 0.6146
+Lexical: 0.0
+Jina: 0.5299
+Final: 0.5349
+Neighbor: False
+Text:
+Multi-State Co-operative Societies registered under the provisions of the Multi State
+Cooperative Societies Act, 2002 function as autonomous cooperative organizations
+accountable to their members. Whenever, complaints are received against any of the Multi-
+State Co-operative Societies for violation of the provisions of MSCS Act & Rules or non-
+repayment of deposits on maturity, action is taken as per the provision of MSCS Act, 2002 and
+Rules made there under. Accordingly, the Central Registrar has already initiated process of
+winding up of 88 delinquent Multi-State Cooperative Societies.
+
+#3
+Chunk ID: cooperative_laws__202608131680998144_chunk_512
+Source: cooperative_laws__202608131680998144.txt
+Chunk Index: 511
+Semantic: 0.6226
+Lexical: 0.4325
+Jina: 0.3141
+Final: 0.4341
+Neighbor: False
+Text:
+i. Examine complaints referred to it;
+ii. Provide an opportunity of hearing to the concerned parties;
+iii. Attempt amicable settlement, wherever possible;
+iv. Submit its recommendations to the Managing Committee
+within a reasonable time.
+(d) The Managing Committee shall consider such
+recommendations and record its decision. In case of
+disagreement, reasons shall be recorded in writing.
+188 Internal Resolution and Settlement
+(a) The Society shall endeavour to resolve disputes amicably
+through discussion, mediation and mutual understanding before
+escalation.
+Internal Resolution and Settlement
+Internal
+Resolution
+and
+Settlement
+(b) The Managing Committee or Grievance Redressal Committee
+may facilitate such settlement in a fair and transparent manner.
+(c) This provision is intended to promote harmonious living and
+minimize disputes within the Society.
+189 Right to Approach Competent Authority
+(a) Where: Right to
+Approach
+Competent
+Authority
+i. The Member is not satisfied with the decision
+
+#4
+Chunk ID: maharashtra_cooperation__202608131680998144_chunk_506
+Source: maharashtra_cooperation__202608131680998144.txt
+Chunk Index: 505
+Semantic: 0.6409
+Lexical: 0.0
+Jina: 0.2539
+Final: 0.3739
+Neighbor: False
+Text:
+of the decision, submit a representation to the Society. The
+representation shall be placed before the next General Body
+Meeting or a Special General Body Meeting convened for the
+purpose. The decision of the General Body Meeting shall be
+final and binding.
+CHAPTER XIX. REDRESSAL OF MEMBERSΓÇÖ
+COMPLAINTS AND GRIEVANCE MANAGEMENT
+184 Submission of Complaints existing
+provisions
+(a) Any Member may submit a complaint in writing to any Office
+Bearer of the Society, clearly stating the facts, nature of
+grievance and relief sought.
+Submission of Complaints
+(b) The complaint shall contain sufficient particulars and
+supporting documents, wherever applicable, to enable proper
+consideration.
+(c) No complaint relating to services, management or functioning
+of the Society shall be entertained unless the Member has paid
+all undisputed dues of the Society, including maintenance
+charges, up to date.
+Provided that, a dispute regarding the correctness or legalityof
+such dues may be raised separately in a
+
+#5
+Chunk ID: grievance_redressal__ComprehensiveGuidelinesForHandlingThePublicGrievances_chunk_42
+Source: grievance_redressal__ComprehensiveGuidelinesForHandlingThePublicGrievances.txt
+Chunk Index: 41
+Semantic: 0.5997
+Lexical: 0.0
+Jina: 0.1813
+Final: 0.3013
+Neighbor: False
+Text:
+completed an ATR for internal use may be preferred by the Ministry/Departments.
+From the citizenΓÇÖs point of view such complaints may be closed with an interim reply
+3.5.2 However, if the complaint is found false, malicious, intentional and filed by
+habitual complaints time and again then such complainants are flagged and blocked
+in CPGRAMS
+4. Escalation Process:
+4.1 CPGRAMS has multichannel feedback and appeal mechanism. Going
+forward, Citizen can file appeal through Portal, Chatbot, WhatsApp and feedback call
+center. It shall be ensured that only a single appeal is filed for a grievance.
+4.2 Appeals will reach to the officer designated as Appellate authorities. The
+appellate authorities are the officers next senior to the GRO in the hierarchy. The
+appellate authority will examine the appeal and take an independent view on the
+appeal after careful examination of grievances and resolution provided by the GRO.
+The appeals shall ordinarily be closed within 30 days. Appeals will not go int
+
+
+================================================================================
+END RESULT
+================================================================================
+
+
+################################################################################
+TEST 5/10
+################################################################################
+
+Query: what is NABARD refinance
+
+
+================================================================================
+SANYUKT VAANI RETRIEVAL RESULT
+================================================================================
+Original Query: what is NABARD refinance
+Detected Language: English (en)
+Question Count: 1
+Batch Gemini Allowed: True
+
+
+--------------------------------------------------------------------------------
+QUESTION 1
+--------------------------------------------------------------------------------
+Question      : what is NABARD refinance
+Language      : English (en)
+Domains       : ['agricultural_loan']
+Intents       : ['definition']
+Sub-Intents   : ['agri_refinance', 'nabard']
+Required Topics: ['refinance', 'nabard']
+Expanded Terms: 7
+Qdrant candidates: 50
+Lexical candidates: 50
+Combined candidates: 92
+After hard domain filter: 33
+Final evidence count: 5
+STATUS        : PARTIAL
+Evidence Completeness: 1.0000
+Answerable    : True
+Gemini Allowed: True
+TTS Language  : en
+Answer Rule   : Respond ONLY in English. Do not translate the answer into Hindi or Marathi. Keep official scheme names, acronyms, numbers and dates unchanged.
+
+TOP EVIDENCE
+--------------------------------------------------------------------------------
+
+#1
+Chunk ID: maharashtra_cooperation__20260310413826591_chunk_95
+Source: maharashtra_cooperation__20260310413826591.txt
+Chunk Index: 94
+Semantic: 0.5171
+Lexical: 0.6471
+Jina: 0.4933
+Final: 0.5889
+Neighbor: False
+Text:
+As per the proviston of section 32 of NABARD Act
+981, this scheme has been operational since [αÑºαÑº78-79
+The objective of the scheme 15 to convert short-lonn
+crop loans (including interest) into medium term loans of
+3 to 5 years for farmers in villages affected by natural
+calamities, based on their consent. This enables themta
+become eligible for fresh crop αñ½αñ╛αñí.
+
+Scheme Structure -
+
+(1) 00% of the converted loan amount is provided by
+NABARD as o loan under government cuorantee at
+the level of various Executive Service cooperative
+institution. 15% of the converted loan amount is provided
+by the Government, 10 αÑºαÑ¡ is provided by the State
+Co-operative Banks front the credit stabilization fund.
+
+The remnining 15" 6s αñªαñ┐αñ╕αññ by the concemed District
+Cooperative Banks,
+
+(2) The 15% government shure 15 provided to the
+State Cooperative Bank as αÑÑ medium-term lown based
+on tts proposal, Repayment of this loan iso be made
+within 5 years at the interest rate applicable to
+NABARD's refinance loons.
+
+#2
+Chunk ID: maharashtra_cooperation__202502141769496274_chunk_128
+Source: maharashtra_cooperation__202502141769496274.txt
+Chunk Index: 127
+Semantic: 0.5445
+Lexical: 0.5882
+Jina: 0.4187
+Final: 0.5387
+Neighbor: False
+Text:
+of the total converted / restructured loan, 60%
+amount is given by NABARD on the government
+gurantee, 15% by the Government, 15% by the respective
+DCCB and 10% by the State Cooperative Bank.
+18
+(2) The government share of 15% is given as medium
+term loan to State Cooperative Bank. This loan is to be
+repaid as per the interest rate on refinance loan of
+NABARD and within a period 5 years.
+(3) As per the instruction issued by RBI and
+Government, it is necessary to convert short term loan
+into the medium term loan inclusive of the principle amount
+of the crop loan into recoverable instalments and to
+postpone recovery of interest for a period of one year.
+4. According to instructions issued on 21.8.2015, by
+Reserve Bank of India, if the damage to crops is between
+33% & 50 % the conversion period is two years and if it
+is more than 50% the conversion period is five years.
+Proposed demand of Rs. 0.01 lakh is made under the
+scheme for the year 2023.24.
+5. Interest Subvention to Commercial Ban
+
+#3
+Chunk ID: maharashtra_cooperation__202502141769496274_chunk_136
+Source: maharashtra_cooperation__202502141769496274.txt
+Chunk Index: 135
+Semantic: 0.4864
+Lexical: 0.0
+Jina: 0.2744
+Final: 0.3071
+Neighbor: False
+Text:
+apprised by
+NABARD Consultancy services or Maharashtra Jeevan
+Pradhikaran or certified engineer of financing DCCBs.
+2.Under this scheme, crop loan borrowed in 2015-16
+and year 2016-17 and repaid on or before 31/7/2017
+are eligible for the benefit of incentive against the
+repayment amount of loan for the year 2015-16, upto
+25% of repaid amount or Rs. 25000 whichver is less.
+Under this scheme, the short term agriultural loan availed
+on or after 1-4-2001 to 31-3-2016 and restructured on
+
+#4
+Chunk ID: financial_literacy__0908181013Cir_184_chunk_590
+Source: financial_literacy__0908181013Cir_184.txt
+Chunk Index: 589
+Semantic: 0.4833
+Lexical: 0.0
+Jina: 0.248
+Final: 0.283
+Neighbor: False
+Text:
+14. NABARD shall not be held liable for any financial, non -financial commitments or any other
+commitments made by the -------- (Name of the Bank) to third parties which are not approved
+by NABARD or which do not form a part of the project / programme.
+15. NABARD may form an internal or external committee for reviewing the performance of the
+project and/or ------ (Name of the Bank) and reserves the right to suspend or terminate the
+funding under this Agreement, in case of irregularities or unsatisfactory performanc e. The ---
+----- (Name of the Bank) shall extend necessary co -operation and make available records /
+documents as required by the monitoring team.
+
+#5
+Chunk ID: financial_literacy__0908181013Cir_184_chunk_587
+Source: financial_literacy__0908181013Cir_184.txt
+Chunk Index: 586
+Semantic: 0.4725
+Lexical: 0.0
+Jina: 0.2241
+Final: 0.2677
+Neighbor: False
+Text:
+any transfer or assignment without the
+consent of NABARD is not binding on it.
+10. The data, processes and systems of the Financial Inclusion Programme shall remain t he
+exclusive property of NABARD and shall not be shared / divulged in any form by (Name of
+Bank etc.) or the agency/institution unless specifically permitted in writing by NABARD.
+11. The --------- (Name of the Bank) shall pay all dues, charges, penalties and taxes as may be levied
+from time to time by any Government Authority or in accordance with the Applicable Law
+pertaining to or in respect of the Grant and Grant related transactions.
+12. The grant assistance shall not be utilized for any illegal, unlawful or i mmoral purposes or
+activities at any time.
+13. The ---------- (Name of the Bank) shall indemnify NABARD against all claims in respect of
+intellectual property rights, or other protected rights in respect of innovations used for or any
+other material in connect ion with the works or temporary works and from aga
+
+
+================================================================================
+END RESULT
+================================================================================
+
+
+################################################################################
+TEST 6/10
+################################################################################
+
+Query: What documents are required for PMFBY crop insurance?
+
+
+================================================================================
+SANYUKT VAANI RETRIEVAL RESULT
+================================================================================
+Original Query: What documents are required for PMFBY crop insurance?
+Detected Language: English (en)
+Question Count: 1
+Batch Gemini Allowed: True
+
+
+--------------------------------------------------------------------------------
+QUESTION 1
+--------------------------------------------------------------------------------
+Question      : What documents are required for PMFBY crop insurance?
+Language      : English (en)
+Domains       : ['pmfby']
+Intents       : ['documents']
+Sub-Intents   : ['pmfby_enrollment_documents']
+Required Topics: ['pmfby', 'documents']
+Expanded Terms: 10
+Qdrant candidates: 50
+Lexical candidates: 50
+Combined candidates: 80
+After hard domain filter: 80
+Final evidence count: 5
+STATUS        : STRONG
+Evidence Completeness: 1.0000
+Answerable    : True
+Gemini Allowed: True
+TTS Language  : en
+Answer Rule   : Respond ONLY in English. Do not translate the answer into Hindi or Marathi. Keep official scheme names, acronyms, numbers and dates unchanged.
+
+TOP EVIDENCE
+--------------------------------------------------------------------------------
+
+#1
+Chunk ID: crop_insurance__Revamped_Operational_Guidelines_17th_August_2020_chunk_587
+Source: crop_insurance__Revamped_Operational_Guidelines_17th_August_2020.txt
+Chunk Index: 586
+Semantic: 0.6986
+Lexical: 0.84
+Jina: 0.85
+Final: 0.97
+Neighbor: False
+Text:
+www.pmfby.gov.in
+Revamped Operational Guidelines of PMFBY
+along with the copy of LPC/Land Records/contract document or any other
+document de∩¼üned by the concerned State Government to identify
+share-cropper/tenant farmer, sowing certi∩¼ücate or self declaration of intent to sow
+the proposed crop and copy of Pass Book to the Bank/Intermediary.
+35.10.3 All non-loanee farmers willing to enrol through CSCs are compulsorily required to
+submit mobile phone numbers and Aadhaar numbers. They must authenticate
+themselves through Aadhaar enabled e-KYC for enrolment under crop insurance
+before the prescribed cut-off date along with the copy of LPC/Land
+Records/contract document or any other document de∩¼üned by the concerned State
+Government to identify share-cropper/tenant farmer, sowing certi∩¼ücate or self
+declaration of intent to sow the proposed crop, and the copy of Pass Book.
+35.10.4 The farmer desiring coverage under crop insurance should open/operate an
+account in the branch of the designated ba
+
+#2
+Chunk ID: crop_insurance__Revamped_Operational_Guidelines_17th_August_2020_chunk_589
+Source: crop_insurance__Revamped_Operational_Guidelines_17th_August_2020.txt
+Chunk Index: 588
+Semantic: 0.6608
+Lexical: 0.88
+Jina: 0.7944
+Final: 0.9144
+Neighbor: False
+Text:
+ll submit the duly ∩¼ülled proposal/application form along
+with the copy of Aadhaar Card, Bank Passbook, Land Ownership proof /contract
+document or any other document de∩¼üned by the concerned State Government to
+identify share-cropper/tenant farmer, sowing certi∩¼ücate or self declaration of intent
+to sow the proposed crop.
+35.10.10 Non-Loanee farmer should ensure that the crop on the same land is not insured
+more than once or insured through two different agencies. If any such cases are
+reported/ identi∩¼üed, the insurance cover will be terminated, the premium shall be
+forfeited and necessary administrative and legal action may also be taken for
+malpractice.
+35.10.11 Give information of any loss due to a localized risk or a post-harvest loss due to the
+speci∩¼üed perils to the concerned bank-branch/ ∩¼ünancial institution/ channel
+partner/insurer within 72 hours.
+36 Enhanced Version of National Crop Insurance Portal (EV-NCIP)
+for administration of Crop Insurance Program (www.pmfby.gov.in):
+36.1
+
+#3
+Chunk ID: crop_insurance__Revamped_Operational_Guidelines_17th_August_2020_chunk_66
+Source: crop_insurance__Revamped_Operational_Guidelines_17th_August_2020.txt
+Chunk Index: 65
+Semantic: 0.6255
+Lexical: 0.44
+Jina: 0.7786
+Final: 0.7937
+Neighbor: False
+Text:
+www.pmfby.gov.in
+Revamped Operational Guidelines of PMFBY
+6.3.1 Creation of digital credentials for each user and compulsory digital data entry of
+farmers' details on NCIP as per the prescribed enrolment module within the
+stipulated timelines as de∩¼üned in the Seasonality discipline.
+6.3.2 Digitization of correct and updated information of the insured farmers on NCIP after
+due validation with the records available with the bank/farmers including validated
+insured area, name of IUs, Crops and Bank Account details etc.
+6.3.3 Uploading copies of the requisite documents by all channels except for the
+enrolments done through banks.
+6.3.4 Timely remittance of farmer's premium through payment gateway linked with NCIP
+strictly as per timelines to implementing ICs.
+6.4 Submission of UID (AADHAAR) by farmer:
+6.4.1 Aadhaar has been made mandatory for availing Crop insurance from Kharif
+2017 season onwards. Therefore, all enrolment agencies are advised to
+mandatorily obtain Aadhaar Number of their
+
+#4
+Chunk ID: crop_insurance__operational_guidelines_pmfby_chunk_782
+Source: crop_insurance__operational_guidelines_pmfby.txt
+Chunk Index: 781
+Semantic: 0.6517
+Lexical: 0.52
+Jina: 0.6487
+Final: 0.7687
+Neighbor: False
+Text:
+ted for the crop and
+IU.
+39.4.4 Land Record Integration
+Land record detail is one of the critical requirements under the PMFBY scheme for
+validation of insured area. Manual veri∩¼ücation of the land record data is a sheer
+challenge. Many State/UTs have digitized land record system, however their
+hierarchal system and practices are different. DA&FW has moved ahead to integrate
+the land record system of 10 major states with NCIP to validate the farmer's land
+parcel with land record system at the time of enrollment under the scheme.
+State/UTs shares the land record API subsequent to which customization of API
+consumption for integration of land records of the State(s) with NCIP is executed.
+The land record details of the farmers is required to be entered during enrolment
+process and rest of the land details viz. extent of land, ownership share and names
+of owners/shareholders are fetched through the State/UT land record portal.
+In the Future, as and when the Agri-Stack system becomes operat
+
+#5
+Chunk ID: crop_insurance__operational_guidelines_pmfby_chunk_783
+Source: crop_insurance__operational_guidelines_pmfby.txt
+Chunk Index: 782
+Semantic: 0.0
+Lexical: 0.0
+Jina: 0.4865
+Final: 0.5381
+Neighbor: True
+Text:
+and names
+of owners/shareholders are fetched through the State/UT land record portal.
+In the Future, as and when the Agri-Stack system becomes operational, the farmerΓÇÖs
+Golden ID along with land records, land area, cadastral maps and sown crop details
+shall be fetched & validated using it.
+39.4.5 Location Master Management
+
+
+================================================================================
+END RESULT
+================================================================================
+
+
+################################################################################
+TEST 7/10
+################################################################################
+
+Query: What documents are required for a PMFBY claim?
+
+
+================================================================================
+SANYUKT VAANI RETRIEVAL RESULT
+================================================================================
+Original Query: What documents are required for a PMFBY claim?
+Detected Language: English (en)
+Question Count: 1
+Batch Gemini Allowed: True
+
+
+--------------------------------------------------------------------------------
+QUESTION 1
+--------------------------------------------------------------------------------
+Question      : What documents are required for a PMFBY claim?
+Language      : English (en)
+Domains       : ['pmfby']
+Intents       : ['documents']
+Sub-Intents   : ['pmfby_claim_documents']
+Required Topics: ['pmfby', 'documents']
+Expanded Terms: 7
+Qdrant candidates: 50
+Lexical candidates: 50
+Combined candidates: 96
+After hard domain filter: 96
+Final evidence count: 5
+STATUS        : STRONG
+Evidence Completeness: 1.0000
+Answerable    : True
+Gemini Allowed: True
+TTS Language  : en
+Answer Rule   : Respond ONLY in English. Do not translate the answer into Hindi or Marathi. Keep official scheme names, acronyms, numbers and dates unchanged.
+
+TOP EVIDENCE
+--------------------------------------------------------------------------------
+
+#1
+Chunk ID: crop_insurance__Revamped_Operational_Guidelines_17th_August_2020_chunk_391
+Source: crop_insurance__Revamped_Operational_Guidelines_17th_August_2020.txt
+Chunk Index: 390
+Semantic: 0.6588
+Lexical: 0.7895
+Jina: 0.8256
+Final: 0.9456
+Neighbor: False
+Text:
+www.pmfby.gov.in
+Revamped Operational Guidelines of PMFBY
+21.5.5 Documentary evidence required for claim assessment:
+21.5.5.1 Duly ∩¼ülled intimation / application of crop insurance app along with all relevant
+documents is necessary for initiation of loss assessment and payment of claims.
+However, if information on all the columns is not readily available, semi-∩¼ülled form
+may be sent to the Insurance Company and later within 7 days of the loss, the form
+with complete details may be submitted.
+21.5.5.2 The IC is responsible for ensuring that suf∩¼ücient number of loss intimation forms are
+available at the bank branch/local Government of∩¼ücials level. Any other additional
+documents can be collected directly from the farmer at the time of loss assessment
+by the representative/surveyor of the Insurance Company. Insurance Company
+shall complete all formalities for the payment of such claims like local newspaper
+cutting and any other available evidence to substantiate the occurrence of loss
+event
+
+#2
+Chunk ID: crop_insurance__operational_guidelines_pmfby_chunk_867
+Source: crop_insurance__operational_guidelines_pmfby.txt
+Chunk Index: 866
+Semantic: 0.6812
+Lexical: 0.0
+Jina: 0.7879
+Final: 0.7675
+Neighbor: False
+Text:
+www.pmfby.gov.in
+Operational Guidelines 2023 of PMFBY 172
+
+7. Documentary Evidence Required for Claim Assessment:
+
+www.pmfby.gov.in
+Operational Guidelines 2023 of PMFBY 173
+
+www.pmfby.gov.in
+Operational Guidelines 2023 of PMFBY 174
+
+ANNEXURE - II
+Format for reporting of excess area insured/ acreage discrepancy for consideration of
+application of area correction factor by Insurance Company
+(All areas in Hectare)
+Details available at Noti∩¼üed Insurance Unit Level or Block/Taluka Level (If sown area not
+available at IU level)
+
+District
+
+IU
+
+Block
+
+Name of
+lowest
+unit
+areas at
+which
+sown
+area
+data is
+availabl
+e
+
+Total
+Geogr
+aphic
+al
+Area
+at the
+lowest
+unit
+area
+
+Net
+Cultivab
+le/sown
+area at
+the
+lowest
+unit
+level
+Total
+Insure
+d areas
+under
+all
+noti∩¼üe
+d
+crops
+at
+lowest
+unit
+areas
+
+Name
+of
+Insured
+Crop#
+Area sown during
+the season for last
+three years (at
+lowest available unit
+of area) under
+reported crop
+
+Year 3
+
+Year 2
+
+#3
+Chunk ID: crop_insurance__operational_guidelines_pmfby_chunk_862
+Source: crop_insurance__operational_guidelines_pmfby.txt
+Chunk Index: 861
+Semantic: 0.6468
+Lexical: 0.0
+Jina: 0.784
+Final: 0.7571
+Neighbor: False
+Text:
+www.pmfby.gov.in
+Operational Guidelines 2023 of PMFBY 172
+
+7. Documentary Evidence Required for Claim Assessment:
+
+www.pmfby.gov.in
+Operational Guidelines 2023 of PMFBY 173
+
+#4
+Chunk ID: crop_insurance__operational_guidelines_pmfby_chunk_859
+Source: crop_insurance__operational_guidelines_pmfby.txt
+Chunk Index: 858
+Semantic: 0.6655
+Lexical: 0.0
+Jina: 0.7663
+Final: 0.7503
+Neighbor: False
+Text:
+www.pmfby.gov.in
+Operational Guidelines 2023 of PMFBY 172
+
+7. Documentary Evidence Required for Claim Assessment:
+
+#5
+Chunk ID: crop_insurance__Revamped_Operational_Guidelines_17th_August_2020_chunk_448
+Source: crop_insurance__Revamped_Operational_Guidelines_17th_August_2020.txt
+Chunk Index: 447
+Semantic: 0.5773
+Lexical: 0.0
+Jina: 0.5312
+Final: 0.5245
+Neighbor: False
+Text:
+Image and Satellite Index
+based outputs to be
+provided by ISRO/SAC,
+MNCFC or any other
+Government approved
+agency, Government crop
+condition reports, and
+media reports, etc.
+www.pmfby.gov.in
+Revamped Operational Guidelines of PMFBY
+Assessment of likely losses
+and ∩¼ünalization of claims
+payment based on the
+joint survey.
+85
+Sl. No. Action required to
+be taken
+Schedule for taking
+action
+Action to be
+taken by
+
+
+================================================================================
+END RESULT
+================================================================================
+
+
+################################################################################
+TEST 8/10
+################################################################################
+
+Query: What documents are required for PACS membership?
+
+
+================================================================================
+SANYUKT VAANI RETRIEVAL RESULT
+================================================================================
+Original Query: What documents are required for PACS membership?
+Detected Language: English (en)
+Question Count: 1
+Batch Gemini Allowed: False
+
+
+--------------------------------------------------------------------------------
+QUESTION 1
+--------------------------------------------------------------------------------
+Question      : What documents are required for PACS membership?
+Language      : English (en)
+Domains       : ['pacs']
+Intents       : ['documents']
+Sub-Intents   : ['pacs_membership']
+Required Topics: ['documents', 'pacs_membership']
+Expanded Terms: 6
+Qdrant candidates: 50
+Lexical candidates: 50
+Combined candidates: 96
+After hard domain filter: 60
+Final evidence count: 5
+STATUS        : PARTIAL
+Evidence Completeness: 0.5000
+Answerable    : True
+Gemini Allowed: False
+TTS Language  : en
+Answer Rule   : Respond ONLY in English. Do not translate the answer into Hindi or Marathi. Keep official scheme names, acronyms, numbers and dates unchanged.
+
+TOP EVIDENCE
+--------------------------------------------------------------------------------
+
+#1
+Chunk ID: cooperative_laws__202608131680998144_chunk_570
+Source: cooperative_laws__202608131680998144.txt
+Chunk Index: 569
+Semantic: 0.4774
+Lexical: 0.4375
+Jina: 0.3798
+Final: 0.3848
+Neighbor: False
+Text:
+unaffected.
+Enclosures:
+(1) Original Share Certificate
+(2) Certified copy of the registered instrument of transfer
+(3) Transferor's resignation letter
+(4) Transferee's Membership application and entrance-fee (Rs. 500/-) payment proof
+(5) Transfer charges Rs. 500/- and transfer premium (maximum Rs. 25,000/-), as applicable
+Signature of Transferor: _________________________________
+Signature of Transferee: _________________________________
+Place: ______________ Date: ______________
+For Office Use ΓÇö Society's Endorsement
+Transfer approved vide Committee Resolution No. _______ dated _______. Transferee admitted as Member and entered in the
+Register of I, J and Shares at Sr. No. _______. Fresh/endorsed Share Certificate No. _______ issued on _______.
+Signature of Secretary: _________________________
+Page 15
+
+#2
+Chunk ID: maharashtra_cooperation__202504261077524155_chunk_9
+Source: maharashtra_cooperation__202504261077524155.txt
+Chunk Index: 8
+Semantic: 0.5905
+Lexical: 0.0
+Jina: 0.4615
+Final: 0.3831
+Neighbor: False
+Text:
+αñ¬αÑâαñ╖αÑìαñƒαÑìαñá 4 αñ¬αÑêαñòαÑÇ 3
+7) αñùαÑìαñ░αñ╛αñ┐αñ¬αñ╛αñéαñÜαñ╛αñ»αññ/αñùαñ╛αñ╡αñ╕αÑìαññαñ░αñ╛αñ╡αñ░ αñ¬αÑìαñ░αñ╛αñÑαñ¿αñ┐αñò αñò αÑâ αñ╖αÑÇ αñ╕αñ╣αñòαñ╛αñ░αÑÇ αñ╕αñ╛αñéαñ╕αÑìαñÑαñ╛αñ╛αñéαñ¿αñ╛ (PACS) αñ╢αñ╛αñ╕αñòαÑÇαñ» αñ┐αñ┐αÑÇαñ¿/αñùαñ╛αñ╡αñáαñ╛αñ¿ αñ┐αñ┐αÑÇαñ¿
+αñ╡αñ╛αñƒαñ¬αñ╛αñ╕αñ╣ αñçαññαñ░ αñ╕αñ╡αñú αñåαñ╡αñ╢αÑìαñ»αñò αññαÑìαñ»αñ╛ αñ¬αñ╛αñ»αñ╛αñ¡αÑéαññ αñ╕αÑüαñ¿αñ╡αñºαñ╛ αñ¬αÑìαñ░αñ░αÑìαñªαñ╛αñ¿ αñòαñ░αñúαÑç.
+8) αñ╕αñ░αÑìαñªαñ░ αñ»αÑïαñ┐αñ¿αÑçαñÜαÑÇ αñùαñ╛αñ╡αñ¬αñ╛αññαñ│αÑÇαñ╡αñ░ αñàαñ╛αñéαñ┐αñ▓αñ¼αñ┐αñ╛αñ╡αñúαÑÇ αñòαñ░αñúαÑìαñ»αñ╛αñ╕αñ╛αñáαÑÇ αñ¿αñ┐αñ▓αÑìαñ╣αñ╛ αñ╕αñ╣αñòαñ╛αñ░ αñ¿αñ╡αñòαñ╛αñ╕ αñ╕αñ¿αñ┐αññαÑÇαñ▓αñ╛
+(DCDC) αñ▓αñ╛ αñåαñ╡αñ╢αÑìαñ»αñò αññαÑç αñ╕αñ╡αñú αñ╕αñ╣αñòαñ╛αñ»αñú αñòαñ░αñúαÑç.
+9) αñ░αñ╛αñ£αÑìαñ» αñ╕αÑìαññαñ░αñ╛αñ╡αñ░αÑÇαñ▓ αñò αÑâ αññαÑÇ αñåαñ░αñ╛αñûαñíαÑìαñ»αñ╛αñÜαÑìαñ»αñ╛ αñàαñ╛αñéαñ┐αñ▓αñ¼αñ┐αñ╛αñ╡αñúαÑÇαñÜαÑìαñ»αñ╛ αñàαñ¿αÑüαñ╖αñ╛αñéαñùαñ╛αñ¿αÑç αñ╕αñ╛αñéαñ¿αñ¿αñ»αñ╛αñéαññαÑìαñ░αñú αñòαñ░αñúαÑç.
+10) αñçαññαñ░ αñòαÑïαñúαññαÑìαñ»αñ╛αñ╣αÑÇ αñ╕αñ╛αñéαñ¼αñ╛αñéαñ¿αñºαññ αñ¼αñ╛αñ¼αÑÇ.
+3. αñ¿αñ┐αñ▓αÑìαñ╣αñ╛ αñ╕αñ╣αñòαñ╛αñ░ αñ¿αñ╡αñòαñ╛αñ╕ αñ╕αñ¿αñ┐αññαÑÇ (District Co-operative Development Committee) (DCDC)
+αñà.αñòαÑìαñ░. αñ╕αñ¿αñ┐αññαÑÇ αñàαñºαÑìαñ»αñòαÑìαñ╖/αñ╕αñ░αÑìαñªαñ╕αÑìαñ» αñ¬αñ░αÑìαñªαñ¿αñ╛αñ┐
+1 αñ¿αñ┐αñ▓αÑìαñ╣αñ╛αñ¿αñºαñòαñ╛αñ░αÑÇ αñàαñºαÑìαñ»αñòαÑìαñ╖
+2 αñ┐αÑüαñûαÑìαñ» αñòαñ╛αñ»αñúαñòαñ╛αñ░αÑÇ αñàαñ¿αñºαñòαñ╛αñ░αÑÇ αñ╕αñ░αÑìαñªαñ╕αÑìαñ»
+3 αñàαñ¿αññαñ░αÑÇαñòαÑìαññ αñ¿αñ┐αñ▓αÑìαñ╣αñ╛ αñ░αÑìαñªαñ╛αñéαñ░αÑìαñ╛αñ¿αñºαñòαñ╛αñ░αÑÇ αñ╕αñ░αÑìαñªαñ╕αÑìαñ»
+4 αñ¿αñ┐αñ▓αÑìαñ╣αñ╛ αñëαñ¬αñ¿αñ¿αñ¼αñ╛αñéαñºαñò, αñ╕αñ╣αñòαñ╛αñ░αÑÇ αñ╕αñ╛αñéαñ╕αÑìαñÑαñ╛ αñ╕αñ┐αñ¿αÑìαñ╡αñ»αñò
+5 αñ¿αñ┐αñ▓αÑìαñ╣αñ╛ αñàαñ¿αñºαñòαÑìαñ╖αñò, αñò αÑâ αñ╖αÑÇ αñàαñ¿αñºαñòαñ╛αñ░αÑÇ, αñò αÑâ αñ╖αÑÇ αñ¿αñ╡αñ¡αñ╛αñù αñ╕αñ░αÑìαñªαñ╕αÑìαñ»
+6 αñ¿αñ┐αñ▓αÑìαñ╣αñ╛ αñ¬αñ╢αÑéαñºαñ¿ αñ╕αñ╛αñéαñ╡αñºαñúαñ¿ αñàαñ¿αñºαñòαñ╛αñ░αÑÇ αñ╕αñ░αÑìαñªαñ╕αÑìαñ»
+7 αñ¿αñ┐αñ▓αÑìαñ╣αñ╛ αñ░αÑìαñªαÑüαñùαÑìαñºαñ╡αÑìαñ»αñ╡αñ╕αñ╛αñ» αñ¿αñ╡αñòαñ╛αñ╕ αñàαñ¿αñºαñòαñ╛αñ░αÑÇ αñ╕αñ░αÑìαñªαñ╕αÑìαñ»
+8 αñ╕αñ╣αñåαñ»αÑüαñòαÑìαññ (αñ┐αññαÑìαñ╕αÑìαñ») αñ╕αñ░αÑìαñªαñ╕αÑìαñ»
+9 αñ╡αÑìαñ»αñ╡αñ╕αÑìαñÑαñ╛αñ¬αñòαÑÇαñ» αñ╕αñ╛αñéαñÜαñ╛αñ▓αñò, αñ¿αñ┐αñ▓αÑìαñ╣αñ╛ αñ┐αñºαÑìαñ»αñ╡αññαÑÇ αñ╕αñ╣αñòαñ╛αñ░αÑÇ αñ¼αñüαñò αñ╕αñ░αÑìαñªαñ╕αÑìαñ»
+10 αñ¿αñ┐αñ▓αÑìαñ╣αñ╛ αñ¿αñ╡αñòαñ╛αñ╕ αñàαñ¿αñºαñòαñ╛αñ░αÑÇ, αñ¿αñ╛αñ¼αñ╛αñ░αÑìαñú αñ╕αñ░αÑìαñªαñ╕αÑìαñ»
+11 αñ¬αÑìαñ░αñ¿αññαñ¿αñ¿αñºαÑÇ, αñ░αñ╛αñ╖αÑìαñƒαÑìαñ░αÑÇαñ» αñ░αÑìαñªαÑüαñùαÑìαñº αñ¿αñ╡αñòαñ╛αñ╕ αñ┐αñ╣αñ╛αñ┐αñ╛αñéαñ░αÑìαñ│ αñ╕αñ░αÑìαñªαñ╕αÑìαñ»
+12 αñ¬αÑìαñ░αñ¿αññαñ¿αñ¿αñºαÑÇ, αñ░αñ╛αñ╖
+
+#3
+Chunk ID: pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project)_chunk_58
+Source: pacs__Revised_Scheme_guidelines_(Computerization_of_PACS_project).txt
+Chunk Index: 57
+Semantic: 0.5097
+Lexical: 0.0
+Jina: 0.4634
+Final: 0.3711
+Neighbor: False
+Text:
+a. Check own eligibility as per norms.
+b. If eligible, then check priority status as per norms.
+c. If some criteria are not fulfilled, arrange to plug the gaps.
+d. Submit application to the DCCB/StCB (in case of states with 2 tier
+structure) for inclusion in the list of eligible PACS.
+e. Issue letter of authorisation to the StCB, through DCCB, authorising StCB
+to enter into agreements on its behalf for this project.
+f. Ensure onsite data readiness and infrastructure readiness.
+g. Maintain data on the progress of the project to be shared with DCCB. This
+involves issuance of installation certificate after the hardware is installed,
+AMC contract with hardware vendor for five years, signing the migration
+certificate after the data is migrated to the new software and other such
+milestones.
+h. Ensure regular use of the software after migration.
+i. Take full advantage of the handholding support provided under the project.
+j. Ensure regular transfer of data to the National Data Repository, if
+
+#4
+Chunk ID: cooperative_laws__202608131680998144_chunk_89
+Source: cooperative_laws__202608131680998144.txt
+Chunk Index: 88
+Semantic: 0.0
+Lexical: 0.5
+Jina: 0.3872
+Final: 0.3515
+Neighbor: False
+Text:
+(ii) (b) application for admission to membership by the proposed
+transferee;
+(iii) (c) resignation of the transferor from membership;
+(iv) (d) the original Share Certificate, wherever available;
+(v) (e) the duly stamped and registered instrument or document
+referred to in Bye-law No. 26;
+(vi) (f) proof of payment of the transfer fee, entrance fee and
+premium, wherever applicable;
+(vii) (g) such declarations, undertakings and other documents as
+may be prescribed under the Act, the Rules and these Bye-
+laws.
+(c) (iii) In the case of a transfer under Bye-law No. 26(iv), the
+Committee shall require only such documents as are applicable
+to such transfer, and the absence of the transferorΓÇÖs application,
+resignation, consent, declaration, undertaking or the original
+Share Certificate shall not, by itself, be a ground for refusing
+the transfer.
+(d) (iv) Before approving any transfer, the Committee shall satisfy
+itself thatΓÇö
+(i) (a) the proposed transfer complies with the provisions of the
+Act,
+
+#5
+Chunk ID: pacs__Model_Byelaws_05.01.02023_chunk_30
+Source: pacs__Model_Byelaws_05.01.02023.txt
+Chunk Index: 29
+Semantic: 0.0
+Lexical: 0.8125
+Jina: 0.2846
+Final: 0.3415
+Neighbor: False
+Text:
+(5) PROCEDURE FOR MEMBERSHIP:
+a) Any person who is desirous of becoming a member of the Society and is eligible
+as per the Byelaws, may obtain an application form at a prescribed fee and may
+submit the duly filled application form to the Chief Executive Officer (CEO) of the
+Society.
+b) KYC is mandatory for adding new members in the Society. Registration can also
+be done online.
+c) The CEO shall place the application form before the Board of Directors for final
+decision who shall decide within a maximum period of 6 months from the date of
+receipt of application.
+d) The CEO shall inform the applicant of the decision of the Board of Directors within
+15 days of the Board meeting and if admitted, ask him to deposit the admission
+fee and share money along with necessary documents as specified by the Board
+of Directors, like identity / residence/ land holding proof, resolution of informal
+group/ other cooperative Society etc. on submission of which the applicant shall
+be admitted as member of
+
+
+================================================================================
+END RESULT
+================================================================================
+
+
+################################################################################
+TEST 9/10
+################################################################################
+
+Query: Who won the FIFA World Cup?
+
+
+================================================================================
+SANYUKT VAANI RETRIEVAL RESULT
+================================================================================
+Original Query: Who won the FIFA World Cup?
+Detected Language: English (en)
+Question Count: 1
+Batch Gemini Allowed: False
+
+
+--------------------------------------------------------------------------------
+QUESTION 1
+--------------------------------------------------------------------------------
+Question      : Who won the FIFA World Cup?
+Language      : English (en)
+Domains       : []
+Intents       : ['general']
+Sub-Intents   : []
+Required Topics: []
+Expanded Terms: 1
+Qdrant candidates: 0
+Lexical candidates: 0
+Combined candidates: 0
+After hard domain filter: 0
+Final evidence count: 0
+STATUS        : OUT_OF_SCOPE
+Evidence Completeness: 0.0000
+Answerable    : False
+Gemini Allowed: False
+TTS Language  : en
+Answer Rule   : Respond ONLY in English. Do not translate the answer into Hindi or Marathi. Keep official scheme names, acronyms, numbers and dates unchanged.
+
+TOP EVIDENCE
+--------------------------------------------------------------------------------
+
+
+================================================================================
+END RESULT
+================================================================================
+
+
+################################################################################
+TEST 10/10
+################################################################################
+
+Query: what about today's weather?
+
+
+================================================================================
+SANYUKT VAANI RETRIEVAL RESULT
+================================================================================
+Original Query: what about today's weather?
+Detected Language: English (en)
+Question Count: 1
+Batch Gemini Allowed: False
+
+
+--------------------------------------------------------------------------------
+QUESTION 1
+--------------------------------------------------------------------------------
+Question      : what about today's weather?
+Language      : English (en)
+Domains       : []
+Intents       : ['general']
+Sub-Intents   : []
+Required Topics: []
+Expanded Terms: 1
+Qdrant candidates: 0
+Lexical candidates: 0
+Combined candidates: 0
+After hard domain filter: 0
+Final evidence count: 0
+STATUS        : OUT_OF_SCOPE
+Evidence Completeness: 0.0000
+Answerable    : False
+Gemini Allowed: False
+TTS Language  : en
+Answer Rule   : Respond ONLY in English. Do not translate the answer into Hindi or Marathi. Keep official scheme names, acronyms, numbers and dates unchanged.
+
+TOP EVIDENCE
+--------------------------------------------------------------------------------
+
+
+================================================================================
+END RESULT
+================================================================================
+
+
+================================================================================
+V5.1.9 FINAL RETRIEVER TESTING COMPLETE
+================================================================================

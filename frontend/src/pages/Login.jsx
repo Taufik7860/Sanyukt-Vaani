@@ -19,7 +19,7 @@ import {
   EyeOff,
   User,
   Bot,
-  Send
+  Send,
 } from "lucide-react";
 
 const LANGUAGES = [
@@ -60,7 +60,6 @@ const LANGUAGES = [
       hello: "आपला प्रश्न विचारण्यासाठी मायक्रोफोन दाबा",
     },
   },
-
   {
     id: "hi",
     name: "हिंदी",
@@ -98,7 +97,6 @@ const LANGUAGES = [
       hello: "अपना सवाल पूछने के लिए माइक्रोफोन दबाएं",
     },
   },
-
   {
     id: "en",
     name: "English",
@@ -136,7 +134,6 @@ const LANGUAGES = [
       hello: "Press the microphone button to ask your question",
     },
   },
-
   {
     id: "gu",
     name: "ગુજરાતી",
@@ -174,7 +171,6 @@ const LANGUAGES = [
       hello: "તમારો પ્રશ્ન પૂછવા માટે માઇક્રોફોન દબાવો",
     },
   },
-
   {
     id: "kn",
     name: "ಕನ್ನಡ",
@@ -212,7 +208,6 @@ const LANGUAGES = [
       hello: "ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ಕೇಳಲು ಮೈಕ್ರೊಫೋನ್ ಒತ್ತಿ",
     },
   },
-
   {
     id: "sa",
     name: "संस्कृतम्",
@@ -270,7 +265,7 @@ function Login({ onLogin }) {
   const [officerPassword, setOfficerPassword] = useState("");
   const [officerError, setOfficerError] = useState("");
   const [officerSubmitting, setOfficerSubmitting] = useState(false);
-  
+
   const [isListening, setIsListening] = useState(false);
   const [voiceStarted, setVoiceStarted] = useState(false);
 
@@ -279,7 +274,8 @@ function Login({ onLogin }) {
   const [editableTranscript, setEditableTranscript] = useState("");
 
   const language =
-    LANGUAGES.find((item) => item.id === detectedLanguageId) || LANGUAGES[1];
+    LANGUAGES.find((item) => item.id === detectedLanguageId) ||
+    LANGUAGES[1];
 
   const t = language.content;
 
@@ -290,52 +286,89 @@ function Login({ onLogin }) {
   }, [transcript]);
 
   useEffect(() => {
-    if (voiceStarted && !contextListening && editableTranscript) {
+    if (
+      voiceStarted &&
+      !contextListening &&
+      editableTranscript.trim()
+    ) {
       handleFetchAnswer(editableTranscript);
       setVoiceStarted(false);
+      setIsListening(false);
     }
   }, [contextListening, editableTranscript, voiceStarted]);
 
   const handleVoiceStart = () => {
     setAiAnswer("");
+
     const started = detectFromSpeech();
+
     setVoiceStarted(started);
     setIsListening(started || contextListening);
   };
 
   const handleFetchAnswer = async (queryText) => {
-    if (!queryText.trim()) return;
+    const cleanQuery = queryText.trim();
+
+    if (!cleanQuery) {
+      return;
+    }
 
     setIsLoadingAnswer(true);
     setAiAnswer("");
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          query: queryText,
-          language: detectedLanguageId,
-        }),
-      });
+      const response = await fetch(
+        "http://127.0.0.1:8000/api/chat/text",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            message: cleanQuery,
+            language: detectedLanguageId,
+          }),
+        }
+      );
 
-      if (!res.ok) {
-        throw new Error("Failed to reach server");
+      const data = await response.json().catch(() => null);
+
+      if (!response.ok) {
+        throw new Error(
+          data?.detail || `Server error: ${response.status}`
+        );
       }
 
-      const data = await res.json();
-      setAiAnswer(data.answer || "No response text received.");
+      const answerText =
+        data?.answer ||
+        data?.response ||
+        data?.text ||
+        data?.message ||
+        "";
 
-      if ("speechSynthesis" in window && data.answer) {
+      setAiAnswer(
+        answerText || "No response text received from the server."
+      );
+
+      if ("speechSynthesis" in window && answerText) {
         window.speechSynthesis.cancel();
-        const speech = new SpeechSynthesisUtterance(data.answer);
+
+        const speech = new SpeechSynthesisUtterance(answerText);
         speech.lang = language.speech;
+        speech.rate = 0.95;
+        speech.pitch = 1;
+        speech.volume = 1;
+
         window.speechSynthesis.speak(speech);
       }
-    } catch (err) {
-      setAiAnswer("An error occurred connecting to the AI: " + err.message);
+    } catch (error) {
+      setAiAnswer(
+        "An error occurred connecting to the AI: " +
+          error.message
+      );
     } finally {
       setIsLoadingAnswer(false);
+      setIsListening(false);
     }
   };
 
@@ -354,31 +387,61 @@ function Login({ onLogin }) {
 
       let hasSpoken = false;
       let fallbackTimer;
+
       const speakHelp = () => {
         if (hasSpoken) return;
+
         const voices = window.speechSynthesis.getVoices();
+
         if (!voices.length) return;
 
-        const message = helpMessages[detectedLanguageId] || helpMessages.en;
+        const message =
+          helpMessages[detectedLanguageId] ||
+          helpMessages.en;
+
         const speech = new SpeechSynthesisUtterance(message);
-        const voiceLanguage = language.speech.toLowerCase().slice(0, 2);
+        const voiceLanguage = language.speech
+          .toLowerCase()
+          .slice(0, 2);
+
         const matchingVoices = voices.filter((voice) =>
-          voice.lang.toLowerCase().startsWith(voiceLanguage)
+          voice.lang
+            .toLowerCase()
+            .startsWith(voiceLanguage)
         );
 
         const preferredVoice = matchingVoices
           .map((voice) => ({
             voice,
             score:
-              (voice.lang.toLowerCase() === language.speech.toLowerCase() ? 20 : 0) +
-              (/india|indian|google|microsoft|madhur|swara|heera|ravi|veena|lekha|neerja|prabhat|aditi|raveena|sangeeta/i.test(voice.name) ? 10 : 0) +
+              (voice.lang.toLowerCase() ===
+              language.speech.toLowerCase()
+                ? 20
+                : 0) +
+              (/india|indian|google|microsoft|madhur|swara|heera|ravi|veena|lekha|neerja|prabhat|aditi|raveena|sangeeta/i.test(
+                voice.name
+              )
+                ? 10
+                : 0) +
               (voice.localService ? 2 : 0),
           }))
-          .sort((first, second) => second.score - first.score)[0]?.voice;
+          .sort(
+            (first, second) =>
+              second.score - first.score
+          )[0]?.voice;
 
-        const isCorrectLanguageAvailable = Boolean(preferredVoice);
-        if (!isCorrectLanguageAvailable && detectedLanguageId !== "en" && !fallbackTimer) {
-          fallbackTimer = window.setTimeout(speakHelp, 1200);
+        const isCorrectLanguageAvailable =
+          Boolean(preferredVoice);
+
+        if (
+          !isCorrectLanguageAvailable &&
+          detectedLanguageId !== "en" &&
+          !fallbackTimer
+        ) {
+          fallbackTimer = window.setTimeout(
+            speakHelp,
+            1200
+          );
           return;
         }
 
@@ -389,6 +452,7 @@ function Login({ onLogin }) {
         speech.pitch = 1;
         speech.volume = 1;
         speech.voice = preferredVoice || null;
+
         window.speechSynthesis.cancel();
         window.speechSynthesis.speak(speech);
       };
@@ -396,8 +460,16 @@ function Login({ onLogin }) {
       if (window.speechSynthesis.getVoices().length) {
         speakHelp();
       } else {
-        window.speechSynthesis.addEventListener("voiceschanged", speakHelp, { once: true });
-        fallbackTimer = window.setTimeout(speakHelp, 1200);
+        window.speechSynthesis.addEventListener(
+          "voiceschanged",
+          speakHelp,
+          { once: true }
+        );
+
+        fallbackTimer = window.setTimeout(
+          speakHelp,
+          1200
+        );
       }
     }
   };
@@ -443,7 +515,8 @@ function Login({ onLogin }) {
             <h2>
               {t.heading1}
               <br />
-              {t.heading2} <span>{t.headingHighlight}</span>
+              {t.heading2}{" "}
+              <span>{t.headingHighlight}</span>
             </h2>
 
             <p>{t.description}</p>
@@ -484,14 +557,24 @@ function Login({ onLogin }) {
           <div className="voice-card">
             <div className="detected-language-banner">
               <Languages size={17} />
-              <span>{isAutoRotating ? t.auto : t.detected}</span>
+
+              <span>
+                {isAutoRotating ? t.auto : t.detected}
+              </span>
+
               <strong>{language.name}</strong>
-              <small>{isAutoRotating ? "10 sec" : "Locked"}</small>
+
+              <small>
+                {isAutoRotating ? "10 sec" : "Locked"}
+              </small>
             </div>
 
             <div className="voice-card-header">
               <div>
-                <span className="small-label">QUICK ACCESS</span>
+                <span className="small-label">
+                  QUICK ACCESS
+                </span>
+
                 <h3>{t.ask}</h3>
               </div>
 
@@ -504,7 +587,9 @@ function Login({ onLogin }) {
             {/* BIG VOICE BUTTON */}
             <button
               type="button"
-              className={`big-voice-button ${isListening ? "active" : ""}`}
+              className={`big-voice-button ${
+                isListening ? "active" : ""
+              }`}
               onClick={handleVoiceStart}
               aria-label={t.ask}
             >
@@ -523,43 +608,112 @@ function Login({ onLogin }) {
               </div>
 
               <div className="voice-main-text">
-                <strong>{isListening ? t.listening : t.ask}</strong>
-                <span>{isListening ? t.listeningSub : t.askSub}</span>
+                <strong>
+                  {isListening ? t.listening : t.ask}
+                </strong>
+
+                <span>
+                  {isListening
+                    ? t.listeningSub
+                    : t.askSub}
+                </span>
               </div>
 
               <div className="voice-arrow">
                 <ChevronRight size={21} />
               </div>
             </button>
-            
-            <p className="voice-detection-note" style={{ marginTop: '10px' }}>
+
+            <p
+              className="voice-detection-note"
+              style={{ marginTop: "10px" }}
+            >
               {voiceMessage || t.hello}
             </p>
 
             {/* CHAT / TEXT INTERFACE */}
-            {(editableTranscript || isListening || aiAnswer) && (
-              <div style={{ marginTop: '15px', display: 'flex', flexDirection: 'column', gap: '15px' }}>
-                
-                {/* User Input Textbox */}
-                <div style={{ background: 'rgba(0,0,0,0.03)', padding: '12px', borderRadius: '10px', border: '1px solid rgba(0,0,0,0.1)' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', fontWeight: '600', color: '#64748b', marginBottom: '8px' }}>
-                    <User size={14} /> Your Query
+            {(editableTranscript ||
+              isListening ||
+              aiAnswer) && (
+              <div
+                style={{
+                  marginTop: "15px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "15px",
+                }}
+              >
+                {/* USER INPUT */}
+                <div
+                  style={{
+                    background: "rgba(0,0,0,0.03)",
+                    padding: "12px",
+                    borderRadius: "10px",
+                    border:
+                      "1px solid rgba(0,0,0,0.1)",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      fontSize: "13px",
+                      fontWeight: "600",
+                      color: "#64748b",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    <User size={14} />
+                    Your Query
                   </div>
-                  <div style={{ display: 'flex', gap: '8px' }}>
+
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "8px",
+                    }}
+                  >
                     <input
                       type="text"
                       value={editableTranscript}
-                      onChange={(e) => setEditableTranscript(e.target.value)}
+                      onChange={(event) =>
+                        setEditableTranscript(
+                          event.target.value
+                        )
+                      }
                       placeholder="Your voice will appear here..."
                       style={{
-                        flex: 1, padding: '10px', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '14px'
+                        flex: 1,
+                        padding: "10px",
+                        borderRadius: "6px",
+                        border:
+                          "1px solid #cbd5e1",
+                        fontSize: "14px",
                       }}
                     />
+
                     <button
-                      onClick={() => handleFetchAnswer(editableTranscript)}
-                      disabled={isLoadingAnswer || !editableTranscript}
+                      type="button"
+                      onClick={() =>
+                        handleFetchAnswer(
+                          editableTranscript
+                        )
+                      }
+                      disabled={
+                        isLoadingAnswer ||
+                        !editableTranscript.trim()
+                      }
                       style={{
-                        padding: '0 16px', borderRadius: '6px', background: '#2563eb', color: 'white', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px'
+                        padding: "0 16px",
+                        borderRadius: "6px",
+                        background: "#2563eb",
+                        color: "white",
+                        border: "none",
+                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px",
                       }}
                     >
                       <Send size={14} />
@@ -568,14 +722,43 @@ function Login({ onLogin }) {
                   </div>
                 </div>
 
-                {/* AI Answer Textbox */}
+                {/* AI ANSWER */}
                 {(isLoadingAnswer || aiAnswer) && (
-                  <div style={{ background: '#f0fdf4', padding: '12px', borderRadius: '10px', border: '1px solid #bbf7d0' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', fontWeight: '600', color: '#166534', marginBottom: '6px' }}>
-                      <Bot size={14} /> AI Response
+                  <div
+                    style={{
+                      background: "#f0fdf4",
+                      padding: "12px",
+                      borderRadius: "10px",
+                      border:
+                        "1px solid #bbf7d0",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "6px",
+                        fontSize: "13px",
+                        fontWeight: "600",
+                        color: "#166534",
+                        marginBottom: "6px",
+                      }}
+                    >
+                      <Bot size={14} />
+                      AI Response
                     </div>
-                    <p style={{ margin: 0, color: '#15803d', fontSize: '14.5px', lineHeight: '1.5' }}>
-                      {isLoadingAnswer ? "Generating response..." : aiAnswer}
+
+                    <p
+                      style={{
+                        margin: 0,
+                        color: "#15803d",
+                        fontSize: "14.5px",
+                        lineHeight: "1.5",
+                      }}
+                    >
+                      {isLoadingAnswer
+                        ? "Generating response..."
+                        : aiAnswer}
                     </p>
                   </div>
                 )}
@@ -583,7 +766,10 @@ function Login({ onLogin }) {
             )}
 
             {/* ACCESSIBILITY */}
-            <div className="accessibility-row" style={{ marginTop: '20px' }}>
+            <div
+              className="accessibility-row"
+              style={{ marginTop: "20px" }}
+            >
               <div className="accessibility-card">
                 <div className="access-icon">
                   <Volume2 size={20} />
@@ -618,7 +804,7 @@ function Login({ onLogin }) {
               <ChevronRight size={16} />
             </button>
 
-            {/* OFFICER */}
+            {/* OFFICER LOGIN */}
             <div className="login-divider">
               <span />
               <p>{t.officer}</p>
@@ -667,13 +853,20 @@ function Login({ onLogin }) {
               <Volume2 size={28} />
             </div>
 
-            <span className="small-label">{t.easy}</span>
+            <span className="small-label">
+              {t.easy}
+            </span>
+
             <h2>{t.title}</h2>
-            <p className="help-description">{t.help}</p>
+
+            <p className="help-description">
+              {t.help}
+            </p>
 
             <div className="help-steps">
               <div className="help-step">
                 <div className="step-number">1</div>
+
                 <div>
                   <strong>{t.ask}</strong>
                   <p>{t.askSub}</p>
@@ -682,6 +875,7 @@ function Login({ onLogin }) {
 
               <div className="help-step">
                 <div className="step-number">2</div>
+
                 <div>
                   <strong>{t.language}</strong>
                   <p>{t.auto}</p>
@@ -690,6 +884,7 @@ function Login({ onLogin }) {
 
               <div className="help-step">
                 <div className="step-number">3</div>
+
                 <div>
                   <strong>{t.answer}</strong>
                   <p>{t.answerSub}</p>
@@ -711,12 +906,24 @@ function Login({ onLogin }) {
 
       {/* OFFICER LOGIN MODAL */}
       {showOfficerLogin && (
-        <div className="help-overlay" onMouseDown={() => setShowOfficerLogin(false)}>
-          <div className="officer-login-modal" onMouseDown={(event) => event.stopPropagation()}>
+        <div
+          className="help-overlay"
+          onMouseDown={() =>
+            setShowOfficerLogin(false)
+          }
+        >
+          <div
+            className="officer-login-modal"
+            onMouseDown={(event) =>
+              event.stopPropagation()
+            }
+          >
             <button
               type="button"
               className="help-close"
-              onClick={() => setShowOfficerLogin(false)}
+              onClick={() =>
+                setShowOfficerLogin(false)
+              }
               aria-label="Close officer login"
             >
               <X size={20} />
@@ -726,9 +933,15 @@ function Login({ onLogin }) {
               <Building2 size={25} />
             </div>
 
-            <span className="small-label">{t.officer}</span>
+            <span className="small-label">
+              {t.officer}
+            </span>
+
             <h2>{t.officer}</h2>
-            <p className="help-description">{t.officerSub}</p>
+
+            <p className="help-description">
+              {t.officerSub}
+            </p>
 
             <form
               className="officer-login-form"
@@ -736,18 +949,32 @@ function Login({ onLogin }) {
                 event.preventDefault();
                 setOfficerError("");
                 setOfficerSubmitting(true);
-                officerLogin(officerEmail, officerPassword)
+
+                officerLogin(
+                  officerEmail,
+                  officerPassword
+                )
                   .then(() => onLogin("officer"))
-                  .catch((error) => setOfficerError(error.message))
-                  .finally(() => setOfficerSubmitting(false));
+                  .catch((error) =>
+                    setOfficerError(error.message)
+                  )
+                  .finally(() =>
+                    setOfficerSubmitting(false)
+                  );
               }}
             >
               <label>
-                <span><Mail size={14} /> Official email</span>
+                <span>
+                  <Mail size={14} />
+                  Official email
+                </span>
+
                 <input
                   type="email"
                   value={officerEmail}
-                  onChange={(event) => setOfficerEmail(event.target.value)}
+                  onChange={(event) =>
+                    setOfficerEmail(event.target.value)
+                  }
                   placeholder="officer@department.gov.in"
                   autoComplete="username"
                   required
@@ -755,23 +982,48 @@ function Login({ onLogin }) {
               </label>
 
               <label>
-                <span><LockKeyhole size={14} /> Password</span>
+                <span>
+                  <LockKeyhole size={14} />
+                  Password
+                </span>
+
                 <div className="password-field">
                   <input
-                    type={showPassword ? "text" : "password"}
+                    type={
+                      showPassword
+                        ? "text"
+                        : "password"
+                    }
                     value={officerPassword}
-                    onChange={(event) => setOfficerPassword(event.target.value)}
+                    onChange={(event) =>
+                      setOfficerPassword(
+                        event.target.value
+                      )
+                    }
                     placeholder="Enter your password"
                     autoComplete="current-password"
                     required
                   />
+
                   <button
                     type="button"
                     className="password-toggle"
-                    onClick={() => setShowPassword((visible) => !visible)}
-                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    onClick={() =>
+                      setShowPassword(
+                        (visible) => !visible
+                      )
+                    }
+                    aria-label={
+                      showPassword
+                        ? "Hide password"
+                        : "Show password"
+                    }
                   >
-                    {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                    {showPassword ? (
+                      <EyeOff size={16} />
+                    ) : (
+                      <Eye size={16} />
+                    )}
                   </button>
                 </div>
               </label>
@@ -781,19 +1033,38 @@ function Login({ onLogin }) {
                   <input type="checkbox" />
                   <span>Remember me</span>
                 </label>
-                <button type="button" className="forgot-link">Forgot password?</button>
+
+                <button
+                  type="button"
+                  className="forgot-link"
+                >
+                  Forgot password?
+                </button>
               </div>
 
-              <button className="primary-btn full" type="submit" disabled={officerSubmitting}>
+              <button
+                className="primary-btn full"
+                type="submit"
+                disabled={officerSubmitting}
+              >
                 <LockKeyhole size={16} />
-                {officerSubmitting ? "Signing in..." : "Sign in securely"}
+
+                {officerSubmitting
+                  ? "Signing in..."
+                  : "Sign in securely"}
               </button>
-              {officerError && <p className="officer-login-error">{officerError}</p>}
+
+              {officerError && (
+                <p className="officer-login-error">
+                  {officerError}
+                </p>
+              )}
             </form>
 
             <div className="officer-login-trust">
               <ShieldCheck size={15} />
-              Authorized access · Verified knowledge management
+              Authorized access · Verified knowledge
+              management
             </div>
           </div>
         </div>

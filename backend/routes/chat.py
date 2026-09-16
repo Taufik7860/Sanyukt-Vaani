@@ -1,13 +1,79 @@
 from __future__ import annotations
 
+import logging
 import uuid
+from pathlib import Path
+
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 
 from backend.services.bhashini import bhashini
 from backend.services.rag import answer_with_context
 from backend.services.supabase import supabase_service
 
+logger = logging.getLogger(__name__)
+
 router = APIRouter(prefix="/api/chat", tags=["Chat"])
+
+# Project-root/static directory.
+BASE_DIR = Path(__file__).resolve().parents[2]
+STATIC_DIR = BASE_DIR / "static"
+STATIC_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def _clean_language(language: str | None, default: str = "hi") -> str:
+    """
+    Normalize language input without changing the application's
+    existing language-code convention.
+    """
+    value = (language or "").strip().lower()
+    return value or default
+
+
+def _save_tts_audio(audio_bytes: bytes) -> str:
+    """
+    Save generated TTS audio and return the public API path.
+    """
+    if not audio_bytes:
+        raise ValueError("TTS returned empty audio data")
+
+    filename = f"tts_{uuid.uuid4().hex}.wav"
+    output_path = STATIC_DIR / filename
+    output_path.write_bytes(audio_bytes)
+
+    return f"/static/{filename}"
+
+
+def _audio_format(
+    content_type: str | None,
+    filename: str | None,
+) -> str:
+    """
+    Detect the input audio format.
+
+    Note:
+    Browser-recorded WebM/Opus audio may require conversion to WAV
+    or FLAC before BHASHINI ASR can process it.
+    """
+    content_type_value = (content_type or "").lower()
+    filename_value = (filename or "").lower()
+
+    if "wav" in content_type_value or filename_value.endswith(".wav"):
+        return "wav"
+
+    if "flac" in content_type_value or filename_value.endswith(".flac"):
+        return "flac"
+
+    if "webm" in content_type_value or filename_value.endswith(".webm"):
+        return "webm"
+
+    if "ogg" in content_type_value or filename_value.endswith(".ogg"):
+        return "ogg"
+
+    if "mp3" in content_type_value or filename_value.endswith(".mp3"):
+        return "mp3"
+
+    # Preserve the previous fallback behavior.
+    return "wav"
 
 
 @router.post("/text")
@@ -16,34 +82,63 @@ async def chat_text(
     language: str = Form("hi"),
     user_id: str = Form("guest_user"),
 ):
-    if not query.strip():
-        raise HTTPException(status_code=400, detail="Query is required")
+    """
+    Process a typed multilingual user query.
+    """
+    cleaned_query = query.strip()
+    selected_language = _clean_language(language)
 
-    result = await answer_with_context(query.strip(), language=language)
+    if not cleaned_query:
+        raise HTTPException(
+            status_code=400,
+            detail="Query is required",
+        )
 
-    # Optional history logging. It is a no-op if Supabase is not configured.
-    supabase_service.log_chat_history(
-        user_id, query.strip(), result["answer"], result.get("sources", [])
-    )
+    try:
+        result = await answer_with_context(
+            cleaned_query,
+            language=selected_language,
+        )
+    except Exception as exc:
+        logger.exception("Text chat processing failed")
+        raise HTTPException(
+            status_code=502,
+            detail="Unable to generate an answer right now.",
+        ) from exc
 
-    audio_url = None
+    answer = result.get("answer", "")
+    sources = result.get("sources", [])
+
+    # Optional history logging.
+    # Supabase service is expected to safely no-op when not configured.
+    try:
+        supabase_service.log_chat_history(
+            user_id,
+            cleaned_query,
+            answer,
+            sources,
+        )
+    except Exception:
+        logger.exception("Chat history logging failed")
+
+    audio_url: str | None = None
+
     try:
         audio_bytes = bhashini.text_to_speech(
-            result["answer"], language=language, gender="female"
+            answer,
+            language=selected_language,
+            gender="female",
         )
-        filename = f"tts_{uuid.uuid4().hex}.wav"
-        with open(f"static/{filename}", "wb") as f:
-            f.write(audio_bytes)
-        audio_url = f"/static/{filename}"
+        audio_url = _save_tts_audio(audio_bytes)
     except Exception:
-        # Text chat still works when TTS is unavailable.
-        audio_url = None
+        # Text response should remain available even if TTS fails.
+        logger.exception("BHASHINI TTS failed for text chat")
 
     return {
-        "query": query,
-        "answer": result["answer"],
-        "sources": result.get("sources", []),
-        "language": language,
+        "query": cleaned_query,
+        "answer": answer,
+        "sources": sources,
+        "language": selected_language,
         "audio_response_path": audio_url,
     }
 
@@ -54,58 +149,116 @@ async def chat_voice(
     user_id: str = Form("guest_user"),
     language: str = Form("auto"),
 ):
-    audio = await file.read()
-    if not audio:
-        raise HTTPException(status_code=400, detail="Empty audio file")
+    """
+    Process uploaded voice input:
 
-    # BHASHINI ASR needs audio bytes encoded as base64.
-    # Browser-recorded WebM/Opus may need conversion to WAV/FLAC before this call.
+    1. Read audio file.
+    2. Convert speech to text using BHASHINI ASR.
+    3. Send transcript to the RAG pipeline.
+    4. Generate optional BHASHINI TTS audio.
+    """
+    if file is None:
+        raise HTTPException(
+            status_code=400,
+            detail="Audio file is required",
+        )
+
+    audio = await file.read()
+
+    if not audio:
+        raise HTTPException(
+            status_code=400,
+            detail="Empty audio file",
+        )
+
+    requested_language = _clean_language(language, default="auto")
+    audio_format = _audio_format(
+        file.content_type,
+        file.filename,
+    )
+
     try:
         stt = bhashini.speech_to_text(
             audio_bytes=audio,
-            source_language=None if language == "auto" else language,
-            audio_format=_audio_format(file.content_type, file.filename),
+            source_language=(
+                None
+                if requested_language == "auto"
+                else requested_language
+            ),
+            audio_format=audio_format,
         )
     except Exception as exc:
-        raise HTTPException(status_code=502, detail=f"BHASHINI ASR failed: {exc}") from exc
+        logger.exception("BHASHINI ASR failed")
+        raise HTTPException(
+            status_code=502,
+            detail="Speech recognition failed.",
+        ) from exc
 
-    transcript = stt["text"]
-    detected_language = stt.get("language") or (
-        language if language != "auto" else "hi"
+    if not isinstance(stt, dict):
+        raise HTTPException(
+            status_code=502,
+            detail="Invalid response received from speech recognition.",
+        )
+
+    transcript = str(stt.get("text") or "").strip()
+
+    if not transcript:
+        raise HTTPException(
+            status_code=502,
+            detail="Speech recognition returned an empty transcript.",
+        )
+
+    detected_language = _clean_language(
+        stt.get("language"),
+        default=(
+            requested_language
+            if requested_language != "auto"
+            else "hi"
+        ),
     )
 
-    result = await answer_with_context(transcript, language=detected_language)
+    try:
+        result = await answer_with_context(
+            transcript,
+            language=detected_language,
+        )
+    except Exception as exc:
+        logger.exception("Voice chat RAG processing failed")
+        raise HTTPException(
+            status_code=502,
+            detail="Unable to generate an answer right now.",
+        ) from exc
 
-    audio_url = None
+    answer = result.get("answer", "")
+    sources = result.get("sources", [])
+
+    audio_url: str | None = None
+
     try:
         tts_bytes = bhashini.text_to_speech(
-            result["answer"], language=detected_language, gender="female"
+            answer,
+            language=detected_language,
+            gender="female",
         )
-        output_name = f"tts_{uuid.uuid4().hex}.wav"
-        with open(f"static/{output_name}", "wb") as f:
-            f.write(tts_bytes)
-        audio_url = f"/static/{output_name}"
+        audio_url = _save_tts_audio(tts_bytes)
     except Exception:
-        pass
+        # Voice response still returns text if TTS is unavailable.
+        logger.exception("BHASHINI TTS failed for voice chat")
 
-    supabase_service.log_chat_history(
-        user_id, transcript, result["answer"], result.get("sources", [])
-    )
+    try:
+        supabase_service.log_chat_history(
+            user_id,
+            transcript,
+            answer,
+            sources,
+        )
+    except Exception:
+        logger.exception("Voice chat history logging failed")
 
     return {
         "transcribed_text": transcript,
         "detected_language": detected_language,
-        "answer": result["answer"],
-        "sources": result.get("sources", []),
+        "answer": answer,
+        "sources": sources,
         "audio_response": audio_url,
     }
-
-
-def _audio_format(content_type: str | None, filename: str | None) -> str:
-    value = (content_type or "").lower()
-    name = (filename or "").lower()
-    if "wav" in value or name.endswith(".wav"):
-        return "wav"
-    if "flac" in value or name.endswith(".flac"):
-        return "flac"
-    return "wav"
