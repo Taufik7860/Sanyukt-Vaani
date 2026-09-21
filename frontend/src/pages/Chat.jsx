@@ -5,7 +5,8 @@ import {
   Plus,
   Send,
   ShieldCheck,
-  Sparkles
+  Sparkles,
+  X
 } from "lucide-react";
 
 import React, { useEffect, useRef, useState } from "react";
@@ -29,10 +30,7 @@ const INITIAL_MESSAGE = {
    LANGUAGE HELPERS
 ========================================================= */
 
-function normalizeResponseLanguage(
-  language,
-  fallback = "en"
-) {
+function normalizeResponseLanguage(language, fallback = "en") {
   if (!language) {
     return fallback;
   }
@@ -50,13 +48,13 @@ function normalizeResponseLanguage(
     hindi: "hi",
     hin: "hi",
     "hi-in": "hi",
-    "हिंदी": "hi",
-    "हिन्दी": "hi",
+    हिंदी: "hi",
+    हिन्दी: "hi",
 
     marathi: "mr",
     mar: "mr",
     "mr-in": "mr",
-    "मराठी": "mr",
+    मराठी: "mr",
 
     gujarati: "gu",
     guj: "gu",
@@ -73,13 +71,9 @@ function normalizeResponseLanguage(
 
   return (
     aliases[value] ||
-    (
-      ["en", "hi", "mr", "gu", "kn", "sa"].includes(
-        value
-      )
-        ? value
-        : fallback
-    )
+    (["en", "hi", "mr", "gu", "kn", "sa"].includes(value)
+      ? value
+      : fallback)
   );
 }
 
@@ -176,7 +170,7 @@ function cleanTextForSpeech(text) {
   ------------------------------------------------------- */
 
   cleaned = cleaned.replace(
-    /\*\*|__/g,
+    /(\*\*|__)/g,
     ""
   );
 
@@ -436,12 +430,18 @@ function Chat() {
 
   const [activeSources, setActiveSources] = useState([]);
 
+  /*
+    From main:
+    Selected source is displayed in an in-app preview panel.
+  */
+  const [selectedSource, setSelectedSource] = useState(null);
+
   const textareaRef = useRef(null);
 
   /* =======================================================
      LIVE VOICE TRANSCRIPT → CHAT INPUT
 
-     LanguageContext now updates `transcript` continuously
+     LanguageContext updates `transcript` continuously
      while the user is speaking.
 
      IMPORTANT:
@@ -454,7 +454,9 @@ function Chat() {
       return;
     }
 
-    const liveText = String(transcript || "").trim();
+    const liveText = String(
+      transcript || ""
+    ).trim();
 
     if (!liveText) {
       return;
@@ -513,7 +515,10 @@ function Chat() {
     const detectedLanguage =
       normalizeResponseLanguage(
         voiceResult?.detected_language,
-        normalizeResponseLanguage(languageId, "en")
+        normalizeResponseLanguage(
+          languageId,
+          "en"
+        )
       );
 
     const sources = Array.isArray(
@@ -672,8 +677,13 @@ function Chat() {
     ------------------------------------------------------- */
 
     setInput("");
-
     setActiveSources([]);
+
+    /* -------------------------------------------------------
+       Close any previous source preview
+    ------------------------------------------------------- */
+
+    setSelectedSource(null);
 
     /* -------------------------------------------------------
        Add user message
@@ -681,6 +691,7 @@ function Chat() {
 
     setMessages((previous) => [
       ...previous,
+
       {
         role: "user",
         text: cleanQuery
@@ -693,7 +704,6 @@ function Chat() {
       /* -----------------------------------------------------
          Send selected frontend language to backend.
 
-         Example:
          English -> en
          Hindi   -> hi
          Marathi -> mr
@@ -705,10 +715,11 @@ function Chat() {
           "en"
         );
 
-      const result = await askSanyuktVaani(
-        cleanQuery,
-        requestLanguage
-      );
+      const result =
+        await askSanyuktVaani(
+          cleanQuery,
+          requestLanguage
+        );
 
       /* -----------------------------------------------------
          Extract answer
@@ -732,7 +743,6 @@ function Chat() {
          Determine response language.
 
          Backend language has priority.
-
          If backend doesn't return a language,
          selected frontend language is used.
       ----------------------------------------------------- */
@@ -780,8 +790,6 @@ function Chat() {
       /* -----------------------------------------------------
          ADD ASSISTANT MESSAGE
 
-         IMPORTANT MODIFICATION:
-
          language: answerLanguage
 
          This allows ChatMessage.jsx to speak this
@@ -791,19 +799,15 @@ function Chat() {
 
       setMessages((previous) => [
         ...previous,
+
         {
           role: "assistant",
-
           text:
             answer ||
             "No response text received.",
-
           language: answerLanguage,
-
           source: sourceTitle,
-
           page: sourcePage,
-
           confidence
         }
       ]);
@@ -830,7 +834,6 @@ function Chat() {
          AUTOMATIC SPEECH
 
          Only the cleaned answer is spoken.
-
          The original answer shown in the UI is NOT
          modified.
       ----------------------------------------------------- */
@@ -850,6 +853,7 @@ function Chat() {
           );
         }, 100);
       }
+
     } catch (error) {
       console.error(
         "Sanyukt Vaani chat error:",
@@ -862,6 +866,7 @@ function Chat() {
 
       setMessages((previous) => [
         ...previous,
+
         {
           role: "assistant",
           error: true,
@@ -875,6 +880,7 @@ function Chat() {
             "Unable to get an answer right now."
         }
       ]);
+
     } finally {
       setIsLoading(false);
     }
@@ -890,7 +896,6 @@ function Chat() {
       !event.shiftKey
     ) {
       event.preventDefault();
-
       sendMessage();
     }
   };
@@ -906,9 +911,12 @@ function Chat() {
 
     setActiveSources([]);
 
+    setSelectedSource(null);
+
     setInput("");
 
     setTranscript("");
+
     setVoiceResult(null);
 
     window.setTimeout(() => {
@@ -955,12 +963,16 @@ function Chat() {
       The voice endpoint already generates the answer.
     */
 
-    if (isLoading || isTranscribing) {
+    if (
+      isLoading ||
+      isTranscribing
+    ) {
       return;
     }
 
     try {
       await detectFromSpeech();
+
     } catch (error) {
       console.error(
         "Voice interaction error:",
@@ -989,6 +1001,7 @@ function Chat() {
           </div>
 
           <div>
+
             <strong>
               Sanyukt Vaani{" "}
               <span>AI</span>
@@ -999,6 +1012,7 @@ function Chat() {
               {" "}
               Verified knowledge mode
             </small>
+
           </div>
 
         </div>
@@ -1066,16 +1080,20 @@ function Chat() {
                 isListening
               }
             >
+
               {languages.map(
                 (language) => (
+
                   <option
                     key={language.id}
                     value={language.id}
                   >
                     {language.label}
                   </option>
+
                 )
               )}
+
             </select>
 
           </div>
@@ -1138,12 +1156,9 @@ function Chat() {
                         SOURCES
                     ==================================== */}
 
-                    {message.role ===
-                      "assistant" &&
-                      index ===
-                        messages.length - 1 &&
-                      activeSources.length >
-                        0 && (
+                    {message.role === "assistant" &&
+                      index === messages.length - 1 &&
+                      activeSources.length > 0 && (
 
                         <div className="live-sources">
 
@@ -1168,6 +1183,7 @@ function Chat() {
                                 const title =
                                   source?.title ||
                                   source?.source ||
+                                  source?.source_file ||
                                   source?.metadata
                                     ?.source_file ||
                                   "Official document";
@@ -1175,27 +1191,20 @@ function Chat() {
                                 const score =
                                   source?.score;
 
-                                const sourceQuery =
-                                  source?.source ||
-                                  source?.metadata
-                                    ?.source_file ||
-                                  source?.title ||
-                                  "official document";
-
-                                const sourceUrl =
-                                  `https://github.com/Taufik7860/Sanyukt-Vaani/search?q=${encodeURIComponent(
-                                    sourceQuery
-                                  )}&type=code`;
-
                                 return (
                                   <a
                                     key={`${title}-${sourceIndex}`}
                                     className="live-source-chip"
-                                    href={sourceUrl}
-                                    target="_blank"
-                                    rel="noreferrer"
+                                    href="#source-preview"
+                                    onClick={(event) => {
+                                      event.preventDefault();
+                                      setSelectedSource(
+                                        source
+                                      );
+                                    }}
                                     aria-label={`Open source ${title}`}
                                   >
+
                                     {title}
 
                                     {score != null &&
@@ -1203,6 +1212,7 @@ function Chat() {
                                         Number(score) *
                                           100
                                       )}%`}
+
                                   </a>
                                 );
                               }
@@ -1232,11 +1242,13 @@ function Chat() {
                 >
 
                   <div className="thinking-avatar">
+
                     {isListening ? (
                       <Mic size={15} />
                     ) : (
                       <Sparkles size={15} />
                     )}
+
                   </div>
 
                   <div className="thinking-card">
@@ -1261,6 +1273,92 @@ function Chat() {
             </div>
 
           </div>
+
+          {/* =================================================
+              SOURCE PREVIEW
+          ================================================== */}
+
+          {selectedSource && (
+
+            <div
+              className="source-preview-backdrop"
+              role="presentation"
+              onClick={() =>
+                setSelectedSource(null)
+              }
+            >
+
+              <section
+                className="source-preview-panel"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="source-preview-title"
+                onClick={(event) =>
+                  event.stopPropagation()
+                }
+              >
+
+                <div className="source-preview-header">
+
+                  <div>
+
+                    <span className="intro-kicker">
+                      VERIFIED SOURCE
+                    </span>
+
+                    <h2 id="source-preview-title">
+                      {selectedSource.title ||
+                        selectedSource.source ||
+                        selectedSource.source_file ||
+                        selectedSource.metadata
+                          ?.source_file ||
+                        "Official document"}
+                    </h2>
+
+                  </div>
+
+                  <button
+                    type="button"
+                    className="source-preview-close"
+                    onClick={() =>
+                      setSelectedSource(null)
+                    }
+                    aria-label="Close source preview"
+                  >
+                    <X size={18} />
+                  </button>
+
+                </div>
+
+                <div className="source-preview-meta">
+
+                  {selectedSource.source ||
+                    selectedSource.source_file ||
+                    selectedSource.metadata
+                      ?.source_file ||
+                    "Official document"}
+
+                  {selectedSource.page != null &&
+                    ` · Page ${selectedSource.page}`}
+
+                </div>
+
+                <p className="source-preview-note">
+                  Relevant verified excerpt from
+                  this document
+                </p>
+
+                <pre className="source-preview-text">
+                  {selectedSource.excerpt ||
+                    selectedSource.text ||
+                    selectedSource.content ||
+                    "The document excerpt is not available for this result."}
+                </pre>
+
+              </section>
+
+            </div>
+          )}
 
           {/* =================================================
               COMPOSER
@@ -1319,7 +1417,9 @@ function Chat() {
                       : "Start voice input"
                   }
                 >
+
                   <Mic size={19} />
+
                 </button>
 
                 {/* =======================================
@@ -1341,7 +1441,9 @@ function Chat() {
                   aria-label="Send message"
                   title="Send message"
                 >
+
                   <Send size={18} />
+
                 </button>
 
               </div>
