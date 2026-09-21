@@ -149,7 +149,7 @@ function Chat() {
                       <div className="live-source-list">
                         {activeSources.map((source, sourceIndex) => (
                           <a
-                            key={`${source.title}-${sourceIndex}`}
+                            key={`${source.source || source.source_file || source.metadata?.source_file || source.title}-${sourceIndex}`}
                             className="live-source-chip"
                             href="#source-preview"
                             onClick={(event) => {
@@ -158,7 +158,7 @@ function Chat() {
                             }}
                             aria-label={`Open source ${source.title || source.source || "official document"}`}
                           >
-                            {source.title || source.source || "Official document"}
+                            {source.source || source.source_file || source.metadata?.source_file || source.title || "Official document"}
                             {source.score != null && ` · ${Math.round(source.score * 100)}%`}
                           </a>
                         ))}

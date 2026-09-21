@@ -142,6 +142,8 @@ def _build_context(docs: list[dict[str, Any]]) -> tuple[str, list[dict[str, Any]
         source = _safe_text(document.get("source")) or _safe_text(
             metadata.get("source")
         ) or _safe_text(metadata.get("source_file"))
+        if not source:
+            source = _safe_text(document.get("source_file"))
         page = document.get("page", metadata.get("page"))
         section = _safe_text(document.get("section")) or _safe_text(
             metadata.get("section")
@@ -161,6 +163,7 @@ def _build_context(docs: list[dict[str, Any]]) -> tuple[str, list[dict[str, Any]
             {
                 "title": title,
                 "source": source,
+                "source_file": source,
                 "page": page,
                 "section": section,
                 "score": score,
