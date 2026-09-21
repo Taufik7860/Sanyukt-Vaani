@@ -7,12 +7,8 @@ import {
 function SourceCard({
   source
 }) {
-  const sourceFile = source.source || source.metadata?.source_file || "";
-  const sourceUrl = source.url || (
-    sourceFile
-      ? `https://github.com/Taufik7860/Sanyukt-Vaani/search?q=${encodeURIComponent(sourceFile)}`
-      : null
-  );
+  const sourceFile = source.source || source.metadata?.source_file || source.title || "";
+  const sourceUrl = source.url || `https://github.com/Taufik7860/Sanyukt-Vaani/search?q=${encodeURIComponent(sourceFile)}&type=code`;
 
   return (
     <div className="source-card">

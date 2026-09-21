@@ -150,9 +150,10 @@ function Chat() {
                           <a
                             key={`${source.title}-${sourceIndex}`}
                             className="live-source-chip"
-                            href={source.source ? `https://github.com/Taufik7860/Sanyukt-Vaani/search?q=${encodeURIComponent(source.source)}` : "#"}
+                            href={`https://github.com/Taufik7860/Sanyukt-Vaani/search?q=${encodeURIComponent(source.source || source.metadata?.source_file || source.title || "official document")}&type=code`}
                             target="_blank"
                             rel="noreferrer"
+                            aria-label={`Open source ${source.title || source.source || "official document"}`}
                           >
                             {source.title || source.source || "Official document"}
                             {source.score != null && ` · ${Math.round(source.score * 100)}%`}

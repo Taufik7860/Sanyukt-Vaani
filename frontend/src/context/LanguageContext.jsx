@@ -290,7 +290,14 @@ export function LanguageProvider({ children }) {
   const speakText = (text, requestedLanguage = languageId) => {
     if (!("speechSynthesis" in window) || !text) return;
     window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
+    const spokenText = text
+      .replace(/https?:\/\/\S+/gi, " ")
+      .replace(/[`*_#>[\]{}()<>|~^+=]/g, " ")
+      .replace(/[•●▪◦]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+    if (!spokenText) return;
+    const utterance = new SpeechSynthesisUtterance(spokenText);
     utterance.lang = LANGUAGES.find((item) => item.id === requestedLanguage)?.speech || "en-IN";
     utterance.rate = 0.95;
     window.speechSynthesis.speak(utterance);
