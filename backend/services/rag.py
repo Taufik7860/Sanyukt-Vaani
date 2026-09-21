@@ -11,6 +11,30 @@ from backend.services.qdrant import qdrant_service
 logger = logging.getLogger(__name__)
 
 
+def _resolve_output_language(query: str, language: str | None) -> str:
+    requested = (language or "").strip().lower()
+    if requested not in {"auto", ""}:
+        if requested in {"hi", "mr"} and any(
+            "\u0900" <= character <= "\u097f" for character in query
+        ):
+            return requested
+        if requested == "en" and not query.isascii():
+            return "hi"
+        if query.isascii():
+            return "en"
+        return requested
+
+    if query.isascii():
+        return "en"
+    if any("\u0900" <= character <= "\u097f" for character in query):
+        return "hi"
+    if any("\u0a80" <= character <= "\u0aff" for character in query):
+        return "gu"
+    if any("\u0c80" <= character <= "\u0cff" for character in query):
+        return "kn"
+    return "en"
+
+
 def _normalise_language(language: str) -> str:
     """
     Convert the incoming language value into a safe, readable label.
@@ -104,10 +128,24 @@ def _build_context(docs: list[dict[str, Any]]) -> tuple[str, list[dict[str, Any]
         if not text:
             continue
 
-        title = _safe_text(document.get("title")) or "Official document"
-        source = _safe_text(document.get("source"))
-        page = document.get("page")
-        section = _safe_text(document.get("section"))
+        metadata = document.get("metadata")
+        if not isinstance(metadata, dict):
+            metadata = {}
+
+        title = (
+            _safe_text(document.get("title"))
+            or _safe_text(metadata.get("title"))
+            or _safe_text(metadata.get("document"))
+            or _safe_text(metadata.get("source_file"))
+            or "Official document"
+        )
+        source = _safe_text(document.get("source")) or _safe_text(
+            metadata.get("source")
+        ) or _safe_text(metadata.get("source_file"))
+        page = document.get("page", metadata.get("page"))
+        section = _safe_text(document.get("section")) or _safe_text(
+            metadata.get("section")
+        )
         score = document.get("score")
 
         context_parts.append(
@@ -126,6 +164,7 @@ def _build_context(docs: list[dict[str, Any]]) -> tuple[str, list[dict[str, Any]
                 "page": page,
                 "section": section,
                 "score": score,
+                "metadata": metadata,
             }
         )
 
@@ -227,7 +266,9 @@ async def answer_with_context(
     if not clean_query:
         raise ValueError("Query cannot be empty.")
 
-    requested_language = _normalise_language(language)
+    requested_language = _normalise_language(
+        _resolve_output_language(clean_query, language)
+    )
     collection = (
         _safe_text(collection_name)
         or settings.QDRANT_COLLECTION
@@ -257,7 +298,18 @@ async def answer_with_context(
         answer = await generate_response(prompt)
     except Exception:
         logger.exception("Grounded answer generation failed.")
-        raise
+        evidence = [
+            _safe_text(document.get("text"))
+            for document in docs
+            if isinstance(document, dict) and _safe_text(document.get("text"))
+        ]
+        if not evidence:
+            raise
+        answer = (
+            "The language model is temporarily unavailable. "
+            "Here are the relevant verified knowledge-base excerpts:\n\n"
+            + "\n\n".join(evidence[:3])
+        )
 
     return {
         "query": clean_query,

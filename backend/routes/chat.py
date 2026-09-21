@@ -4,13 +4,14 @@ import logging
 import uuid
 from pathlib import Path
 
-from fastapi import APIRouter, File, Form, HTTPException, UploadFile
+from fastapi import APIRouter, BackgroundTasks, File, Form, HTTPException, UploadFile
 
 from backend.services.bhashini import bhashini
 from backend.services.rag import answer_with_context
 from backend.services.supabase import supabase_service
 
 logger = logging.getLogger(__name__)
+
 
 router = APIRouter(prefix="/api/chat", tags=["Chat"])
 
@@ -76,8 +77,38 @@ def _audio_format(
     return "wav"
 
 
+def _generate_text_chat_side_effects(
+    answer: str,
+    language: str,
+    user_id: str,
+    query: str,
+    sources: list,
+) -> None:
+    try:
+        audio_bytes = bhashini.text_to_speech(
+            answer,
+            language=language,
+            gender="female",
+        )
+        audio_url = _save_tts_audio(audio_bytes)
+        logger.info("Background TTS generated at %s", audio_url)
+    except Exception:
+        logger.exception("BHASHINI TTS failed for text chat")
+
+    try:
+        supabase_service.log_chat_history(
+            user_id,
+            query,
+            answer,
+            sources,
+        )
+    except Exception:
+        logger.exception("Chat history logging failed")
+
+
 @router.post("/text")
 async def chat_text(
+    background_tasks: BackgroundTasks,
     query: str = Form(...),
     language: str = Form("hi"),
     user_id: str = Form("guest_user"),
@@ -108,38 +139,28 @@ async def chat_text(
 
     answer = result.get("answer", "")
     sources = result.get("sources", [])
+    response_language = result.get("language") or selected_language
+    tts_language = {
+        "english": "en",
+        "hindi": "hi",
+        "marathi": "mr",
+    }.get(str(response_language).lower(), response_language)
 
-    # Optional history logging.
-    # Supabase service is expected to safely no-op when not configured.
-    try:
-        supabase_service.log_chat_history(
-            user_id,
-            cleaned_query,
-            answer,
-            sources,
-        )
-    except Exception:
-        logger.exception("Chat history logging failed")
-
-    audio_url: str | None = None
-
-    try:
-        audio_bytes = bhashini.text_to_speech(
-            answer,
-            language=selected_language,
-            gender="female",
-        )
-        audio_url = _save_tts_audio(audio_bytes)
-    except Exception:
-        # Text response should remain available even if TTS fails.
-        logger.exception("BHASHINI TTS failed for text chat")
+    background_tasks.add_task(
+        _generate_text_chat_side_effects,
+        answer,
+        tts_language,
+        user_id,
+        cleaned_query,
+        sources,
+    )
 
     return {
         "query": cleaned_query,
         "answer": answer,
         "sources": sources,
-        "language": selected_language,
-        "audio_response_path": audio_url,
+        "language": response_language,
+        "audio_response_path": None,
     }
 
 
@@ -181,8 +202,8 @@ async def chat_voice(
         stt = bhashini.speech_to_text(
             audio_bytes=audio,
             source_language=(
-                None
-                if requested_language == "auto"
+                "en"
+                if requested_language in {"auto", "en", "english"}
                 else requested_language
             ),
             audio_format=audio_format,

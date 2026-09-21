@@ -297,10 +297,10 @@ function Login({ onLogin }) {
     }
   }, [contextListening, editableTranscript, voiceStarted]);
 
-  const handleVoiceStart = () => {
+  const handleVoiceStart = async () => {
     setAiAnswer("");
 
-    const started = detectFromSpeech();
+    const started = await detectFromSpeech();
 
     setVoiceStarted(started);
     setIsListening(started || contextListening);
@@ -317,17 +317,16 @@ function Login({ onLogin }) {
     setAiAnswer("");
 
     try {
+      const formData = new FormData();
+      formData.append("query", cleanQuery);
+      formData.append("language", "auto");
+      formData.append("user_id", "guest_user");
+
       const response = await fetch(
         "http://127.0.0.1:8000/api/chat/text",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            message: cleanQuery,
-            language: detectedLanguageId,
-          }),
+          body: formData,
         }
       );
 
@@ -335,7 +334,9 @@ function Login({ onLogin }) {
 
       if (!response.ok) {
         throw new Error(
-          data?.detail || `Server error: ${response.status}`
+          typeof data?.detail === "string"
+            ? data.detail
+            : `Server error: ${response.status}`
         );
       }
 

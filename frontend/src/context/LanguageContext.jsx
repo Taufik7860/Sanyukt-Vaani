@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
+import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
+import { transcribeVoice } from "../services/api";
 
 export const LANGUAGES = [
   { id: "hi", label: "हिंदी", speech: "hi-IN", script: /[\u0900-\u097F]/ },
@@ -177,12 +178,13 @@ function detectLanguage(text) {
 }
 
 export function LanguageProvider({ children }) {
-  const [languageId, setLanguageId] = useState(LANGUAGES[0].id);
+  const [languageId, setLanguageId] = useState("en");
   const [rotationIndex, setRotationIndex] = useState(0);
-  const [isAutoRotating, setIsAutoRotating] = useState(true);
+  const [isAutoRotating, setIsAutoRotating] = useState(false);
   const [transcript, setTranscript] = useState("");
   const [isListening, setIsListening] = useState(false);
   const [voiceMessage, setVoiceMessage] = useState("");
+  const recorderRef = useRef(null);
 
   const language = LANGUAGES.find((item) => item.id === languageId) || LANGUAGES[1];
   const t = copy[languageId] || copy.hi;
@@ -216,49 +218,85 @@ export function LanguageProvider({ children }) {
     }
   };
 
-  const detectFromSpeech = () => {
-    const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!Recognition) {
-      setVoiceMessage("Speech recognition is not supported in this browser. You can type to continue.");
+  const detectFromSpeech = async () => {
+    if (!navigator.mediaDevices?.getUserMedia) {
+      setVoiceMessage("Microphone access is not supported in this browser. You can type to continue.");
       return false;
     }
 
-    const recognition = new Recognition();
-    recognition.continuous = false;
-    recognition.interimResults = false;
-    // Omit or set multi/default so browser can accurately recognize English, Hindi, or Marathi based on user speech
-    recognition.lang = ""; 
-    setIsListening(true);
-    setVoiceMessage(t.detecting);
-
-    recognition.onresult = (event) => {
-      const text = event.results[0][0].transcript;
-      const detected = detectLanguage(text);
-      setTranscript(text);
-      setRotationIndex(LANGUAGES.findIndex((item) => item.id === detected));
-      setIsAutoRotating(false);
-      setLanguageId(detected);
-      setVoiceMessage(copy[detected] ? copy[detected].voiceDetected : copy.en.voiceDetected);
-    };
-
-    recognition.onerror = () => {
-      setVoiceMessage("Microphone access was not available. Please try again or type your question.");
-    };
-
-    recognition.onend = () => {
-      setIsListening(false);
-    };
-
+    let microphoneStream;
     try {
-      recognition.start();
-      return true;
-    } catch (e) {
-      setIsListening(false);
+      microphoneStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    } catch (error) {
+      const message = error.name === "NotAllowedError"
+        ? "Microphone permission was denied. Allow microphone access for 127.0.0.1 and try again."
+        : error.name === "NotFoundError"
+          ? "No microphone was found. Connect a microphone and try again."
+          : "Microphone access was not available. Check your browser and system microphone settings.";
+      setVoiceMessage(message);
       return false;
     }
+
+    setIsListening(true);
+    setVoiceMessage("Recording... click the microphone again to stop.");
+    const mimeType = MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
+      ? "audio/webm;codecs=opus"
+      : "audio/webm";
+    const recorder = new MediaRecorder(microphoneStream, { mimeType });
+    const chunks = [];
+    recorder.ondataavailable = (event) => {
+      if (event.data.size > 0) chunks.push(event.data);
+    };
+    recorder.onstop = async () => {
+      recorderRef.current = null;
+      microphoneStream.getTracks().forEach((track) => track.stop());
+      setIsListening(false);
+      setVoiceMessage("Transcribing your voice...");
+      try {
+        const result = await transcribeVoice(
+          new Blob(chunks, { type: mimeType }),
+          languageId,
+        );
+        const text = (result.transcribed_text || "").trim();
+        if (!text) throw new Error("No speech was detected. Speak clearly and try again.");
+        const detected = languageId === "en"
+          ? "en"
+          : result.detected_language || detectLanguage(text);
+        setTranscript(text);
+        setRotationIndex(LANGUAGES.findIndex((item) => item.id === detected));
+        setIsAutoRotating(false);
+        setLanguageId(detected);
+        setVoiceMessage(copy[detected] ? copy[detected].voiceDetected : copy.en.voiceDetected);
+      } catch (error) {
+        setVoiceMessage(error.message || "Voice recognition failed. Please try again.");
+      }
+    };
+    recorderRef.current = recorder;
+    recorder.start();
+    window.setTimeout(() => {
+      if (recorder.state === "recording") recorder.stop();
+    }, 4000);
+    return true;
   };
 
-  const value = useMemo(() => ({ language, languageId, languages: LANGUAGES, t, transcript, setTranscript, isListening, isAutoRotating, voiceMessage, setLanguage, detectFromSpeech }), [language, languageId, t, transcript, isListening, isAutoRotating, voiceMessage]);
+  const toggleVoice = () => {
+    if (recorderRef.current?.state === "recording") {
+      recorderRef.current.stop();
+      return true;
+    }
+    return detectFromSpeech();
+  };
+
+  const speakText = (text, requestedLanguage = languageId) => {
+    if (!("speechSynthesis" in window) || !text) return;
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = LANGUAGES.find((item) => item.id === requestedLanguage)?.speech || "en-IN";
+    utterance.rate = 0.95;
+    window.speechSynthesis.speak(utterance);
+  };
+
+  const value = useMemo(() => ({ language, languageId, languages: LANGUAGES, t, transcript, setTranscript, isListening, isAutoRotating, voiceMessage, setLanguage, speakText, detectFromSpeech: toggleVoice }), [language, languageId, t, transcript, isListening, isAutoRotating, voiceMessage]);
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
 

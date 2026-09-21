@@ -24,7 +24,7 @@ class Settings:
     # Use the model that worked in the Gemini API test.
     GEMINI_MODEL: str = os.getenv(
         "GEMINI_MODEL",
-        "gemini-3.6-flash",
+        "gemini-flash-lite-latest",
     ).strip()
 
     GEMINI_EMBEDDING_MODEL: str = os.getenv(
@@ -32,10 +32,15 @@ class Settings:
         "gemini-embedding-001",
     ).strip()
 
+    EMBEDDING_MODEL: str = os.getenv(
+        "EMBEDDING_MODEL",
+        "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    ).strip()
+
     EMBEDDING_DIMENSION: int = int(
         os.getenv(
             "EMBEDDING_DIMENSION",
-            "768",
+            "384",
         )
     )
 
@@ -55,7 +60,7 @@ class Settings:
 
     QDRANT_COLLECTION: str = os.getenv(
         "QDRANT_COLLECTION",
-        "kb_docs",
+        "sanyuktvaani_kb",
     ).strip()
 
     # ============================================================

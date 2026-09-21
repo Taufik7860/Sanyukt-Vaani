@@ -7,6 +7,12 @@ import {
 function SourceCard({
   source
 }) {
+  const sourceFile = source.source || source.metadata?.source_file || "";
+  const sourceUrl = source.url || (
+    sourceFile
+      ? `https://github.com/Taufik7860/Sanyukt-Vaani/search?q=${encodeURIComponent(sourceFile)}`
+      : null
+  );
 
   return (
     <div className="source-card">
@@ -53,13 +59,21 @@ function SourceCard({
 
       </div>
 
-      <button className="outline-btn full">
+      <a
+        className="outline-btn full"
+        href={sourceUrl || "#"}
+        target="_blank"
+        rel="noreferrer"
+        onClick={(event) => {
+          if (!sourceUrl) event.preventDefault();
+        }}
+      >
 
         <Eye size={15} />
 
         Open Source
 
-      </button>
+      </a>
 
     </div>
   );

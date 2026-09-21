@@ -61,26 +61,39 @@ class QdrantService:
         self.client.upsert(collection_name=name, points=points)
         return len(points)
 
-    def search(self, query: str, collection_name: str, limit: int = 5):
+    def search(self, query: str, collection_name: str, limit: int = 8):
         if not self.client:
             return []
 
-        try:
-            vector = embed_text(query, task_type="RETRIEVAL_QUERY")
-            result = self.client.query_points(
-                collection_name=collection_name,
-                query=vector,
-                limit=limit,
-                with_payload=True,
-            )
-        except Exception:
-            return []
+        vector = embed_text(query, task_type="RETRIEVAL_QUERY")
+        result = self.client.query_points(
+            collection_name=collection_name,
+            query=vector,
+            limit=limit,
+            with_payload=True,
+        )
 
         output = []
         for point in result.points:
             payload = point.payload or {}
+            metadata = payload.get("metadata")
+            if not isinstance(metadata, dict):
+                metadata = {}
+            for key in (
+                "title",
+                "source",
+                "source_file",
+                "page",
+                "section",
+                "document",
+                "chunk_id",
+            ):
+                if key in payload and key not in metadata:
+                    metadata[key] = payload[key]
+
             output.append({
                 **payload,
+                "metadata": metadata,
                 "score": point.score,
                 "text": payload.get("text", ""),
             })

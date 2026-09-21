@@ -147,28 +147,30 @@ export async function healthCheck() {
 // =========================
 
 export async function askSanyuktVaani(message, language = "auto") {
+  const formData = new FormData();
+  formData.append("query", message);
+  formData.append("language", language);
+  formData.append("user_id", "guest_user");
+
   const response = await fetch(`${API_BASE_URL}/api/chat/text`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      message,
-      language,
-    }),
+    body: formData,
   });
 
-  const rawText = await response.text();
+  return parseResponse(response, "Unable to generate an answer");
+}
 
-  console.log("Backend status:", response.status);
-  console.log("Backend response:", rawText);
+export async function transcribeVoice(audioBlob, language = "auto") {
+  const formData = new FormData();
+  formData.append("file", audioBlob, "voice.webm");
+  formData.append("language", language);
 
-  if (!response.ok) {
-    throw new Error(rawText || `Request failed: ${response.status}`);
-  }
+  const response = await fetch(`${API_BASE_URL}/api/chat/voice`, {
+    method: "POST",
+    body: formData,
+  });
 
-  const data = JSON.parse(rawText);
-  return parseResponse(data);
+  return parseResponse(response, "Voice recognition failed");
 }
 
 // =========================
