@@ -1,6 +1,6 @@
 # ============================================================
 # SANYUKT VAANI
-# RETRIEVER V5.1.9 FINAL
+# RETRIEVER V5.1.9 FINAL FROZEN
 # ============================================================
 #
 # FINAL CONSOLIDATED VERSION
@@ -209,7 +209,7 @@ QDRANT_TIMEOUT = 300
 print("=" * 80)
 
 print(
-    "SANYUKT VAANI - V5.1.9 FINAL RETRIEVER"
+    "SANYUKT VAANI - V5.1.9 FINAL FROZEN RETRIEVER"
 )
 
 print("=" * 80)
@@ -776,9 +776,42 @@ LANGUAGE_NAMES = {
 }
 
 
+def normalize_language_code(
+    language: str = None,
+    default: str = "en"
+) -> str:
+
+    value = str(language or "").strip().lower()
+
+    aliases = {
+        "english": "en",
+        "eng": "en",
+        "en-us": "en",
+        "en-in": "en",
+        "hindi": "hi",
+        "hin": "hi",
+        "hi-in": "hi",
+        "हिंदी": "hi",
+        "हिन्दी": "hi",
+        "marathi": "mr",
+        "mar": "mr",
+        "mr-in": "mr",
+        "मराठी": "mr",
+    }
+
+    normalized = aliases.get(value, value)
+
+    if normalized in {"en", "hi", "mr"}:
+        return normalized
+
+    return default
+
+
 def language_name(
     code: str
 ) -> str:
+
+    code = normalize_language_code(code)
 
     return LANGUAGE_NAMES.get(
         code,
@@ -789,45 +822,18 @@ def language_name(
 def answer_language_instruction(
     language: str
 ) -> str:
-    """Strict language policy for the downstream Gemini answer generator."""
-    language = (language or "en").lower().strip()
+
+    language = normalize_language_code(language)
 
     if language == "hi":
-        return (
-            "Respond ONLY in Hindi (Devanagari script). "
-            "Do not answer in English or Marathi. "
-            "Keep official scheme names, acronyms, numbers, dates and "
-            "document names unchanged where necessary."
-        )
+
+        return "Answer only in Hindi."
 
     if language == "mr":
-        return (
-            "Respond ONLY in Marathi (Devanagari script). "
-            "Do not answer in English or Hindi. "
-            "Keep official scheme names, acronyms, numbers, dates and "
-            "document names unchanged where necessary."
-        )
 
-    return (
-        "Respond ONLY in English. "
-        "Do not translate the answer into Hindi or Marathi. "
-        "Keep official scheme names, acronyms, numbers and dates unchanged."
-    )
+        return "Answer only in Marathi."
 
-
-def answer_language_contract(language: str) -> Dict[str, Any]:
-    """Machine-readable contract for the Gemini/API layer."""
-    code = (language or "en").lower().strip()
-    if code not in {"en", "hi", "mr"}:
-        code = "en"
-    return {
-        "language_code": code,
-        "language_name": language_name(code),
-        "instruction": answer_language_instruction(code),
-        "must_match_user_language": True,
-        "allow_language_mixing": False,
-        "tts_language": code,
-    }
+    return "Answer only in English."
 
 
 # ============================================================
@@ -971,34 +977,15 @@ def split_by_question_marks(
 
 
 def split_multi_question(text: str) -> List[str]:
-    """Conservative splitter: never fragments an ordinary single question."""
-    text = str(text or "").strip()
+    text = clean_question(str(text or ""))
     if not text:
         return []
-
-    # Numbered questions: 1) ... 2) ...
-    numbered = re.split(
-        r"(?:^|\s)(?:Q(?:uestion)?\s*)?\d+\s*[\)\.\-:]\s*",
-        text,
-        flags=re.IGNORECASE,
-    )
+    numbered = re.split(r"(?:^|\s)(?:Q(?:uestion)?\s*)?\d+\s*[\)\.\-:]\s*", text, flags=re.I)
     numbered = [clean_question(x) for x in numbered if clean_question(x)]
     if len(numbered) > 1:
         return numbered[:MAX_QUESTIONS]
-
-    # Split only on real question marks. Do not split on question cues
-    # occurring inside a normal sentence.
     parts = [clean_question(x) for x in re.split(r"\?+", text) if clean_question(x)]
-    if len(parts) > 1:
-        return parts[:MAX_QUESTIONS]
-
-    # Explicit line/semicolon-separated questions only when each segment
-    # looks like a meaningful question.
-    segments = [clean_question(x) for x in re.split(r"[;\n；]+", text) if clean_question(x)]
-    if len(segments) > 1 and all(len(x.split()) >= 3 for x in segments):
-        return segments[:MAX_QUESTIONS]
-
-    return [clean_question(text)]
+    return parts[:MAX_QUESTIONS] if len(parts) > 1 else [text]
 
 
 # ============================================================
@@ -1072,6 +1059,8 @@ DOMAIN_MARKERS = {
     "pacs": [
 
         "pacs",
+        "pacs loan", "pacs loans", "loan from pacs", "pacs credit",
+        "पॅक्स कर्ज", "पॅक्स ऋण",
         "primary agricultural credit society",
         "primary agriculture credit society",
         "cooperative society membership",
@@ -1082,17 +1071,6 @@ DOMAIN_MARKERS = {
         "सहकारी समिती सदस्य",
         "पॅक्स",
         "पॅक्स सदस्य",
-
-        # PACS loan / credit / document routing
-        "pacs loan",
-        "pacs credit",
-        "loan from pacs",
-        "credit from pacs",
-        "pacs ऋण",
-        "pacs कर्ज",
-        "पॅक्स कर्ज",
-        "पॅक्स ऋण",
-        "पॅक्स कर्जासाठी",
 
     ],
 
@@ -1165,6 +1143,10 @@ def classify_domains(
             scores[
                 domain
             ] = score
+
+    if ("pacs" in q or "पॅक्स" in q) and any(x in q for x in ["loan", "loans", "credit", "कर्ज", "ऋण"]):
+        scores["pacs"] = max(scores.get("pacs", 0.0), 10.0)
+        scores["agricultural_loan"] = max(scores.get("agricultural_loan", 0.0), 9.0)
 
     if not scores:
 
@@ -1640,30 +1622,6 @@ def classify_subintents(
         )
 
     # --------------------------------------------------------
-    # PACS LOAN / DOCUMENTS
-    # Keep this separate from PACS membership.
-    # --------------------------------------------------------
-
-    pacs_present = any(item in q for item in [
-        "pacs", "पॅक्स", "पैक्स", "पैक्स", "पॅक्स",
-    ])
-
-    loan_present = any(item in q for item in [
-        "loan", "loans", "credit", "ऋण", "कर्ज", "कर्जा",
-    ])
-
-    document_present = any(item in q for item in [
-        "document", "documents", "required document",
-        "कागजात", "दस्तावेज", "कागदपत्र", "कागदपत्रे",
-    ])
-
-    if pacs_present and loan_present:
-        sub_intents.append("pacs_loan")
-
-    if pacs_present and loan_present and document_present:
-        sub_intents.append("pacs_loan_documents")
-
-    # --------------------------------------------------------
     # PACS MEMBERSHIP
     # --------------------------------------------------------
 
@@ -1793,29 +1751,6 @@ QUERY_EXPANSIONS = {
         "State Registrar",
         "acknowledgment",
         "complaint received",
-
-    ],
-
-    "pacs_loan": [
-
-        "PACS loan",
-        "PACS credit facility",
-        "primary agricultural credit society loan",
-        "agricultural credit society lending",
-        "farmer loan documents",
-
-    ],
-
-    "pacs_loan_documents": [
-
-        "PACS loan documents",
-        "documents required for PACS loan",
-        "loan application documents",
-        "KYC documents",
-        "identity proof",
-        "land record",
-        "7/12 extract",
-        "bank passbook",
 
     ],
 
@@ -2127,10 +2062,6 @@ def required_topics(
             "documents"
         )
 
-    if "pacs_loan" in sub_intents or "pacs_loan_documents" in sub_intents:
-        topics.append("pacs_loan")
-    if "pacs_membership" in sub_intents:
-        topics.append("pacs_membership")
     if "cooperative_complaint" in sub_intents:
 
         topics.append(
@@ -4058,34 +3989,6 @@ def has_direct_evidence(
                 return True
 
         # ----------------------------------------------------
-        # PACS LOAN DIRECT EVIDENCE
-        # ----------------------------------------------------
-
-        if (
-            "pacs_loan" in sub_intents
-            or "pacs_loan_documents" in sub_intents
-        ):
-            pacs_loan_markers = [
-                "pacs",
-                "primary agricultural credit society",
-                "loan",
-                "credit",
-                "कर्ज",
-                "ऋण",
-                "कागदपत्र",
-                "कागजात",
-                "दस्तावेज",
-            ]
-            marker_hits = sum(
-                1 for marker in pacs_loan_markers
-                if marker in text
-            )
-            if marker_hits >= 2 and (
-                rerank >= 0.35 or final_score >= 0.30
-            ):
-                return True
-
-        # ----------------------------------------------------
         # DOCUMENTS
         # ----------------------------------------------------
 
@@ -4471,7 +4374,10 @@ def process_question(
 
     if forced_language:
 
-        language = forced_language
+        language = normalize_language_code(
+            forced_language,
+            default=detect_language(query)
+        )
 
     else:
 
@@ -4599,9 +4505,6 @@ def process_question(
                 answer_language_instruction(
                     language
                 ),
-
-            "answer_language_contract":
-                answer_language_contract(language),
 
         }
 
@@ -5044,7 +4947,10 @@ def process_query(
 
     detected_language = (
 
-        forced_language
+        normalize_language_code(
+            forced_language,
+            default=detect_language(query)
+        )
 
         if forced_language
 
@@ -5116,9 +5022,6 @@ def process_query(
             language_name(
                 detected_language
             ),
-
-        "answer_language_contract":
-            answer_language_contract(detected_language),
 
         "question_count":
             len(
@@ -5670,7 +5573,7 @@ if __name__ == "__main__":
     print("=" * 80)
 
     print(
-        "V5.1.9 FINAL RETRIEVER TEST"
+        "V5.1.9 FINAL FROZEN RETRIEVER TEST"
     )
 
     print("=" * 80)
@@ -5728,7 +5631,7 @@ if __name__ == "__main__":
     print("=" * 80)
 
     print(
-        "V5.1.9 FINAL RETRIEVER TESTING COMPLETE"
+        "V5.1.9 FINAL FROZEN RETRIEVER TESTING COMPLETE"
     )
 
     print("=" * 80)

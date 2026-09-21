@@ -15,3 +15,10 @@ rag/knowledge_base/extracted_text/
 rag/knowledge_base/cleaned_text/
 rag/knowledge_base/chunks/
 rag/knowledge_base/embeddings/
+
+# Generated TTS audio
+static/*.wav
+
+# Python cache
+__pycache__/
+*.pyc
