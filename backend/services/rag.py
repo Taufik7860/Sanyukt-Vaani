@@ -165,6 +165,7 @@ def _build_context(docs: list[dict[str, Any]]) -> tuple[str, list[dict[str, Any]
                 "section": section,
                 "score": score,
                 "metadata": metadata,
+                "excerpt": text[:1800],
             }
         )
 

@@ -32,6 +32,7 @@ function Chat() {
   const [messages, setMessages] = useState([INITIAL_MESSAGE]);
   const [isLoading, setIsLoading] = useState(false);
   const [activeSources, setActiveSources] = useState([]);
+  const [selectedSource, setSelectedSource] = useState(null);
   const textareaRef = useRef(null);
 
   useEffect(() => {
@@ -150,9 +151,11 @@ function Chat() {
                           <a
                             key={`${source.title}-${sourceIndex}`}
                             className="live-source-chip"
-                            href={`https://github.com/Taufik7860/Sanyukt-Vaani/search?q=${encodeURIComponent(source.source || source.metadata?.source_file || source.title || "official document")}&type=code`}
-                            target="_blank"
-                            rel="noreferrer"
+                            href="#source-preview"
+                            onClick={(event) => {
+                              event.preventDefault();
+                              setSelectedSource(source);
+                            }}
                             aria-label={`Open source ${source.title || source.source || "official document"}`}
                           >
                             {source.title || source.source || "Official document"}
@@ -175,6 +178,25 @@ function Chat() {
               )}
             </div>
           </div>
+          {selectedSource && (
+            <div className="source-preview-backdrop" role="presentation" onClick={() => setSelectedSource(null)}>
+              <section className="source-preview-panel" role="dialog" aria-modal="true" aria-labelledby="source-preview-title" onClick={(event) => event.stopPropagation()}>
+                <div className="source-preview-header">
+                  <div>
+                    <span className="intro-kicker">VERIFIED SOURCE</span>
+                    <h2 id="source-preview-title">{selectedSource.title || selectedSource.source || "Official document"}</h2>
+                  </div>
+                  <button type="button" className="source-preview-close" onClick={() => setSelectedSource(null)} aria-label="Close source preview">×</button>
+                </div>
+                <div className="source-preview-meta">
+                  {selectedSource.source || selectedSource.metadata?.source_file}
+                  {selectedSource.page != null && ` · Page ${selectedSource.page}`}
+                </div>
+                <p className="source-preview-note">Relevant verified excerpt from this document</p>
+                <pre className="source-preview-text">{selectedSource.excerpt || "The document excerpt is not available for this result."}</pre>
+              </section>
+            </div>
+          )}
 
           <div className="composer-wrap">
             <div className="chat-composer">
