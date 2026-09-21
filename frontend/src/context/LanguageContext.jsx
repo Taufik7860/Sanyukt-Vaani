@@ -292,8 +292,7 @@ export function LanguageProvider({ children }) {
     window.speechSynthesis.cancel();
     const spokenText = text
       .replace(/https?:\/\/\S+/gi, " ")
-      .replace(/[`*_#>[\]{}()<>|~^+=]/g, " ")
-      .replace(/[•●▪◦]/g, " ")
+      .replace(/[^\p{L}\p{N}\s]/gu, " ")
       .replace(/\s+/g, " ")
       .trim();
     if (!spokenText) return;
