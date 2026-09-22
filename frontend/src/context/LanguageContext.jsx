@@ -155,6 +155,8 @@ function normalizeLanguageId(
    AUTO LANGUAGE ROTATION
 ========================================================= */
 
+// Automatic voice detection for the project is intentionally limited to
+// the three answer languages supported by the RAG / answer-generation flow.
 const AUTO_ROTATION_LANGUAGE_IDS = [
   "hi",
   "en",
@@ -990,50 +992,15 @@ function detectLanguage(text) {
     return "en";
   }
 
-
   /* -------------------------------------------------------
-     Gujarati
+     Project scope:
+     automatic detection is authoritative only for
+     English / Hindi / Marathi.
   ------------------------------------------------------- */
 
-  if (/[\u0A80-\u0AFF]/u.test(trimmed)) {
-    return "gu";
-  }
-
-
-  /* -------------------------------------------------------
-     Kannada
-  ------------------------------------------------------- */
-
-  if (/[\u0C80-\u0CFF]/u.test(trimmed)) {
-    return "kn";
-  }
-
-
-  /* -------------------------------------------------------
-     English / Latin
-  ------------------------------------------------------- */
-
-  if (
-    /^[A-Za-z0-9\s.,?!'"()_\\\-/:%&+₹$]+$/.test(
-      trimmed
-    )
-  ) {
+  if (/^[-A-Za-z0-9\s.,?!'"()_\\\/:%&+₹$]+$/u.test(trimmed)) {
     return "en";
   }
-
-
-  /* -------------------------------------------------------
-     Sanskrit
-  ------------------------------------------------------- */
-
-  if (
-    /ज्ञ|श्र|संस्कृत|पृच्छ|नमः|भवतः|भवती/u.test(
-      trimmed
-    )
-  ) {
-    return "sa";
-  }
-
 
   /* -------------------------------------------------------
      Devanagari
@@ -1047,11 +1014,9 @@ function detectLanguage(text) {
 
     /*
      * Require multiple strong Marathi indicators.
-     *
-     * This avoids incorrectly classifying ordinary
-     * Hindi sentences as Marathi.
+     * This avoids incorrectly classifying ordinary Hindi
+     * sentences as Marathi.
      */
-
     if (marathiMatches >= 2) {
       return "mr";
     }
@@ -1059,6 +1024,10 @@ function detectLanguage(text) {
     return "hi";
   }
 
+  /*
+   * Any non-English/non-Devanagari text is not part of the
+   * automatic answer-language contract. Fall back to English.
+   */
   return "en";
 }
 
@@ -1092,218 +1061,91 @@ function cleanTextForSpeech(text) {
     return "";
   }
 
-  let cleaned = String(text);
-
-
-  /* -------------------------------------------------------
-     Remove URLs
-  ------------------------------------------------------- */
-
-  cleaned = cleaned.replace(
-    /https?:\/\/\S+/gi,
-    " "
-  );
-
+  let cleaned = String(text).normalize("NFKC");
 
   /* -------------------------------------------------------
-     Remove markdown code blocks
+     1. Unescape escaped markdown (\* -> *, \# -> #, etc.)
   ------------------------------------------------------- */
-
-  cleaned = cleaned.replace(
-    /```[\s\S]*?```/g,
-    " "
-  );
-
+  cleaned = cleaned
+    .replace(/\\([*_#~`[\]()])/g, "$1");
 
   /* -------------------------------------------------------
-     Remove inline code markers
+     2. Remove URLs and markdown links
   ------------------------------------------------------- */
-
-  cleaned = cleaned.replace(
-    /`([^`]+)`/g,
-    "$1"
-  );
-
+  cleaned = cleaned.replace(/https?:\/\/\S+/gi, " ");
+  cleaned = cleaned.replace(/\bwww\.\S+/gi, " ");
+  cleaned = cleaned.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
 
   /* -------------------------------------------------------
-     Remove source wrappers
+     3. Remove code blocks and inline code
   ------------------------------------------------------- */
-
-  cleaned = cleaned.replace(
-    /\[\s*Source\s+\d+\s*\]/gi,
-    " "
-  );
-
-  cleaned = cleaned.replace(
-    /\[\s*Document\s+\d+\s*\]/gi,
-    " "
-  );
-
-  cleaned = cleaned.replace(
-    /\[\s*Chunk\s+\d+\s*\]/gi,
-    " "
-  );
-
-  cleaned = cleaned.replace(
-    /\[\s*Evidence\s+\d+\s*\]/gi,
-    " "
-  );
-
+  cleaned = cleaned.replace(/```[\s\S]*?```/g, " ");
+  cleaned = cleaned.replace(/`([^`]+)`/g, "$1");
+  cleaned = cleaned.replace(/`+/g, " ");
 
   /* -------------------------------------------------------
-     Remove common internal labels
+     4. Remove source/document wrappers and citations
   ------------------------------------------------------- */
-
-  cleaned = cleaned.replace(
-    /^\s*(source|sources|reference|references|evidence)\s*:.*$/gim,
-    " "
-  );
-
+  cleaned = cleaned.replace(/\[\s*(?:Source|Document|Chunk|Evidence|Reference)\s*\d*\]/gi, " ");
+  cleaned = cleaned.replace(/\[\s*\d+\s*\]/g, " ");
+  cleaned = cleaned.replace(/^\s*(?:source|sources|reference|references|evidence)\s*:.*$/gim, " ");
+  cleaned = cleaned.replace(/\b(?:source|retrieval|similarity score|confidence score)\s*[:=]\s*[^\n]+/gi, " ");
 
   /* -------------------------------------------------------
-     Remove markdown headings
+     5. Remove markdown headings (#, ##, ###)
   ------------------------------------------------------- */
-
-  cleaned = cleaned.replace(
-    /^\s{0,3}#{1,6}\s*/gm,
-    ""
-  );
-
+  cleaned = cleaned.replace(/^\s{0,4}#{1,6}\s*(.+)$/gm, "$1. ");
+  cleaned = cleaned.replace(/#{1,6}/g, "");
 
   /* -------------------------------------------------------
-     Remove bold / italic markers
+     6. Remove bold and italic markers (***, **, *, ___, __, _)
   ------------------------------------------------------- */
-
-  cleaned = cleaned.replace(
-    /\*\*\*?/g,
-    ""
-  );
-
-  cleaned = cleaned.replace(
-    /___?/g,
-    ""
-  );
-
+  cleaned = cleaned.replace(/\*\*\*([^*]+)\*\*\*/g, "$1");
+  cleaned = cleaned.replace(/\*\*([^*]+)\*\*/g, "$1");
+  cleaned = cleaned.replace(/\*([^*]+)\*/g, "$1");
+  cleaned = cleaned.replace(/___([^_]+)___/g, "$1");
+  cleaned = cleaned.replace(/__([^_]+)__/g, "$1");
+  cleaned = cleaned.replace(/_([^_]+)_/g, "$1");
 
   /* -------------------------------------------------------
-     Remove bullet formatting
+     7. Remove list and bullet markers
   ------------------------------------------------------- */
-
-  cleaned = cleaned.replace(
-    /^\s*[-•●▪◦‣]\s*/gm,
-    ""
-  );
-
+  cleaned = cleaned.replace(/^\s*[-*+•●▪◦‣]\s*/gm, "");
+  cleaned = cleaned.replace(/^\s*\d+[.)]\s*/gm, "");
 
   /* -------------------------------------------------------
-     Remove numbered-list formatting
+     8. Remove table separators and borders
   ------------------------------------------------------- */
-
-  cleaned = cleaned.replace(
-    /^\s*\d+[.)]\s*/gm,
-    ""
-  );
-
+  cleaned = cleaned.replace(/^\s*\|?(?:\s*:?-{2,}:?\s*\|)+\s*$/gm, " ");
+  cleaned = cleaned.replace(/[|]+/g, ". ");
+  cleaned = cleaned.replace(/[_\-+=~^]{2,}/g, " ");
 
   /* -------------------------------------------------------
-     Replace vertical separators
+     9. Remove decorative symbols and HTML
   ------------------------------------------------------- */
-
-  cleaned = cleaned.replace(
-    /[|]+/g,
-    ". "
-  );
-
+  cleaned = cleaned.replace(/[★☆◆◇■□●○►▶→←↑↓✓✔✕✖️🔹🔸🔺🔻]/gu, " ");
+  cleaned = cleaned.replace(/<[^>]*>/g, " ");
 
   /* -------------------------------------------------------
-     Remove repeated decorative separators
+     10. ABSOLUTE FILTER: Remove ANY remaining asterisk,
+         hash, underscore, tilde, backtick, backslash.
+         TTS will NEVER pronounce "asterisk" or "hash".
   ------------------------------------------------------- */
-
-  cleaned = cleaned.replace(
-    /[_\-+=~^]{2,}/g,
-    " "
-  );
-
+  cleaned = cleaned.replace(/[*#_~`\\]/g, " ");
 
   /* -------------------------------------------------------
-     Remove decorative symbols
+     11. Preserve Unicode letters, numbers and punctuation
   ------------------------------------------------------- */
-
-  cleaned = cleaned.replace(
-    /[★☆◆◇■□●○►▶→←↑↓✓✔✕✖️🔹🔸🔺🔻]/gu,
-    " "
-  );
-
+  cleaned = cleaned.replace(/[^\p{L}\p{N}\s.,?!:;'"()/%₹-]/gu, " ");
 
   /* -------------------------------------------------------
-     Remove HTML
+     12. Clean punctuation and spacing
   ------------------------------------------------------- */
-
-  cleaned = cleaned.replace(
-    /<[^>]*>/g,
-    " "
-  );
-
-
-  /* -------------------------------------------------------
-     Preserve Unicode letters/numbers.
-  ------------------------------------------------------- */
-
-  cleaned = cleaned.replace(
-    /[^\p{L}\p{N}\s.,?!:;'"()/%₹]/gu,
-    " "
-  );
-
-
-  /* -------------------------------------------------------
-     Clean punctuation spacing
-  ------------------------------------------------------- */
-
-  cleaned = cleaned.replace(
-    /\s+([,.?!:;])/g,
-    "$1"
-  );
-
-
-  /* -------------------------------------------------------
-     Prevent repeated punctuation
-  ------------------------------------------------------- */
-
-  cleaned = cleaned.replace(
-    /([.!?]){2,}/g,
-    "$1"
-  );
-
-
-  /* -------------------------------------------------------
-     Convert line breaks to pauses
-  ------------------------------------------------------- */
-
-  cleaned = cleaned.replace(
-    /\n+/g,
-    ". "
-  );
-
-
-  /* -------------------------------------------------------
-     Collapse spaces
-  ------------------------------------------------------- */
-
-  cleaned = cleaned.replace(
-    /\s+/g,
-    " "
-  );
-
-
-  /* -------------------------------------------------------
-     Remove punctuation-only fragments
-  ------------------------------------------------------- */
-
-  cleaned = cleaned.replace(
-    /(^|\s)[.,:;!?]+(?=\s|$)/g,
-    " "
-  );
-
+  cleaned = cleaned.replace(/\s+([,.?!:;])/g, "$1");
+  cleaned = cleaned.replace(/([.!?]){2,}/g, "$1");
+  cleaned = cleaned.replace(/\n+/g, ". ");
+  cleaned = cleaned.replace(/\s+/g, " ");
+  cleaned = cleaned.replace(/(^|\s)[.,:;!?]+(?=\s|$)/g, " ");
 
   return cleaned.trim();
 }
@@ -2783,7 +2625,108 @@ const speechRecognitionActiveRef = useRef(false);
 
   /* =======================================================
      SPEECH SYNTHESIS
+
+     IMPORTANT: Web Speech API does NOT reliably choose a voice
+     from utterance.lang alone. On many Windows/Chrome systems,
+     hi-IN / mr-IN can silently fall back to an English voice.
+
+     We therefore explicitly select an installed voice whose
+     language matches the requested answer language.
   ======================================================== */
+
+  const normalizeSpeechLocale = (locale) => {
+    return String(locale || "")
+      .trim()
+      .toLowerCase()
+      .replace(/_/g, "-");
+  };
+
+  const getSpeechVoices = () => {
+    if (!("speechSynthesis" in window)) {
+      return [];
+    }
+
+    try {
+      return window.speechSynthesis.getVoices() || [];
+    } catch {
+      return [];
+    }
+  };
+
+  const findSpeechVoice = (languageCode, voices) => {
+    const voiceList = Array.isArray(voices)
+      ? voices
+      : [];
+
+    if (!voiceList.length) {
+      return null;
+    }
+
+    const languagePrefixes = {
+      en: ["en-in", "en-us", "en-gb", "en-au", "en-ca", "en"],
+      hi: ["hi-in", "hi"],
+      mr: ["mr-in", "mr"],
+      gu: ["gu-in", "gu"],
+      kn: ["kn-in", "kn"],
+      sa: ["sa-in", "sa"],
+    };
+
+    const prefixes =
+      languagePrefixes[languageCode] ||
+      [languageCode];
+
+    const normalizedVoices = voiceList.map((voice) => ({
+      voice,
+      lang: normalizeSpeechLocale(voice?.lang),
+      name: String(voice?.name || "").toLowerCase(),
+    }));
+
+    /* Exact locale match first. */
+    for (const prefix of prefixes) {
+      const exact = normalizedVoices.find(
+        (item) => item.lang === prefix
+      );
+
+      if (exact) {
+        return exact.voice;
+      }
+    }
+
+    /* Then accept the same language with another regional locale. */
+    const languageMatch = normalizedVoices.find((item) =>
+      prefixes.some(
+        (prefix) =>
+          item.lang === prefix ||
+          item.lang.startsWith(`${prefix}-`)
+      )
+    );
+
+    if (languageMatch) {
+      return languageMatch.voice;
+    }
+
+    /*
+     * Some browser voice names contain the language name even when
+     * their lang metadata is incomplete. This is only a secondary
+     * fallback; we never use an English voice for Hindi/Marathi.
+     */
+    const nameHints = {
+      en: ["english", "english india", "india"],
+      hi: ["hindi", "हिंदी", "हिन्दी"],
+      mr: ["marathi", "मराठी"],
+      gu: ["gujarati", "ગુજરાતી"],
+      kn: ["kannada", "ಕನ್ನಡ"],
+      sa: ["sanskrit", "संस्कृत"],
+    };
+
+    const hints = nameHints[languageCode] || [];
+
+    const nameMatch = normalizedVoices.find((item) =>
+      hints.some((hint) => item.name.includes(hint))
+    );
+
+    return nameMatch?.voice || null;
+  };
 
   const speakText = (
     text,
@@ -2843,57 +2786,157 @@ const speechRecognitionActiveRef = useRef(false);
           normalizedLanguage
       );
 
-
-    /*
-     * Create utterance.
-     */
-    const utterance =
-      new SpeechSynthesisUtterance(
-        spokenText
-      );
-
-
-    utterance.lang =
+    const targetLocale =
       speechLanguage?.speech ||
       "en-IN";
 
+    const speakWithAvailableVoice = () => {
+      const voices = getSpeechVoices();
+      const selectedVoice =
+        findSpeechVoice(
+          normalizedLanguage,
+          voices
+        );
 
-    /*
-     * Natural speaking speed.
-     */
-    utterance.rate =
-      normalizedLanguage === "hi" ||
-      normalizedLanguage === "mr"
-        ? 0.92
-        : 0.95;
+      /*
+       * Hindi/Marathi must never intentionally use an English voice.
+       * If no matching voice is installed, wait for the browser's
+       * voiceschanged event instead of immediately speaking in the
+       * browser's default English voice.
+       */
+      if (
+        (normalizedLanguage === "hi" ||
+          normalizedLanguage === "mr") &&
+        !selectedVoice
+      ) {
+        return false;
+      }
 
+      const utterance =
+        new SpeechSynthesisUtterance(
+          spokenText
+        );
 
-    utterance.pitch =
-      1;
+      utterance.lang = targetLocale;
 
+      if (selectedVoice) {
+        utterance.voice = selectedVoice;
+        utterance.lang =
+          selectedVoice.lang ||
+          targetLocale;
+      }
 
-    utterance.volume =
-      1;
+      utterance.rate =
+        normalizedLanguage === "hi" ||
+        normalizedLanguage === "mr"
+          ? 0.92
+          : 0.95;
 
+      utterance.pitch = 1;
+      utterance.volume = 1;
 
-    utterance.onerror =
-      () => {
-        try {
-          window.speechSynthesis.cancel();
-        } catch {
-          // Ignore.
-        }
+      utterance.onerror = (event) => {
+        console.warn(
+          `Speech synthesis failed for ${normalizedLanguage}:`,
+          event?.error || "unknown error"
+        );
       };
 
+      try {
+        window.speechSynthesis.speak(
+          utterance
+        );
+        return true;
+      } catch (error) {
+        console.warn(
+          "Speech synthesis start failed:",
+          error
+        );
+        return false;
+      }
+    };
 
     try {
+      /*
+       * Chrome/Edge can populate getVoices() asynchronously.
+       * Try immediately first.
+       */
+      if (speakWithAvailableVoice()) {
+        return true;
+      }
+
+      /*
+       * If Hindi/Marathi voices are not loaded yet, wait for
+       * voiceschanged and retry once. This prevents the common
+       * English-fallback problem on the first TTS request.
+       */
+      if (
+        normalizedLanguage === "hi" ||
+        normalizedLanguage === "mr"
+      ) {
+        let settled = false;
+
+        const retry = () => {
+          if (settled) {
+            return;
+          }
+
+          settled = true;
+
+          try {
+            window.speechSynthesis.removeEventListener(
+              "voiceschanged",
+              retry
+            );
+          } catch {
+            // Ignore cleanup errors.
+          }
+
+          speakWithAvailableVoice();
+        };
+
+        try {
+          window.speechSynthesis.addEventListener(
+            "voiceschanged",
+            retry,
+            { once: true }
+          );
+        } catch {
+          // Ignore unsupported event listener errors.
+        }
+
+        window.setTimeout(() => {
+          if (!settled) {
+            retry();
+          }
+        }, 1500);
+
+        return true;
+      }
+
+      /*
+       * English can safely use the browser's normal fallback if an
+       * explicit English voice is not available.
+       */
+      const utterance =
+        new SpeechSynthesisUtterance(
+          spokenText
+        );
+      utterance.lang = targetLocale;
+      utterance.rate = 0.95;
+      utterance.pitch = 1;
+      utterance.volume = 1;
+
       window.speechSynthesis.speak(
         utterance
       );
 
       return true;
-
-    } catch {
+    } catch (error) {
+      console.warn(
+        "Speech synthesis failed:",
+        error
+      );
       return false;
     }
   };

@@ -5,14 +5,20 @@ import {
   Plus,
   Send,
   ShieldCheck,
-  Sparkles
+  Sparkles,
+  X
 } from "lucide-react";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState
+} from "react";
 
 import { useLanguage } from "../context/LanguageContext";
 import { askSanyuktVaani } from "../services/api";
 import ChatMessage from "../components/ChatMessage";
+
 
 /* =========================================================
    INITIAL MESSAGE
@@ -22,8 +28,10 @@ const INITIAL_MESSAGE = {
   role: "assistant",
   text:
     "Ask me about cooperatives, government schemes, loans, laws, and citizen services. I will answer from the verified knowledge base.",
-  language: "en"
+  language: "en",
+  sources: []
 };
+
 
 /* =========================================================
    LANGUAGE HELPERS
@@ -50,13 +58,13 @@ function normalizeResponseLanguage(
     hindi: "hi",
     hin: "hi",
     "hi-in": "hi",
-    "हिंदी": "hi",
-    "हिन्दी": "hi",
+    हिंदी: "hi",
+    हिन्दी: "hi",
 
     marathi: "mr",
     mar: "mr",
     "mr-in": "mr",
-    "मराठी": "mr",
+    मराठी: "mr",
 
     gujarati: "gu",
     guj: "gu",
@@ -74,23 +82,23 @@ function normalizeResponseLanguage(
   return (
     aliases[value] ||
     (
-      ["en", "hi", "mr", "gu", "kn", "sa"].includes(
-        value
-      )
+      [
+        "en",
+        "hi",
+        "mr",
+        "gu",
+        "kn",
+        "sa"
+      ].includes(value)
         ? value
         : fallback
     )
   );
 }
 
+
 /* =========================================================
    CLEAN TEXT FOR BROWSER SPEECH
-
-   IMPORTANT:
-   This function ONLY cleans the text sent to speech.
-
-   The actual answer displayed in the chat remains
-   completely unchanged.
 ========================================================= */
 
 function cleanTextForSpeech(text) {
@@ -100,84 +108,64 @@ function cleanTextForSpeech(text) {
 
   let cleaned = String(text);
 
-  /* -------------------------------------------------------
-     1. Unicode normalization
-  ------------------------------------------------------- */
-
   cleaned = cleaned.normalize("NFKC");
 
-  /* -------------------------------------------------------
-     2. Remove URLs
-  ------------------------------------------------------- */
-
+  /* URLs */
   cleaned = cleaned.replace(
     /https?:\/\/[^\s]+/gi,
     " "
   );
 
-  /* -------------------------------------------------------
-     3. Remove fenced code blocks
-  ------------------------------------------------------- */
+  cleaned = cleaned.replace(
+    /\bwww\.\S+/gi,
+    " "
+  );
 
+  /* Markdown links */
+  cleaned = cleaned.replace(
+    /\[([^\]]+)\]\([^)]+\)/g,
+    "$1"
+  );
+
+  /* Fenced code blocks */
   cleaned = cleaned.replace(
     /```[\s\S]*?```/g,
     " "
   );
 
-  /* -------------------------------------------------------
-     4. Remove inline code markers
-  ------------------------------------------------------- */
-
+  /* Inline code */
   cleaned = cleaned.replace(
-    /`([^`]*)`/g,
+    /`([^`]+)`/g,
     "$1"
   );
 
-  /* -------------------------------------------------------
-     5. Remove internal source markers
-
-     Examples:
-     [Source 1]
-     [Document 2]
-     [Chunk 3]
-     [Evidence 4]
-  ------------------------------------------------------- */
-
+  /* Internal source markers */
   cleaned = cleaned.replace(
-    /\[(?:Source|Document|Chunk|Evidence)\s+\d+\]/gi,
+    /\[(?:Source\vert{}Document\vert{}Chunk\vert{}Evidence)\s+\d+\]/gi,
     " "
   );
 
-  /* -------------------------------------------------------
-     6. Remove source/reference lines
-  ------------------------------------------------------- */
-
+  /* Source/reference lines */
   cleaned = cleaned.replace(
-    /^\s*(?:source|sources|reference|references|evidence)\s*:.*$/gim,
+    /^\s*(?:source|sources|reference|references|evidence)\s*:.+$/gim,
     " "
   );
 
-  /* -------------------------------------------------------
-     7. Remove Markdown headings
-  ------------------------------------------------------- */
-
+  /* Markdown headings */
   cleaned = cleaned.replace(
-    /^\s{0,3}#{1,6}\s*/gm,
+    /^\s{0,3}#{1,6}\s+/gm,
     ""
   );
 
-  /* -------------------------------------------------------
-     8. Remove Markdown bold / italic markers
-
-     **text** -> text
-     __text__ -> text
-     *text* -> text
-     _text_ -> text
-  ------------------------------------------------------- */
+  /* Bold / italic */
+  cleaned = cleaned.replace(
+    /\*\*([^*]+)\*\*/g,
+    "$1"
+  );
 
   cleaned = cleaned.replace(
-    /\*\*|__/g,
-    ""
+    /__([^_]+)__/g,
+    "$1"
   );
 
   cleaned = cleaned.replace(
@@ -190,66 +178,44 @@ function cleanTextForSpeech(text) {
     ""
   );
 
-  /* -------------------------------------------------------
-     9. Remove bullet formatting
-  ------------------------------------------------------- */
-
+  /* Bullet formatting */
   cleaned = cleaned.replace(
     /^\s*[-•●▪◦‣]\s+/gm,
     ""
   );
 
-  /* -------------------------------------------------------
-     10. Remove numbered list formatting
-
-     1. Text
-     2) Text
-  ------------------------------------------------------- */
-
+  /* Numbered lists */
   cleaned = cleaned.replace(
     /^\s*\d+[.)]\s+/gm,
     ""
   );
 
-  /* -------------------------------------------------------
-     11. Remove table formatting
-  ------------------------------------------------------- */
-
+  /* Markdown table separator */
   cleaned = cleaned.replace(
-    /^\s*\|?[\s\-:|]+\|?\s*$/gm,
-    ""
+    /^\s*\|?(?:\s*:?-{2,}:?\s*\|)+\s*$/gm,
+    " "
   );
 
+  /* Remaining table pipes */
   cleaned = cleaned.replace(
     /\|/g,
     " "
   );
 
-  /* -------------------------------------------------------
-     12. Remove decorative separator lines
-  ------------------------------------------------------- */
-
+  /* Decorative separators */
   cleaned = cleaned.replace(
     /^\s*[_\-+=*~^]{3,}\s*$/gm,
     " "
   );
 
-  /* -------------------------------------------------------
-     13. Remove repeated decorative symbols
-  ------------------------------------------------------- */
-
+  /* Repeated decorative characters */
   cleaned = cleaned.replace(
-    /\+{2,}/g,
+    /[+*]{3,}/g,
     " "
   );
 
   cleaned = cleaned.replace(
     /-{3,}/g,
-    " "
-  );
-
-  cleaned = cleaned.replace(
-    /\*{3,}/g,
     " "
   );
 
@@ -268,78 +234,43 @@ function cleanTextForSpeech(text) {
     " "
   );
 
-  /* -------------------------------------------------------
-     14. Remove decorative Unicode symbols
-  ------------------------------------------------------- */
-
+  /* Decorative Unicode symbols */
   cleaned = cleaned.replace(
     /[★☆◆◇■□●○►▶→←↑↓✓✔✕✖️🔹🔸🔺🔻]/gu,
     " "
   );
 
-  /* -------------------------------------------------------
-     15. Remove HTML tags
-  ------------------------------------------------------- */
-
+  /* HTML tags */
   cleaned = cleaned.replace(
     /<[^>]*>/g,
     " "
   );
 
-  /* -------------------------------------------------------
-     16. Remove common internal/debug leakage
-
-     These should never be spoken.
-  ------------------------------------------------------- */
-
+  /* Internal/debug leakage */
   cleaned = cleaned.replace(
     /\b(?:source|sources|retrieval|retrieved|embedding|reranker|qdrant|gemini)\s*[:=]\s*[^\n]+/gi,
     " "
   );
 
-  /* -------------------------------------------------------
-     17. Remove internal metadata labels
-  ------------------------------------------------------- */
-
+  /* Internal metadata */
   cleaned = cleaned.replace(
-    /\b(?:final score|similarity score|rerank score|retrieval score|confidence score)\s*[:=]?\s*\d+(?:\.\d+)?%?\b/gi,
+    /\b(?:final score|similarity score|rerank score|retrieval score|confidence score)\s*[:=]?\s*\d+(?:\.\d+)?%?/gi,
     " "
   );
 
-  /* -------------------------------------------------------
-     18. Preserve normal Unicode letters/numbers and
-         useful punctuation.
-
-     This keeps:
-     English
-     Hindi
-     Marathi
-     Numbers
-     ₹
-     %
-  ------------------------------------------------------- */
-
+  /* Keep multilingual characters and useful punctuation */
   cleaned = cleaned.replace(
     /[^\p{L}\p{N}\s.,?!:;'"()/%₹-]/gu,
     " "
   );
 
-  /* -------------------------------------------------------
-     19. Clean punctuation spacing
-  ------------------------------------------------------- */
-
+  /* Punctuation spacing */
   cleaned = cleaned.replace(
     /\s+([,.?!:;])/g,
     "$1"
   );
 
-  /* -------------------------------------------------------
-     20. Repeated punctuation
-
-     !!! -> !
-     ??? -> ?
-  ------------------------------------------------------- */
-
+  /* Repeated punctuation */
   cleaned = cleaned.replace(
     /!{2,}/g,
     "!"
@@ -355,10 +286,7 @@ function cleanTextForSpeech(text) {
     "..."
   );
 
-  /* -------------------------------------------------------
-     21. Normalize line breaks
-  ------------------------------------------------------- */
-
+  /* Normalize line breaks */
   cleaned = cleaned.replace(
     /\r\n/g,
     "\n"
@@ -374,38 +302,156 @@ function cleanTextForSpeech(text) {
     "\n\n"
   );
 
-  /* -------------------------------------------------------
-     22. Convert line breaks into natural speech pauses
-
-     This prevents the browser speech engine from treating
-     every short line as a separate strange fragment.
-  ------------------------------------------------------- */
-
+  /* Natural speech pauses */
   cleaned = cleaned.replace(
     /\n+/g,
     ". "
   );
 
-  /* -------------------------------------------------------
-     23. Remove excessive whitespace
-  ------------------------------------------------------- */
-
-  cleaned = cleaned.replace(
-    /\s+/g,
-    " "
-  );
-
-  /* -------------------------------------------------------
-     24. Final cleanup
-  ------------------------------------------------------- */
-
+  /* Final whitespace cleanup */
   cleaned = cleaned
-    .replace(/\s+([,.?!:;])/g, "$1")
-    .replace(/\s{2,}/g, " ")
+    .replace(
+      /\s+([,.?!:;])/g,
+      "$1"
+    )
+    .replace(
+      /\s{2,}/g,
+      " "
+    )
     .trim();
 
   return cleaned;
 }
+
+
+/* =========================================================
+   SOURCE HELPERS
+========================================================= */
+
+function normalizeSources(sources) {
+  if (!Array.isArray(sources)) {
+    return [];
+  }
+
+  return sources
+    .filter(Boolean)
+    .map((source, index) => {
+      if (typeof source === "string") {
+        return {
+          id: `source-${index}`,
+          title: source,
+          source,
+          filename: source,
+          page: null,
+          section: null,
+          score: null,
+          pdf_url: null
+        };
+      }
+
+      const pdfUrl =
+        source?.pdf_url ||
+        source?.pdfUrl ||
+        source?.document_url ||
+        source?.documentUrl ||
+        source?.url ||
+        null;
+
+      const metadata =
+        source?.metadata &&
+        typeof source.metadata === "object"
+          ? source.metadata
+          : {};
+
+      const title =
+        source?.title ||
+        source?.document_title ||
+        source?.name ||
+        source?.filename ||
+        source?.file_name ||
+        source?.source ||
+        source?.source_file ||
+        metadata?.source_file ||
+        `Reference Document ${index + 1}`;
+
+      return {
+        ...source,
+
+        id:
+          source?.id ||
+          `source-${index}`,
+
+        title,
+
+        source:
+          source?.source ||
+          source?.source_file ||
+          source?.filename ||
+          source?.file_name ||
+          title,
+
+        filename:
+          source?.filename ||
+          source?.file_name ||
+          source?.source_file ||
+          title,
+
+        page:
+          source?.page ??
+          source?.page_number ??
+          null,
+
+        section:
+          source?.section ||
+          source?.heading ||
+          null,
+
+        score:
+          source?.score ?? null,
+
+        pdf_url: pdfUrl
+      };
+    });
+}
+
+
+/* =========================================================
+   PDF URL HELPER
+========================================================= */
+
+function getSourcePdfUrl(source) {
+  return (
+    source?.pdf_url ||
+    source?.pdfUrl ||
+    source?.document_url ||
+    source?.documentUrl ||
+    source?.url ||
+    null
+  );
+}
+
+
+/* =========================================================
+   SOURCE TITLE HELPER
+========================================================= */
+
+function getSourceTitle(
+  source,
+  index = 0
+) {
+  return (
+    source?.title ||
+    source?.document_title ||
+    source?.name ||
+    source?.filename ||
+    source?.file_name ||
+    source?.source ||
+    source?.source_file ||
+    source?.metadata?.source_file ||
+    `Reference Document ${index + 1}`
+  );
+}
+
 
 /* =========================================================
    CHAT PAGE
@@ -432,21 +478,28 @@ function Chat() {
     INITIAL_MESSAGE
   ]);
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] =
+    useState(false);
 
-  const [activeSources, setActiveSources] = useState([]);
+  const [activeSources, setActiveSources] =
+    useState([]);
+
+  const [selectedSource, setSelectedSource] =
+    useState(null);
 
   const textareaRef = useRef(null);
+  const scrollRef = useRef(null);
+
+  /* Auto scroll to bottom when new message arrives */
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [messages, isLoading, isListening, isTranscribing]);
+
 
   /* =======================================================
      LIVE VOICE TRANSCRIPT → CHAT INPUT
-
-     LanguageContext now updates `transcript` continuously
-     while the user is speaking.
-
-     IMPORTANT:
-     Do NOT clear transcript here. The voice context needs
-     the live value until the final voice request completes.
   ======================================================== */
 
   useEffect(() => {
@@ -454,7 +507,9 @@ function Chat() {
       return;
     }
 
-    const liveText = String(transcript || "").trim();
+    const liveText = String(
+      transcript || ""
+    ).trim();
 
     if (!liveText) {
       return;
@@ -465,31 +520,14 @@ function Chat() {
     window.setTimeout(() => {
       textareaRef.current?.focus();
     }, 0);
-  }, [transcript, isListening]);
+  }, [
+    transcript,
+    isListening
+  ]);
+
 
   /* =======================================================
      FINAL VOICE RESULT → CHAT
-
-     Flow:
-
-     START MIC
-       ↓
-     live transcript appears in textarea
-       ↓
-     STOP MIC
-       ↓
-     BHASHINI final STT + language detection
-       ↓
-     RAG + Gemini
-       ↓
-     voiceResult
-       ↓
-     user message + assistant answer
-       ↓
-     automatic speech in detected language
-
-     Voice is NOT sent through /api/chat/text again.
-     /api/chat/voice already performs STT + RAG + answer.
   ======================================================== */
 
   useEffect(() => {
@@ -513,24 +551,17 @@ function Chat() {
     const detectedLanguage =
       normalizeResponseLanguage(
         voiceResult?.detected_language,
-        normalizeResponseLanguage(languageId, "en")
+        normalizeResponseLanguage(
+          languageId,
+          "en"
+        )
       );
 
-    const sources = Array.isArray(
+    const sources = normalizeSources(
       voiceResult?.sources
-    )
-      ? voiceResult.sources
-      : [];
-
-    /* -----------------------------------------------------
-       Keep sources visible for the latest answer.
-    ----------------------------------------------------- */
+    );
 
     setActiveSources(sources);
-
-    /* -----------------------------------------------------
-       First source metadata.
-    ----------------------------------------------------- */
 
     const firstSource =
       sources.length > 0
@@ -540,7 +571,7 @@ function Chat() {
     const sourceTitle =
       firstSource?.title ||
       firstSource?.source ||
-      firstSource?.metadata?.source_file ||
+      firstSource?.filename ||
       null;
 
     const sourcePage =
@@ -555,13 +586,6 @@ function Chat() {
         : `${Math.round(
             Number(sourceScore) * 100
           )}%`;
-
-    /* -----------------------------------------------------
-       Add BOTH messages together.
-
-       The question keeps the detected language so that
-       future per-message actions can use it.
-    ----------------------------------------------------- */
 
     setMessages((previous) => [
       ...previous,
@@ -578,24 +602,18 @@ function Chat() {
           answer ||
           "No response text received.",
         language: detectedLanguage,
+
         source: sourceTitle,
         page: sourcePage,
-        confidence
+        confidence,
+
+        /* COMPLETE SOURCE LIST */
+        sources
       }
     ]);
 
-    /* -----------------------------------------------------
-       The live transcript was already visible in the input.
-       Clear the composer after the final result arrives.
-    ----------------------------------------------------- */
-
     setInput("");
     setTranscript("");
-
-    /* -----------------------------------------------------
-       Make the detected language the active UI language,
-       if that language exists in the language selector.
-    ----------------------------------------------------- */
 
     const supportedLanguage =
       languages.some(
@@ -607,15 +625,10 @@ function Chat() {
       supportedLanguage &&
       detectedLanguage !== languageId
     ) {
-      setLanguage(detectedLanguage);
+      setLanguage(
+        detectedLanguage
+      );
     }
-
-    /* -----------------------------------------------------
-       Automatically speak the final answer.
-
-       ONLY cleaned speech text is sent to TTS.
-       The visible answer remains unchanged.
-    ----------------------------------------------------- */
 
     if (answer) {
       window.setTimeout(() => {
@@ -633,15 +646,7 @@ function Chat() {
       }, 100);
     }
 
-    /* -----------------------------------------------------
-       Consume the result.
-
-       This prevents the same voice answer from being
-       inserted again on a later render.
-    ----------------------------------------------------- */
-
     setVoiceResult(null);
-
   }, [
     voiceResult,
     languageId,
@@ -652,12 +657,14 @@ function Chat() {
     speakText
   ]);
 
+
   /* =======================================================
      SEND MESSAGE
   ======================================================== */
 
   const sendMessage = async () => {
-    const cleanQuery = input.trim();
+    const cleanQuery =
+      input.trim();
 
     if (
       !cleanQuery ||
@@ -667,75 +674,43 @@ function Chat() {
       return;
     }
 
-    /* -------------------------------------------------------
-       Clear input immediately
-    ------------------------------------------------------- */
-
     setInput("");
-
     setActiveSources([]);
+    setSelectedSource(null);
 
-    /* -------------------------------------------------------
-       Add user message
-    ------------------------------------------------------- */
+    const requestLanguage =
+      normalizeResponseLanguage(
+        languageId,
+        "en"
+      );
 
     setMessages((previous) => [
       ...previous,
+
       {
         role: "user",
-        text: cleanQuery
+        text: cleanQuery,
+        language: requestLanguage
       }
     ]);
 
     setIsLoading(true);
 
     try {
-      /* -----------------------------------------------------
-         Send selected frontend language to backend.
-
-         Example:
-         English -> en
-         Hindi   -> hi
-         Marathi -> mr
-      ----------------------------------------------------- */
-
-      const requestLanguage =
-        normalizeResponseLanguage(
-          languageId,
-          "en"
+      const result =
+        await askSanyuktVaani(
+          cleanQuery,
+          requestLanguage
         );
-
-      const result = await askSanyuktVaani(
-        cleanQuery,
-        requestLanguage
-      );
-
-      /* -----------------------------------------------------
-         Extract answer
-      ----------------------------------------------------- */
 
       const answer = String(
         result?.answer || ""
       ).trim();
 
-      /* -----------------------------------------------------
-         Extract sources safely
-      ----------------------------------------------------- */
-
-      const sources = Array.isArray(
-        result?.sources
-      )
-        ? result.sources
-        : [];
-
-      /* -----------------------------------------------------
-         Determine response language.
-
-         Backend language has priority.
-
-         If backend doesn't return a language,
-         selected frontend language is used.
-      ----------------------------------------------------- */
+      const sources =
+        normalizeSources(
+          result?.sources
+        );
 
       const answerLanguage =
         normalizeResponseLanguage(
@@ -743,15 +718,9 @@ function Chat() {
           requestLanguage
         );
 
-      /* -----------------------------------------------------
-         Save active sources
-      ----------------------------------------------------- */
-
-      setActiveSources(sources);
-
-      /* -----------------------------------------------------
-         First source
-      ----------------------------------------------------- */
+      setActiveSources(
+        sources
+      );
 
       const firstSource =
         sources.length > 0
@@ -761,7 +730,7 @@ function Chat() {
       const sourceTitle =
         firstSource?.title ||
         firstSource?.source ||
-        firstSource?.metadata?.source_file ||
+        firstSource?.filename ||
         null;
 
       const sourcePage =
@@ -777,20 +746,9 @@ function Chat() {
               Number(sourceScore) * 100
             )}%`;
 
-      /* -----------------------------------------------------
-         ADD ASSISTANT MESSAGE
-
-         IMPORTANT MODIFICATION:
-
-         language: answerLanguage
-
-         This allows ChatMessage.jsx to speak this
-         particular answer in the correct language even
-         if the user changes the language selector later.
-      ----------------------------------------------------- */
-
       setMessages((previous) => [
         ...previous,
+
         {
           role: "assistant",
 
@@ -798,20 +756,20 @@ function Chat() {
             answer ||
             "No response text received.",
 
-          language: answerLanguage,
+          language:
+            answerLanguage,
 
-          source: sourceTitle,
+          source:
+            sourceTitle,
 
-          page: sourcePage,
+          page:
+            sourcePage,
 
-          confidence
+          confidence,
+
+          sources
         }
       ]);
-
-      /* -----------------------------------------------------
-         Update frontend language if backend explicitly
-         returned a supported language.
-      ----------------------------------------------------- */
 
       const supportedLanguage =
         languages.some(
@@ -823,17 +781,10 @@ function Chat() {
         supportedLanguage &&
         answerLanguage !== languageId
       ) {
-        setLanguage(answerLanguage);
+        setLanguage(
+          answerLanguage
+        );
       }
-
-      /* -----------------------------------------------------
-         AUTOMATIC SPEECH
-
-         Only the cleaned answer is spoken.
-
-         The original answer shown in the UI is NOT
-         modified.
-      ----------------------------------------------------- */
 
       if (answer) {
         window.setTimeout(() => {
@@ -850,35 +801,40 @@ function Chat() {
           );
         }, 100);
       }
+
     } catch (error) {
       console.error(
         "Sanyukt Vaani chat error:",
         error
       );
 
-      /* -----------------------------------------------------
-         Error message
-      ----------------------------------------------------- */
-
       setMessages((previous) => [
         ...previous,
+
         {
           role: "assistant",
+
           error: true,
+
           language:
             normalizeResponseLanguage(
               languageId,
               "en"
             ),
+
           text:
             error?.message ||
-            "Unable to get an answer right now."
+            "Unable to get an answer right now.",
+
+          sources: []
         }
       ]);
+
     } finally {
       setIsLoading(false);
     }
   };
+
 
   /* =======================================================
      KEYBOARD HANDLER
@@ -895,6 +851,7 @@ function Chat() {
     }
   };
 
+
   /* =======================================================
      NEW CHAT
   ======================================================== */
@@ -906,9 +863,12 @@ function Chat() {
 
     setActiveSources([]);
 
+    setSelectedSource(null);
+
     setInput("");
 
     setTranscript("");
+
     setVoiceResult(null);
 
     window.setTimeout(() => {
@@ -916,46 +876,16 @@ function Chat() {
     }, 0);
   };
 
+
   /* =======================================================
      VOICE BUTTON
   ======================================================== */
 
   const handleVoiceClick = async () => {
-    /*
-      LanguageContext handles the complete voice lifecycle:
-
-      FIRST CLICK
-      ↓
-      MediaRecorder starts
-      +
-      browser live SpeechRecognition starts
-      ↓
-      transcript updates continuously
-      ↓
-      textarea shows the live question
-
-      SECOND CLICK
-      ↓
-      live SpeechRecognition stops
-      ↓
-      final audio is sent to /api/chat/voice
-      ↓
-      BHASHINI final transcript + language detection
-      ↓
-      RAG + Gemini answer
-      ↓
-      voiceResult is exposed by LanguageContext
-      ↓
-      the effect above adds question + answer
-      ↓
-      answer is spoken in detected language
-
-      IMPORTANT:
-      We do NOT call askSanyuktVaani() here.
-      The voice endpoint already generates the answer.
-    */
-
-    if (isLoading || isTranscribing) {
+    if (
+      isLoading ||
+      isTranscribing
+    ) {
       return;
     }
 
@@ -969,6 +899,7 @@ function Chat() {
     }
   };
 
+
   /* =======================================================
      RENDER
   ======================================================== */
@@ -976,66 +907,39 @@ function Chat() {
   return (
     <div className="chat-workspace">
 
-      {/* ===================================================
-          HEADER
-      =================================================== */}
-
+      {/* HEADER */}
       <header className="chat-header">
-
         <div className="chat-brand">
-
           <div className="brand-mark">
             <Sparkles size={19} />
           </div>
-
           <div>
             <strong>
-              Sanyukt Vaani{" "}
-              <span>AI</span>
+              Sanyukt Vaani <span>AI</span>
             </strong>
-
             <small>
-              <span className="status-dot" />
-              {" "}
-              Verified knowledge mode
+              <span className="status-dot" /> Verified knowledge mode
             </small>
           </div>
-
         </div>
 
         <div className="chat-header-status">
           <ShieldCheck size={15} />
           RAG Online
         </div>
-
       </header>
 
-      {/* ===================================================
-          BODY
-      =================================================== */}
 
+      {/* BODY */}
       <div className="chat-workspace-body">
 
-        {/* =================================================
-            LEFT TOOL BAR
-        ================================================== */}
-
-        <aside
-          className="chat-utility-bar"
-          aria-label="Chat tools"
-        >
-
-          {/* NEW CHAT */}
-
+        {/* LEFT TOOL BAR */}
+        <aside className="chat-utility-bar" aria-label="Chat tools">
           <button
             className="new-chat-btn"
             type="button"
             onClick={handleNewChat}
-            disabled={
-              isLoading ||
-              isTranscribing ||
-              isListening
-            }
+            disabled={isLoading || isTranscribing || isListening}
           >
             <Plus size={17} />
             <span>New chat</span>
@@ -1043,204 +947,115 @@ function Chat() {
 
           <div className="utility-divider" />
 
-          {/* LANGUAGE */}
-
-          <span className="utility-label">
-            Language
-          </span>
+          <span className="utility-label">Language</span>
 
           <div className="language-picker">
-
             <Languages size={15} />
-
             <select
               value={languageId}
-              onChange={(event) =>
-                setLanguage(
-                  event.target.value
-                )
-              }
-              disabled={
-                isLoading ||
-                isTranscribing ||
-                isListening
-              }
+              onChange={(event) => setLanguage(event.target.value)}
+              disabled={isLoading || isTranscribing || isListening}
             >
-              {languages.map(
-                (language) => (
-                  <option
-                    key={language.id}
-                    value={language.id}
-                  >
-                    {language.label}
-                  </option>
-                )
-              )}
+              {languages.map((language) => (
+                <option key={language.id} value={language.id}>
+                  {language.label}
+                </option>
+              ))}
             </select>
-
           </div>
 
           <p className="utility-note">
-            Answers are grounded in official
-            cooperative knowledge sources.
+            Answers are grounded in official cooperative knowledge sources.
           </p>
-
         </aside>
 
-        {/* =================================================
-            CONVERSATION
-        ================================================== */}
 
-        <section className="conversation-panel">
+        {/* CONVERSATION AREA */}
+        <section className="conversation-panel flex flex-col h-[calc(100vh-140px)] max-h-[750px]">
 
-          <div className="conversation-scroll">
+          {/* INTERNAL SCROLLABLE BOX FOR MESSAGES & RESPONSES */}
+          <div 
+            ref={scrollRef}
+            className="conversation-scroll flex-1 overflow-y-auto pr-2"
+            style={{ maxHeight: "480px", overflowY: "auto" }}
+          >
 
-            {/* =============================================
-                INTRO
-            ============================================== */}
-
+            {/* INTRO */}
             <div className="conversation-intro">
-
-              <span className="intro-kicker">
-                CITIZEN KNOWLEDGE ASSISTANT
-              </span>
-
-              <h1>
-                How can we help you today?
-              </h1>
-
-              <p>
-                Ask in English, Hindi,
-                Marathi, or your preferred
-                supported language.
-              </p>
-
+              <span className="intro-kicker">CITIZEN KNOWLEDGE ASSISTANT</span>
+              <h1>How can we help you today?</h1>
+              <p>Ask in English, Hindi, Marathi, or your preferred supported language.</p>
             </div>
 
-            {/* =============================================
-                MESSAGES
-            ============================================== */}
+            {/* MESSAGES */}
+            <div className="message-list space-y-4">
+              {messages.map((message, index) => (
+                <React.Fragment key={`${message.role}-${index}`}>
+                  <ChatMessage message={message} />
 
-            <div className="message-list">
-
-              {messages.map(
-                (message, index) => (
-
-                  <React.Fragment
-                    key={`${message.role}-${index}`}
-                  >
-
-                    <ChatMessage
-                      message={message}
-                    />
-
-                    {/* ===================================
-                        SOURCES
-                    ==================================== */}
-
-                    {message.role ===
-                      "assistant" &&
-                      index ===
-                        messages.length - 1 &&
-                      activeSources.length >
-                        0 && (
-
-                        <div className="live-sources">
-
-                          <div className="live-sources-title">
-
-                            <FileCheck2
-                              size={15}
-                            />
-
-                            Sources used
-
-                          </div>
-
-                          <div className="live-source-list">
-
-                            {activeSources.map(
-                              (
-                                source,
-                                sourceIndex
-                              ) => {
-
-                                const title =
-                                  source?.title ||
-                                  source?.source ||
-                                  source?.metadata
-                                    ?.source_file ||
-                                  "Official document";
-
-                                const score =
-                                  source?.score;
-
-                                const sourceQuery =
-                                  source?.source ||
-                                  source?.metadata
-                                    ?.source_file ||
-                                  source?.title ||
-                                  "official document";
-
-                                const sourceUrl =
-                                  `https://github.com/Taufik7860/Sanyukt-Vaani/search?q=${encodeURIComponent(
-                                    sourceQuery
-                                  )}&type=code`;
-
-                                return (
-                                  <a
-                                    key={`${title}-${sourceIndex}`}
-                                    className="live-source-chip"
-                                    href={sourceUrl}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    aria-label={`Open source ${title}`}
-                                  >
-                                    {title}
-
-                                    {score != null &&
-                                      ` · ${Math.round(
-                                        Number(score) *
-                                          100
-                                      )}%`}
-                                  </a>
-                                );
-                              }
-                            )}
-
-                          </div>
-
+                  {/* SOURCE CHIPS */}
+                  {message.role === "assistant" &&
+                    index === messages.length - 1 &&
+                    activeSources.length > 0 && (
+                      <div className="live-sources">
+                        <div className="live-sources-title">
+                          <FileCheck2 size={15} />
+                          <span>Verified references</span>
                         </div>
-                      )}
 
-                  </React.Fragment>
-                )
-              )}
+                        <div className="live-source-list">
+                          {activeSources.map((source, sourceIndex) => {
+                            const title = getSourceTitle(source, sourceIndex);
+                            const score = source?.score;
+                            const pdfUrl = getSourcePdfUrl(source);
 
-              {/* =========================================
-                  THINKING / VOICE PROCESSING
-              ========================================== */}
+                            return (
+                              <div
+                                key={source?.id || `${title}-${sourceIndex}`}
+                                className="live-source-item"
+                              >
+                                <button
+                                  type="button"
+                                  className="live-source-chip"
+                                  onClick={() => setSelectedSource(source)}
+                                  aria-label={`Preview ${title}`}
+                                >
+                                  <FileCheck2 size={14} />
+                                  <span>{title}</span>
+                                  {score != null && (
+                                    <span>
+                                      {" · "}
+                                      {Math.round(Number(score) * 100)}%
+                                    </span>
+                                  )}
+                                </button>
 
-              {(isLoading ||
-                isTranscribing ||
-                isListening) && (
-
-                <div
-                  className="thinking-row"
-                  role="status"
-                  aria-live="polite"
-                >
-
-                  <div className="thinking-avatar">
-                    {isListening ? (
-                      <Mic size={15} />
-                    ) : (
-                      <Sparkles size={15} />
+                                {pdfUrl && (
+                                  <a
+                                    className="live-source-pdf-link"
+                                    href={pdfUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    PDF
+                                  </a>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
                     )}
+                </React.Fragment>
+              ))}
+
+              {/* THINKING / VOICE PROCESSING */}
+              {(isLoading || isTranscribing || isListening) && (
+                <div className="thinking-row" role="status" aria-live="polite">
+                  <div className="thinking-avatar">
+                    {isListening ? <Mic size={15} /> : <Sparkles size={15} />}
                   </div>
-
                   <div className="thinking-card">
-
                     <span>
                       {isListening
                         ? "Listening..."
@@ -1248,116 +1063,138 @@ function Chat() {
                         ? "Processing voice..."
                         : "Thinking..."}
                     </span>
-
                     <i />
                     <i />
                     <i />
-
                   </div>
-
                 </div>
               )}
-
             </div>
-
           </div>
 
-          {/* =================================================
-              COMPOSER
-          ================================================== */}
 
-          <div className="composer-wrap">
+          {/* SOURCE PREVIEW MODAL */}
+          {selectedSource && (
+            <div
+              className="source-preview-backdrop"
+              role="presentation"
+              onClick={() => setSelectedSource(null)}
+            >
+              <section
+                className="source-preview-panel"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="source-preview-title"
+                onClick={(event) => event.stopPropagation()}
+              >
+                <div className="source-preview-header">
+                  <div>
+                    <span className="intro-kicker">VERIFIED SOURCE</span>
+                    <h2 id="source-preview-title">
+                      {getSourceTitle(selectedSource)}
+                    </h2>
+                  </div>
+                  <button
+                    type="button"
+                    className="source-preview-close"
+                    onClick={() => setSelectedSource(null)}
+                    aria-label="Close source preview"
+                  >
+                    <X size={18} />
+                  </button>
+                </div>
 
-            <div className="chat-composer">
+                <div className="source-preview-meta">
+                  {selectedSource.source ||
+                    selectedSource.filename ||
+                    selectedSource.source_file ||
+                    selectedSource.metadata?.source_file ||
+                    "Official document"}
+                  {selectedSource.page != null && ` · Page ${selectedSource.page}`}
+                  {selectedSource.section && ` · ${selectedSource.section}`}
+                </div>
 
+                {getSourcePdfUrl(selectedSource) && (
+                  <div className="source-preview-document-link">
+                    <a
+                      href={getSourcePdfUrl(selectedSource)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Open reference PDF
+                    </a>
+                  </div>
+                )}
+
+                <p className="source-preview-note">
+                  Relevant verified excerpt from this document
+                </p>
+
+                <pre className="source-preview-text">
+                  {selectedSource.excerpt ||
+                    selectedSource.text ||
+                    selectedSource.content ||
+                    "The document excerpt is not available for this result."}
+                </pre>
+              </section>
+            </div>
+          )}
+
+
+          {/* LARGE COMPOSER / USER INPUT AREA */}
+          <div className="composer-wrap mt-3 pt-2 border-t border-gray-100">
+            <div className="chat-composer flex flex-col gap-2">
               <textarea
                 ref={textareaRef}
                 value={input}
-                onChange={(event) =>
-                  setInput(
-                    event.target.value
-                  )
-                }
+                onChange={(event) => setInput(event.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="Ask about cooperatives, schemes, loans, laws..."
-                rows={1}
-                disabled={
-                  isLoading ||
-                  isTranscribing
-                }
+                rows={4}
+                style={{ minHeight: "100px", resize: "none" }}
+                disabled={isLoading || isTranscribing}
                 aria-label="Ask Sanyukt Vaani"
+                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
 
-              <div className="composer-actions">
+              <div className="composer-actions flex justify-between items-center mt-1">
+                <small className="text-gray-500 text-xs">
+                  Enter to send · Shift + Enter for a new line
+                </small>
 
-                {/* =======================================
-                    MICROPHONE
-                ======================================== */}
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    className={`composer-mic p-2 rounded-full ${
+                      isListening ? "is-listening bg-red-100 text-red-600" : ""
+                    }`}
+                    onClick={handleVoiceClick}
+                    disabled={isLoading || isTranscribing}
+                    aria-label={isListening ? "Stop listening" : "Use microphone"}
+                    title={isListening ? "Stop listening" : "Start voice input"}
+                  >
+                    <Mic size={20} />
+                  </button>
 
-                <button
-                  type="button"
-                  className={`composer-mic ${
-                    isListening
-                      ? "is-listening"
-                      : ""
-                  }`}
-                  onClick={
-                    handleVoiceClick
-                  }
-                  disabled={
-                    isLoading ||
-                    isTranscribing
-                  }
-                  aria-label={
-                    isListening
-                      ? "Stop listening"
-                      : "Use microphone"
-                  }
-                  title={
-                    isListening
-                      ? "Stop listening"
-                      : "Start voice input"
-                  }
-                >
-                  <Mic size={19} />
-                </button>
-
-                {/* =======================================
-                    SEND
-                ======================================== */}
-
-                <button
-                  type="button"
-                  className="composer-send"
-                  onClick={
-                    sendMessage
-                  }
-                  disabled={
-                    isLoading ||
-                    isTranscribing ||
-                    isListening ||
-                    !input.trim()
-                  }
-                  aria-label="Send message"
-                  title="Send message"
-                >
-                  <Send size={18} />
-                </button>
-
+                  <button
+                    type="button"
+                    className="composer-send bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-1 hover:bg-blue-700 disabled:opacity-50"
+                    onClick={sendMessage}
+                    disabled={
+                      isLoading ||
+                      isTranscribing ||
+                      isListening ||
+                      !input.trim()
+                    }
+                    aria-label="Send message"
+                    title="Send message"
+                  >
+                    <span>Send</span>
+                    <Send size={16} />
+                  </button>
+                </div>
               </div>
-
             </div>
-
-            {/* =============================================
-                COMPOSER HELP
-            ============================================== */}
-
-            <small>
-              Enter to send · Shift + Enter
-              for a new line · Don’t share
-              sensitive personal information.
-            </small>
-
           </div>
 
         </section>

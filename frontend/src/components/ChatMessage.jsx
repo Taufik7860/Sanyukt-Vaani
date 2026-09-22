@@ -2,217 +2,396 @@ import {
   Sparkles,
   FileCheck2,
   ShieldCheck,
-  Volume2
+  Volume2,
+  ExternalLink,
+  FileText,
 } from "lucide-react";
 
 import { useLanguage } from "../context/LanguageContext";
 
 /**
- * Clean text ONLY for Text-to-Speech.
+ * ============================================================
+ * TEXT-TO-SPEECH CLEANER
+ * ============================================================
  *
  * IMPORTANT:
- * - This function never changes the text displayed in the chat.
- * - It only prepares a clean, natural version for speech.
- * - English / Hindi / Marathi Unicode is preserved.
- * - Important technical terms such as PACS, NABARD, RBI,
- *   PMFBY, KCC, etc. are preserved.
+ * This function is ONLY used for speech.
+ *
+ * It does NOT modify the answer shown on screen.
+ *
+ * Screen:
+ *   - Markdown
+ *   - bold
+ *   - headings
+ *   - bullets
+ *   - references
+ *
+ * Speech:
+ *   - natural text only
+ *   - no markdown symbols
+ *   - no URLs
+ *   - no filenames
+ *   - no references
+ *   - no scores
+ *   - no debug metadata
+ *   - no decorative symbols
+ *   - NO ASTERISKS
  */
 function cleanTextForSpeech(text) {
   if (!text) {
     return "";
   }
 
-  let cleaned = String(text);
+  let cleaned = String(text).normalize("NFKC");
 
-  // ---------------------------------------------------------
-  // 1. Normalize Unicode
-  // ---------------------------------------------------------
-  cleaned = cleaned.normalize("NFKC");
+  // ==========================================================
+  // 1. Normalize escaped Markdown FIRST
+  // ==========================================================
+  //
+  // Gemini may sometimes return:
+  //
+  // \*\*Important\*\*
+  // \*Important\*
+  // \_\_Important\_\_
+  // \_Important\_
+  //
+  // Convert escaped Markdown into normal Markdown first.
+  //
+  cleaned = cleaned
+    .replace(/\\\*\\\*/g, "**")
+    .replace(/\\\*/g, "*")
+    .replace(/\\_/g, "_")
+    .replace(/\\#/g, "#")
+    .replace(/\\~/g, "~")
+    .replace(/\\`/g, "`")
+    .replace(/\\\[/g, "[")
+    .replace(/\\\]/g, "]")
+    .replace(/\\\(/g, "(")
+    .replace(/\\\)/g, ")");
 
-  // ---------------------------------------------------------
+  // ==========================================================
   // 2. Remove URLs
-  // ---------------------------------------------------------
+  // ==========================================================
+
   cleaned = cleaned.replace(
-    /https?:\/\/[^\s]+/gi,
+    /https?:\/\/[^\s<>"')]+/gi,
     " "
   );
 
-  // ---------------------------------------------------------
-  // 3. Remove Markdown headings
+  cleaned = cleaned.replace(
+    /\bwww\.[^\s<>"')]+/gi,
+    " "
+  );
+
+  // ==========================================================
+  // 3. Remove Markdown links
   //
-  // ### Documents Required
+  // [PACS information](https://example.com)
+  //
   // becomes:
-  // Documents Required
-  // ---------------------------------------------------------
-  cleaned = cleaned.replace(
-    /^\s*#{1,6}\s*/gm,
-    ""
-  );
-
-  // ---------------------------------------------------------
-  // 4. Remove Markdown bold / italic markers
   //
-  // **text** -> text
-  // __text__ -> text
-  // *text* -> text
-  // _text_ -> text
-  // ---------------------------------------------------------
+  // PACS information
+  // ==========================================================
+
   cleaned = cleaned.replace(
-    /(\*\*|__|\*|_)/g,
-    ""
+    /\[([^\]]+)\]\([^)]+\)/g,
+    "$1"
   );
 
-  // ---------------------------------------------------------
+  // ==========================================================
+  // 4. Remove fenced code blocks
+  // ==========================================================
+
+  cleaned = cleaned.replace(
+    /```[\s\S]*?```/g,
+    " "
+  );
+
+  // ==========================================================
   // 5. Remove inline code markers
-  //
-  // `PACS` -> PACS
-  // ---------------------------------------------------------
+  // ==========================================================
+
+  cleaned = cleaned.replace(
+    /`([^`]+)`/g,
+    "$1"
+  );
+
   cleaned = cleaned.replace(
     /`+/g,
-    ""
+    " "
   );
 
-  // ---------------------------------------------------------
-  // 6. Remove decorative separator lines
+  // ==========================================================
+  // 6. Remove Markdown headings
   //
-  // --------------------
-  // ____________________
-  // ++++++++++++++++++++
-  // ********************
-  // ====================
-  // ~~~~~~~~~~~~~~~~~~~~
-  // ---------------------------------------------------------
-  cleaned = cleaned.replace(
-    /^\s*[_\-+=*~]{3,}\s*$/gm,
-    ""
-  );
-
-  // ---------------------------------------------------------
-  // 7. Remove long underscore sequences
+  // ## Important Information
   //
-  // Name: ____________
   // becomes:
-  // Name:
-  // ---------------------------------------------------------
-  cleaned = cleaned.replace(
-    /_{2,}/g,
-    " "
-  );
-
-  // ---------------------------------------------------------
-  // 8. Remove repeated decorative symbols
   //
-  // +++++ -> removed
-  // ----- -> removed
-  // ***** -> removed
-  // ===== -> removed
-  // ~~~~~ -> removed
-  //
-  // Normal single hyphens remain.
-  // Example:
-  // PM-KISAN remains PM-KISAN
-  // ---------------------------------------------------------
-  cleaned = cleaned.replace(
-    /\+{2,}/g,
-    " "
-  );
+  // Important Information
+  // ==========================================================
 
   cleaned = cleaned.replace(
-    /-{3,}/g,
-    " "
-  );
-
-  cleaned = cleaned.replace(
-    /\*{2,}/g,
-    " "
-  );
-
-  cleaned = cleaned.replace(
-    /={2,}/g,
-    " "
-  );
-
-  cleaned = cleaned.replace(
-    /~{2,}/g,
-    " "
-  );
-
-  // ---------------------------------------------------------
-  // 9. Remove Markdown bullet formatting
-  //
-  // - Aadhaar Card
-  // * Application Form
-  // • Land Record
-  //
-  // becomes normal spoken lines.
-  // ---------------------------------------------------------
-  cleaned = cleaned.replace(
-    /^\s*[-*•]\s+/gm,
+    /^\s*#{1,6}\s+/gm,
     ""
   );
 
-  // ---------------------------------------------------------
-  // 10. Remove blockquote formatting
+  // ==========================================================
+  // 7. Remove bold + italic Markdown
   //
-  // > Important information
-  // becomes:
-  // Important information
-  // ---------------------------------------------------------
+  // ***important***
+  // **important**
+  // __important__
+  // *important*
+  // _important_
+  // ==========================================================
+
   cleaned = cleaned.replace(
-    /^\s*>\s*/gm,
+    /\*\*\*(.*?)\*\*\*/gs,
+    "$1"
+  );
+
+  cleaned = cleaned.replace(
+    /\*\*(.*?)\*\*/gs,
+    "$1"
+  );
+
+  cleaned = cleaned.replace(
+    /___(.*?)___/gs,
+    "$1"
+  );
+
+  cleaned = cleaned.replace(
+    /__(.*?)__/gs,
+    "$1"
+  );
+
+  cleaned = cleaned.replace(
+    /(?<!\w)\*(.*?)\*(?!\w)/gs,
+    "$1"
+  );
+
+  cleaned = cleaned.replace(
+    /(?<!\w)_(.*?)_(?!\w)/gs,
+    "$1"
+  );
+
+  // ==========================================================
+  // 8. Remove Markdown bullet markers
+  //
+  // - item
+  // * item
+  // + item
+  // • item
+  // ==========================================================
+
+  cleaned = cleaned.replace(
+    /^\s*[-*+•●▪◦‣]\s+/gm,
     ""
   );
 
-  // ---------------------------------------------------------
-  // 11. Remove Markdown table separator rows
+  // ==========================================================
+  // 9. Remove numbered list markers
   //
-  // |------|------|
-  // |:----:|------|
-  // ---------------------------------------------------------
+  // 1. item
+  // 2) item
+  // ==========================================================
+
   cleaned = cleaned.replace(
-    /^\s*\|?[\s\-:|]+\|?\s*$/gm,
+    /^\s*\d+[.)]\s+/gm,
     ""
   );
 
-  // ---------------------------------------------------------
-  // 12. Remove table pipe characters
-  //
-  // This prevents the TTS engine from reading table
-  // formatting as strange pauses or symbols.
-  // ---------------------------------------------------------
+  // ==========================================================
+  // 10. Remove blockquote markers
+  // ==========================================================
+
+  cleaned = cleaned.replace(
+    /^\s*>\s?/gm,
+    ""
+  );
+
+  // ==========================================================
+  // 11. Remove decorative separator lines
+  // ==========================================================
+
+  cleaned = cleaned.replace(
+    /^\s*[-_=+~*]{3,}\s*$/gm,
+    ""
+  );
+
+  // ==========================================================
+  // 12. Remove Markdown table separator rows
+  // ==========================================================
+
+  cleaned = cleaned.replace(
+    /^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)+\|?\s*$/gm,
+    ""
+  );
+
+  // ==========================================================
+  // 13. Remove table pipe characters
+  // ==========================================================
+
   cleaned = cleaned.replace(
     /\|/g,
     " "
   );
 
-  // ---------------------------------------------------------
-  // 13. Remove common decorative Unicode symbols
+  // ==========================================================
+  // 14. Remove internal source markers
   //
-  // Keep normal Hindi / Marathi / English characters.
-  // ---------------------------------------------------------
+  // [SOURCE]
+  // [DOCUMENT]
+  // [EVIDENCE]
+  // [METADATA]
+  // ==========================================================
+
   cleaned = cleaned.replace(
-    /[★☆✦✧◆◇▪▫►▶✔✓✕✖]/g,
+    /\[(?:SOURCE|SOURCES|DOCUMENT|DOCUMENTS|CHUNK|METADATA|CONTEXT|RETRIEVAL|EVIDENCE)\]/gi,
     " "
   );
 
-  // ---------------------------------------------------------
-  // 14. Remove decorative brackets
+  // ==========================================================
+  // 15. Remove numbered references
   //
-  // Keep normal punctuation such as:
-  // . , ? ! : ;
-  // ---------------------------------------------------------
+  // [Source 1]
+  // [Document 2]
+  // [Evidence 3]
+  // [Reference 4]
+  // [Ref 5]
+  // ==========================================================
+
+  cleaned = cleaned.replace(
+    /\[(?:source|document|evidence|reference|ref|chunk)\s*#?\s*\d+\]/gi,
+    " "
+  );
+
+  // ==========================================================
+  // 16. Remove citation-style references
+  //
+  // [1]
+  // [2]
+  // [12]
+  // ==========================================================
+
+  cleaned = cleaned.replace(
+    /\[\s*\d+\s*\]/g,
+    " "
+  );
+
+  // ==========================================================
+  // 17. Remove debug labels
+  // ==========================================================
+
+  cleaned = cleaned.replace(
+    /^\s*(?:source|sources|document reference|document references|retrieval|retrieved|context|embedding|reranker|qdrant|gemini|metadata|chunk|evidence)\s*[:=]\s*.*$/gim,
+    ""
+  );
+
+  // ==========================================================
+  // 18. Remove score/debug lines
+  // ==========================================================
+
+  cleaned = cleaned.replace(
+    /^\s*(?:final score|similarity score|rerank score|retrieval score|confidence score|score)\s*[:=]?\s*\d+(?:\.\d+)?%?\s*$/gim,
+    ""
+  );
+
+  // ==========================================================
+  // 19. Remove source filename-only lines
+  //
+  // example:
+  // maharashtra_cooperation_2025.txt
+  // document.pdf
+  // report.docx
+  // ==========================================================
+
+  cleaned = cleaned.replace(
+    /^\s*[\w.-]+\.(?:txt|pdf|docx|doc|csv|json)\s*$/gim,
+    ""
+  );
+
+  // ==========================================================
+  // 20. Remove common reference lines
+  // ==========================================================
+
+  cleaned = cleaned.replace(
+    /^\s*(?:source|sources|reference|references|document|documents|pdf|document reference|source reference)\s*[:\-]\s*.*$/gim,
+    ""
+  );
+
+  // ==========================================================
+  // 21. Remove inline debug metadata
+  // ==========================================================
+
+  cleaned = cleaned.replace(
+    /\b(?:status|answerability|answerable|domain|intent|sub-intent|retrieval|candidate count|evidence count|gemini allowed|batch gemini allowed)\s*[:=]\s*[^\n]+/gi,
+    " "
+  );
+
+  // ==========================================================
+  // 22. Remove HTML tags
+  // ==========================================================
+
+  cleaned = cleaned.replace(
+    /<[^>]*>/g,
+    " "
+  );
+
+  // ==========================================================
+  // 23. Remove brackets but KEEP their content
+  // ==========================================================
+
   cleaned = cleaned.replace(
     /[\[\]{}]/g,
     " "
   );
 
-  // ---------------------------------------------------------
-  // 15. Remove repeated punctuation
+  // ==========================================================
+  // 24. FINAL MARKDOWN SAFETY LAYER
   //
-  // !!!!!! -> !
-  // ?????? -> ?
-  // ...... -> ...
-  // ---------------------------------------------------------
+  // THIS IS THE MOST IMPORTANT PART.
+  //
+  // Even if Gemini or another regex leaves Markdown behind,
+  // these characters can NEVER reach TTS.
+  //
+  // Removes:
+  // *
+  // _
+  // ~
+  // #
+  // `
+  // backslash
+  // ==========================================================
+
+  cleaned = cleaned.replace(
+    /[*_~#`\\]/g,
+    " "
+  );
+
+  // ==========================================================
+  // 25. Remove decorative Unicode symbols
+  // ==========================================================
+
+  cleaned = cleaned.replace(
+    /[★☆✦✧◆◇▪▫►▶✔✓✕✖❖●○■□🔹🔸🔺🔻]/gu,
+    " "
+  );
+
+  // ==========================================================
+  // 26. Remove arrows / decorative directional symbols
+  // ==========================================================
+
+  cleaned = cleaned.replace(
+    /[→←↑↓⇒⇐↔]/g,
+    " "
+  );
+
+  // ==========================================================
+  // 27. Normalize excessive punctuation
+  // ==========================================================
+
   cleaned = cleaned.replace(
     /!{2,}/g,
     "!"
@@ -228,44 +407,10 @@ function cleanTextForSpeech(text) {
     "..."
   );
 
-  // ---------------------------------------------------------
-  // 16. Remove common internal/system leakage
-  //
-  // These should never be spoken if accidentally returned
-  // by backend/RAG.
-  // ---------------------------------------------------------
-  cleaned = cleaned.replace(
-    /\b(?:source|sources|retrieval|retrieved|context|embedding|reranker|qdrant|gemini)\s*[:=]\s*[^\n]+/gi,
-    " "
-  );
+  // ==========================================================
+  // 28. Normalize line endings
+  // ==========================================================
 
-  // ---------------------------------------------------------
-  // 17. Remove common internal source markers
-  //
-  // Examples:
-  // [SOURCE]
-  // [DOCUMENT]
-  // [CHUNK]
-  // [METADATA]
-  // ---------------------------------------------------------
-  cleaned = cleaned.replace(
-    /\[(?:source|sources|document|documents|chunk|metadata|retrieval|context)\]/gi,
-    " "
-  );
-
-  // ---------------------------------------------------------
-  // 18. Remove accidental internal confidence/debug labels
-  //
-  // These are not useful in speech.
-  // ---------------------------------------------------------
-  cleaned = cleaned.replace(
-    /\b(?:final score|similarity score|rerank score|retrieval score|confidence score)\s*[:=]?\s*\d+(?:\.\d+)?%?\b/gi,
-    " "
-  );
-
-  // ---------------------------------------------------------
-  // 19. Normalize line endings
-  // ---------------------------------------------------------
   cleaned = cleaned.replace(
     /\r\n/g,
     "\n"
@@ -276,17 +421,36 @@ function cleanTextForSpeech(text) {
     "\n"
   );
 
-  // ---------------------------------------------------------
-  // 20. Prevent excessive empty lines
-  // ---------------------------------------------------------
+  // ==========================================================
+  // 29. Convert label lines into natural speech pauses
+  //
+  // Name:
+  // Taufik Ali
+  //
+  // becomes:
+  //
+  // Name.
+  // Taufik Ali
+  // ==========================================================
+
   cleaned = cleaned.replace(
-    /\n{3,}/g,
-    "\n\n"
+    /(^|\n)([A-Za-z\u0900-\u097F\u0D00-\u0D7F\u0C00-\u0C7F][^:\n]{1,40}):\s*(?=\n|$)/g,
+    "$1$2.\n"
   );
 
-  // ---------------------------------------------------------
-  // 21. Clean spaces around punctuation
-  // ---------------------------------------------------------
+  // ==========================================================
+  // 30. Remove remaining backslashes
+  // ==========================================================
+
+  cleaned = cleaned.replace(
+    /\\/g,
+    " "
+  );
+
+  // ==========================================================
+  // 31. Remove excessive spaces
+  // ==========================================================
+
   cleaned = cleaned.replace(
     /[ \t]{2,}/g,
     " "
@@ -297,70 +461,47 @@ function cleanTextForSpeech(text) {
     "$1"
   );
 
-  // ---------------------------------------------------------
-  // 22. Clean spaces after opening punctuation
-  // ---------------------------------------------------------
-  cleaned = cleaned.replace(
-    /([(\[])\s+/g,
-    "$1"
-  );
+  // ==========================================================
+  // 32. Clean empty lines
+  // ==========================================================
 
-  // ---------------------------------------------------------
-  // 23. Clean spaces before closing punctuation
-  // ---------------------------------------------------------
-  cleaned = cleaned.replace(
-    /\s+([)\]])/g,
-    "$1"
-  );
-
-  // ---------------------------------------------------------
-  // 24. Convert colon-only labels into natural pauses
-  //
-  // Example:
-  //
-  // Name:
-  // Taufik Ali
-  //
-  // becomes:
-  //
-  // Name.
-  // Taufik Ali
-  //
-  // We only do this for short label-like lines.
-  // ---------------------------------------------------------
-  cleaned = cleaned.replace(
-    /(^|\n)([A-Za-z\u0900-\u097F][^:\n]{1,40}):\s*(?=\n|$)/g,
-    "$1$2.\n"
-  );
-
-  // ---------------------------------------------------------
-  // 25. Clean each line
-  // ---------------------------------------------------------
   cleaned = cleaned
     .split("\n")
     .map((line) => line.trim())
     .filter(Boolean)
     .join("\n");
 
-  // ---------------------------------------------------------
-  // 26. Final whitespace cleanup
-  // ---------------------------------------------------------
+  // ==========================================================
+  // 33. Convert paragraphs into natural speech pauses
+  // ==========================================================
+
+  cleaned = cleaned.replace(
+    /\n+/g,
+    ". "
+  );
+
+  // ==========================================================
+  // 34. FINAL ABSOLUTE SAFETY CLEANUP
+  //
+  // Nothing decorative or Markdown-related should survive.
+  // ==========================================================
+
   cleaned = cleaned
-    .replace(/[ \t]{2,}/g, " ")
-    .replace(/\n[ \t]+/g, "\n")
+    .replace(/[*_~#`\\]/g, "")
+    .replace(/\s+([,.!?;:])/g, "$1")
+    .replace(/\.{2,}/g, ". ")
+    .replace(/\s{2,}/g, " ")
     .trim();
 
   return cleaned;
 }
 
 /**
- * Normalize backend/frontend language values.
- *
- * Supports:
- * en / english / English
- * hi / hindi / Hindi
- * mr / marathi / Marathi
+ * ============================================================
+ * LANGUAGE NORMALIZATION
+ * ============================================================
  */
+
 function normalizeLanguage(language, fallback = "en") {
   const value = String(language || "")
     .trim()
@@ -393,52 +534,594 @@ function normalizeLanguage(language, fallback = "en") {
   return fallback;
 }
 
+/**
+ * ============================================================
+ * DOCUMENT URL HELPER
+ * ============================================================
+ *
+ * Supports all known backend URL field names.
+ *
+ * IMPORTANT:
+ * We never create/fake a PDF URL.
+ */
+
+function getDocumentUrl(source) {
+  if (!source || typeof source !== "object") {
+    return null;
+  }
+
+  return (
+    source.pdf_url ||
+    source.pdfUrl ||
+    source.document_url ||
+    source.documentUrl ||
+    source.url ||
+    null
+  );
+}
+
+/**
+ * ============================================================
+ * SAFE MARKDOWN RENDERING
+ * ============================================================
+ *
+ * The answer shown on screen keeps its formatting.
+ *
+ * Supported:
+ * - **bold**
+ * - __bold__
+ * - # headings
+ * - - bullets
+ * - 1. numbered items
+ * - `inline code`
+ */
+
+function renderInlineText(
+  text,
+  keyPrefix = "inline"
+) {
+  if (!text) {
+    return null;
+  }
+
+  const parts = String(text).split(
+    /(\*\*[^*]+\*\*|__[^_]+__|`[^`]+`)/
+  );
+
+  return parts.map((part, index) => {
+    if (!part) {
+      return null;
+    }
+
+    const key = `${keyPrefix}-${index}`;
+
+    if (
+      part.startsWith("**") &&
+      part.endsWith("**")
+    ) {
+      return (
+        <strong key={key}>
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+
+    if (
+      part.startsWith("__") &&
+      part.endsWith("__")
+    ) {
+      return (
+        <strong key={key}>
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+
+    if (
+      part.startsWith("`") &&
+      part.endsWith("`")
+    ) {
+      return (
+        <code key={key}>
+          {part.slice(1, -1)}
+        </code>
+      );
+    }
+
+    return (
+      <span key={key}>
+        {part}
+      </span>
+    );
+  });
+}
+
+/**
+ * ============================================================
+ * ANSWER RENDERER
+ * ============================================================
+ */
+
+function renderAnswer(text) {
+  if (!text) {
+    return null;
+  }
+
+  const lines = String(text)
+    .replace(/\r\n/g, "\n")
+    .replace(/\r/g, "\n")
+    .split("\n");
+
+  const elements = [];
+
+  let bulletItems = [];
+  let numberedItems = [];
+
+  const flushBullets = () => {
+    if (bulletItems.length === 0) {
+      return;
+    }
+
+    elements.push(
+      <ul
+        className="answer-list"
+        key={`bullets-${elements.length}`}
+      >
+        {bulletItems.map((item, index) => (
+          <li key={`bullet-${index}`}>
+            {renderInlineText(
+              item,
+              `bullet-${index}`
+            )}
+          </li>
+        ))}
+      </ul>
+    );
+
+    bulletItems = [];
+  };
+
+  const flushNumbered = () => {
+    if (numberedItems.length === 0) {
+      return;
+    }
+
+    elements.push(
+      <ol
+        className="answer-list answer-numbered-list"
+        key={`numbered-${elements.length}`}
+      >
+        {numberedItems.map((item, index) => (
+          <li key={`number-${index}`}>
+            {renderInlineText(
+              item,
+              `number-${index}`
+            )}
+          </li>
+        ))}
+      </ol>
+    );
+
+    numberedItems = [];
+  };
+
+  lines.forEach((rawLine, index) => {
+    const line = rawLine.trim();
+
+    // --------------------------------------------------------
+    // Empty line
+    // --------------------------------------------------------
+
+    if (!line) {
+      flushBullets();
+      flushNumbered();
+
+      elements.push(
+        <div
+          className="answer-spacer"
+          key={`space-${index}`}
+        />
+      );
+
+      return;
+    }
+
+    // --------------------------------------------------------
+    // Heading
+    // --------------------------------------------------------
+
+    const headingMatch = line.match(
+      /^#{1,6}\s+(.+)$/
+    );
+
+    if (headingMatch) {
+      flushBullets();
+      flushNumbered();
+
+      elements.push(
+        <h4
+          className="answer-heading"
+          key={`heading-${index}`}
+        >
+          {renderInlineText(
+            headingMatch[1],
+            `heading-${index}`
+          )}
+        </h4>
+      );
+
+      return;
+    }
+
+    // --------------------------------------------------------
+    // Bullet
+    // --------------------------------------------------------
+
+    const bulletMatch = line.match(
+      /^[-*•]\s+(.+)$/
+    );
+
+    if (bulletMatch) {
+      flushNumbered();
+
+      bulletItems.push(
+        bulletMatch[1]
+      );
+
+      return;
+    }
+
+    // --------------------------------------------------------
+    // Numbered list
+    // --------------------------------------------------------
+
+    const numberedMatch = line.match(
+      /^\d+[.)]\s+(.+)$/
+    );
+
+    if (numberedMatch) {
+      flushBullets();
+
+      numberedItems.push(
+        numberedMatch[1]
+      );
+
+      return;
+    }
+
+    // --------------------------------------------------------
+    // Normal paragraph
+    // --------------------------------------------------------
+
+    flushBullets();
+    flushNumbered();
+
+    elements.push(
+      <p
+        className="answer-paragraph"
+        key={`paragraph-${index}`}
+      >
+        {renderInlineText(
+          line,
+          `paragraph-${index}`
+        )}
+      </p>
+    );
+  });
+
+  flushBullets();
+  flushNumbered();
+
+  return elements;
+}
+
+/**
+ * ============================================================
+ * SOURCE NORMALIZATION
+ * ============================================================
+ */
+
+function normalizeSources(message) {
+  if (!message) {
+    return [];
+  }
+
+  let rawSources = [];
+
+  if (Array.isArray(message.sources)) {
+    rawSources = message.sources;
+  } else if (
+    Array.isArray(message.source_documents)
+  ) {
+    rawSources =
+      message.source_documents;
+  } else if (
+    Array.isArray(message.documents)
+  ) {
+    rawSources = message.documents;
+  } else if (message.source) {
+    rawSources = [
+      {
+        source: message.source,
+        title: message.title,
+        filename: message.filename,
+        page: message.page,
+        section: message.section,
+        pdf_url:
+          message.pdf_url ||
+          message.pdfUrl ||
+          message.document_url ||
+          message.documentUrl ||
+          message.url ||
+          null,
+        excerpt: message.excerpt,
+        text: message.text,
+        content: message.content,
+      },
+    ];
+  }
+
+  return rawSources
+    .filter(Boolean)
+    .map((source, index) => {
+      // ------------------------------------------------------
+      // String source
+      // ------------------------------------------------------
+
+      if (typeof source === "string") {
+        return {
+          id: `source-${index}`,
+          title: source,
+          source,
+          filename: source,
+          page: null,
+          section: null,
+          score: null,
+          pdfUrl: null,
+          excerpt: "",
+          text: "",
+          content: "",
+        };
+      }
+
+      const documentUrl =
+        getDocumentUrl(source);
+
+      return {
+        // Preserve every original field.
+        ...source,
+
+        id:
+          source.id ||
+          source.source_id ||
+          source.chunk_id ||
+          `source-${index}`,
+
+        title:
+          source.title ||
+          source.document_title ||
+          source.name ||
+          source.filename ||
+          source.file_name ||
+          source.source ||
+          `Reference Document ${index + 1}`,
+
+        source:
+          source.source ||
+          source.filename ||
+          source.file_name ||
+          source.name ||
+          "",
+
+        filename:
+          source.filename ||
+          source.file_name ||
+          source.source ||
+          source.name ||
+          "",
+
+        page:
+          source.page ??
+          source.page_number ??
+          null,
+
+        section:
+          source.section ||
+          source.heading ||
+          null,
+
+        score:
+          source.score ??
+          source.final_score ??
+          source.similarity_score ??
+          null,
+
+        pdfUrl: documentUrl,
+
+        excerpt:
+          source.excerpt ||
+          source.snippet ||
+          "",
+
+        text:
+          source.text ||
+          source.chunk_text ||
+          "",
+
+        content:
+          source.content ||
+          source.chunk ||
+          "",
+      };
+    });
+}
+
+/**
+ * ============================================================
+ * SOURCE REFERENCES
+ * ============================================================
+ *
+ * These are UI-only.
+ *
+ * They are NEVER passed to TTS.
+ */
+
+function SourceReferences({ message }) {
+  const sources = normalizeSources(message);
+
+  if (sources.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="source-references">
+      <div className="source-references-header">
+        <FileCheck2 size={16} />
+
+        <strong>
+          Reference Documents
+        </strong>
+      </div>
+
+      <div className="source-reference-list">
+        {sources.map((source, index) => {
+          const documentUrl =
+            source.pdfUrl ||
+            getDocumentUrl(source);
+
+          const isPdf =
+            typeof documentUrl === "string" &&
+            /\.pdf(?:$|[?#])/i.test(
+              documentUrl
+            );
+
+          return (
+            <div
+              className="source-reference-card"
+              key={
+                source.id ||
+                `source-${index}`
+              }
+            >
+              <div className="source-reference-icon">
+                <FileText size={17} />
+              </div>
+
+              <div className="source-reference-content">
+                <div className="source-reference-title">
+                  {source.title}
+                </div>
+
+                <div className="source-reference-details">
+                  {source.page != null && (
+                    <span>
+                      Page {source.page}
+                    </span>
+                  )}
+
+                  {source.section && (
+                    <span>
+                      {source.section}
+                    </span>
+                  )}
+
+                  {source.score != null && (
+                    <span>
+                      Verified reference
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              {documentUrl && (
+                <a
+                  href={documentUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="source-pdf-button"
+                  aria-label={`Open ${source.title}`}
+                  title={
+                    isPdf
+                      ? "Open PDF"
+                      : "Open reference document"
+                  }
+                >
+                  <ExternalLink size={14} />
+
+                  <span>
+                    {isPdf
+                      ? "Open PDF"
+                      : "Open"}
+                  </span>
+                </a>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * ============================================================
+ * CHAT MESSAGE
+ * ============================================================
+ */
+
 function ChatMessage({
   message,
-  onSpeak
+  onSpeak,
 }) {
   const {
     languageId,
-    speakText
+    speakText,
   } = useLanguage();
 
-  const isAI = message.role === "assistant";
+  const isAI =
+    message.role === "assistant";
 
   /**
-   * Speak the answer again.
+   * ----------------------------------------------------------
+   * SPEAK ANSWER
+   * ----------------------------------------------------------
    *
    * IMPORTANT:
-   * The UI continues displaying message.text exactly as received.
-   * Only the speech copy is cleaned.
+   *
+   * Only message.text goes through cleanTextForSpeech().
+   *
+   * Sources, PDF information, scores, filenames and UI
+   * elements NEVER go to the speech engine.
    */
+
   const handleSpeak = () => {
-    const speechText = cleanTextForSpeech(
-      message.text
-    );
+    const speechText =
+      cleanTextForSpeech(
+        message.text
+      );
 
     if (!speechText) {
       return;
     }
 
-    /**
-     * Prefer the language associated with this specific
-     * response when available.
-     *
-     * Otherwise use the currently selected UI language.
-     */
-    const speechLanguage = normalizeLanguage(
-      message.language ||
-        message.detected_language ||
-        message.response_language ||
-        languageId,
-      normalizeLanguage(languageId, "en")
-    );
+    const speechLanguage =
+      normalizeLanguage(
+        message.language ||
+          message.detected_language ||
+          message.response_language ||
+          languageId,
+        normalizeLanguage(
+          languageId,
+          "en"
+        )
+      );
 
     if (onSpeak) {
       onSpeak(
         speechText,
         speechLanguage
       );
+
       return;
     }
 
@@ -454,9 +1137,10 @@ function ChatMessage({
         isAI ? "ai" : "user"
       }`}
     >
-      {/* -------------------------------------------------
+      {/* =====================================================
           MESSAGE AVATAR
-      -------------------------------------------------- */}
+      ====================================================== */}
+
       <div
         className={`message-avatar ${
           isAI ? "ai" : "user"
@@ -469,101 +1153,110 @@ function ChatMessage({
         )}
       </div>
 
-      {/* -------------------------------------------------
+      {/* =====================================================
           MESSAGE CONTENT
-      -------------------------------------------------- */}
+      ====================================================== */}
+
       <div className="message-bubble">
 
-        {/* -------------------------------------------------
-            ORIGINAL CHAT TEXT
+        {/* ===================================================
+            ANSWER / QUERY
+        ==================================================== */}
 
-            IMPORTANT:
-            Never pass the cleaned TTS text here.
+        <div className="message-answer">
+          {isAI ? (
+            renderAnswer(
+              message.text
+            )
+          ) : (
+            <p className="answer-paragraph">
+              {message.text}
+            </p>
+          )}
+        </div>
 
-            The citizen should see the complete answer
-            exactly as returned by the backend.
-        -------------------------------------------------- */}
-        <p>
-          {message.text}
-        </p>
+        {/* ===================================================
+            SPEAK BUTTON
+        ==================================================== */}
 
-        {/* -------------------------------------------------
-            SPEAK AGAIN BUTTON
-        -------------------------------------------------- */}
-        {isAI && !message.error && (
-          <div
-            className="message-actions"
-            style={{
-              marginTop: "8px"
-            }}
-          >
-            <button
-              type="button"
-              className="speak-again-btn"
-              onClick={handleSpeak}
-              disabled={!message.text}
-              aria-label="Listen to this answer"
-              title="Listen / सुनें / ऐका"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "6px",
-                background: "transparent",
-                border:
-                  "1px solid rgba(0,0,0,0.1)",
-                padding: "4px 10px",
-                borderRadius: "6px",
-                cursor: "pointer",
-                fontSize: "12px"
-              }}
-            >
-              <Volume2 size={14} />
-              <span>
-                Listen / सुनें / ऐका
-              </span>
-            </button>
-          </div>
-        )}
-
-        {/* -------------------------------------------------
-            SOURCE + CONFIDENCE INFORMATION
-        -------------------------------------------------- */}
         {isAI &&
-          !message.error &&
-          message.source && (
-            <div className="answer-meta">
-
-              <div className="source-mini">
-                <FileCheck2 size={14} />
+          !message.error && (
+            <div className="message-actions">
+              <button
+                type="button"
+                className="speak-again-btn"
+                onClick={handleSpeak}
+                disabled={!message.text}
+                aria-label="Listen to this answer"
+                title="Listen / सुनें / ऐका"
+              >
+                <Volume2 size={14} />
 
                 <span>
-                  <strong>
-                    {message.source}
-                  </strong>
-
-                  {message.page != null && (
-                    <small>
-                      Page {message.page}
-                      {" • "}
-                      Official source
-                    </small>
-                  )}
-
-                  {message.page == null && (
-                    <small>
-                      Official source
-                    </small>
-                  )}
+                  Listen / सुनें / ऐका
                 </span>
-              </div>
-
-              <span className="confidence">
-                <ShieldCheck size={13} />
-
-                {message.confidence ||
-                  "Verified"}
-              </span>
+              </button>
             </div>
+          )}
+
+        {/* ===================================================
+            SOURCE + CONFIDENCE INFORMATION
+        ==================================================== */}
+
+        {isAI &&
+          !message.error &&
+          (message.source ||
+            message.confidence) && (
+            <div className="answer-meta">
+
+              {message.source && (
+                <div className="source-mini">
+                  <FileCheck2 size={14} />
+
+                  <span>
+                    <strong>
+                      {message.source}
+                    </strong>
+
+                    {message.page != null ? (
+                      <small>
+                        Page{" "}
+                        {message.page}
+                        {" • "}
+                        Official source
+                      </small>
+                    ) : (
+                      <small>
+                        Official source
+                      </small>
+                    )}
+                  </span>
+                </div>
+              )}
+
+              {message.confidence && (
+                <span className="confidence">
+                  <ShieldCheck size={13} />
+
+                  {message.confidence}
+                </span>
+              )}
+            </div>
+          )}
+
+        {/* ===================================================
+            REFERENCE DOCUMENTS / PDFS
+
+            UI ONLY.
+
+            NEVER passed to TTS.
+        ==================================================== */}
+
+        {isAI &&
+          !message.error && (
+            <SourceReferences
+              message={message}
+            />
           )}
       </div>
     </div>

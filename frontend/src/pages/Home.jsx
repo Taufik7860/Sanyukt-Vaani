@@ -17,9 +17,7 @@ import {
 
 import { useLanguage } from "../context/LanguageContext";
 
-function Home({
-  onNavigate
-}) {
+function Home({ onNavigate }) {
   const {
     t,
     language,
@@ -30,46 +28,14 @@ function Home({
   } = useLanguage();
 
   const [question, setQuestion] = useState("");
+  const [response, setResponse] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
 
-  /*
-   * Used to know whether the user actually started a
-   * voice interaction from this page.
-   *
-   * This prevents automatic navigation when an old transcript
-   * already exists in LanguageContext.
-   */
   const voiceStartedRef = useRef(false);
-
-  /*
-   * Prevent multiple automatic navigations.
-   */
   const navigationHandledRef = useRef(false);
-
-  /*
-   * Keep track of the previous listening state.
-   *
-   * false -> true  = started listening
-   * true  -> false  = stopped listening
-   */
   const previousListeningRef = useRef(false);
 
-  /*
-   * ---------------------------------------------------------
-   * VOICE START / STOP
-   * ---------------------------------------------------------
-   *
-   * Your LanguageContext already owns the actual speech
-   * recognition logic.
-   *
-   * We intentionally call the existing detectFromSpeech()
-   * instead of creating another SpeechRecognition instance
-   * here.
-   */
   const handleVoiceClick = () => {
-    /*
-     * User is starting a new voice interaction.
-     */
     if (!isListening) {
       voiceStartedRef.current = true;
       navigationHandledRef.current = false;
@@ -78,37 +44,12 @@ function Home({
       detectFromSpeech();
       return;
     }
-
-    /*
-     * User is already listening.
-     *
-     * Your LanguageContext's detectFromSpeech() should toggle
-     * the recognition state and stop listening.
-     */
     detectFromSpeech();
   };
 
-  /*
-   * ---------------------------------------------------------
-   * AUTOMATIC CHAT NAVIGATION
-   * ---------------------------------------------------------
-   *
-   * When:
-   *
-   *     Listening
-   *        ↓
-   *     Stopped
-   *        ↓
-   *     Transcript available
-   *
-   * automatically move to Chat.
-   *
-   * This removes the unnecessary "Send" click from voice mode.
-   */
   useEffect(() => {
     const justStoppedListening =
-      previousListeningRef.current === true &&
-      isListening === false;
+      previousListeningRef.current === true && isListening === false;
 
     previousListeningRef.current = isListening;
 
@@ -119,40 +60,19 @@ function Home({
       !navigationHandledRef.current
     ) {
       navigationHandledRef.current = true;
-
       setIsProcessing(true);
 
-      /*
-       * Small delay gives the UI time to show:
-       *
-       * "Processing your question..."
-       *
-       * before moving to the chat screen.
-       */
       const timer = setTimeout(() => {
         onNavigate("chat");
       }, 250);
 
       return () => clearTimeout(timer);
     }
-  }, [
-    isListening,
-    transcript,
-    onNavigate
-  ]);
+  }, [isListening, transcript, onNavigate]);
 
-  /*
-   * ---------------------------------------------------------
-   * TYPED QUESTION
-   * ---------------------------------------------------------
-   */
   const handleQuestionChange = (event) => {
     setQuestion(event.target.value);
 
-    /*
-     * If the user starts typing, don't treat an old voice
-     * transcript as the active question.
-     */
     if (event.target.value.trim()) {
       voiceStartedRef.current = false;
       navigationHandledRef.current = false;
@@ -163,28 +83,16 @@ function Home({
     const typedQuestion = question.trim();
 
     if (!typedQuestion) {
-      /*
-       * If no typed question exists, use the voice transcript.
-       */
       if (transcript?.trim()) {
         onNavigate("chat");
       }
-
       return;
     }
 
     onNavigate("chat");
   };
 
-  /*
-   * ---------------------------------------------------------
-   * UI STATE
-   * ---------------------------------------------------------
-   */
-
-  const hasTranscript = Boolean(
-    transcript?.trim()
-  );
+  const hasTranscript = Boolean(transcript?.trim());
 
   const voiceButtonClass = [
     "dashboard-voice",
@@ -195,9 +103,7 @@ function Home({
     .join(" ");
 
   let voiceTitle = t.speak || "Tap to speak";
-  let voiceSubtitle =
-    t.speakSub ||
-    "Ask your question naturally";
+  let voiceSubtitle = t.speakSub || "Ask your question naturally";
 
   if (isListening) {
     voiceTitle = t.detecting || "Listening...";
@@ -210,392 +116,279 @@ function Home({
   return (
     <>
       {/* =====================================================
-          WELCOME
+          MAIN HERO / WORKSPACE SECTION
       ====================================================== */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start mb-8">
+        
+        {/* LEFT SIDE - Welcome Info */}
+        <section className="citizen-welcome flex flex-col justify-between h-full space-y-6">
+          <div>
+            <div className="eyebrow mb-3 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-600 border border-emerald-200">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              {t.brandEyebrow || "AI assistance is available"}
+            </div>
 
-      <section className="citizen-welcome">
-        <div className="welcome-copy">
-          <div className="eyebrow">
-            {t.brandEyebrow}
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">
+              {t.welcome || "Government & cooperative information is now easy to access"}
+            </h2>
+
+            <p className="text-slate-600 mt-4 text-sm leading-relaxed">
+              {t.welcomeText || "Ask about loans, government schemes, crop insurance, PACS services, rules and grievance procedures in your language."}
+            </p>
           </div>
 
-          <h2>
-            {t.welcome}
-          </h2>
-
-          <p>
-            {t.welcomeText}
-          </p>
-
-          <div className="welcome-hello">
+          <div className="welcome-hello flex items-center gap-2 text-xs font-medium text-blue-600 bg-blue-50 p-3 rounded-xl border border-blue-100">
             <Sparkles size={16} />
-            {t.hello}
+            <span>{t.hello || "Select options below or start speaking your query"}</span>
           </div>
-        </div>
+        </section>
 
-        <div className="welcome-orb">
-          <Sparkles size={28} />
-        </div>
-      </section>
-
-      {/* =====================================================
-          VOICE ASSISTANT
-      ====================================================== */}
-
-      <section className="ask-card voice-assistant-card">
-
-        {/* Header */}
-        <div className="ask-head">
-
-          <div className="ready-state">
-            <span
-              className={`online-dot ${
-                isListening
-                  ? "voice-active-dot"
-                  : ""
-              }`}
-            />
-
-            <span>
-              {isListening
-                ? "Listening"
-                : isProcessing
+        {/* RIGHT SIDE - Speaker, Query Input, & Scrollable Response */}
+        <section className="ask-card voice-assistant-card bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col gap-5">
+          
+          {/* Top Status & Language Bar */}
+          <div className="ask-head flex items-center justify-between pb-3 border-b border-slate-100">
+            <div className="ready-state flex items-center gap-2 text-xs font-semibold text-slate-700">
+              <span
+                className={`online-dot w-2.5 h-2.5 rounded-full ${
+                  isListening
+                    ? "bg-red-500 animate-ping"
+                    : "bg-emerald-500"
+                }`}
+              />
+              <span>
+                {isListening
+                  ? "Listening"
+                  : isProcessing
                   ? "Processing"
                   : t.ready || "Ready"}
+              </span>
+            </div>
+
+            <span className="auto-language flex items-center gap-1.5 text-xs text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full">
+              <Languages size={14} />
+              <span>{language?.label || "English"}</span>
             </span>
           </div>
 
-          <span className="auto-language">
-            <Languages size={14} />
-
-            <span>
-              {language?.label || "English"}
-            </span>
-          </span>
-        </div>
-
-        {/* =================================================
-            MAIN VOICE BUTTON
-        ================================================== */}
-
-        <button
-          type="button"
-          className={voiceButtonClass}
-          onClick={handleVoiceClick}
-          disabled={isProcessing}
-          aria-label={
-            isListening
-              ? "Stop listening"
-              : "Start listening"
-          }
-        >
-
-          <span className="dashboard-mic">
-
-            {isListening ? (
-              <span className="mic-listening-animation">
-                <Mic size={30} />
+          {/* Speaker Button / Main Voice Section */}
+          <button
+            type="button"
+            className={`${voiceButtonClass} w-full p-4 rounded-xl border border-blue-100 bg-blue-50/50 flex items-center justify-between transition hover:bg-blue-50`}
+            onClick={handleVoiceClick}
+            disabled={isProcessing}
+            aria-label={isListening ? "Stop listening" : "Start listening"}
+          >
+            <div className="flex items-center gap-3">
+              <span className="dashboard-mic p-2.5 bg-blue-600 text-white rounded-lg flex items-center justify-center">
+                <Mic size={22} />
               </span>
-            ) : (
-              <Mic size={30} />
-            )}
-
-          </span>
-
-          <span className="voice-main-text">
-
-            <strong>
-              {voiceTitle}
-            </strong>
-
-            <small>
-              {voiceSubtitle}
-            </small>
-
-          </span>
-
-          <span className="voice-language-chip">
-            {language?.label || "English"}
-          </span>
-
-        </button>
-
-        {/* =================================================
-            STATUS MESSAGE
-        ================================================== */}
-
-        <div className="voice-status-area">
-
-          {isListening && (
-            <div className="voice-live-status">
-              <span className="voice-pulse" />
-
-              <span>
-                Listening to your question...
-              </span>
+              <div className="voice-main-text text-left">
+                <strong className="block text-sm text-slate-900 font-semibold">
+                  {voiceTitle}
+                </strong>
+                <small className="text-xs text-slate-500">
+                  {voiceSubtitle}
+                </small>
+              </div>
             </div>
-          )}
+            <Volume2 size={18} className="text-blue-600 opacity-70" />
+          </button>
 
-          {isProcessing && (
-            <div className="voice-processing-status">
-              <Sparkles size={15} />
-
-              <span>
-                Understanding your question and finding
-                the relevant information...
-              </span>
-            </div>
-          )}
-
-          {!isListening &&
-            !isProcessing &&
-            !hasTranscript && (
-              <div className="voice-ready-hint">
-                <Volume2 size={15} />
-
-                <span>
-                  Tap the microphone and ask your question
-                </span>
+          {/* Voice Status Updates */}
+          <div className="voice-status-area text-xs text-slate-500">
+            {isListening && (
+              <div className="voice-live-status flex items-center gap-2 text-red-600">
+                <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse" />
+                <span>Listening to your question...</span>
               </div>
             )}
 
-        </div>
+            {isProcessing && (
+              <div className="voice-processing-status flex items-center gap-2 text-blue-600">
+                <Sparkles size={15} />
+                <span>Understanding your question and fetching response...</span>
+              </div>
+            )}
+          </div>
 
-        {/* =================================================
-            LIVE TRANSCRIPT
-        ================================================== */}
-
-        {hasTranscript && (
-          <div className="voice-transcript-card">
-
-            <div className="voice-transcript-header">
-              <MessageCircle size={15} />
-
-              <span>
-                Your question
-              </span>
+          {/* Voice Transcript Display */}
+          {hasTranscript && (
+            <div className="voice-transcript-card bg-slate-50 p-3 rounded-lg border border-slate-200">
+              <div className="voice-transcript-header flex items-center gap-1.5 text-xs font-semibold text-slate-700 mb-1">
+                <MessageCircle size={14} />
+                <span>Your question</span>
+              </div>
+              <p className="text-xs text-slate-600">{transcript}</p>
             </div>
+          )}
 
-            <p>
-              {transcript}
-            </p>
+          {/* Larger User Query Textarea Box */}
+          <div className="typed-question-section flex flex-col gap-2">
+            <label className="ask-input-label text-xs font-semibold text-slate-700">
+              {t.type || "Your Query"}
+            </label>
 
-          </div>
-        )}
-
-        {/* =================================================
-            OPTIONAL TYPED QUESTION
-        ================================================== */}
-
-        <div className="typed-question-section">
-
-          <label className="ask-input-label">
-            {t.type || "Or type your question"}
-          </label>
-
-          <div className="ask-input">
-
-            <input
-              value={question}
-              onChange={handleQuestionChange}
-              onKeyDown={(event) => {
-                if (event.key === "Enter") {
-                  handleSendQuestion();
+            <div className="ask-input flex flex-col gap-2">
+              <textarea
+                rows={3}
+                value={question}
+                onChange={handleQuestionChange}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" && !event.shiftKey) {
+                    event.preventDefault();
+                    handleSendQuestion();
+                  }
+                }}
+                placeholder={
+                  t.placeholder || "Type your detailed question here..."
                 }
-              }}
-              placeholder={
-                t.placeholder ||
-                "Type your question..."
-              }
-              disabled={
-                isListening ||
-                isProcessing
-              }
-            />
+                disabled={isListening || isProcessing}
+                className="w-full p-3 text-xs border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:outline-none resize-none text-slate-800"
+              />
 
-            <button
-              type="button"
-              className="send-btn"
-              onClick={handleSendQuestion}
-              disabled={
-                !question.trim() ||
-                isListening ||
-                isProcessing
-              }
-              aria-label={
-                t.ask || "Ask question"
-              }
-            >
-              <Send size={18} />
-            </button>
-
+              <div className="flex justify-end">
+                <button
+                  type="button"
+                  className="send-btn bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 text-white text-xs font-medium px-4 py-2 rounded-lg flex items-center gap-1.5 transition"
+                  onClick={handleSendQuestion}
+                  disabled={
+                    (!question.trim() && !hasTranscript) ||
+                    isListening ||
+                    isProcessing
+                  }
+                  aria-label={t.ask || "Ask question"}
+                >
+                  <span>{t.ask || "Send"}</span>
+                  <Send size={14} />
+                </button>
+              </div>
+            </div>
           </div>
 
-        </div>
+          {/* AI Response Box (Fixed Height + Internal Vertical Scrollbar) */}
+          <div className="bg-emerald-50/70 border border-emerald-200 p-4 rounded-xl flex flex-col gap-2">
+            <span className="text-xs font-bold text-emerald-800 flex items-center gap-1">
+              <Sparkles size={14} /> AI Response
+            </span>
 
-        {/* Existing voice detection message */}
-        {voiceMessage && (
-          <p className="voice-detection-note">
-            {voiceMessage}
-          </p>
-        )}
+            <div className="max-h-[220px] overflow-y-auto pr-2 text-xs text-emerald-950 leading-relaxed font-normal whitespace-pre-wrap">
+              {response || transcript || "Your generated response will appear here in scrollable view once queried..."}
+            </div>
+          </div>
 
-      </section>
+          {voiceMessage && (
+            <p className="voice-detection-note text-[11px] text-slate-400 italic">
+              {voiceMessage}
+            </p>
+          )}
+        </section>
+      </div>
 
       {/* =====================================================
           QUICK ACCESS
       ====================================================== */}
-
-      <div className="section-title">
-
+      <div className="section-title flex items-center justify-between my-6">
         <div>
-          <h3>
-            {t.explore}
+          <h3 className="text-lg font-bold text-slate-800">
+            {t.explore || "Explore Topics"}
           </h3>
-
-          <p>
-            {t.exploreSub}
+          <p className="text-xs text-slate-500">
+            {t.exploreSub || "Quick categories to start asking"}
           </p>
         </div>
 
         <button
           type="button"
-          className="text-btn"
-          onClick={() =>
-            onNavigate("sources")
-          }
+          className="text-btn text-xs text-blue-600 font-semibold flex items-center gap-1 hover:underline"
+          onClick={() => onNavigate("sources")}
         >
-          {t.viewAll}
-
+          {t.viewAll || "View All"}
           <ChevronRight size={15} />
         </button>
-
       </div>
 
       {/* =====================================================
           INFORMATION CATEGORIES
       ====================================================== */}
-
-      <div className="info-grid">
-
+      <div className="info-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <InfoCard
           icon="🏦"
-          title={t.loans}
-          text={t.loansText}
-          onClick={() =>
-            onNavigate("chat")
-          }
+          title={t.loans || "Loans"}
+          text={t.loansText || "Agricultural & personal loans"}
+          onClick={() => onNavigate("chat")}
         />
-
         <InfoCard
           icon="🌾"
-          title={t.insurance}
-          text={t.insuranceText}
-          onClick={() =>
-            onNavigate("chat")
-          }
+          title={t.insurance || "Crop Insurance"}
+          text={t.insuranceText || "PMFBY and crop safety"}
+          onClick={() => onNavigate("chat")}
         />
-
         <InfoCard
           icon="🏛️"
-          title={t.schemes}
-          text={t.schemesText}
-          onClick={() =>
-            onNavigate("chat")
-          }
+          title={t.schemes || "Schemes"}
+          text={t.schemesText || "Government benefits"}
+          onClick={() => onNavigate("chat")}
         />
-
         <InfoCard
           icon="⚖️"
-          title={t.grievance}
-          text={t.grievanceText}
-          onClick={() =>
-            onNavigate("chat")
-          }
+          title={t.grievance || "Grievances"}
+          text={t.grievanceText || "Support and resolution"}
+          onClick={() => onNavigate("chat")}
         />
-
       </div>
 
       {/* =====================================================
           TRUST STRIP
       ====================================================== */}
-
-      <div className="trust-strip">
-
-        <ShieldCheck size={22} />
-
-        <div>
-          <strong>
-            {t.trust}
-          </strong>
-
-          <span>
-            {t.trustText}
-          </span>
+      <div className="trust-strip bg-slate-900 text-white p-6 rounded-2xl flex flex-wrap items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <ShieldCheck size={28} className="text-emerald-400" />
+          <div>
+            <strong className="block text-sm font-semibold">
+              {t.trust || "Official Knowledge Base"}
+            </strong>
+            <span className="text-xs text-slate-400">
+              {t.trustText || "Verified information directly from trusted government data"}
+            </span>
+          </div>
         </div>
 
-        <div className="trust-stat">
-          <strong>
-            128
-          </strong>
-
-          <span>
-            {t.sourcesCount}
-          </span>
+        <div className="flex items-center gap-6">
+          <div className="trust-stat text-center">
+            <strong className="block text-lg font-extrabold text-emerald-400">128</strong>
+            <span className="text-[11px] text-slate-400">{t.sourcesCount || "Sources"}</span>
+          </div>
+          <div className="trust-stat text-center">
+            <strong className="block text-lg font-extrabold text-emerald-400">08</strong>
+            <span className="text-[11px] text-slate-400">{t.languages || "Languages"}</span>
+          </div>
         </div>
-
-        <div className="trust-stat">
-          <strong>
-            08
-          </strong>
-
-          <span>
-            {t.languages}
-          </span>
-        </div>
-
       </div>
     </>
   );
 }
 
-
 /* =========================================================
    INFORMATION CARD
 ========================================================= */
-
-function InfoCard({
-  icon,
-  title,
-  text,
-  onClick
-}) {
+function InfoCard({ icon, title, text, onClick }) {
   return (
     <button
       type="button"
-      className="info-card"
+      className="info-card bg-white p-4 rounded-xl border border-slate-200 flex items-center justify-between text-left hover:border-blue-300 transition shadow-sm"
       onClick={onClick}
     >
-
-      <div className="info-icon">
-        {icon}
+      <div className="flex items-center gap-3">
+        <span className="info-icon text-xl p-2 bg-slate-50 rounded-lg">{icon}</span>
+        <div>
+          <strong className="block text-xs font-bold text-slate-800">{title}</strong>
+          <span className="text-[11px] text-slate-500">{text}</span>
+        </div>
       </div>
-
-      <div>
-        <strong>
-          {title}
-        </strong>
-
-        <span>
-          {text}
-        </span>
-      </div>
-
-      <ChevronRight size={17} />
-
+      <ChevronRight size={17} className="text-slate-400" />
     </button>
   );
 }
-
 
 export default Home;
