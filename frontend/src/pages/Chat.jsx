@@ -6,19 +6,18 @@ import {
   Send,
   ShieldCheck,
   Sparkles,
-  X
+  X,
 } from "lucide-react";
 
 import React, {
   useEffect,
   useRef,
-  useState
+  useState,
 } from "react";
 
 import { useLanguage } from "../context/LanguageContext";
 import { askSanyuktVaani } from "../services/api";
 import ChatMessage from "../components/ChatMessage";
-
 
 /* =========================================================
    INITIAL MESSAGE
@@ -29,18 +28,14 @@ const INITIAL_MESSAGE = {
   text:
     "Ask me about cooperatives, government schemes, loans, laws, and citizen services. I will answer from the verified knowledge base.",
   language: "en",
-  sources: []
+  sources: [],
 };
-
 
 /* =========================================================
    LANGUAGE HELPERS
 ========================================================= */
 
-function normalizeResponseLanguage(
-  language,
-  fallback = "en"
-) {
+function normalizeResponseLanguage(language, fallback = "en") {
   if (!language) {
     return fallback;
   }
@@ -76,7 +71,7 @@ function normalizeResponseLanguage(
 
     sanskrit: "sa",
     san: "sa",
-    "sa-in": "sa"
+    "sa-in": "sa",
   };
 
   return (
@@ -88,7 +83,7 @@ function normalizeResponseLanguage(
         "mr",
         "gu",
         "kn",
-        "sa"
+        "sa",
       ].includes(value)
         ? value
         : fallback
@@ -96,233 +91,187 @@ function normalizeResponseLanguage(
   );
 }
 
+/* =========================================================
+   QUERY LANGUAGE DETECTION
+   Project answer-language scope:
+   English / Hindi / Marathi
+   ========================================================= */
+
+const MARATHI_QUERY_PATTERNS = [
+  /\bआहे\b/u,
+  /\bआहेत\b/u,
+  /\bआहोत\b/u,
+  /\bसाठी\b/u,
+  /\bमध्ये\b/u,
+  /\bकोणती\b/u,
+  /\bकोणते\b/u,
+  /\bकागदपत्रे\b/u,
+  /\bशेतकरी\b/u,
+  /\bयोजना\b/u,
+  /\bलाभ\b/u,
+  /\bआवश्यक\b/u,
+  /\bकसे\b/u,
+  /\bकाय\b/u,
+  /\bमिळेल\b/u,
+  /\bकरण्यासाठी\b/u,
+  /\bयासाठी\b/u,
+];
+
+function detectQuestionLanguage(text) {
+  const value = String(text || "").trim();
+
+  if (!value) {
+    return "en";
+  }
+
+  /*
+   * Pure Latin/English text is English for the project's
+   * automatic answer-language contract.
+   */
+  if (/^[A-Za-z0-9\s.,?!'"()_\\\-/:%&+₹$]+$/.test(value)) {
+    return "en";
+  }
+
+  /*
+   * Hindi and Marathi both use Devanagari.
+   * Use multiple strong Marathi indicators before selecting mr;
+   * otherwise treat Devanagari as Hindi.
+   */
+  if (/[\u0900-\u097F]/u.test(value)) {
+    const marathiMatches = MARATHI_QUERY_PATTERNS.filter(
+      (pattern) => pattern.test(value)
+    ).length;
+
+    if (marathiMatches >= 2) {
+      return "mr";
+    }
+
+    return "hi";
+  }
+
+  return "en";
+}
 
 /* =========================================================
    CLEAN TEXT FOR BROWSER SPEECH
+   IMPORTANT:
+   - Screen keeps Markdown such as **bold**
+   - Speech receives plain text
+   - Asterisks and Markdown are NEVER spoken
 ========================================================= */
 
-function cleanTextForSpeech(text) {
-  if (!text) {
-    return "";
-  }
+const cleanTextForSpeech = (text) => {
+  if (!text) return "";
 
   let cleaned = String(text);
 
-  cleaned = cleaned.normalize("NFKC");
+  // Normalize
+  cleaned = cleaned
+    .normalize("NFKC")
+    .replace(/\r\n/g, "\n")
+    .replace(/\r/g, "\n");
 
-  /* URLs */
+  // Remove code blocks
+  cleaned = cleaned.replace(/```[\s\S]*?```/g, " ");
+
+  // Remove markdown links but keep visible text
+  cleaned = cleaned.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
+
+  // Remove plain URLs
   cleaned = cleaned.replace(
     /https?:\/\/[^\s]+/gi,
     " "
   );
 
-  cleaned = cleaned.replace(
-    /\bwww\.\S+/gi,
-    " "
-  );
+  // Remove HTML tags
+  cleaned = cleaned.replace(/<[^>]*>/g, " ");
 
-  /* Markdown links */
-  cleaned = cleaned.replace(
-    /\[([^\]]+)\]\([^)]+\)/g,
-    "$1"
-  );
+  // Remove inline code
+  cleaned = cleaned.replace(/`([^`]+)`/g, "$1");
 
-  /* Fenced code blocks */
+  // Remove source/reference metadata
   cleaned = cleaned.replace(
-    /```[\s\S]*?```/g,
-    " "
-  );
-
-  /* Inline code */
-  cleaned = cleaned.replace(
-    /`([^`]+)`/g,
-    "$1"
-  );
-
-  /* Internal source markers */
-  cleaned = cleaned.replace(
-    /\[(?:Source\vert{}Document\vert{}Chunk\vert{}Evidence)\s+\d+\]/gi,
-    " "
-  );
-
-  /* Source/reference lines */
-  cleaned = cleaned.replace(
-    /^\s*(?:source|sources|reference|references|evidence)\s*:.+$/gim,
-    " "
-  );
-
-  /* Markdown headings */
-  cleaned = cleaned.replace(
-    /^\s{0,3}#{1,6}\s+/gm,
-    ""
-  );
-
-  /* Bold / italic */
-  cleaned = cleaned.replace(
-    /\*\*([^*]+)\*\*/g,
-    "$1"
-  );
-
-  cleaned = cleaned.replace(
-    /__([^_]+)__/g,
-    "$1"
-  );
-
-  cleaned = cleaned.replace(
-    /(^|\s)[*_]+(?=\S)/g,
-    "$1"
-  );
-
-  cleaned = cleaned.replace(
-    /(?<=\S)[*_]+(?=\s|$)/g,
-    ""
-  );
-
-  /* Bullet formatting */
-  cleaned = cleaned.replace(
-    /^\s*[-•●▪◦‣]\s+/gm,
-    ""
-  );
-
-  /* Numbered lists */
-  cleaned = cleaned.replace(
-    /^\s*\d+[.)]\s+/gm,
-    ""
-  );
-
-  /* Markdown table separator */
-  cleaned = cleaned.replace(
-    /^\s*\|?(?:\s*:?-{2,}:?\s*\|)+\s*$/gm,
-    " "
-  );
-
-  /* Remaining table pipes */
-  cleaned = cleaned.replace(
-    /\|/g,
-    " "
-  );
-
-  /* Decorative separators */
-  cleaned = cleaned.replace(
-    /^\s*[_\-+=*~^]{3,}\s*$/gm,
-    " "
-  );
-
-  /* Repeated decorative characters */
-  cleaned = cleaned.replace(
-    /[+*]{3,}/g,
+    /^\s*(sources?|references?|document sources?|source references?)\s*:?\s*$/gim,
     " "
   );
 
   cleaned = cleaned.replace(
-    /-{3,}/g,
+    /^\s*(source|document|page|section|score|confidence|metadata)\s*:\s*.*$/gim,
     " "
   );
 
+  // Remove internal evidence markers
   cleaned = cleaned.replace(
-    /={3,}/g,
+    /\[?(evidence|source|document)\s*#?\s*\d+\]?/gi,
     " "
   );
 
+  // Remove markdown headings
+  cleaned = cleaned.replace(/^\s*#{1,6}\s*/gm, "");
+
+  // Remove markdown blockquotes
+  cleaned = cleaned.replace(/^\s*>\s?/gm, "");
+
+  // Remove markdown table separators/rows
+  cleaned = cleaned.replace(/^\s*\|.*\|\s*$/gm, " ");
   cleaned = cleaned.replace(
-    /~{3,}/g,
+    /^\s*\|?\s*:?-+:?\s*(\|\s*:?-+:?\s*)+\|?\s*$/gm,
     " "
   );
 
-  cleaned = cleaned.replace(
-    /_{2,}/g,
-    " "
-  );
+  // Remove numbered list markers
+  cleaned = cleaned.replace(/^\s*\d+[.)]\s+/gm, "");
 
-  /* Decorative Unicode symbols */
-  cleaned = cleaned.replace(
-    /[★☆◆◇■□●○►▶→←↑↓✓✔✕✖️🔹🔸🔺🔻]/gu,
-    " "
-  );
+  // Remove bullet markers
+  cleaned = cleaned.replace(/^\s*[-+•◦▪●○]\s+/gm, "");
 
-  /* HTML tags */
-  cleaned = cleaned.replace(
-    /<[^>]*>/g,
-    " "
-  );
+  // IMPORTANT:
+  // Remove ALL markdown asterisks.
+  // This handles:
+  // **Bold**
+  // *Italic*
+  // ***Bold italic***
+  // and any leftover standalone *
+  cleaned = cleaned.replace(/\*/g, "");
 
-  /* Internal/debug leakage */
-  cleaned = cleaned.replace(
-    /\b(?:source|sources|retrieval|retrieved|embedding|reranker|qdrant|gemini)\s*[:=]\s*[^\n]+/gi,
-    " "
-  );
+  // Remove underscores used for markdown emphasis
+  cleaned = cleaned.replace(/_{1,3}/g, "");
 
-  /* Internal metadata */
-  cleaned = cleaned.replace(
-    /\b(?:final score|similarity score|rerank score|retrieval score|confidence score)\s*[:=]?\s*\d+(?:\.\d+)?%?/gi,
-    " "
-  );
+  // Remove tildes used for strikethrough
+  cleaned = cleaned.replace(/~{2,}/g, "");
 
-  /* Keep multilingual characters and useful punctuation */
-  cleaned = cleaned.replace(
-    /[^\p{L}\p{N}\s.,?!:;'"()/%₹-]/gu,
-    " "
-  );
+  // Remove decorative markdown separators
+  cleaned = cleaned.replace(/^\s*[-_=]{3,}\s*$/gm, " ");
 
-  /* Punctuation spacing */
-  cleaned = cleaned.replace(
-    /\s+([,.?!:;])/g,
-    "$1"
-  );
+  // Remove common decorative symbols
+  cleaned = cleaned.replace(/[✓✔✕✖★☆→←⇒⇐►◄◆◇■□]/g, " ");
 
-  /* Repeated punctuation */
-  cleaned = cleaned.replace(
-    /!{2,}/g,
-    "!"
-  );
+  // Remove excessive backslashes
+  cleaned = cleaned.replace(/\\/g, "");
 
-  cleaned = cleaned.replace(
-    /\?{2,}/g,
-    "?"
-  );
+  // Remove repeated punctuation
+  cleaned = cleaned.replace(/[|]{2,}/g, " ");
+  cleaned = cleaned.replace(/:{2,}/g, ":");
 
-  cleaned = cleaned.replace(
-    /\.{4,}/g,
-    "..."
-  );
-
-  /* Normalize line breaks */
-  cleaned = cleaned.replace(
-    /\r\n/g,
-    "\n"
-  );
-
-  cleaned = cleaned.replace(
-    /\r/g,
-    "\n"
-  );
-
-  cleaned = cleaned.replace(
-    /\n{3,}/g,
-    "\n\n"
-  );
-
-  /* Natural speech pauses */
-  cleaned = cleaned.replace(
-    /\n+/g,
-    ". "
-  );
-
-  /* Final whitespace cleanup */
+  // Normalize whitespace
   cleaned = cleaned
-    .replace(
-      /\s+([,.?!:;])/g,
-      "$1"
-    )
-    .replace(
-      /\s{2,}/g,
-      " "
-    )
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .join(". ");
+
+  // Final safety pass:
+  // NOTHING markdown-related should reach speech.
+  cleaned = cleaned
+    .replace(/\*/g, "")
+    .replace(/_/g, "")
+    .replace(/`/g, "")
+    .replace(/#+/g, "")
+    .replace(/\s+/g, " ")
     .trim();
 
   return cleaned;
-}
-
+};
 
 /* =========================================================
    SOURCE HELPERS
@@ -345,7 +294,7 @@ function normalizeSources(sources) {
           page: null,
           section: null,
           score: null,
-          pdf_url: null
+          pdf_url: null,
         };
       }
 
@@ -409,11 +358,10 @@ function normalizeSources(sources) {
         score:
           source?.score ?? null,
 
-        pdf_url: pdfUrl
+        pdf_url: pdfUrl,
       };
     });
 }
-
 
 /* =========================================================
    PDF URL HELPER
@@ -430,15 +378,11 @@ function getSourcePdfUrl(source) {
   );
 }
 
-
 /* =========================================================
    SOURCE TITLE HELPER
 ========================================================= */
 
-function getSourceTitle(
-  source,
-  index = 0
-) {
+function getSourceTitle(source, index = 0) {
   return (
     source?.title ||
     source?.document_title ||
@@ -451,7 +395,6 @@ function getSourceTitle(
     `Reference Document ${index + 1}`
   );
 }
-
 
 /* =========================================================
    CHAT PAGE
@@ -469,34 +412,38 @@ function Chat() {
     voiceResult,
     setVoiceResult,
     detectFromSpeech,
-    speakText
+    speakText,
   } = useLanguage();
 
   const [input, setInput] = useState("");
-
   const [messages, setMessages] = useState([
-    INITIAL_MESSAGE
+    INITIAL_MESSAGE,
   ]);
 
-  const [isLoading, setIsLoading] =
-    useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [activeSources, setActiveSources] =
-    useState([]);
+  const [activeSources, setActiveSources] = useState([]);
 
-  const [selectedSource, setSelectedSource] =
-    useState(null);
+  const [selectedSource, setSelectedSource] = useState(null);
 
   const textareaRef = useRef(null);
   const scrollRef = useRef(null);
 
-  /* Auto scroll to bottom when new message arrives */
+  /* =======================================================
+     AUTO SCROLL
+  ======================================================== */
+
   useEffect(() => {
     if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      scrollRef.current.scrollTop =
+        scrollRef.current.scrollHeight;
     }
-  }, [messages, isLoading, isListening, isTranscribing]);
-
+  }, [
+    messages,
+    isLoading,
+    isListening,
+    isTranscribing,
+  ]);
 
   /* =======================================================
      LIVE VOICE TRANSCRIPT → CHAT INPUT
@@ -522,9 +469,8 @@ function Chat() {
     }, 0);
   }, [
     transcript,
-    isListening
+    isListening,
   ]);
-
 
   /* =======================================================
      FINAL VOICE RESULT → CHAT
@@ -587,13 +533,15 @@ function Chat() {
             Number(sourceScore) * 100
           )}%`;
 
+    /* Add user + assistant messages */
+
     setMessages((previous) => [
       ...previous,
 
       {
         role: "user",
         text: question,
-        language: detectedLanguage
+        language: detectedLanguage,
       },
 
       {
@@ -601,19 +549,26 @@ function Chat() {
         text:
           answer ||
           "No response text received.",
+
         language: detectedLanguage,
 
         source: sourceTitle,
+
         page: sourcePage,
+
         confidence,
 
-        /* COMPLETE SOURCE LIST */
-        sources
-      }
+        sources,
+      },
     ]);
 
+    /* Reset input state */
+
     setInput("");
+
     setTranscript("");
+
+    /* Update selected UI language */
 
     const supportedLanguage =
       languages.some(
@@ -629,6 +584,22 @@ function Chat() {
         detectedLanguage
       );
     }
+
+    /* =====================================================
+       AUTO SPEAK
+
+       IMPORTANT:
+       Never send raw Markdown directly to TTS.
+
+       cleanTextForSpeech() removes:
+       **bold**
+       # headings
+       - bullets
+       URLs
+       source metadata
+       decorative symbols
+       etc.
+    ===================================================== */
 
     if (answer) {
       window.setTimeout(() => {
@@ -654,13 +625,12 @@ function Chat() {
     setLanguage,
     setTranscript,
     setVoiceResult,
-    speakText
+    speakText,
   ]);
 
-
-  /* =======================================================
+  /* =========================================================
      SEND MESSAGE
-  ======================================================== */
+  ========================================================= */
 
   const sendMessage = async () => {
     const cleanQuery =
@@ -674,15 +644,35 @@ function Chat() {
       return;
     }
 
+    /* Clear composer */
+
     setInput("");
+
+    /* Clear source selection */
+
     setActiveSources([]);
+
     setSelectedSource(null);
+
+    /* ===================================================
+       AUTO-DETECT QUESTION LANGUAGE
+
+       The question language is authoritative for the
+       answer language. This keeps typed questions aligned
+       with the same English / Hindi / Marathi contract
+       used by the voice flow.
+    =================================================== */
+
+    const detectedQuestionLanguage =
+      detectQuestionLanguage(cleanQuery);
 
     const requestLanguage =
       normalizeResponseLanguage(
-        languageId,
-        "en"
+        detectedQuestionLanguage,
+        normalizeResponseLanguage(languageId, "en")
       );
+
+    /* Add user message immediately */
 
     setMessages((previous) => [
       ...previous,
@@ -690,13 +680,17 @@ function Chat() {
       {
         role: "user",
         text: cleanQuery,
-        language: requestLanguage
-      }
+        language: requestLanguage,
+      },
     ]);
 
     setIsLoading(true);
 
     try {
+      /* ===================================================
+         CALL BACKEND
+      =================================================== */
+
       const result =
         await askSanyuktVaani(
           cleanQuery,
@@ -707,16 +701,24 @@ function Chat() {
         result?.answer || ""
       ).trim();
 
+      /* Normalize source objects */
+
       const sources =
         normalizeSources(
           result?.sources
         );
+
+      /* Backend response language */
 
       const answerLanguage =
         normalizeResponseLanguage(
           result?.language,
           requestLanguage
         );
+
+      /* ===================================================
+         UPDATE SOURCES
+      =================================================== */
 
       setActiveSources(
         sources
@@ -746,6 +748,22 @@ function Chat() {
               Number(sourceScore) * 100
             )}%`;
 
+      /* ===================================================
+         ADD ASSISTANT RESPONSE
+
+         IMPORTANT:
+         Keep Markdown here.
+
+         Example:
+
+         **Direct Answer**
+
+         The scheme provides **₹3 lakh**...
+
+         ChatMessage.jsx is responsible for rendering
+         this as visual bold text.
+      =================================================== */
+
       setMessages((previous) => [
         ...previous,
 
@@ -767,9 +785,13 @@ function Chat() {
 
           confidence,
 
-          sources
-        }
+          sources,
+        },
       ]);
+
+      /* ===================================================
+         UPDATE UI LANGUAGE
+      =================================================== */
 
       const supportedLanguage =
         languages.some(
@@ -786,6 +808,22 @@ function Chat() {
         );
       }
 
+      /* ===================================================
+         AUTO SPEAK ANSWER
+
+         DO NOT pass raw Markdown.
+
+         This:
+
+         **Important:** Farmers must apply...
+
+         becomes:
+
+         Important: Farmers must apply...
+
+         before going to TTS.
+      =================================================== */
+
       if (answer) {
         window.setTimeout(() => {
           const cleanSpeech =
@@ -801,12 +839,15 @@ function Chat() {
           );
         }, 100);
       }
-
     } catch (error) {
       console.error(
         "Sanyukt Vaani chat error:",
         error
       );
+
+      /* ===================================================
+         ERROR MESSAGE
+      =================================================== */
 
       setMessages((previous) => [
         ...previous,
@@ -826,19 +867,17 @@ function Chat() {
             error?.message ||
             "Unable to get an answer right now.",
 
-          sources: []
-        }
+          sources: [],
+        },
       ]);
-
     } finally {
       setIsLoading(false);
     }
   };
 
-
-  /* =======================================================
+  /* =========================================================
      KEYBOARD HANDLER
-  ======================================================== */
+  ========================================================= */
 
   const handleKeyDown = (event) => {
     if (
@@ -851,14 +890,13 @@ function Chat() {
     }
   };
 
-
-  /* =======================================================
+  /* =========================================================
      NEW CHAT
-  ======================================================== */
+  ========================================================= */
 
   const handleNewChat = () => {
     setMessages([
-      INITIAL_MESSAGE
+      INITIAL_MESSAGE,
     ]);
 
     setActiveSources([]);
@@ -876,10 +914,9 @@ function Chat() {
     }, 0);
   };
 
-
-  /* =======================================================
+  /* =========================================================
      VOICE BUTTON
-  ======================================================== */
+  ========================================================= */
 
   const handleVoiceClick = async () => {
     if (
@@ -899,47 +936,70 @@ function Chat() {
     }
   };
 
-
-  /* =======================================================
+  /* =========================================================
      RENDER
-  ======================================================== */
+  ========================================================= */
 
   return (
     <div className="chat-workspace">
 
-      {/* HEADER */}
+      {/* =====================================================
+          HEADER
+      ===================================================== */}
+
       <header className="chat-header">
+
         <div className="chat-brand">
+
           <div className="brand-mark">
             <Sparkles size={19} />
           </div>
+
           <div>
             <strong>
-              Sanyukt Vaani <span>AI</span>
+              Sanyukt Vaani{" "}
+              <span>AI</span>
             </strong>
+
             <small>
-              <span className="status-dot" /> Verified knowledge mode
+              <span className="status-dot" />
+              Verified knowledge mode
             </small>
           </div>
+
         </div>
 
         <div className="chat-header-status">
           <ShieldCheck size={15} />
           RAG Online
         </div>
+
       </header>
 
+      {/* =====================================================
+          BODY
+      ===================================================== */}
 
-      {/* BODY */}
       <div className="chat-workspace-body">
 
-        {/* LEFT TOOL BAR */}
-        <aside className="chat-utility-bar" aria-label="Chat tools">
+        {/* ===================================================
+            LEFT TOOL BAR
+        =================================================== */}
+
+        <aside
+          className="chat-utility-bar"
+          aria-label="Chat tools"
+        >
+
           <button
             className="new-chat-btn"
             type="button"
             onClick={handleNewChat}
-            disabled={isLoading || isTranscribing || isListening}
+            disabled={
+              isLoading ||
+              isTranscribing ||
+              isListening
+            }
           >
             <Plus size={17} />
             <span>New chat</span>
@@ -947,115 +1007,246 @@ function Chat() {
 
           <div className="utility-divider" />
 
-          <span className="utility-label">Language</span>
+          <span className="utility-label">
+            Language
+          </span>
 
           <div className="language-picker">
+
             <Languages size={15} />
+
             <select
               value={languageId}
-              onChange={(event) => setLanguage(event.target.value)}
-              disabled={isLoading || isTranscribing || isListening}
+              onChange={(event) =>
+                setLanguage(
+                  event.target.value
+                )
+              }
+              disabled={
+                isLoading ||
+                isTranscribing ||
+                isListening
+              }
             >
-              {languages.map((language) => (
-                <option key={language.id} value={language.id}>
-                  {language.label}
-                </option>
-              ))}
+
+              {languages.map(
+                (language) => (
+                  <option
+                    key={language.id}
+                    value={language.id}
+                  >
+                    {language.label}
+                  </option>
+                )
+              )}
+
             </select>
+
           </div>
 
           <p className="utility-note">
-            Answers are grounded in official cooperative knowledge sources.
+            Answers are grounded in official
+            cooperative knowledge sources.
           </p>
+
         </aside>
 
+        {/* ===================================================
+            CONVERSATION AREA
+        =================================================== */}
 
-        {/* CONVERSATION AREA */}
-        <section className="conversation-panel flex flex-col h-[calc(100vh-140px)] max-h-[750px]">
+        <section className="conversation-panel">
 
-          {/* INTERNAL SCROLLABLE BOX FOR MESSAGES & RESPONSES */}
-          <div 
+          {/* =================================================
+              SCROLLABLE MESSAGE AREA
+          ================================================= */}
+
+          <div
             ref={scrollRef}
-            className="conversation-scroll flex-1 overflow-y-auto pr-2"
-            style={{ maxHeight: "480px", overflowY: "auto" }}
+            className="conversation-scroll"
           >
 
-            {/* INTRO */}
+            {/* =================================================
+                INTRO
+            ================================================= */}
+
             <div className="conversation-intro">
-              <span className="intro-kicker">CITIZEN KNOWLEDGE ASSISTANT</span>
-              <h1>How can we help you today?</h1>
-              <p>Ask in English, Hindi, Marathi, or your preferred supported language.</p>
+
+              <span className="intro-kicker">
+                CITIZEN KNOWLEDGE ASSISTANT
+              </span>
+
+              <h1>
+                How can we help you today?
+              </h1>
+
+              <p>
+                Ask in English, Hindi, or Marathi.
+                The answer language is detected automatically.
+              </p>
+
             </div>
 
-            {/* MESSAGES */}
-            <div className="message-list space-y-4">
-              {messages.map((message, index) => (
-                <React.Fragment key={`${message.role}-${index}`}>
-                  <ChatMessage message={message} />
+            {/* =================================================
+                MESSAGES
+            ================================================= */}
 
-                  {/* SOURCE CHIPS */}
-                  {message.role === "assistant" &&
-                    index === messages.length - 1 &&
-                    activeSources.length > 0 && (
-                      <div className="live-sources">
-                        <div className="live-sources-title">
-                          <FileCheck2 size={15} />
-                          <span>Verified references</span>
-                        </div>
+            <div className="message-list">
 
-                        <div className="live-source-list">
-                          {activeSources.map((source, sourceIndex) => {
-                            const title = getSourceTitle(source, sourceIndex);
-                            const score = source?.score;
-                            const pdfUrl = getSourcePdfUrl(source);
+              {messages.map(
+                (message, index) => (
+                  <React.Fragment
+                    key={`${message.role}-${index}`}
+                  >
 
-                            return (
-                              <div
-                                key={source?.id || `${title}-${sourceIndex}`}
-                                className="live-source-item"
-                              >
-                                <button
-                                  type="button"
-                                  className="live-source-chip"
-                                  onClick={() => setSelectedSource(source)}
-                                  aria-label={`Preview ${title}`}
-                                >
-                                  <FileCheck2 size={14} />
-                                  <span>{title}</span>
-                                  {score != null && (
-                                    <span>
-                                      {" · "}
-                                      {Math.round(Number(score) * 100)}%
-                                    </span>
-                                  )}
-                                </button>
+                    <ChatMessage
+                      message={message}
+                    />
 
-                                {pdfUrl && (
-                                  <a
-                                    className="live-source-pdf-link"
-                                    href={pdfUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                    {/* =========================================
+                        SOURCE CHIPS
+                    ========================================= */}
+
+                    {message.role ===
+                      "assistant" &&
+                      index ===
+                        messages.length - 1 &&
+                      activeSources.length >
+                        0 && (
+
+                        <div className="live-sources">
+
+                          <div className="live-sources-title">
+
+                            <FileCheck2
+                              size={15}
+                            />
+
+                            <span>
+                              Verified references
+                            </span>
+
+                          </div>
+
+                          <div className="live-source-list">
+
+                            {activeSources.map(
+                              (
+                                source,
+                                sourceIndex
+                              ) => {
+
+                                const title =
+                                  getSourceTitle(
+                                    source,
+                                    sourceIndex
+                                  );
+
+                                const score =
+                                  source?.score;
+
+                                const pdfUrl =
+                                  getSourcePdfUrl(
+                                    source
+                                  );
+
+                                return (
+                                  <div
+                                    key={
+                                      source?.id ||
+                                      `${title}-${sourceIndex}`
+                                    }
+                                    className="live-source-item"
                                   >
-                                    PDF
-                                  </a>
-                                )}
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    )}
-                </React.Fragment>
-              ))}
 
-              {/* THINKING / VOICE PROCESSING */}
-              {(isLoading || isTranscribing || isListening) && (
-                <div className="thinking-row" role="status" aria-live="polite">
+                                    <button
+                                      type="button"
+                                      className="live-source-chip"
+                                      onClick={() =>
+                                        setSelectedSource(
+                                          source
+                                        )
+                                      }
+                                      aria-label={`Preview ${title}`}
+                                    >
+
+                                      <FileCheck2
+                                        size={14}
+                                      />
+
+                                      <span>
+                                        {title}
+                                      </span>
+
+                                      {score !=
+                                        null && (
+                                        <span>
+                                          {" · "}
+                                          {Math.round(
+                                            Number(
+                                              score
+                                            ) *
+                                              100
+                                          )}
+                                          %
+                                        </span>
+                                      )}
+
+                                    </button>
+
+                                    {pdfUrl && (
+                                      <a
+                                        className="live-source-pdf-link"
+                                        href={
+                                          pdfUrl
+                                        }
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                      >
+                                        PDF
+                                      </a>
+                                    )}
+
+                                  </div>
+                                );
+                              }
+                            )}
+
+                          </div>
+
+                        </div>
+                      )}
+
+                  </React.Fragment>
+                )
+              )}
+
+              {/* =================================================
+                  THINKING / VOICE PROCESSING
+              ================================================= */}
+
+              {(isLoading ||
+                isTranscribing ||
+                isListening) && (
+
+                <div
+                  className="thinking-row"
+                  role="status"
+                  aria-live="polite"
+                >
+
                   <div className="thinking-avatar">
-                    {isListening ? <Mic size={15} /> : <Sparkles size={15} />}
+
+                    {isListening ? (
+                      <Mic size={15} />
+                    ) : (
+                      <Sparkles size={15} />
+                    )}
+
                   </div>
+
                   <div className="thinking-card">
+
                     <span>
                       {isListening
                         ? "Listening..."
@@ -1063,123 +1254,213 @@ function Chat() {
                         ? "Processing voice..."
                         : "Thinking..."}
                     </span>
+
                     <i />
                     <i />
                     <i />
+
                   </div>
+
                 </div>
               )}
+
             </div>
+
           </div>
 
+          {/* =================================================
+              SOURCE PREVIEW MODAL
+          ================================================= */}
 
-          {/* SOURCE PREVIEW MODAL */}
           {selectedSource && (
+
             <div
               className="source-preview-backdrop"
               role="presentation"
-              onClick={() => setSelectedSource(null)}
+              onClick={() =>
+                setSelectedSource(null)
+              }
             >
+
               <section
                 className="source-preview-panel"
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="source-preview-title"
-                onClick={(event) => event.stopPropagation()}
+                onClick={(event) =>
+                  event.stopPropagation()
+                }
               >
+
                 <div className="source-preview-header">
+
                   <div>
-                    <span className="intro-kicker">VERIFIED SOURCE</span>
+
+                    <span className="intro-kicker">
+                      VERIFIED SOURCE
+                    </span>
+
                     <h2 id="source-preview-title">
-                      {getSourceTitle(selectedSource)}
+                      {getSourceTitle(
+                        selectedSource
+                      )}
                     </h2>
+
                   </div>
+
                   <button
                     type="button"
                     className="source-preview-close"
-                    onClick={() => setSelectedSource(null)}
+                    onClick={() =>
+                      setSelectedSource(null)
+                    }
                     aria-label="Close source preview"
                   >
                     <X size={18} />
                   </button>
+
                 </div>
 
                 <div className="source-preview-meta">
+
                   {selectedSource.source ||
                     selectedSource.filename ||
                     selectedSource.source_file ||
-                    selectedSource.metadata?.source_file ||
+                    selectedSource.metadata
+                      ?.source_file ||
                     "Official document"}
-                  {selectedSource.page != null && ` · Page ${selectedSource.page}`}
-                  {selectedSource.section && ` · ${selectedSource.section}`}
+
+                  {selectedSource.page !=
+                    null &&
+                    ` · Page ${selectedSource.page}`}
+
+                  {selectedSource.section &&
+                    ` · ${selectedSource.section}`}
+
                 </div>
 
-                {getSourcePdfUrl(selectedSource) && (
+                {getSourcePdfUrl(
+                  selectedSource
+                ) && (
+
                   <div className="source-preview-document-link">
+
                     <a
-                      href={getSourcePdfUrl(selectedSource)}
+                      href={getSourcePdfUrl(
+                        selectedSource
+                      )}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
                       Open reference PDF
                     </a>
+
                   </div>
                 )}
 
                 <p className="source-preview-note">
-                  Relevant verified excerpt from this document
+                  Relevant verified excerpt
+                  from this document
                 </p>
 
                 <pre className="source-preview-text">
+
                   {selectedSource.excerpt ||
                     selectedSource.text ||
                     selectedSource.content ||
                     "The document excerpt is not available for this result."}
+
                 </pre>
+
               </section>
+
             </div>
           )}
 
+          {/* =================================================
+              COMPOSER
+          ================================================= */}
 
-          {/* LARGE COMPOSER / USER INPUT AREA */}
           <div className="composer-wrap mt-3 pt-2 border-t border-gray-100">
+
             <div className="chat-composer flex flex-col gap-2">
+
               <textarea
                 ref={textareaRef}
                 value={input}
-                onChange={(event) => setInput(event.target.value)}
+                onChange={(event) =>
+                  setInput(
+                    event.target.value
+                  )
+                }
                 onKeyDown={handleKeyDown}
                 placeholder="Ask about cooperatives, schemes, loans, laws..."
                 rows={4}
-                style={{ minHeight: "100px", resize: "none" }}
-                disabled={isLoading || isTranscribing}
+                style={{
+                  minHeight: "100px",
+                  resize: "none",
+                }}
+                disabled={
+                  isLoading ||
+                  isTranscribing
+                }
                 aria-label="Ask Sanyukt Vaani"
                 className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
 
               <div className="composer-actions flex justify-between items-center mt-1">
+
                 <small className="text-gray-500 text-xs">
-                  Enter to send · Shift + Enter for a new line
+                  Enter to send · Shift + Enter
+                  for a new line
                 </small>
 
                 <div className="flex gap-2">
+
+                  {/* =========================================
+                      MICROPHONE
+                  ========================================= */}
+
                   <button
                     type="button"
                     className={`composer-mic p-2 rounded-full ${
-                      isListening ? "is-listening bg-red-100 text-red-600" : ""
+                      isListening
+                        ? "is-listening bg-red-100 text-red-600"
+                        : ""
                     }`}
-                    onClick={handleVoiceClick}
-                    disabled={isLoading || isTranscribing}
-                    aria-label={isListening ? "Stop listening" : "Use microphone"}
-                    title={isListening ? "Stop listening" : "Start voice input"}
+                    onClick={
+                      handleVoiceClick
+                    }
+                    disabled={
+                      isLoading ||
+                      isTranscribing
+                    }
+                    aria-label={
+                      isListening
+                        ? "Stop listening"
+                        : "Use microphone"
+                    }
+                    title={
+                      isListening
+                        ? "Stop listening"
+                        : "Start voice input"
+                    }
                   >
+
                     <Mic size={20} />
+
                   </button>
+
+                  {/* =========================================
+                      SEND
+                  ========================================= */}
 
                   <button
                     type="button"
                     className="composer-send bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-1 hover:bg-blue-700 disabled:opacity-50"
-                    onClick={sendMessage}
+                    onClick={
+                      sendMessage
+                    }
                     disabled={
                       isLoading ||
                       isTranscribing ||
@@ -1189,12 +1470,21 @@ function Chat() {
                     aria-label="Send message"
                     title="Send message"
                   >
-                    <span>Send</span>
+
+                    <span>
+                      Send
+                    </span>
+
                     <Send size={16} />
+
                   </button>
+
                 </div>
+
               </div>
+
             </div>
+
           </div>
 
         </section>

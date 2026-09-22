@@ -38,6 +38,7 @@ from typing import Any
 import requests
 
 from backend.config import settings
+from backend.services.language_detector import detect_language
 
 
 # ---------------------------------------------------------------------------
@@ -779,9 +780,20 @@ class BhashiniService:
                     ""
                 )
 
+            # BHASHINI ASR is given a concrete source language,
+            # but the final project language must come from the
+            # recognized transcript. This keeps voice input aligned
+            # with the same English / Hindi / Marathi detector used
+            # by the RAG and answer-generation layers.
+            detected_language = (
+                detect_language(text)
+                if text.strip()
+                else source
+            )
+
             return {
                 "text": text,
-                "language": source,
+                "language": detected_language,
             }
 
         except (

@@ -247,6 +247,50 @@ const LANGUAGES = [
   },
 ];
 
+function cleanTextForSpeech(text) {
+  if (!text) return "";
+  let cleaned = String(text).normalize("NFKC");
+
+  cleaned = cleaned.replace(/\\([*_#~`[\]()])/g, "$1");
+  cleaned = cleaned.replace(/https?:\/\/\S+/gi, " ");
+  cleaned = cleaned.replace(/\bwww\.\S+/gi, " ");
+  cleaned = cleaned.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
+  cleaned = cleaned.replace(/```[\s\S]*?```/g, " ");
+  cleaned = cleaned.replace(/`([^`]+)`/g, "$1");
+  cleaned = cleaned.replace(/^\s{0,4}#{1,6}\s*(.+)$/gm, "$1. ");
+  cleaned = cleaned.replace(/#{1,6}/g, "");
+  cleaned = cleaned.replace(/\*\*\*([^*]+)\*\*\*/g, "$1");
+  cleaned = cleaned.replace(/\*\*([^*]+)\*\*/g, "$1");
+  cleaned = cleaned.replace(/\*([^*]+)\*/g, "$1");
+  cleaned = cleaned.replace(/___([^_]+)___/g, "$1");
+  cleaned = cleaned.replace(/__([^_]+)__/g, "$1");
+  cleaned = cleaned.replace(/_([^_]+)_/g, "$1");
+  cleaned = cleaned.replace(/^\s*[-*+•●▪◦‣]\s+/gm, "");
+  cleaned = cleaned.replace(/^\s*\d+[.)]\s*/gm, "");
+  cleaned = cleaned.replace(/[*#_~`\\]/g, " ");
+  cleaned = cleaned.replace(/[^\p{L}\p{N}\s.,?!:;'"()/%₹-]/gu, " ");
+  cleaned = cleaned.replace(/\s+([,.?!:;])/g, "$1");
+  cleaned = cleaned.replace(/\n+/g, ". ");
+  cleaned = cleaned.replace(/\s+/g, " ").trim();
+
+  return cleaned;
+}
+
+function formatDisplayText(text) {
+  if (!text) return "";
+  return text
+    .replace(/\\([*_#~`[\]()])/g, "$1")
+    .replace(/^\s{0,4}#{1,6}\s*(.+)$/gm, "$1")
+    .replace(/\*\*\*([^*]+)\*\*\*/g, "$1")
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/\*([^*]+)\*/g, "$1")
+    .replace(/___([^_]+)___/g, "$1")
+    .replace(/__([^_]+)__/g, "$1")
+    .replace(/_([^_]+)_/g, "$1")
+    .replace(/[*#_~`\\]/g, "")
+    .trim();
+}
+
 function Login({ onLogin }) {
   const {
     languageId: detectedLanguageId,
@@ -270,6 +314,7 @@ function Login({ onLogin }) {
   const [voiceStarted, setVoiceStarted] = useState(false);
 
   const [aiAnswer, setAiAnswer] = useState("");
+  const [aiSources, setAiSources] = useState([]);
   const [isLoadingAnswer, setIsLoadingAnswer] = useState(false);
   const [editableTranscript, setEditableTranscript] = useState("");
 
@@ -354,7 +399,8 @@ function Login({ onLogin }) {
       if ("speechSynthesis" in window && answerText) {
         window.speechSynthesis.cancel();
 
-        const speech = new SpeechSynthesisUtterance(answerText);
+        const cleanSpeech = cleanTextForSpeech(answerText);
+        const speech = new SpeechSynthesisUtterance(cleanSpeech);
         speech.lang = language.speech;
         speech.rate = 0.95;
         speech.pitch = 1;
@@ -585,186 +631,144 @@ function Login({ onLogin }) {
               </div>
             </div>
 
-            {/* BIG VOICE BUTTON */}
-            <button
-              type="button"
-              className={`big-voice-button ${
-                isListening ? "active" : ""
-              }`}
-              onClick={handleVoiceStart}
-              aria-label={t.ask}
-            >
-              <div className="voice-ring">
-                {isListening ? (
-                  <div className="voice-animation">
-                    <span />
-                    <span />
-                    <span />
-                    <span />
-                    <span />
-                  </div>
-                ) : (
-                  <Mic size={48} strokeWidth={1.8} />
-                )}
-              </div>
-
-              <div className="voice-main-text">
-                <strong>
-                  {isListening ? t.listening : t.ask}
-                </strong>
-
-                <span>
-                  {isListening
-                    ? t.listeningSub
-                    : t.askSub}
-                </span>
-              </div>
-
-              <div className="voice-arrow">
-                <ChevronRight size={21} />
-              </div>
-            </button>
-
-            <p
-              className="voice-detection-note"
-              style={{ marginTop: "10px" }}
-            >
-              {voiceMessage || t.hello}
-            </p>
-
-            {/* CHAT / TEXT INTERFACE */}
-            {(editableTranscript ||
-              isListening ||
-              aiAnswer) && (
-              <div
-                style={{
-                  marginTop: "15px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "15px",
-                }}
-              >
-                {/* USER INPUT */}
-                <div
-                  style={{
-                    background: "rgba(0,0,0,0.03)",
-                    padding: "12px",
-                    borderRadius: "10px",
-                    border:
-                      "1px solid rgba(0,0,0,0.1)",
-                  }}
+            {/* BIG VOICE BUTTON & CHAT / TEXT INTERFACE SIDE-BY-SIDE */}
+            <div className="voice-interactive-grid">
+              {/* LEFT SIDE: Big Voice Speak Button */}
+              <div className="voice-button-wrapper">
+                <button
+                  type="button"
+                  className={`big-voice-button ${
+                    isListening ? "active" : ""
+                  }`}
+                  onClick={handleVoiceStart}
+                  aria-label={t.ask}
                 >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "6px",
-                      fontSize: "13px",
-                      fontWeight: "600",
-                      color: "#64748b",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    <User size={14} />
-                    Your Query
+                  <div className="voice-ring">
+                    {isListening ? (
+                      <div className="voice-animation">
+                        <span />
+                        <span />
+                        <span />
+                        <span />
+                        <span />
+                      </div>
+                    ) : (
+                      <Mic size={46} strokeWidth={1.8} />
+                    )}
                   </div>
 
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: "8px",
-                    }}
-                  >
+                  <div className="voice-main-text">
+                    <strong>
+                      {isListening ? t.listening : t.ask}
+                    </strong>
+
+                    <span>
+                      {isListening
+                        ? t.listeningSub
+                        : t.askSub}
+                    </span>
+                  </div>
+
+                  <div className="voice-arrow">
+                    <ChevronRight size={20} />
+                  </div>
+                </button>
+
+                <p
+                  className="voice-detection-note"
+                  style={{ marginTop: "8px", marginBottom: 0, textAlign: "center" }}
+                >
+                  {voiceMessage || t.hello}
+                </p>
+              </div>
+
+              {/* RIGHT SIDE: User Query and Answer Response (Scrollable Inner Box) */}
+              <div className="voice-query-response-panel">
+                {/* 1. USER QUERY INPUT */}
+                <div className="user-query-card">
+                  <div className="user-query-header">
+                    <User size={13} />
+                    <span>Your Query</span>
+                  </div>
+
+                  <div className="user-query-input-wrap">
                     <input
                       type="text"
                       value={editableTranscript}
                       onChange={(event) =>
-                        setEditableTranscript(
-                          event.target.value
-                        )
+                        setEditableTranscript(event.target.value)
                       }
-                      placeholder="Your voice will appear here..."
-                      style={{
-                        flex: 1,
-                        padding: "10px",
-                        borderRadius: "6px",
-                        border:
-                          "1px solid #cbd5e1",
-                        fontSize: "14px",
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter") {
+                          event.preventDefault();
+                          if (editableTranscript.trim() && !isLoadingAnswer) {
+                            handleFetchAnswer(editableTranscript);
+                          }
+                        }
                       }}
+                      placeholder="Your voice will appear here..."
+                      className="user-query-input"
                     />
 
                     <button
                       type="button"
-                      onClick={() =>
-                        handleFetchAnswer(
-                          editableTranscript
-                        )
-                      }
-                      disabled={
-                        isLoadingAnswer ||
-                        !editableTranscript.trim()
-                      }
-                      style={{
-                        padding: "0 16px",
-                        borderRadius: "6px",
-                        background: "#2563eb",
-                        color: "white",
-                        border: "none",
-                        cursor: "pointer",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "6px",
-                      }}
+                      onClick={() => handleFetchAnswer(editableTranscript)}
+                      disabled={isLoadingAnswer || !editableTranscript.trim()}
+                      className="user-query-send-btn"
                     >
-                      <Send size={14} />
-                      {isLoadingAnswer ? "..." : "Send"}
+                      <Send size={13} />
+                      <span>{isLoadingAnswer ? "..." : "Send"}</span>
                     </button>
                   </div>
                 </div>
 
-                {/* AI ANSWER */}
-                {(isLoadingAnswer || aiAnswer) && (
-                  <div
-                    style={{
-                      background: "#f0fdf4",
-                      padding: "12px",
-                      borderRadius: "10px",
-                      border:
-                        "1px solid #bbf7d0",
-                    }}
-                  >
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "6px",
-                        fontSize: "13px",
-                        fontWeight: "600",
-                        color: "#166534",
-                        marginBottom: "6px",
-                      }}
-                    >
+                {/* 2. AI ANSWER (SCROLLABLE INNER BOX) */}
+                <div className="ai-response-card">
+                  <div className="ai-response-header">
+                    <div className="ai-response-label">
                       <Bot size={14} />
-                      AI Response
+                      <span>AI Response</span>
                     </div>
 
-                    <p
-                      style={{
-                        margin: 0,
-                        color: "#15803d",
-                        fontSize: "14.5px",
-                        lineHeight: "1.5",
-                      }}
-                    >
-                      {isLoadingAnswer
-                        ? "Generating response..."
-                        : aiAnswer}
-                    </p>
+                    {aiAnswer && !isLoadingAnswer && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if ("speechSynthesis" in window) {
+                            window.speechSynthesis.cancel();
+                            const cleanSpeech = cleanTextForSpeech(aiAnswer);
+                            const speech = new SpeechSynthesisUtterance(cleanSpeech);
+                            speech.lang = language.speech;
+                            speech.rate = 0.95;
+                            window.speechSynthesis.speak(speech);
+                          }
+                        }}
+                        className="ai-response-listen-btn"
+                        title="Listen to response"
+                      >
+                        <Volume2 size={12} />
+                        <span>Listen</span>
+                      </button>
+                    )}
                   </div>
-                )}
+
+                  {/* THIS INNER BOX SCROLLS WHEN ANSWER IS LONG */}
+                  <div className="ai-response-inner-scroll">
+                    {isLoadingAnswer ? (
+                      <span className="ai-response-loading">
+                        Generating response...
+                      </span>
+                    ) : aiAnswer ? (
+                      formatDisplayText(aiAnswer)
+                    ) : (
+                      <span className="ai-response-placeholder">
+                        Speak or type your question to see the official answer here...
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
-            )}
+            </div>
 
             {/* ACCESSIBILITY */}
             <div

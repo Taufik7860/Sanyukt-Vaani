@@ -510,7 +510,9 @@ function normalizeLanguage(language, fallback = "en") {
   if (
     value === "en" ||
     value === "english" ||
-    value === "eng"
+    value === "eng" ||
+    value === "en-us" ||
+    value === "en-in"
   ) {
     return "en";
   }
@@ -518,7 +520,10 @@ function normalizeLanguage(language, fallback = "en") {
   if (
     value === "hi" ||
     value === "hindi" ||
-    value === "hin"
+    value === "hin" ||
+    value === "hi-in" ||
+    value === "हिंदी" ||
+    value === "हिन्दी"
   ) {
     return "hi";
   }
@@ -526,9 +531,27 @@ function normalizeLanguage(language, fallback = "en") {
   if (
     value === "mr" ||
     value === "marathi" ||
-    value === "mar"
+    value === "mar" ||
+    value === "mr-in" ||
+    value === "मराठी"
   ) {
     return "mr";
+  }
+
+  /*
+   * The backend/frontend language contract is:
+   * English = en, Hindi = hi, Marathi = mr.
+   *
+   * "auto" is intentionally not returned to TTS. The caller
+   * falls back to the active UI language when no concrete
+   * response language is available.
+   */
+  if (
+    value === "auto" ||
+    value === "automatic" ||
+    value === "detect"
+  ) {
+    return normalizeLanguage(fallback, "en");
   }
 
   return fallback;
@@ -1069,6 +1092,28 @@ function SourceReferences({ message }) {
  * ============================================================
  */
 
+function resolveMessageSpeechLanguage(message, fallbackLanguage = "en") {
+  if (!message || typeof message !== "object") {
+    return normalizeLanguage(fallbackLanguage, "en");
+  }
+
+  const candidates = [
+    message.language,
+    message.detected_language,
+    message.response_language,
+  ];
+
+  for (const candidate of candidates) {
+    const normalized = normalizeLanguage(candidate, "");
+
+    if (normalized === "en" || normalized === "hi" || normalized === "mr") {
+      return normalized;
+    }
+  }
+
+  return normalizeLanguage(fallbackLanguage, "en");
+}
+
 function ChatMessage({
   message,
   onSpeak,
@@ -1104,16 +1149,18 @@ function ChatMessage({
       return;
     }
 
+    /*
+     * The backend response language is authoritative.
+     * Chat.jsx stores it on message.language, while the
+     * additional fields support older/alternate response shapes.
+     *
+     * TTS never receives "auto"; it always receives one of:
+     * en / hi / mr.
+     */
     const speechLanguage =
-      normalizeLanguage(
-        message.language ||
-          message.detected_language ||
-          message.response_language ||
-          languageId,
-        normalizeLanguage(
-          languageId,
-          "en"
-        )
+      resolveMessageSpeechLanguage(
+        message,
+        languageId
       );
 
     if (onSpeak) {

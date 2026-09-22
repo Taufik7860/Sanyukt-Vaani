@@ -18,6 +18,7 @@ from fastapi import (
 from fastapi.responses import FileResponse
 
 from backend.services.bhashini import bhashini
+from backend.services.language_detector import detect_language
 from backend.services.rag import answer_with_context
 from backend.services.supabase import supabase_service
 
@@ -687,38 +688,27 @@ def _clean_answer_for_tts(
     )
 
     # --------------------------------------------------------
-    # Remove markdown headings.
+    # --------------------------------------------------------
+    # Unescape escaped markdown and remove all hashes / asterisks
     # --------------------------------------------------------
 
     text = re.sub(
-        r"(?m)^\s*#{1,6}\s+",
-        "",
+        r"\\([*_#~`[\]()])",
+        r"\1",
         text,
     )
 
-    # --------------------------------------------------------
-    # Remove bold / italic markers.
-    # --------------------------------------------------------
-
-    text = text.replace(
-        "**",
-        "",
+    text = re.sub(
+        r"(?m)^\s*#{1,6}\s*(.+)$",
+        r"\1. ",
+        text,
     )
 
-    text = text.replace(
-        "__",
-        "",
-    )
-
-    text = text.replace(
-        "*",
-        "",
-    )
-
-    text = text.replace(
-        "_",
-        "",
-    )
+    text = text.replace("#", " ")
+    text = text.replace("**", " ")
+    text = text.replace("*", " ")
+    text = text.replace("__", " ")
+    text = text.replace("_", " ")
 
     # --------------------------------------------------------
     # Remove inline code markers.
@@ -1322,7 +1312,7 @@ def _generate_text_chat_side_effects(
 async def chat_text(
     background_tasks: BackgroundTasks,
     query: str = Form(...),
-    language: str = Form("hi"),
+    language: str = Form("auto"),
     user_id: str = Form("guest_user"),
 ):
     """
@@ -1355,7 +1345,7 @@ async def chat_text(
 
     selected_language = _clean_language(
         language,
-        default="hi",
+        default="auto",
     )
 
     if not cleaned_query:
@@ -1364,6 +1354,21 @@ async def chat_text(
             status_code=400,
             detail="Query is required",
         )
+
+    # ========================================================
+    # LANGUAGE DETECTION
+    # ========================================================
+
+    # "auto" means the backend detects the language from the
+    # actual user query. An explicit language remains respected.
+    if selected_language == "auto":
+        selected_language = detect_language(cleaned_query)
+
+    logger.info(
+        "Text query detected_language=%s query=%r",
+        selected_language,
+        cleaned_query,
+    )
 
     # ========================================================
     # RAG / ANSWER GENERATION
@@ -1637,27 +1642,20 @@ async def chat_voice(
         )
 
     # ========================================================
-    # DETECT LANGUAGE
+    # DETECT LANGUAGE FROM FINAL TRANSCRIPT
     # ========================================================
 
-    detected_language = _clean_language(
-        stt.get("language"),
-        default=(
-            requested_language
-            if requested_language != "auto"
-            else "hi"
-        ),
-    )
+    # For automatic mode, detect the language from the actual
+    # recognized text. This keeps typed and voice language
+    # detection consistent and does not depend on ASR metadata.
+    if requested_language == "auto":
+        detected_language = detect_language(transcript)
+    else:
+        detected_language = requested_language
 
     # Never allow auto to reach RAG.
-
     if detected_language == "auto":
-
-        detected_language = (
-            requested_language
-            if requested_language != "auto"
-            else "hi"
-        )
+        detected_language = detect_language(transcript)
 
     logger.info(
         "Voice transcript='%s' detected_language=%s",
