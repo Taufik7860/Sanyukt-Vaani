@@ -1,6 +1,6 @@
 # ============================================================
 # SANYUKT VAANI
-# RETRIEVER V5.1.9 FINAL FROZEN
+# RETRIEVER V5.1.7 FINAL FROZEN + DEPLOYMENT SAFE
 # ============================================================
 #
 # FINAL CONSOLIDATED VERSION
@@ -140,8 +140,11 @@ ENV_FILE = PROJECT_ROOT / ".env"
 # 2. LOAD ENVIRONMENT
 # ============================================================
 
+# Local development: load the project .env when present.
+# Deployment platforms such as Render provide environment variables directly;
+# load_dotenv() never overrides those values.
 if ENV_FILE.exists():
-    load_dotenv(ENV_FILE)
+    load_dotenv(ENV_FILE, override=False)
 
 
 # ============================================================
@@ -185,21 +188,51 @@ COLLECTION_NAME = os.getenv(
 
 VECTOR_DIMENSION = 384
 
-QDRANT_TOP_K = 50
 
-LEXICAL_TOP_K = 50
+def _env_int(name: str, default: int, minimum: int = 1) -> int:
+    """Read an integer environment variable safely."""
+    raw = os.getenv(name)
+    if raw is None or not str(raw).strip():
+        return default
+    try:
+        value = int(str(raw).strip())
+    except ValueError as exc:
+        raise ValueError(
+            f"Environment variable {name} must be an integer; got {raw!r}."
+        ) from exc
+    if value < minimum:
+        raise ValueError(
+            f"Environment variable {name} must be >= {minimum}; got {value}."
+        )
+    return value
 
-MAX_RERANK_CANDIDATES = 30
 
-FINAL_TOP_K = 8
+QDRANT_TOP_K = _env_int("QDRANT_TOP_K", 50)
 
-MAX_QUESTIONS = 4
+LEXICAL_TOP_K = _env_int("LEXICAL_TOP_K", 50)
 
-MAX_NEIGHBORS_PER_RESULT = 1
+MAX_RERANK_CANDIDATES = _env_int("MAX_RERANK_CANDIDATES", 30)
 
-MAX_RESULTS_PER_SOURCE = 3
+FINAL_TOP_K = _env_int("FINAL_TOP_K", 8)
 
-QDRANT_TIMEOUT = 300
+MAX_QUESTIONS = _env_int("MAX_QUESTIONS", 4)
+
+MAX_NEIGHBORS_PER_RESULT = _env_int(
+    "MAX_NEIGHBORS_PER_RESULT",
+    1,
+)
+
+MAX_RESULTS_PER_SOURCE = _env_int(
+    "MAX_RESULTS_PER_SOURCE",
+    3,
+)
+
+QDRANT_TIMEOUT = _env_int("QDRANT_TIMEOUT", 300)
+
+# Render/free-tier deployments are CPU based by default. These values can be
+# overridden without changing application code on a different deployment.
+EMBEDDING_DEVICE = os.getenv("EMBEDDING_DEVICE", "cpu").strip() or "cpu"
+RERANKER_DEVICE = os.getenv("RERANKER_DEVICE", EMBEDDING_DEVICE).strip() or EMBEDDING_DEVICE
 
 
 # ============================================================
@@ -209,7 +242,7 @@ QDRANT_TIMEOUT = 300
 print("=" * 80)
 
 print(
-    "SANYUKT VAANI - V5.1.9 FINAL FROZEN RETRIEVER"
+    "SANYUKT VAANI - V5.1.7 FINAL FROZEN RETRIEVER"
 )
 
 print("=" * 80)
@@ -222,7 +255,8 @@ print("=" * 80)
 print("\n[1/7] Loading embedding model...")
 
 embedding_model = SentenceTransformer(
-    EMBEDDING_MODEL_NAME
+    EMBEDDING_MODEL_NAME,
+    device=EMBEDDING_DEVICE,
 )
 
 print(
@@ -239,7 +273,8 @@ print("\n[2/7] Loading Jina multilingual reranker...")
 
 reranker = CrossEncoder(
     RERANKER_MODEL_NAME,
-    trust_remote_code=True
+    trust_remote_code=True,
+    device=RERANKER_DEVICE,
 )
 
 print(
@@ -280,6 +315,18 @@ if embeddings.shape[1] != VECTOR_DIMENSION:
         f"Embedding dimension mismatch.\n"
         f"Expected: {VECTOR_DIMENSION}\n"
         f"Found: {embeddings.shape[1]}"
+    )
+
+
+model_dimension = embedding_model.get_sentence_embedding_dimension()
+
+if model_dimension != VECTOR_DIMENSION:
+
+    raise ValueError(
+        "Embedding model dimension mismatch.\n"
+        f"Expected: {VECTOR_DIMENSION}\n"
+        f"Model returned: {model_dimension}\n"
+        f"Model: {EMBEDDING_MODEL_NAME}"
     )
 
 
@@ -388,7 +435,7 @@ qdrant = QdrantClient(
 
 try:
 
-    qdrant.get_collection(
+    collection_info = qdrant.get_collection(
         collection_name=COLLECTION_NAME
     )
 
@@ -399,6 +446,40 @@ except Exception as error:
         f"could not be accessed.\n"
         f"{error}"
     )
+
+
+# The project uses one unnamed 384-dimensional vector. If the collection
+# exposes a single unnamed vector, verify it now so deployment fails clearly
+# instead of returning empty/invalid retrieval results later.
+try:
+    collection_vectors = collection_info.config.params.vectors
+    if isinstance(collection_vectors, dict):
+        if len(collection_vectors) == 1:
+            only_config = next(iter(collection_vectors.values()))
+            collection_size = getattr(only_config, "size", None)
+            if collection_size is not None and collection_size != VECTOR_DIMENSION:
+                raise ValueError(
+                    "Qdrant vector dimension mismatch.\n"
+                    f"Expected: {VECTOR_DIMENSION}\n"
+                    f"Collection: {collection_size}\n"
+                    f"Collection name: {COLLECTION_NAME}"
+                )
+    else:
+        collection_size = getattr(collection_vectors, "size", None)
+        if collection_size is not None and collection_size != VECTOR_DIMENSION:
+            raise ValueError(
+                "Qdrant vector dimension mismatch.\n"
+                f"Expected: {VECTOR_DIMENSION}\n"
+                f"Collection: {collection_size}\n"
+                f"Collection name: {COLLECTION_NAME}"
+            )
+except ValueError:
+    raise
+except Exception as error:
+    # Metadata shape differs slightly across qdrant-client versions. The
+    # collection access itself was already verified, so do not make deployment
+    # version-sensitive solely because this optional inspection is unavailable.
+    print("Qdrant vector-size validation skipped:", error)
 
 
 print(
@@ -776,42 +857,9 @@ LANGUAGE_NAMES = {
 }
 
 
-def normalize_language_code(
-    language: str = None,
-    default: str = "en"
-) -> str:
-
-    value = str(language or "").strip().lower()
-
-    aliases = {
-        "english": "en",
-        "eng": "en",
-        "en-us": "en",
-        "en-in": "en",
-        "hindi": "hi",
-        "hin": "hi",
-        "hi-in": "hi",
-        "हिंदी": "hi",
-        "हिन्दी": "hi",
-        "marathi": "mr",
-        "mar": "mr",
-        "mr-in": "mr",
-        "मराठी": "mr",
-    }
-
-    normalized = aliases.get(value, value)
-
-    if normalized in {"en", "hi", "mr"}:
-        return normalized
-
-    return default
-
-
 def language_name(
     code: str
 ) -> str:
-
-    code = normalize_language_code(code)
 
     return LANGUAGE_NAMES.get(
         code,
@@ -822,8 +870,6 @@ def language_name(
 def answer_language_instruction(
     language: str
 ) -> str:
-
-    language = normalize_language_code(language)
 
     if language == "hi":
 
@@ -977,15 +1023,343 @@ def split_by_question_marks(
 
 
 def split_multi_question(text: str) -> List[str]:
-    text = clean_question(str(text or ""))
+
+    text = clean_question(text)
+
     if not text:
         return []
-    numbered = re.split(r"(?:^|\s)(?:Q(?:uestion)?\s*)?\d+\s*[\)\.\-:]\s*", text, flags=re.I)
-    numbered = [clean_question(x) for x in numbered if clean_question(x)]
-    if len(numbered) > 1:
-        return numbered[:MAX_QUESTIONS]
-    parts = [clean_question(x) for x in re.split(r"\?+", text) if clean_question(x)]
-    return parts[:MAX_QUESTIONS] if len(parts) > 1 else [text]
+
+    # ========================================================
+    # 1. Explicit question-mark boundaries
+    # ========================================================
+    #
+    # This is the safest way to separate real questions.
+    #
+    # Example:
+    #   What is NABARD refinance?
+    #
+    # MUST remain one question.
+    #
+    # Example:
+    #   What is NABARD refinance? What is KCC?
+    #
+    # Becomes two questions.
+    # ========================================================
+
+    question_parts = re.split(
+        r"(?<=[?؟])\s+",
+        text
+    )
+
+    question_parts = [
+        clean_question(part)
+        for part in question_parts
+        if clean_question(part)
+    ]
+
+    if len(question_parts) > 1:
+
+        return question_parts[
+            :MAX_QUESTIONS
+        ]
+
+    # ========================================================
+    # 2. Explicit numbered questions
+    # ========================================================
+    #
+    # Example:
+    #
+    #   1. What is KCC?
+    #   2. What is NABARD refinance?
+    #
+    # These are clearly separate questions.
+    # ========================================================
+
+    numbered_parts = re.split(
+        r"(?:^|\s+)(?=\d+[\.\):])",
+        text
+    )
+
+    numbered_parts = [
+        clean_question(part)
+        for part in numbered_parts
+        if clean_question(part)
+    ]
+
+    if len(numbered_parts) > 1:
+
+        return numbered_parts[
+            :MAX_QUESTIONS
+        ]
+
+    # ========================================================
+    # 3. Language-specific question cues
+    # ========================================================
+    #
+    # Only split when the cue itself indicates a new question.
+    #
+    # IMPORTANT:
+    # Do NOT split merely because a known topic such as
+    # NABARD / PMFBY / crop insurance appears.
+    # ========================================================
+
+    language = detect_language(text)
+
+    if language == "en":
+
+        cues = ENGLISH_QUESTION_CUES
+
+    elif language == "mr":
+
+        cues = MARATHI_QUESTION_CUES
+
+    else:
+
+        cues = HINDI_QUESTION_CUES
+
+    lower_text = text.lower()
+
+    cue_positions = []
+
+    for cue in cues:
+
+        start = 0
+
+        while True:
+
+            position = lower_text.find(
+                cue.lower(),
+                start
+            )
+
+            if position == -1:
+                break
+
+            # A cue at the beginning is not
+            # a new question boundary.
+            if position > 0:
+
+                cue_positions.append(
+                    position
+                )
+
+            start = (
+                position
+                + len(cue)
+            )
+
+    cue_positions = sorted(
+        set(cue_positions)
+    )
+
+    if cue_positions:
+
+        segments = []
+
+        previous = 0
+
+        for boundary in cue_positions:
+
+            segment = text[
+                previous:boundary
+            ].strip()
+
+            if segment:
+
+                segments.append(
+                    segment
+                )
+
+            previous = boundary
+
+        last = text[
+            previous:
+        ].strip()
+
+        if last:
+
+            segments.append(
+                last
+            )
+
+        segments = [
+            clean_question(segment)
+            for segment in segments
+            if clean_question(segment)
+        ]
+
+        valid = [
+            segment
+            for segment in segments
+            if len(segment.split()) >= 3
+        ]
+
+        if len(valid) > 1:
+
+            return valid[
+                :MAX_QUESTIONS
+            ]
+
+    # ========================================================
+    # 4. Conservative conjunction splitting
+    # ========================================================
+    #
+    # Handle natural multi-question input without splitting
+    # known topics.
+    #
+    # Example:
+    #
+    #   What is KCC and how can I apply?
+    #
+    # remains one question.
+    #
+    # Example:
+    #
+    #   What is KCC and what is NABARD refinance?
+    #
+    # can be separated because both sides are explicit
+    # question clauses.
+    # ========================================================
+
+    conjunction_patterns = [
+
+        r"\s+and\s+(?=what\s+)",
+        r"\s+and\s+(?=how\s+)",
+        r"\s+and\s+(?=why\s+)",
+        r"\s+and\s+(?=when\s+)",
+        r"\s+and\s+(?=where\s+)",
+        r"\s+और\s+(?=क्या\s+)",
+        r"\s+और\s+(?=कैसे\s+)",
+        r"\s+और\s+(?=क्यों\s+)",
+        r"\s+आणि\s+(?=काय\s+)",
+        r"\s+आणि\s+(?=कसे\s+)",
+        r"\s+आणि\s+(?=का\s+)",
+    ]
+
+    for pattern in conjunction_patterns:
+
+        parts = re.split(
+            pattern,
+            text,
+            flags=re.IGNORECASE
+        )
+
+        parts = [
+            clean_question(part)
+            for part in parts
+            if clean_question(part)
+        ]
+
+        if len(parts) > 1:
+
+            valid = [
+                part
+                for part in parts
+                if len(part.split()) >= 3
+            ]
+
+            if len(valid) > 1:
+
+                return valid[
+                    :MAX_QUESTIONS
+                ]
+
+    # ========================================================
+    # 5. IMPORTANT:
+    # Never use KNOWN_TOPIC_STARTS as a standalone
+    # question-splitting mechanism.
+    #
+    # NABARD, PMFBY, KCC, crop insurance, etc. can appear
+    # naturally inside one question.
+    # ========================================================
+
+    return [
+        clean_question(text)
+    ]
+
+    # --------------------------------------------------------
+    # KNOWN TOPIC BOUNDARIES
+    # --------------------------------------------------------
+
+    lower_text = text.lower()
+
+    topic_positions = []
+
+    for topic in KNOWN_TOPIC_STARTS:
+
+        position = lower_text.find(
+            topic.lower()
+        )
+
+        if position > 0:
+
+            topic_positions.append(
+                position
+            )
+
+    topic_positions = sorted(
+        set(topic_positions)
+    )
+
+    if topic_positions:
+
+        segments = []
+
+        previous = 0
+
+        for boundary in topic_positions:
+
+            segment = text[
+                previous:boundary
+            ].strip()
+
+            if segment:
+
+                segments.append(
+                    segment
+                )
+
+            previous = boundary
+
+        last = text[
+            previous:
+        ].strip()
+
+        if last:
+
+            segments.append(
+                last
+            )
+
+        segments = [
+
+            clean_question(
+                segment
+            )
+
+            for segment in segments
+
+            if clean_question(
+                segment
+            )
+
+        ]
+
+        if len(segments) > 1:
+
+            return segments[
+                :MAX_QUESTIONS
+            ]
+
+    # --------------------------------------------------------
+    # Keep compound question together
+    # --------------------------------------------------------
+
+    return [
+        clean_question(
+            text
+        )
+    ]
 
 
 # ============================================================
@@ -1059,8 +1433,6 @@ DOMAIN_MARKERS = {
     "pacs": [
 
         "pacs",
-        "pacs loan", "pacs loans", "loan from pacs", "pacs credit",
-        "पॅक्स कर्ज", "पॅक्स ऋण",
         "primary agricultural credit society",
         "primary agriculture credit society",
         "cooperative society membership",
@@ -1143,10 +1515,6 @@ def classify_domains(
             scores[
                 domain
             ] = score
-
-    if ("pacs" in q or "पॅक्स" in q) and any(x in q for x in ["loan", "loans", "credit", "कर्ज", "ऋण"]):
-        scores["pacs"] = max(scores.get("pacs", 0.0), 10.0)
-        scores["agricultural_loan"] = max(scores.get("agricultural_loan", 0.0), 9.0)
 
     if not scores:
 
@@ -4374,10 +4742,7 @@ def process_question(
 
     if forced_language:
 
-        language = normalize_language_code(
-            forced_language,
-            default=detect_language(query)
-        )
+        language = forced_language
 
     else:
 
@@ -4947,10 +5312,7 @@ def process_query(
 
     detected_language = (
 
-        normalize_language_code(
-            forced_language,
-            default=detect_language(query)
-        )
+        forced_language
 
         if forced_language
 
@@ -5573,7 +5935,7 @@ if __name__ == "__main__":
     print("=" * 80)
 
     print(
-        "V5.1.9 FINAL FROZEN RETRIEVER TEST"
+        "V5.1.7 FINAL FROZEN RETRIEVER TEST"
     )
 
     print("=" * 80)
@@ -5631,7 +5993,7 @@ if __name__ == "__main__":
     print("=" * 80)
 
     print(
-        "V5.1.9 FINAL FROZEN RETRIEVER TESTING COMPLETE"
+        "V5.1.7 FINAL FROZEN RETRIEVER TESTING COMPLETE"
     )
 
     print("=" * 80)

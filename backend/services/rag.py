@@ -5,8 +5,7 @@ from typing import Any
 
 from backend.config import settings
 from backend.services.answer_generator import generate_grounded_answer
-from backend.services.language_detector import detect_language
-from backend.services.qdrant import qdrant_service
+from rag.scripts.retriever import process_query
 
 
 logger = logging.getLogger(__name__)
@@ -43,7 +42,6 @@ def _safe_text(value: Any) -> str:
 
     Prevents None from appearing in the user-facing response.
     """
-
     if value is None:
         return ""
 
@@ -72,57 +70,44 @@ def _normalise_language(language: str | None) -> str:
     value = _safe_text(language).lower()
 
     aliases = {
-        # English
         "english": "en",
         "eng": "en",
 
-        # Hindi
         "hindi": "hi",
         "हिंदी": "hi",
         "हिन्दी": "hi",
 
-        # Marathi
         "marathi": "mr",
         "मराठी": "mr",
 
-        # Bengali
         "bengali": "bn",
         "bangla": "bn",
 
-        # Tamil
         "tamil": "ta",
         "தமிழ்": "ta",
 
-        # Telugu
         "telugu": "te",
         "తెలుగు": "te",
 
-        # Gujarati
         "gujarati": "gu",
         "ગુજરાતી": "gu",
 
-        # Kannada
         "kannada": "kn",
         "ಕನ್ನಡ": "kn",
 
-        # Malayalam
         "malayalam": "ml",
         "മലയാളം": "ml",
 
-        # Punjabi
         "punjabi": "pa",
         "ਪੰਜਾਬੀ": "pa",
 
-        # Odia
         "odia": "or",
         "oriya": "or",
         "ଓଡ଼ିଆ": "or",
 
-        # Assamese
         "assamese": "as",
         "অসমীয়া": "as",
 
-        # Urdu
         "urdu": "ur",
         "اردو": "ur",
     }
@@ -141,19 +126,15 @@ def _normalise_language(language: str | None) -> str:
 
 def _detect_query_language(query: str) -> str:
     """
-    Detect the user's query language.
+    Detect the most likely language from the user's query.
 
-    IMPORTANT:
-    Language detection is delegated to the dedicated
-    language_detector.py service.
+    This is intentionally conservative.
 
-    Supported automatic detection:
-        English -> en
-        Hindi   -> hi
-        Marathi -> mr
+    Hindi and Marathi both use Devanagari. Automatic
+    Devanagari detection therefore defaults to Hindi.
 
-    This keeps language detection in one centralized service
-    instead of duplicating detection logic inside RAG.
+    Explicit Marathi from the frontend/backend is preserved
+    through _resolve_output_language().
     """
 
     text = _safe_text(query)
@@ -161,21 +142,121 @@ def _detect_query_language(query: str) -> str:
     if not text:
         return "en"
 
-    try:
-        detected = detect_language(text)
+    # --------------------------------------------------------
+    # Devanagari
+    # --------------------------------------------------------
 
-        detected = _safe_text(detected).lower()
+    devanagari_count = sum(
+        1
+        for character in text
+        if "\u0900" <= character <= "\u097F"
+    )
 
-        if detected in LANGUAGE_NAMES:
-            return detected
+    # --------------------------------------------------------
+    # Gujarati
+    # --------------------------------------------------------
 
-    except Exception:
-        logger.exception(
-            "Language detection failed for query: %r",
-            text,
-        )
+    gujarati_count = sum(
+        1
+        for character in text
+        if "\u0A80" <= character <= "\u0AFF"
+    )
 
-    # Safe fallback
+    # --------------------------------------------------------
+    # Bengali / Assamese
+    # --------------------------------------------------------
+
+    bengali_count = sum(
+        1
+        for character in text
+        if "\u0980" <= character <= "\u09FF"
+    )
+
+    # --------------------------------------------------------
+    # Gurmukhi / Punjabi
+    # --------------------------------------------------------
+
+    gurmukhi_count = sum(
+        1
+        for character in text
+        if "\u0A00" <= character <= "\u0A7F"
+    )
+
+    # --------------------------------------------------------
+    # Kannada
+    # --------------------------------------------------------
+
+    kannada_count = sum(
+        1
+        for character in text
+        if "\u0C80" <= character <= "\u0CFF"
+    )
+
+    # --------------------------------------------------------
+    # Telugu
+    # --------------------------------------------------------
+
+    telugu_count = sum(
+        1
+        for character in text
+        if "\u0C00" <= character <= "\u0C7F"
+    )
+
+    # --------------------------------------------------------
+    # Tamil
+    # --------------------------------------------------------
+
+    tamil_count = sum(
+        1
+        for character in text
+        if "\u0B80" <= character <= "\u0BFF"
+    )
+
+    # --------------------------------------------------------
+    # Malayalam
+    # --------------------------------------------------------
+
+    malayalam_count = sum(
+        1
+        for character in text
+        if "\u0D00" <= character <= "\u0D7F"
+    )
+
+    script_counts = {
+        "hi": devanagari_count,
+        "mr": devanagari_count,
+        "gu": gujarati_count,
+        "bn": bengali_count,
+        "pa": gurmukhi_count,
+        "kn": kannada_count,
+        "te": telugu_count,
+        "ta": tamil_count,
+        "ml": malayalam_count,
+    }
+
+    strongest_language = max(
+        script_counts,
+        key=script_counts.get,
+    )
+
+    strongest_count = script_counts[strongest_language]
+
+    if strongest_count > 0:
+
+        # Devanagari is shared by Hindi and Marathi.
+        # Default to Hindi unless Marathi was explicitly selected.
+        if strongest_language == "mr":
+            return "hi"
+
+        return strongest_language
+
+    # --------------------------------------------------------
+    # ASCII query
+    # --------------------------------------------------------
+
+    if text.isascii():
+        return "en"
+
     return "en"
 
 
@@ -192,34 +273,11 @@ def _resolve_output_language(
 
     Priority:
 
-        1. Automatic detection when language is auto/detect
-        2. Explicit language selection
-
-    Examples:
-
-        query="What is PMFBY?", language="auto"
-            -> en
-
-        query="PMFBY के लिए कौन से दस्तावेज चाहिए?",
-        language="auto"
-            -> hi
-
-        query="PMFBY साठी कोणती कागदपत्रे आवश्यक आहेत?",
-        language="auto"
-            -> mr
-
-        query="anything", language="mr"
-            -> mr
-
-        query="anything", language="hi"
-            -> hi
+    1. Explicit language selection
+    2. Automatic query-language detection
     """
 
     raw_language = _safe_text(language).lower()
-
-    # --------------------------------------------------------
-    # Automatic language detection
-    # --------------------------------------------------------
 
     if raw_language in {
         "",
@@ -229,41 +287,142 @@ def _resolve_output_language(
     }:
         return _detect_query_language(query)
 
-    # --------------------------------------------------------
-    # Explicit language
-    # --------------------------------------------------------
-
-    requested = _normalise_language(language)
-
-    return requested
+    return _normalise_language(language)
 
 
 # ============================================================
-# RETRIEVED DOCUMENT CONTEXT
+# RETRIEVER EVIDENCE -> ANSWER GENERATOR DOCUMENT
 # ============================================================
 
-def _build_context(
-    docs: list[dict[str, Any]],
-) -> tuple[str, list[dict[str, Any]]]:
+def _evidence_to_documents(
+    evidence: list[Any],
+) -> list[dict[str, Any]]:
     """
-    Convert retrieved Qdrant documents into:
+    Convert retriever evidence into the document structure
+    expected by answer_generator.py.
 
-        1. LLM evidence context
-        2. Source metadata for the frontend
-
-    IMPORTANT:
-    Source metadata is returned separately.
-
-    It should never be placed inside the generated answer.
+    The retriever is the source of truth for evidence selection.
     """
 
-    context_parts: list[str] = []
+    documents: list[dict[str, Any]] = []
+
+    if not isinstance(evidence, list):
+        return documents
+
+    for item in evidence:
+
+        if not isinstance(item, dict):
+            continue
+
+        text = _safe_text(
+            item.get("text")
+        )
+
+        if not text:
+            continue
+
+        metadata = item.get("metadata")
+
+        if not isinstance(metadata, dict):
+            metadata = {}
+
+        # ----------------------------------------------------
+        # Preserve retriever metadata.
+        # ----------------------------------------------------
+
+        metadata = dict(metadata)
+
+        for key in (
+            "source_file",
+            "chunk_id",
+            "chunk_index",
+            "page",
+            "section",
+            "title",
+            "document",
+        ):
+            if key in item and key not in metadata:
+                metadata[key] = item[key]
+
+        source_file = (
+            _safe_text(item.get("source_file"))
+            or _safe_text(metadata.get("source_file"))
+            or _safe_text(item.get("source"))
+            or _safe_text(metadata.get("source"))
+        )
+
+        title = (
+            _safe_text(item.get("title"))
+            or _safe_text(metadata.get("title"))
+            or _safe_text(metadata.get("document"))
+            or source_file
+            or "Official document"
+        )
+
+        source = (
+            _safe_text(item.get("source"))
+            or _safe_text(metadata.get("source"))
+            or source_file
+        )
+
+        page = item.get(
+            "page",
+            metadata.get("page"),
+        )
+
+        section = (
+            _safe_text(item.get("section"))
+            or _safe_text(metadata.get("section"))
+        )
+
+        score = item.get(
+            "score",
+            item.get("final_score"),
+        )
+
+        pdf_url = (
+            _safe_text(item.get("pdf_url"))
+            or _safe_text(item.get("pdf"))
+            or _safe_text(item.get("document_url"))
+            or _safe_text(item.get("url"))
+            or _safe_text(metadata.get("pdf_url"))
+            or _safe_text(metadata.get("url"))
+        )
+
+        documents.append(
+            {
+                "text": text,
+                "title": title,
+                "source": source,
+                "source_file": source_file,
+                "page": page,
+                "section": section,
+                "score": score,
+                "pdf_url": pdf_url,
+                "metadata": metadata,
+            }
+        )
+
+    return documents
+
+
+# ============================================================
+# FRONTEND SOURCES
+# ============================================================
+
+def _build_sources(
+    documents: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """
+    Build the exact source-style objects used by the frontend.
+
+    This keeps the existing website source rendering compatible.
+    """
+
     sources: list[dict[str, Any]] = []
 
-    for index, document in enumerate(
-        docs,
-        start=1,
-    ):
+    for document in documents:
+
         if not isinstance(document, dict):
             continue
 
@@ -274,94 +433,46 @@ def _build_context(
         if not text:
             continue
 
-        # ----------------------------------------------------
-        # Metadata
-        # ----------------------------------------------------
-
         metadata = document.get("metadata")
 
         if not isinstance(metadata, dict):
             metadata = {}
 
-        # ----------------------------------------------------
-        # Title
-        # ----------------------------------------------------
-
         title = (
             _safe_text(document.get("title"))
             or _safe_text(metadata.get("title"))
             or _safe_text(metadata.get("document"))
-            or _safe_text(metadata.get("source_file"))
+            or _safe_text(document.get("source_file"))
             or "Official document"
         )
 
-        # ----------------------------------------------------
-        # Source
-        # ----------------------------------------------------
-
         source = (
             _safe_text(document.get("source"))
+            or _safe_text(document.get("source_file"))
             or _safe_text(metadata.get("source"))
             or _safe_text(metadata.get("source_file"))
-            or _safe_text(document.get("source_file"))
         )
-
-        # ----------------------------------------------------
-        # Page
-        # ----------------------------------------------------
 
         page = document.get(
             "page",
             metadata.get("page"),
         )
 
-        # ----------------------------------------------------
-        # Section
-        # ----------------------------------------------------
-
         section = (
             _safe_text(document.get("section"))
             or _safe_text(metadata.get("section"))
         )
 
-        # ----------------------------------------------------
-        # Score
-        # ----------------------------------------------------
-
         score = document.get("score")
-
-        # ----------------------------------------------------
-        # PDF / Document URL
-        # ----------------------------------------------------
 
         pdf_url = (
             _safe_text(document.get("pdf_url"))
             or _safe_text(document.get("pdf"))
-            or _safe_text(document.get("pdfUrl"))
             or _safe_text(document.get("document_url"))
-            or _safe_text(document.get("documentUrl"))
             or _safe_text(document.get("url"))
             or _safe_text(metadata.get("pdf_url"))
-            or _safe_text(metadata.get("pdf"))
             or _safe_text(metadata.get("url"))
         )
-
-        # ----------------------------------------------------
-        # Evidence for LLM
-        # ----------------------------------------------------
-
-        context_parts.append(
-            f"[Evidence {index}]\n"
-            f"Document: {title}\n"
-            f"Source: {source or 'Not provided'}\n"
-            f"Page: {page if page is not None else 'Not provided'}\n"
-            f"Section: {section or 'Not provided'}\n"
-            f"Text:\n{text}"
-        )
-
-        # ----------------------------------------------------
-        # Frontend source object
-        # ----------------------------------------------------
 
         sources.append(
             {
@@ -377,28 +488,192 @@ def _build_context(
             }
         )
 
-    # ========================================================
-    # NO EVIDENCE
-    # ========================================================
+    return sources
 
-    if not context_parts:
-        context = (
-            "No verified document evidence is currently available "
-            "for this question.\n\n"
-            "The assistant must not invent information."
+
+# ============================================================
+# FALLBACK ANSWER
+# ============================================================
+
+def _fallback_answer(
+    language: str,
+) -> str:
+    """
+    Safe user-facing fallback.
+
+    Never exposes internal errors or retrieval details.
+    """
+
+    language = _normalise_language(language)
+
+    if language == "hi":
+        return (
+            "क्षमा करें, उपलब्ध सत्यापित जानकारी के आधार पर "
+            "अभी विश्वसनीय उत्तर तैयार नहीं किया जा सका। "
+            "कृपया अपना प्रश्न दोबारा पूछें।"
         )
 
-        return context, []
+    if language == "mr":
+        return (
+            "क्षमस्व, उपलब्ध सत्यापित माहितीच्या आधारे "
+            "सध्या विश्वसनीय उत्तर तयार करता आले नाही. "
+            "कृपया आपला प्रश्न पुन्हा विचारा."
+        )
 
-    # ========================================================
-    # NORMAL EVIDENCE
-    # ========================================================
-
-    context = "\n\n".join(
-        context_parts
+    return (
+        "I’m sorry, but I could not generate a reliable "
+        "answer from the available verified information "
+        "right now. Please try the question again."
     )
 
-    return context, sources
+
+# ============================================================
+# ANSWER ONE RETRIEVED QUESTION
+# ============================================================
+
+async def _answer_single_question(
+    question_result: dict[str, Any],
+    language: str,
+) -> tuple[str, list[dict[str, Any]]]:
+    """
+    Generate an answer for one retriever result.
+
+    Gemini is called only when the retriever explicitly allows it.
+    """
+
+    if not isinstance(question_result, dict):
+        return (
+            _fallback_answer(language),
+            [],
+        )
+
+    question = _safe_text(
+        question_result.get("question")
+    )
+
+    if not question:
+        question = _safe_text(
+            question_result.get("original_question")
+        )
+
+    question_language = _safe_text(
+        question_result.get("tts_language")
+    )
+
+    if not question_language:
+        question_language = language
+
+    question_language = _normalise_language(
+        question_language
+    )
+
+    # --------------------------------------------------------
+    # Retriever safety gate
+    # --------------------------------------------------------
+
+    gemini_allowed = bool(
+        question_result.get(
+            "gemini_allowed",
+            False,
+        )
+    )
+
+    answerable = bool(
+        question_result.get(
+            "answerable",
+            False,
+        )
+    )
+
+    evidence = question_result.get(
+        "evidence",
+        [],
+    )
+
+    documents = _evidence_to_documents(
+        evidence
+    )
+
+    sources = _build_sources(
+        documents
+    )
+
+    # --------------------------------------------------------
+    # Do not send unsupported/insufficient evidence to Gemini.
+    # --------------------------------------------------------
+
+    if not gemini_allowed or not answerable or not documents:
+        return (
+            _fallback_answer(question_language),
+            sources,
+        )
+
+    # --------------------------------------------------------
+    # Generate grounded answer.
+    # --------------------------------------------------------
+
+    try:
+        generated = await generate_grounded_answer(
+            query=question,
+            documents=documents,
+            language=question_language,
+        )
+
+    except Exception:
+        logger.exception(
+            "Grounded answer generation failed for question."
+        )
+
+        return (
+            _fallback_answer(question_language),
+            sources,
+        )
+
+    # --------------------------------------------------------
+    # Validate generator output.
+    # --------------------------------------------------------
+
+    if not isinstance(generated, dict):
+        logger.error(
+            "Answer generator returned invalid result."
+        )
+
+        return (
+            _fallback_answer(question_language),
+            sources,
+        )
+
+    answer = _safe_text(
+        generated.get("answer")
+    )
+
+    if not answer:
+        return (
+            _fallback_answer(question_language),
+            sources,
+        )
+
+    # --------------------------------------------------------
+    # Use generator sources only when they are valid.
+    # Otherwise preserve retriever sources.
+    # --------------------------------------------------------
+
+    generated_sources = generated.get(
+        "sources"
+    )
+
+    if isinstance(
+        generated_sources,
+        list,
+    ):
+        final_sources = generated_sources
+    else:
+        final_sources = sources
+
+    return (
+        answer,
+        final_sources,
+    )
 
 
 # ============================================================
@@ -411,55 +686,73 @@ async def answer_with_context(
     collection_name: str | None = None,
 ) -> dict[str, Any]:
     """
-    Main RAG pipeline.
+    Main Sanyukt Vaani RAG pipeline.
 
-    Flow:
+    IMPORTANT:
 
-        User Query
-             |
-             v
-        Language Detection
-             |
-             v
-        Qdrant Retrieval
-             |
-             v
-        Evidence Context
-             |
-             v
-        answer_generator.py
-             |
-             +----------------------+
-             |                      |
-             v                      v
-        Clean Answer             Sources
-             |                      |
-             v                      v
-          Frontend              References
-
-    Returns:
+    This function intentionally keeps the existing public
+    backend response shape:
 
         {
             "query": str,
             "language": str,
             "answer": str,
-            "sources": list[dict],
+            "sources": list,
         }
 
-    Language behavior:
+    The frontend therefore does not need to change.
 
-        English query  -> English answer
-        Hindi query    -> Hindi answer
-        Marathi query  -> Marathi answer
+    New retrieval flow:
 
-    Explicit language selection is also supported.
+        User Query
+             |
+             v
+        Language Resolution
+             |
+             v
+        retriever.process_query()
+             |
+             +-------------------------------+
+             |                               |
+             v                               v
+        Evidence / Gate                 Retrieval Status
+             |
+             v
+        answer_generator.py
+             |
+             v
+        Existing frontend response
+
+    The advanced retriever is now responsible for:
+
+        - language detection
+        - question splitting
+        - query cleaning
+        - domain classification
+        - intent classification
+        - query expansion
+        - Qdrant semantic retrieval
+        - lexical retrieval
+        - candidate merging
+        - hard domain filtering
+        - scoring
+        - Jina reranking
+        - duplicate removal
+        - neighbor expansion
+        - diversity/MMR selection
+        - evidence completeness
+        - answerability
+        - Gemini permission gate
+        - TTS language
     """
 
     # ========================================================
     # 1. VALIDATE QUERY
     # ========================================================
 
-    clean_query = _safe_text(query)
+    clean_query = _safe_text(
+        query
+    )
 
     if not clean_query:
         raise ValueError(
@@ -482,256 +775,282 @@ async def answer_with_context(
     )
 
     # ========================================================
-    # 3. RESOLVE QDRANT COLLECTION
+    # 3. COLLECTION COMPATIBILITY
+    # ========================================================
+    #
+    # The current advanced retriever uses its configured
+    # Qdrant collection from its own environment/configuration.
+    #
+    # The existing API still accepts collection_name because
+    # main.py exposes it.
+    #
+    # We therefore do NOT change the frontend/API contract.
+    #
+    # A caller may provide the default configured collection.
+    # The advanced retriever remains the retrieval source of truth.
     # ========================================================
 
-    collection = (
+    requested_collection = (
         _safe_text(collection_name)
         or settings.QDRANT_COLLECTION
     )
 
+    configured_collection = _safe_text(
+        getattr(
+            settings,
+            "QDRANT_COLLECTION",
+            "",
+        )
+    )
+
+    if (
+        requested_collection
+        and configured_collection
+        and requested_collection != configured_collection
+    ):
+        logger.warning(
+            "Requested collection '%s' differs from configured "
+            "retriever collection '%s'. The advanced retriever "
+            "will use its configured collection.",
+            requested_collection,
+            configured_collection,
+        )
+
     # ========================================================
-    # 4. RETRIEVE FROM QDRANT
+    # 4. ADVANCED RETRIEVAL
     # ========================================================
 
     try:
-        docs = qdrant_service.search(
+
+        retrieval_result = process_query(
             clean_query,
-            collection,
+            forced_language=requested_language,
         )
 
     except Exception:
+
         logger.exception(
-            "Qdrant retrieval failed for query: %s",
+            "Advanced retriever failed for query: %s",
             clean_query,
         )
-        raise
-
-    # ========================================================
-    # 5. SAFETY CHECK
-    # ========================================================
-
-    if not isinstance(docs, list):
-        docs = []
-
-    logger.info(
-        "Qdrant returned %d documents.",
-        len(docs),
-    )
-
-    # ========================================================
-    # 6. BUILD EVIDENCE
-    # ========================================================
-
-    context, sources = _build_context(
-        docs
-    )
-
-    # ========================================================
-    # 7. GENERATE GROUNDED ANSWER
-    #
-    # IMPORTANT:
-    #
-    # answer_generator.py is the single source of truth for
-    # answer generation and formatting.
-    #
-    # The resolved language is explicitly passed to it.
-    # ========================================================
-
-    try:
-        generated = await generate_grounded_answer(
-            query=clean_query,
-            documents=docs,
-            language=requested_language,
-        )
-
-    except Exception:
-        logger.exception(
-            "Grounded answer generation failed."
-        )
-
-        # ----------------------------------------------------
-        # Safe fallback.
-        #
-        # Do NOT expose:
-        #
-        # - raw evidence
-        # - Qdrant information
-        # - internal errors
-        # - model errors
-        # - source metadata
-        # ----------------------------------------------------
-
-        if requested_language == "hi":
-            fallback_answer = (
-                "क्षमा करें, उपलब्ध सत्यापित जानकारी के आधार पर "
-                "अभी विश्वसनीय उत्तर तैयार नहीं किया जा सका। "
-                "कृपया अपना प्रश्न दोबारा पूछें।"
-            )
-
-        elif requested_language == "mr":
-            fallback_answer = (
-                "क्षमस्व, उपलब्ध सत्यापित माहितीच्या आधारे "
-                "सध्या विश्वसनीय उत्तर तयार करता आले नाही. "
-                "कृपया आपला प्रश्न पुन्हा विचारा."
-            )
-
-        else:
-            fallback_answer = (
-                "I’m sorry, but I could not generate a reliable "
-                "answer from the available verified information "
-                "right now. Please try the question again."
-            )
 
         return {
             "query": clean_query,
             "language": requested_language,
-            "answer": fallback_answer,
-            "sources": sources,
+            "answer": _fallback_answer(
+                requested_language
+            ),
+            "sources": [],
         }
 
     # ========================================================
-    # 8. VALIDATE GENERATED RESULT
+    # 5. VALIDATE RETRIEVER RESULT
     # ========================================================
 
     if not isinstance(
-        generated,
+        retrieval_result,
         dict,
     ):
+
         logger.error(
-            "Answer generator returned an invalid result."
+            "Retriever returned invalid result."
         )
-
-        if requested_language == "hi":
-            invalid_answer = (
-                "क्षमा करें, अभी विश्वसनीय उत्तर तैयार नहीं किया जा सका। "
-                "कृपया अपना प्रश्न दोबारा पूछें।"
-            )
-
-        elif requested_language == "mr":
-            invalid_answer = (
-                "क्षमस्व, सध्या विश्वसनीय उत्तर तयार करता आले नाही. "
-                "कृपया आपला प्रश्न पुन्हा विचारा."
-            )
-
-        else:
-            invalid_answer = (
-                "I’m sorry, but I could not generate a reliable "
-                "answer right now. Please try again."
-            )
 
         return {
             "query": clean_query,
             "language": requested_language,
-            "answer": invalid_answer,
-            "sources": sources,
+            "answer": _fallback_answer(
+                requested_language
+            ),
+            "sources": [],
+        }
+
+    questions = retrieval_result.get(
+        "questions",
+        [],
+    )
+
+    if not isinstance(
+        questions,
+        list,
+    ):
+        questions = []
+
+    # ========================================================
+    # 6. NO QUESTION RESULT
+    # ========================================================
+
+    if not questions:
+
+        return {
+            "query": clean_query,
+            "language": requested_language,
+            "answer": _fallback_answer(
+                requested_language
+            ),
+            "sources": [],
         }
 
     # ========================================================
-    # 9. GET ANSWER
+    # 7. PROCESS EACH QUESTION
+    # ========================================================
+    #
+    # The retriever supports multi-question queries.
+    #
+    # Each question gets its own:
+    #
+    #     evidence
+    #     answerability check
+    #     Gemini gate
+    #     answer generation
+    #
+    # This prevents one unsupported question from being silently
+    # answered from evidence belonging to another question.
     # ========================================================
 
-    answer = _safe_text(
-        generated.get("answer")
-    )
+    answers: list[str] = []
+    all_sources: list[dict[str, Any]] = []
+
+    for index, question_result in enumerate(
+        questions,
+        start=1,
+    ):
+
+        if not isinstance(
+            question_result,
+            dict,
+        ):
+            continue
+
+        question_language = _safe_text(
+            question_result.get(
+                "tts_language"
+            )
+        )
+
+        if not question_language:
+            question_language = requested_language
+
+        question_language = _normalise_language(
+            question_language
+        )
+
+        answer, sources = await _answer_single_question(
+            question_result=question_result,
+            language=question_language,
+        )
+
+        if answer:
+            # ------------------------------------------------
+            # Preserve simple output for one question.
+            #
+            # For multiple questions, label each answer so
+            # the existing frontend still receives ONE string.
+            # ------------------------------------------------
+
+            if len(questions) > 1:
+                answers.append(
+                    f"**Question {index}:**\n\n{answer}"
+                )
+            else:
+                answers.append(
+                    answer
+                )
+
+        all_sources.extend(
+            sources
+        )
+
+    # ========================================================
+    # 8. REMOVE DUPLICATE SOURCES
+    # ========================================================
+
+    unique_sources: list[dict[str, Any]] = []
+    seen_sources: set[str] = set()
+
+    for source in all_sources:
+
+        if not isinstance(
+            source,
+            dict,
+        ):
+            continue
+
+        source_file = _safe_text(
+            source.get("source_file")
+        )
+
+        title = _safe_text(
+            source.get("title")
+        )
+
+        page = source.get(
+            "page"
+        )
+
+        key = (
+            f"{source_file}|"
+            f"{title}|"
+            f"{page}"
+        )
+
+        if key in seen_sources:
+            continue
+
+        seen_sources.add(key)
+        unique_sources.append(
+            source
+        )
+
+    # ========================================================
+    # 9. BUILD FINAL ANSWER
+    # ========================================================
+
+    final_answer = "\n\n".join(
+        answer
+        for answer in answers
+        if _safe_text(answer)
+    ).strip()
+
+    if not final_answer:
+        final_answer = _fallback_answer(
+            requested_language
+        )
 
     # ========================================================
     # 10. FINAL LANGUAGE
+    # ========================================================
+    #
+    # Preserve the requested language for the frontend.
+    # For automatic mode, retriever language is preferred.
+    # ========================================================
+
+    final_language = _safe_text(
+        retrieval_result.get(
+            "language"
+        )
+    )
+
+    if not final_language:
+        final_language = requested_language
+
+    final_language = _normalise_language(
+        final_language
+    )
+
+    # ========================================================
+    # 11. FINAL RESPONSE
+    # ========================================================
     #
     # IMPORTANT:
     #
-    # The language resolved from the user query is authoritative.
-    #
-    # Even if answer_generator.py returns another language value,
-    # RAG keeps the language requested/detected here.
-    #
-    # This prevents:
-    #
-    #     Marathi query -> Hindi response
-    #     Hindi query   -> English response
-    #     English query -> Hindi response
-    #
-    # The actual generator output should still follow the
-    # requested_language instruction.
-    # ========================================================
-
-    generated_language = _safe_text(
-        generated.get("language")
-    )
-
-    if generated_language:
-        normalized_generated_language = _normalise_language(
-            generated_language
-        )
-
-        if normalized_generated_language != requested_language:
-            logger.warning(
-                "Answer generator returned language '%s', "
-                "but RAG requested '%s'. Keeping requested language.",
-                normalized_generated_language,
-                requested_language,
-            )
-
-    final_language = requested_language
-
-    # ========================================================
-    # 11. GET SOURCES
-    #
-    # answer_generator normally returns its own sources.
-    #
-    # If it does not, keep the sources generated here.
-    # ========================================================
-
-    generated_sources = generated.get(
-        "sources"
-    )
-
-    if isinstance(
-        generated_sources,
-        list,
-    ):
-        final_sources = generated_sources
-
-    else:
-        final_sources = sources
-
-    # ========================================================
-    # 12. EMPTY ANSWER SAFETY
-    # ========================================================
-
-    if not answer:
-        logger.warning(
-            "Answer generator returned an empty answer."
-        )
-
-        if final_language == "hi":
-            answer = (
-                "क्षमा करें, उपलब्ध सत्यापित जानकारी के आधार पर "
-                "अभी विश्वसनीय उत्तर तैयार नहीं किया जा सका। "
-                "कृपया अपना प्रश्न दोबारा पूछें।"
-            )
-
-        elif final_language == "mr":
-            answer = (
-                "क्षमस्व, उपलब्ध सत्यापित माहितीच्या आधारे "
-                "सध्या विश्वसनीय उत्तर तयार करता आले नाही. "
-                "कृपया आपला प्रश्न पुन्हा विचारा."
-            )
-
-        else:
-            answer = (
-                "I’m sorry, but I could not generate a reliable "
-                "answer from the available verified information "
-                "right now. Please try the question again."
-            )
-
-    # ========================================================
-    # 13. FINAL RESPONSE
+    # This structure intentionally matches the previous
+    # rag.py response so the website does not need changes.
     # ========================================================
 
     return {
         "query": clean_query,
         "language": final_language,
-        "answer": answer,
-        "sources": final_sources,
+        "answer": final_answer,
+        "sources": unique_sources,
     }
