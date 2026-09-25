@@ -14,7 +14,9 @@ __pycache__/
 rag/knowledge_base/extracted_text/
 rag/knowledge_base/cleaned_text/
 rag/knowledge_base/chunks/
-rag/knowledge_base/embeddings/
+rag/knowledge_base/embeddings/*
+!rag/knowledge_base/embeddings/embeddings.npy
+!rag/knowledge_base/embeddings/embedding_metadata.json
 
 # Generated TTS audio
 static/*.wav
