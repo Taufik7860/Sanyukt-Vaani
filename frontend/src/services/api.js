@@ -26,9 +26,8 @@
 
 const API_BASE_URL = (
   import.meta.env.VITE_API_BASE_URL ||
-  "http://127.0.0.1:8000"
+  "http://3.110.183.215:8000"
 ).replace(/\/+$/, "");
-
 
 // ============================================================
 // COMMON HELPERS
@@ -116,7 +115,7 @@ export function normalizeLanguage(language, fallback = "auto") {
  *   /static/tts_123.wav
  *
  * or:
- *   http://127.0.0.1:8000/static/tts_123.wav
+ *   http://3.110.183.215:8000/static/tts_123.wav
  *
  * or:
  *   null
