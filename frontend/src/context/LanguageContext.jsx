@@ -155,8 +155,6 @@ function normalizeLanguageId(
    AUTO LANGUAGE ROTATION
 ========================================================= */
 
-// Automatic voice detection for the project is intentionally limited to
-// the three answer languages supported by the RAG / answer-generation flow.
 const AUTO_ROTATION_LANGUAGE_IDS = [
   "hi",
   "en",
@@ -660,10 +658,10 @@ const copy = {
       "व्हॉइस रेकॉर्डिंग अयशस्वी झाले. कृपया पुन्हा प्रयत्न करा.",
 
     startingFailed:
-      "व्हॉइस रेकॉर्डिंग सुरू करता आले नाही. कृपया पुन्हा प्रयत्न करा.",
+      "वॉइस रेकॉर्डिंग सुरू करता आले नाही. कृपया पुन्हा प्रयत्न करा.",
 
     stoppingFailed:
-      "व्हॉइस रेकॉर्डिंग थांबवता आले नाही. कृपया पुन्हा प्रयत्न करा.",
+      "वॉइस रेकॉर्डिंग थांबवता आले नाही. कृपया पुन्हा प्रयत्न करा.",
 
     browserUnsupported:
       "या ब्राउझरमध्ये मायक्रोफोन उपलब्ध नाही. तुम्ही टाइप करून पुढे जाऊ शकता.",
@@ -992,19 +990,13 @@ function detectLanguage(text) {
     return "en";
   }
 
-  /* -------------------------------------------------------
-     Project scope:
-     automatic detection is authoritative only for
-     English / Hindi / Marathi.
-  ------------------------------------------------------- */
-
-  if (/^[-A-Za-z0-9\s.,?!'"()_\\\/:%&+₹$]+$/u.test(trimmed)) {
+  if (
+    /^[-A-Za-z0-9\s.,?!'"()_\\\/:%&+₹$]+$/u.test(
+      trimmed
+    )
+  ) {
     return "en";
   }
-
-  /* -------------------------------------------------------
-     Devanagari
-  ------------------------------------------------------- */
 
   if (/[\u0900-\u097F]/u.test(trimmed)) {
     const marathiMatches =
@@ -1012,11 +1004,6 @@ function detectLanguage(text) {
         (pattern) => pattern.test(trimmed)
       ).length;
 
-    /*
-     * Require multiple strong Marathi indicators.
-     * This avoids incorrectly classifying ordinary Hindi
-     * sentences as Marathi.
-     */
     if (marathiMatches >= 2) {
       return "mr";
     }
@@ -1024,10 +1011,6 @@ function detectLanguage(text) {
     return "hi";
   }
 
-  /*
-   * Any non-English/non-Devanagari text is not part of the
-   * automatic answer-language contract. Fall back to English.
-   */
   return "en";
 }
 
@@ -1036,116 +1019,211 @@ function detectLanguage(text) {
    SPEECH CLEANING
 ========================================================= */
 
-/*
- * This function is ONLY used for speech.
- *
- * The visible answer remains unchanged.
- *
- * Example:
- *
- * Gemini answer:
- *
- *   **PACS**
- *
- *   [Source 1]
- *
- *   PACS provides...
- *
- * Browser speech receives:
- *
- *   PACS. PACS provides...
- */
-
 function cleanTextForSpeech(text) {
   if (!text) {
     return "";
   }
 
-  let cleaned = String(text).normalize("NFKC");
+  let cleaned =
+    String(text).normalize("NFKC");
 
-  /* -------------------------------------------------------
-     1. Unescape escaped markdown (\* -> *, \# -> #, etc.)
-  ------------------------------------------------------- */
   cleaned = cleaned
-    .replace(/\\([*_#~`[\]()])/g, "$1");
+    .replace(
+      /\\([*_#~`[\]()])/g,
+      "$1"
+    );
 
-  /* -------------------------------------------------------
-     2. Remove URLs and markdown links
-  ------------------------------------------------------- */
-  cleaned = cleaned.replace(/https?:\/\/\S+/gi, " ");
-  cleaned = cleaned.replace(/\bwww\.\S+/gi, " ");
-  cleaned = cleaned.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
+  cleaned =
+    cleaned.replace(
+      /https?:\/\/\S+/gi,
+      " "
+    );
 
-  /* -------------------------------------------------------
-     3. Remove code blocks and inline code
-  ------------------------------------------------------- */
-  cleaned = cleaned.replace(/```[\s\S]*?```/g, " ");
-  cleaned = cleaned.replace(/`([^`]+)`/g, "$1");
-  cleaned = cleaned.replace(/`+/g, " ");
+  cleaned =
+    cleaned.replace(
+      /\bwww\.\S+/gi,
+      " "
+    );
 
-  /* -------------------------------------------------------
-     4. Remove source/document wrappers and citations
-  ------------------------------------------------------- */
-  cleaned = cleaned.replace(/\[\s*(?:Source|Document|Chunk|Evidence|Reference)\s*\d*\]/gi, " ");
-  cleaned = cleaned.replace(/\[\s*\d+\s*\]/g, " ");
-  cleaned = cleaned.replace(/^\s*(?:source|sources|reference|references|evidence)\s*:.*$/gim, " ");
-  cleaned = cleaned.replace(/\b(?:source|retrieval|similarity score|confidence score)\s*[:=]\s*[^\n]+/gi, " ");
+  cleaned =
+    cleaned.replace(
+      /\[([^\]]+)\]\([^)]+\)/g,
+      "$1"
+    );
 
-  /* -------------------------------------------------------
-     5. Remove markdown headings (#, ##, ###)
-  ------------------------------------------------------- */
-  cleaned = cleaned.replace(/^\s{0,4}#{1,6}\s*(.+)$/gm, "$1. ");
-  cleaned = cleaned.replace(/#{1,6}/g, "");
+  cleaned =
+    cleaned.replace(
+      /```[\s\S]*?```/g,
+      " "
+    );
 
-  /* -------------------------------------------------------
-     6. Remove bold and italic markers (***, **, *, ___, __, _)
-  ------------------------------------------------------- */
-  cleaned = cleaned.replace(/\*\*\*([^*]+)\*\*\*/g, "$1");
-  cleaned = cleaned.replace(/\*\*([^*]+)\*\*/g, "$1");
-  cleaned = cleaned.replace(/\*([^*]+)\*/g, "$1");
-  cleaned = cleaned.replace(/___([^_]+)___/g, "$1");
-  cleaned = cleaned.replace(/__([^_]+)__/g, "$1");
-  cleaned = cleaned.replace(/_([^_]+)_/g, "$1");
+  cleaned =
+    cleaned.replace(
+      /`([^`]+)`/g,
+      "$1"
+    );
 
-  /* -------------------------------------------------------
-     7. Remove list and bullet markers
-  ------------------------------------------------------- */
-  cleaned = cleaned.replace(/^\s*[-*+•●▪◦‣]\s*/gm, "");
-  cleaned = cleaned.replace(/^\s*\d+[.)]\s*/gm, "");
+  cleaned =
+    cleaned.replace(
+      /`+/g,
+      " "
+    );
 
-  /* -------------------------------------------------------
-     8. Remove table separators and borders
-  ------------------------------------------------------- */
-  cleaned = cleaned.replace(/^\s*\|?(?:\s*:?-{2,}:?\s*\|)+\s*$/gm, " ");
-  cleaned = cleaned.replace(/[|]+/g, ". ");
-  cleaned = cleaned.replace(/[_\-+=~^]{2,}/g, " ");
+  cleaned =
+    cleaned.replace(
+      /\[\s*(?:Source|Document|Chunk|Evidence|Reference)\s*\d*\]/gi,
+      " "
+    );
 
-  /* -------------------------------------------------------
-     9. Remove decorative symbols and HTML
-  ------------------------------------------------------- */
-  cleaned = cleaned.replace(/[★☆◆◇■□●○►▶→←↑↓✓✔✕✖️🔹🔸🔺🔻]/gu, " ");
-  cleaned = cleaned.replace(/<[^>]*>/g, " ");
+  cleaned =
+    cleaned.replace(
+      /\[\s*\d+\s*\]/g,
+      " "
+    );
 
-  /* -------------------------------------------------------
-     10. ABSOLUTE FILTER: Remove ANY remaining asterisk,
-         hash, underscore, tilde, backtick, backslash.
-         TTS will NEVER pronounce "asterisk" or "hash".
-  ------------------------------------------------------- */
-  cleaned = cleaned.replace(/[*#_~`\\]/g, " ");
+  cleaned =
+    cleaned.replace(
+      /^\s*(?:source|sources|reference|references|evidence)\s*:.*$/gim,
+      " "
+    );
 
-  /* -------------------------------------------------------
-     11. Preserve Unicode letters, numbers and punctuation
-  ------------------------------------------------------- */
-  cleaned = cleaned.replace(/[^\p{L}\p{N}\s.,?!:;'"()/%₹-]/gu, " ");
+  cleaned =
+    cleaned.replace(
+      /\b(?:source|retrieval|similarity score|confidence score)\s*[:=]\s*[^\n]+/gi,
+      " "
+    );
 
-  /* -------------------------------------------------------
-     12. Clean punctuation and spacing
-  ------------------------------------------------------- */
-  cleaned = cleaned.replace(/\s+([,.?!:;])/g, "$1");
-  cleaned = cleaned.replace(/([.!?]){2,}/g, "$1");
-  cleaned = cleaned.replace(/\n+/g, ". ");
-  cleaned = cleaned.replace(/\s+/g, " ");
-  cleaned = cleaned.replace(/(^|\s)[.,:;!?]+(?=\s|$)/g, " ");
+  cleaned =
+    cleaned.replace(
+      /^\s{0,4}#{1,6}\s*(.+)$/gm,
+      "$1. "
+    );
+
+  cleaned =
+    cleaned.replace(
+      /#{1,6}/g,
+      ""
+    );
+
+  cleaned =
+    cleaned.replace(
+      /\*\*\*([^*]+)\*\*\*/g,
+      "$1"
+    );
+
+  cleaned =
+    cleaned.replace(
+      /\*\*([^*]+)\*\*/g,
+      "$1"
+    );
+
+  cleaned =
+    cleaned.replace(
+      /\*([^*]+)\*/g,
+      "$1"
+    );
+
+  cleaned =
+    cleaned.replace(
+      /___([^_]+)___/g,
+      "$1"
+    );
+
+  cleaned =
+    cleaned.replace(
+      /__([^_]+)__/g,
+      "$1"
+    );
+
+  cleaned =
+    cleaned.replace(
+      /_([^_]+)_/g,
+      "$1"
+    );
+
+  cleaned =
+    cleaned.replace(
+      /^\s*[-*+•●▪◦‣]\s*/gm,
+      ""
+    );
+
+  cleaned =
+    cleaned.replace(
+      /^\s*\d+[.)]\s*/gm,
+      ""
+    );
+
+  cleaned =
+    cleaned.replace(
+      /^\s*\|?(?:\s*:?-{2,}:?\s*\|)+\s*$/gm,
+      " "
+    );
+
+  cleaned =
+    cleaned.replace(
+      /[|]+/g,
+      ". "
+    );
+
+  cleaned =
+    cleaned.replace(
+      /[_\-+=~^]{2,}/g,
+      " "
+    );
+
+  cleaned =
+    cleaned.replace(
+      /[★☆◆◇■□●○►▶→←↑↓✓✔✕✖️🔹🔸🔺🔻]/gu,
+      " "
+    );
+
+  cleaned =
+    cleaned.replace(
+      /<[^>]*>/g,
+      " "
+    );
+
+  cleaned =
+    cleaned.replace(
+      /[*#_~`\\]/g,
+      " "
+    );
+
+  cleaned =
+    cleaned.replace(
+      /[^\p{L}\p{N}\s.,?!:;'"()/%₹-]/gu,
+      " "
+    );
+
+  cleaned =
+    cleaned.replace(
+      /\s+([,.?!:;])/g,
+      "$1"
+    );
+
+  cleaned =
+    cleaned.replace(
+      /([.!?]){2,}/g,
+      "$1"
+    );
+
+  cleaned =
+    cleaned.replace(
+      /\n+/g,
+      ". "
+    );
+
+  cleaned =
+    cleaned.replace(
+      /\s+/g,
+      " "
+    );
+
+  cleaned =
+    cleaned.replace(
+      /(^|\s)[.,:;!?]+(?=\s|$)/g,
+      " "
+    );
 
   return cleaned.trim();
 }
@@ -1166,30 +1244,11 @@ const LanguageContext =
 export function LanguageProvider({
   children,
 }) {
-
-  /*
-   * UI language.
-   *
-   * English remains the initial UI language.
-   */
   const [languageId, setLanguageId] =
     useState("en");
 
-
-  /*
-   * IMPORTANT:
-   *
-   * Voice language mode is separate from UI language.
-   *
-   * "auto" means:
-   *   let BHASHINI/backend detect the language.
-   *
-   * If the user manually selects Hindi/Marathi/etc.,
-   * this changes to that language.
-   */
   const [voiceLanguageMode, setVoiceLanguageMode] =
     useState("auto");
-
 
   const [rotationIndex, setRotationIndex] =
     useState(0);
@@ -1218,52 +1277,27 @@ export function LanguageProvider({
   const [voiceAudioResponse, setVoiceAudioResponse] =
     useState(null);
 
-  /*
-   * Complete voice result for Chat.jsx.
-   *
-   * This is intentionally separate from `transcript`:
-   * `transcript` is the LIVE/interim text shown while
-   * the user is speaking, while `voiceResult` contains
-   * the final BHASHINI transcript, detected language,
-   * answer and sources after STOP.
-   */
   const [voiceResult, setVoiceResult] =
     useState(null);
 
+  const recorderRef =
+    useRef(null);
 
-  /*
-   * MediaRecorder.
-   */
- const recorderRef = useRef(null);
+  const speechRecognitionRef =
+    useRef(null);
 
-const speechRecognitionRef = useRef(null);
-const speechRecognitionActiveRef = useRef(false);
+  const speechRecognitionActiveRef =
+    useRef(false);
 
-  /*
-   * Microphone stream.
-   */
   const microphoneStreamRef =
     useRef(null);
 
-
-  /*
-   * Recording session identifier.
-   */
   const recordingSessionRef =
     useRef(0);
 
-
-  /*
-   * Component mounted state.
-   */
   const mountedRef =
     useRef(false);
 
-
-  /*
-   * Prevent stale async responses from
-   * overwriting newer responses.
-   */
   const activeRequestRef =
     useRef(0);
 
@@ -1274,10 +1308,12 @@ const speechRecognitionActiveRef = useRef(false);
 
   const language =
     LANGUAGES.find(
-      (item) => item.id === languageId
+      (item) =>
+        item.id === languageId
     ) ||
     LANGUAGES.find(
-      (item) => item.id === "en"
+      (item) =>
+        item.id === "en"
     );
 
   const t =
@@ -1404,11 +1440,9 @@ const speechRecognitionActiveRef = useRef(false);
         ""
       );
 
-    /*
-     * "auto" is not itself a UI language.
-     * It means voice should use automatic detection.
-     */
-    if (normalized === "auto") {
+    if (
+      normalized === "auto"
+    ) {
       setVoiceLanguageMode("auto");
       setIsAutoRotating(false);
       return;
@@ -1424,11 +1458,6 @@ const speechRecognitionActiveRef = useRef(false);
       return;
     }
 
-
-    /*
-     * Stop current browser speech when
-     * language changes.
-     */
     if (
       "speechSynthesis" in window
     ) {
@@ -1439,7 +1468,6 @@ const speechRecognitionActiveRef = useRef(false);
       }
     }
 
-
     setRotationIndex(
       nextIndex
     );
@@ -1448,10 +1476,6 @@ const speechRecognitionActiveRef = useRef(false);
       normalized
     );
 
-    /*
-     * Manual selection means voice should
-     * use this language instead of auto.
-     */
     setVoiceLanguageMode(
       normalized
     );
@@ -1500,10 +1524,6 @@ const speechRecognitionActiveRef = useRef(false);
 
   /* =======================================================
      LIVE BROWSER SPEECH RECOGNITION
-
-     Browser SpeechRecognition is used ONLY for live
-     interim text. BHASHINI remains the final STT/language
-     authority after the user presses STOP.
   ======================================================== */
 
   const getBrowserSpeechLanguage = () => {
@@ -1517,10 +1537,14 @@ const speechRecognitionActiveRef = useRef(false);
 
     const speechLanguage =
       LANGUAGES.find(
-        (item) => item.id === normalized
+        (item) =>
+          item.id === normalized
       );
 
-    return speechLanguage?.speech || "en-IN";
+    return (
+      speechLanguage?.speech ||
+      "en-IN"
+    );
   };
 
 
@@ -1539,11 +1563,13 @@ const speechRecognitionActiveRef = useRef(false);
 
       recognition.continuous = true;
       recognition.interimResults = true;
+
       recognition.lang =
         getBrowserSpeechLanguage();
 
       recognition.onstart = () => {
-        speechRecognitionActiveRef.current = true;
+        speechRecognitionActiveRef.current =
+          true;
       };
 
       recognition.onresult = (event) => {
@@ -1554,7 +1580,8 @@ const speechRecognitionActiveRef = useRef(false);
           index < event.results.length;
           index += 1
         ) {
-          const result = event.results[index];
+          const result =
+            event.results[index];
 
           if (
             result &&
@@ -1562,7 +1589,8 @@ const speechRecognitionActiveRef = useRef(false);
             result[0].transcript
           ) {
             liveText +=
-              result[0].transcript + " ";
+              result[0].transcript +
+              " ";
           }
         }
 
@@ -1583,27 +1611,19 @@ const speechRecognitionActiveRef = useRef(false);
         }
       };
 
-      recognition.onerror = (event) => {
-        /*
-         * Do not stop MediaRecorder because a browser
-         * SpeechRecognition error must never destroy the
-         * final BHASHINI recording.
-         */
-        console.warn(
-          "Live speech recognition:",
-          event?.error || "unknown error"
-        );
-      };
+      recognition.onerror =
+        (event) => {
+          console.warn(
+            "Live speech recognition:",
+            event?.error ||
+              "unknown error"
+          );
+        };
 
       recognition.onend = () => {
         speechRecognitionActiveRef.current =
           false;
 
-        /*
-         * Chrome may end SpeechRecognition temporarily
-         * while MediaRecorder is still recording. Restart
-         * it so the text keeps updating live.
-         */
         if (
           mountedRef.current &&
           recorderRef.current?.state ===
@@ -1612,7 +1632,7 @@ const speechRecognitionActiveRef = useRef(false);
           try {
             recognition.start();
           } catch {
-            // Ignore duplicate-start timing errors.
+            // Ignore.
           }
         }
       };
@@ -1655,14 +1675,10 @@ const speechRecognitionActiveRef = useRef(false);
     }
 
     try {
-      /*
-       * Remove onend first so STOP does not trigger
-       * the automatic restart logic.
-       */
       recognition.onend = null;
       recognition.stop();
     } catch {
-      // Recognition may already be stopped.
+      // Ignore.
     }
   };
 
@@ -1674,9 +1690,6 @@ const speechRecognitionActiveRef = useRef(false);
   const startVoiceRecording =
     async () => {
 
-      /*
-       * Browser support.
-       */
       if (
         !navigator.mediaDevices?.getUserMedia
       ) {
@@ -1691,10 +1704,6 @@ const speechRecognitionActiveRef = useRef(false);
         return false;
       }
 
-
-      /*
-       * Do not start another recorder.
-       */
       if (
         recorderRef.current &&
         recorderRef.current.state !==
@@ -1703,25 +1712,13 @@ const speechRecognitionActiveRef = useRef(false);
         return true;
       }
 
-
-      /*
-       * New recording session.
-       */
       recordingSessionRef.current += 1;
 
       const sessionId =
         recordingSessionRef.current;
 
-
-      /*
-       * New request ID.
-       */
       activeRequestRef.current += 1;
 
-
-      /*
-       * Clear previous voice result.
-       */
       setTranscript("");
       setVoiceAnswer("");
       setVoiceSources([]);
@@ -1730,10 +1727,6 @@ const speechRecognitionActiveRef = useRef(false);
       setVoiceMessage("");
       setIsTranscribing(false);
 
-
-      /*
-       * Stop previous browser speech.
-       */
       if (
         "speechSynthesis" in window
       ) {
@@ -1744,13 +1737,7 @@ const speechRecognitionActiveRef = useRef(false);
         }
       }
 
-
       let microphoneStream;
-
-
-      /* ---------------------------------------------------
-         REQUEST MICROPHONE
-      --------------------------------------------------- */
 
       try {
         microphoneStream =
@@ -1788,11 +1775,6 @@ const speechRecognitionActiveRef = useRef(false);
         return false;
       }
 
-
-      /*
-       * Ignore microphone result if a newer
-       * recording session already started.
-       */
       if (
         sessionId !==
         recordingSessionRef.current
@@ -1806,14 +1788,8 @@ const speechRecognitionActiveRef = useRef(false);
         return false;
       }
 
-
       microphoneStreamRef.current =
         microphoneStream;
-
-
-      /* ---------------------------------------------------
-         AUDIO FORMAT
-      --------------------------------------------------- */
 
       let mimeType = "";
 
@@ -1852,7 +1828,6 @@ const speechRecognitionActiveRef = useRef(false);
         }
       }
 
-
       if (
         typeof MediaRecorder ===
         "undefined"
@@ -1869,7 +1844,6 @@ const speechRecognitionActiveRef = useRef(false);
 
         return false;
       }
-
 
       let recorder;
 
@@ -1902,22 +1876,14 @@ const speechRecognitionActiveRef = useRef(false);
         return false;
       }
 
-
       const chunks = [];
 
-
       setIsListening(true);
-
       setIsTranscribing(false);
 
       setVoiceMessage(
         t.detecting
       );
-
-
-      /* ---------------------------------------------------
-         AUDIO DATA
-      --------------------------------------------------- */
 
       recorder.ondataavailable =
         (event) => {
@@ -1931,18 +1897,9 @@ const speechRecognitionActiveRef = useRef(false);
           }
         };
 
-
-      /* ---------------------------------------------------
-         RECORDING STOP
-      --------------------------------------------------- */
-
       recorder.onstop =
         async () => {
 
-          /*
-           * STOP means the live recognizer must stop and
-           * must not restart itself.
-           */
           stopLiveSpeechRecognition();
 
           if (
@@ -1955,36 +1912,23 @@ const speechRecognitionActiveRef = useRef(false);
 
           stopMicrophoneStream();
 
-
           if (
             !mountedRef.current
           ) {
             return;
           }
 
-
-          setIsListening(
-            false
-          );
-
-          setIsTranscribing(
-            true
-          );
+          setIsListening(false);
+          setIsTranscribing(true);
 
           setVoiceMessage(
             t.processing
           );
 
-
-          /*
-           * No audio.
-           */
           if (
             chunks.length === 0
           ) {
-            setIsTranscribing(
-              false
-            );
+            setIsTranscribing(false);
 
             setVoiceMessage(
               t.noSpeech
@@ -1993,12 +1937,10 @@ const speechRecognitionActiveRef = useRef(false);
             return;
           }
 
-
           const finalType =
             mimeType ||
             chunks[0]?.type ||
             "audio/webm";
-
 
           const audioBlob =
             new Blob(
@@ -2008,16 +1950,10 @@ const speechRecognitionActiveRef = useRef(false);
               }
             );
 
-
-          /*
-           * Reject extremely small recordings.
-           */
           if (
             audioBlob.size < 1000
           ) {
-            setIsTranscribing(
-              false
-            );
+            setIsTranscribing(false);
 
             setVoiceMessage(
               t.recordingTooShort
@@ -2026,37 +1962,18 @@ const speechRecognitionActiveRef = useRef(false);
             return;
           }
 
-
-          /*
-           * Generate request identifier.
-           */
           const requestId =
             ++activeRequestRef.current;
 
-
           try {
-
-            /*
-             * IMPORTANT:
-             *
-             * AUTO:
-             *     send "auto"
-             *
-             * MANUAL:
-             *     send selected language
-             *
-             * This fixes the previous problem where
-             * languageId = "en" caused every voice
-             * request to be sent as English.
-             */
             const requestLanguage =
-              voiceLanguageMode === "auto"
+              voiceLanguageMode ===
+              "auto"
                 ? "auto"
                 : normalizeLanguageId(
                     voiceLanguageMode,
                     languageId
                   );
-
 
             const result =
               await transcribeVoice(
@@ -2064,10 +1981,6 @@ const speechRecognitionActiveRef = useRef(false);
                 requestLanguage
               );
 
-
-            /*
-             * Ignore stale response.
-             */
             if (
               requestId !==
               activeRequestRef.current
@@ -2075,17 +1988,11 @@ const speechRecognitionActiveRef = useRef(false);
               return;
             }
 
-
             if (
               !mountedRef.current
             ) {
               return;
             }
-
-
-            /* ------------------------------------------------
-               TRANSCRIPT
-            ------------------------------------------------ */
 
             const text =
               String(
@@ -2095,23 +2002,16 @@ const speechRecognitionActiveRef = useRef(false);
                   ""
               ).trim();
 
-
             if (!text) {
               throw new Error(
                 t.noSpeech
               );
             }
 
-
-            /* ------------------------------------------------
-               BACKEND LANGUAGE
-            ------------------------------------------------ */
-
             const backendLanguage =
               result?.detected_language ||
               result?.language ||
               "";
-
 
             let detected =
               normalizeLanguageId(
@@ -2119,11 +2019,6 @@ const speechRecognitionActiveRef = useRef(false);
                 ""
               );
 
-
-            /*
-             * If backend did not return a supported
-             * language, detect locally.
-             */
             if (
               !detected ||
               detected === "auto"
@@ -2132,14 +2027,9 @@ const speechRecognitionActiveRef = useRef(false);
                 detectLanguage(text);
             }
 
-
-            /*
-             * If user manually selected a supported
-             * language, respect it if backend did not
-             * provide a valid language.
-             */
             if (
-              voiceLanguageMode !== "auto" &&
+              voiceLanguageMode !==
+                "auto" &&
               !backendLanguage
             ) {
               detected =
@@ -2149,32 +2039,19 @@ const speechRecognitionActiveRef = useRef(false);
                 );
             }
 
-
             const supported =
               LANGUAGES.some(
                 (item) =>
                   item.id === detected
               )
                 ? detected
-                : detectLanguage(
-                    text
-                  );
-
-
-            /* ------------------------------------------------
-               ANSWER
-            ------------------------------------------------ */
+                : detectLanguage(text);
 
             const answer =
               String(
                 result?.answer ||
                   ""
               ).trim();
-
-
-            /* ------------------------------------------------
-               SOURCES
-            ------------------------------------------------ */
 
             const sources =
               Array.isArray(
@@ -2183,27 +2060,16 @@ const speechRecognitionActiveRef = useRef(false);
                 ? result.sources
                 : [];
 
-
-            /* ------------------------------------------------
-               BACKEND AUDIO
-            ------------------------------------------------ */
-
             const rawAudioResponse =
               result?.audio_response ||
               result?.audio_response_path ||
               result?.audio_url ||
               null;
 
-
             const audioResponse =
               getAudioUrl(
                 rawAudioResponse
               );
-
-
-            /* ------------------------------------------------
-               UPDATE LANGUAGE
-            ------------------------------------------------ */
 
             const detectedIndex =
               LANGUAGES.findIndex(
@@ -2211,7 +2077,6 @@ const speechRecognitionActiveRef = useRef(false);
                   item.id ===
                   supported
               );
-
 
             if (
               detectedIndex !==
@@ -2222,51 +2087,24 @@ const speechRecognitionActiveRef = useRef(false);
               );
             }
 
-
-            /*
-             * Voice detection is now complete.
-             */
-            setIsAutoRotating(
-              false
-            );
-
+            setIsAutoRotating(false);
 
             setLanguageId(
               supported
             );
 
-
-            /*
-             * IMPORTANT:
-             *
-             * Once the backend has detected the language,
-             * the detected language becomes the active
-             * language for this voice answer.
-             *
-             * The next voice recording will return to
-             * "auto" unless the user manually selected
-             * a language.
-             */
             if (
-              voiceLanguageMode === "auto"
+              voiceLanguageMode ===
+              "auto"
             ) {
               setVoiceLanguageMode(
                 "auto"
               );
             }
 
+            setTranscript(text);
 
-            /* ------------------------------------------------
-               UPDATE VOICE STATE
-            ------------------------------------------------ */
-
-            setTranscript(
-              text
-            );
-
-            setVoiceAnswer(
-              answer
-            );
+            setVoiceAnswer(answer);
 
             setVoiceSources(
               sources
@@ -2276,18 +2114,14 @@ const speechRecognitionActiveRef = useRef(false);
               audioResponse
             );
 
-            /*
-             * Chat.jsx consumes this single immutable-ish
-             * result object to append the user question,
-             * append the assistant answer, and speak the
-             * answer in the detected language.
-             */
             setVoiceResult({
               transcribed_text: text,
-              detected_language: supported,
+              detected_language:
+                supported,
               answer,
               sources,
-              audio_response: rawAudioResponse,
+              audio_response:
+                rawAudioResponse,
               audio_response_path:
                 result?.audio_response_path ||
                 null,
@@ -2296,35 +2130,13 @@ const speechRecognitionActiveRef = useRef(false);
                 null,
             });
 
-            setIsTranscribing(
-              false
-            );
-
-
-            /* ------------------------------------------------
-               USER STATUS
-            ------------------------------------------------ */
+            setIsTranscribing(false);
 
             setVoiceMessage(
               copy[supported]
                 ?.voiceDetected ||
                 copy.en.voiceDetected
             );
-
-
-            /* ------------------------------------------------
-               AUDIO PLAYBACK
-            ------------------------------------------------
-
-             * Playback is intentionally handled by Chat.jsx.
-             * This prevents the context from speaking the same
-             * answer twice when Chat.jsx adds the assistant
-             * message and calls speakText().
-             */
-
-            /* ------------------------------------------------
-               ANSWER READY
-            ------------------------------------------------ */
 
             if (
               answer &&
@@ -2338,30 +2150,21 @@ const speechRecognitionActiveRef = useRef(false);
             }
 
           } catch (error) {
-
             if (
               !mountedRef.current
             ) {
               return;
             }
 
+            setIsTranscribing(false);
 
-            setIsTranscribing(
-              false
-            );
+            setVoiceAnswer("");
 
-            setVoiceAnswer(
-              ""
-            );
-
-            setVoiceSources(
-              []
-            );
+            setVoiceSources([]);
 
             setVoiceAudioResponse(
               null
             );
-
 
             setVoiceMessage(
               error?.message ||
@@ -2370,16 +2173,10 @@ const speechRecognitionActiveRef = useRef(false);
           }
         };
 
-
-      /* ---------------------------------------------------
-         RECORDER ERROR
-      --------------------------------------------------- */
-
       recorder.onerror =
         () => {
 
           stopMicrophoneStream();
-
 
           if (
             recorderRef.current ===
@@ -2389,17 +2186,12 @@ const speechRecognitionActiveRef = useRef(false);
               null;
           }
 
-
           if (
             mountedRef.current
           ) {
-            setIsListening(
-              false
-            );
+            setIsListening(false);
 
-            setIsTranscribing(
-              false
-            );
+            setIsTranscribing(false);
 
             setVoiceMessage(
               t.recordingFailed
@@ -2407,24 +2199,14 @@ const speechRecognitionActiveRef = useRef(false);
           }
         };
 
-
       recorderRef.current =
         recorder;
-
-
-      /* ---------------------------------------------------
-         START RECORDING
-      --------------------------------------------------- */
 
       try {
         recorder.start();
 
-        /*
-         * Start live browser transcription alongside
-         * MediaRecorder. This updates `transcript` while
-         * the user is still speaking.
-         */
         startLiveSpeechRecognition();
+
       } catch {
         recorderRef.current =
           null;
@@ -2436,9 +2218,7 @@ const speechRecognitionActiveRef = useRef(false);
         if (
           mountedRef.current
         ) {
-          setIsListening(
-            false
-          );
+          setIsListening(false);
 
           setVoiceMessage(
             t.startingFailed
@@ -2447,7 +2227,6 @@ const speechRecognitionActiveRef = useRef(false);
 
         return false;
       }
-
 
       return true;
     };
@@ -2463,7 +2242,6 @@ const speechRecognitionActiveRef = useRef(false);
       const recorder =
         recorderRef.current;
 
-
       if (
         !recorder ||
         recorder.state ===
@@ -2471,7 +2249,6 @@ const speechRecognitionActiveRef = useRef(false);
       ) {
         return false;
       }
-
 
       try {
         setVoiceMessage(
@@ -2488,17 +2265,12 @@ const speechRecognitionActiveRef = useRef(false);
         recorderRef.current =
           null;
 
-
         if (
           mountedRef.current
         ) {
-          setIsListening(
-            false
-          );
+          setIsListening(false);
 
-          setIsTranscribing(
-            false
-          );
+          setIsTranscribing(false);
 
           setVoiceMessage(
             t.stoppingFailed
@@ -2517,9 +2289,6 @@ const speechRecognitionActiveRef = useRef(false);
   const toggleVoice =
     async () => {
 
-      /*
-       * RECORDING → STOP
-       */
       if (
         recorderRef.current &&
         recorderRef.current.state ===
@@ -2528,21 +2297,12 @@ const speechRecognitionActiveRef = useRef(false);
         return stopVoiceRecording();
       }
 
-
-      /*
-       * Do not start another recording while
-       * backend is processing.
-       */
       if (
         isTranscribing
       ) {
         return false;
       }
 
-
-      /*
-       * Stop current browser speech.
-       */
       if (
         "speechSynthesis" in window
       ) {
@@ -2552,7 +2312,6 @@ const speechRecognitionActiveRef = useRef(false);
           // Ignore.
         }
       }
-
 
       return startVoiceRecording();
     };
@@ -2569,50 +2328,29 @@ const speechRecognitionActiveRef = useRef(false);
         return false;
       }
 
-
       try {
-
-        /*
-         * api.js already converts backend relative
-         * paths to absolute URLs.
-         *
-         * getAudioUrl is used again here as a safe
-         * fallback.
-         */
         const audioUrl =
           getAudioUrl(
             audioPath
           );
 
-
         if (!audioUrl) {
           return false;
         }
-
 
         const audio =
           new Audio(
             audioUrl
           );
 
-
         audio.preload =
           "auto";
 
-
         await audio.play();
-
 
         return true;
 
       } catch (error) {
-
-        /*
-         * Do not throw.
-         *
-         * Backend audio failure should never
-         * break the text answer.
-         */
         console.warn(
           "Backend audio playback failed:",
           error
@@ -2625,108 +2363,274 @@ const speechRecognitionActiveRef = useRef(false);
 
   /* =======================================================
      SPEECH SYNTHESIS
-
-     IMPORTANT: Web Speech API does NOT reliably choose a voice
-     from utterance.lang alone. On many Windows/Chrome systems,
-     hi-IN / mr-IN can silently fall back to an English voice.
-
-     We therefore explicitly select an installed voice whose
-     language matches the requested answer language.
   ======================================================== */
 
-  const normalizeSpeechLocale = (locale) => {
-    return String(locale || "")
-      .trim()
-      .toLowerCase()
-      .replace(/_/g, "-");
-  };
+  const normalizeSpeechLocale =
+    (locale) => {
+      return String(locale || "")
+        .trim()
+        .toLowerCase()
+        .replace(/_/g, "-");
+    };
+
 
   const getSpeechVoices = () => {
-    if (!("speechSynthesis" in window)) {
+    if (
+      !("speechSynthesis" in window)
+    ) {
       return [];
     }
 
     try {
-      return window.speechSynthesis.getVoices() || [];
+      return (
+        window.speechSynthesis.getVoices() ||
+        []
+      );
     } catch {
       return [];
     }
   };
 
-  const findSpeechVoice = (languageCode, voices) => {
-    const voiceList = Array.isArray(voices)
-      ? voices
-      : [];
 
-    if (!voiceList.length) {
-      return null;
-    }
+  /*
+   * IMPORTANT:
+   *
+   * Select voice by LANGUAGE first.
+   *
+   * Hindi:
+   *   hi-IN only
+   *
+   * Marathi:
+   *   mr-IN only
+   *
+   * English:
+   *   en-IN first
+   *
+   * This prevents Hindi/Marathi from ever
+   * selecting an English voice.
+   */
 
-    const languagePrefixes = {
-      en: ["en-in", "en-us", "en-gb", "en-au", "en-ca", "en"],
-      hi: ["hi-in", "hi"],
-      mr: ["mr-in", "mr"],
-      gu: ["gu-in", "gu"],
-      kn: ["kn-in", "kn"],
-      sa: ["sa-in", "sa"],
-    };
+  const findSpeechVoice =
+    (languageCode, voices) => {
 
-    const prefixes =
-      languagePrefixes[languageCode] ||
-      [languageCode];
+      const voiceList =
+        Array.isArray(voices)
+          ? voices
+          : [];
 
-    const normalizedVoices = voiceList.map((voice) => ({
-      voice,
-      lang: normalizeSpeechLocale(voice?.lang),
-      name: String(voice?.name || "").toLowerCase(),
-    }));
-
-    /* Exact locale match first. */
-    for (const prefix of prefixes) {
-      const exact = normalizedVoices.find(
-        (item) => item.lang === prefix
-      );
-
-      if (exact) {
-        return exact.voice;
+      if (
+        !voiceList.length
+      ) {
+        return null;
       }
-    }
 
-    /* Then accept the same language with another regional locale. */
-    const languageMatch = normalizedVoices.find((item) =>
-      prefixes.some(
-        (prefix) =>
-          item.lang === prefix ||
-          item.lang.startsWith(`${prefix}-`)
-      )
-    );
+      const normalizedVoices =
+        voiceList.map(
+          (voice) => ({
+            voice,
+            lang:
+              normalizeSpeechLocale(
+                voice?.lang
+              ),
+            name:
+              String(
+                voice?.name || ""
+              ).toLowerCase(),
+          })
+        );
 
-    if (languageMatch) {
-      return languageMatch.voice;
-    }
 
-    /*
-     * Some browser voice names contain the language name even when
-     * their lang metadata is incomplete. This is only a secondary
-     * fallback; we never use an English voice for Hindi/Marathi.
-     */
-    const nameHints = {
-      en: ["english", "english india", "india"],
-      hi: ["hindi", "हिंदी", "हिन्दी"],
-      mr: ["marathi", "मराठी"],
-      gu: ["gujarati", "ગુજરાતી"],
-      kn: ["kannada", "ಕನ್ನಡ"],
-      sa: ["sanskrit", "संस्कृत"],
+      /* ---------------------------------------------------
+         HINDI
+      --------------------------------------------------- */
+
+      if (
+        languageCode === "hi"
+      ) {
+        const hindiVoice =
+          normalizedVoices.find(
+            (item) =>
+              item.lang ===
+              "hi-in"
+          );
+
+        if (hindiVoice) {
+          return hindiVoice.voice;
+        }
+
+        const hindiNameVoice =
+          normalizedVoices.find(
+            (item) =>
+              item.name.includes(
+                "hindi"
+              ) ||
+              item.name.includes(
+                "हिंदी"
+              ) ||
+              item.name.includes(
+                "हिन्दी"
+              )
+          );
+
+        return (
+          hindiNameVoice?.voice ||
+          null
+        );
+      }
+
+
+      /* ---------------------------------------------------
+         MARATHI
+      --------------------------------------------------- */
+
+      if (
+        languageCode === "mr"
+      ) {
+        const marathiVoice =
+          normalizedVoices.find(
+            (item) =>
+              item.lang ===
+              "mr-in"
+          );
+
+        if (marathiVoice) {
+          return marathiVoice.voice;
+        }
+
+        const marathiNameVoice =
+          normalizedVoices.find(
+            (item) =>
+              item.name.includes(
+                "marathi"
+              ) ||
+              item.name.includes(
+                "मराठी"
+              )
+          );
+
+        return (
+          marathiNameVoice?.voice ||
+          null
+        );
+      }
+
+
+      /* ---------------------------------------------------
+         GUJARATI
+      --------------------------------------------------- */
+
+      if (
+        languageCode === "gu"
+      ) {
+        return (
+          normalizedVoices.find(
+            (item) =>
+              item.lang ===
+              "gu-in"
+          )?.voice ||
+          normalizedVoices.find(
+            (item) =>
+              item.name.includes(
+                "gujarati"
+              ) ||
+              item.name.includes(
+                "ગુજરાતી"
+              )
+          )?.voice ||
+          null
+        );
+      }
+
+
+      /* ---------------------------------------------------
+         KANNADA
+      --------------------------------------------------- */
+
+      if (
+        languageCode === "kn"
+      ) {
+        return (
+          normalizedVoices.find(
+            (item) =>
+              item.lang ===
+              "kn-in"
+          )?.voice ||
+          normalizedVoices.find(
+            (item) =>
+              item.name.includes(
+                "kannada"
+              ) ||
+              item.name.includes(
+                "ಕನ್ನಡ"
+              )
+          )?.voice ||
+          null
+        );
+      }
+
+
+      /* ---------------------------------------------------
+         SANSKRIT
+      --------------------------------------------------- */
+
+      if (
+        languageCode === "sa"
+      ) {
+        return (
+          normalizedVoices.find(
+            (item) =>
+              item.lang ===
+              "sa-in"
+          )?.voice ||
+          normalizedVoices.find(
+            (item) =>
+              item.name.includes(
+                "sanskrit"
+              ) ||
+              item.name.includes(
+                "संस्कृत"
+              )
+          )?.voice ||
+          null
+        );
+      }
+
+
+      /* ---------------------------------------------------
+         ENGLISH
+      --------------------------------------------------- */
+
+      if (
+        languageCode === "en"
+      ) {
+        return (
+          normalizedVoices.find(
+            (item) =>
+              item.lang ===
+              "en-in"
+          )?.voice ||
+          normalizedVoices.find(
+            (item) =>
+              item.lang ===
+              "en-us"
+          )?.voice ||
+          normalizedVoices.find(
+            (item) =>
+              item.lang ===
+              "en-gb"
+          )?.voice ||
+          null
+        );
+      }
+
+
+      return null;
     };
 
-    const hints = nameHints[languageCode] || [];
 
-    const nameMatch = normalizedVoices.find((item) =>
-      hints.some((hint) => item.name.includes(hint))
-    );
-
-    return nameMatch?.voice || null;
-  };
+  /* =======================================================
+     SPEAK TEXT
+  ======================================================== */
 
   const speakText = (
     text,
@@ -2739,7 +2643,6 @@ const speechRecognitionActiveRef = useRef(false);
       return false;
     }
 
-
     if (!text) {
       return false;
     }
@@ -2748,6 +2651,7 @@ const speechRecognitionActiveRef = useRef(false);
     /*
      * Stop previous speech.
      */
+
     try {
       window.speechSynthesis.cancel();
     } catch {
@@ -2756,13 +2660,13 @@ const speechRecognitionActiveRef = useRef(false);
 
 
     /*
-     * Clean answer ONLY for speech.
+     * Clean answer for speech.
      */
+
     const spokenText =
       cleanTextForSpeech(
         text
       );
-
 
     if (!spokenText) {
       return false;
@@ -2770,14 +2674,19 @@ const speechRecognitionActiveRef = useRef(false);
 
 
     /*
-     * Normalize language.
+     * Normalize requested language.
      */
+
     const normalizedLanguage =
       normalizeLanguageId(
         requestedLanguage,
         "en"
       );
 
+
+    /*
+     * Get target locale.
+     */
 
     const speechLanguage =
       LANGUAGES.find(
@@ -2790,98 +2699,228 @@ const speechRecognitionActiveRef = useRef(false);
       speechLanguage?.speech ||
       "en-IN";
 
-    const speakWithAvailableVoice = () => {
-      const voices = getSpeechVoices();
-      const selectedVoice =
-        findSpeechVoice(
-          normalizedLanguage,
-          voices
-        );
 
-      /*
-       * Hindi/Marathi must never intentionally use an English voice.
-       * If no matching voice is installed, wait for the browser's
-       * voiceschanged event instead of immediately speaking in the
-       * browser's default English voice.
-       */
-      if (
-        (normalizedLanguage === "hi" ||
-          normalizedLanguage === "mr") &&
-        !selectedVoice
-      ) {
-        return false;
+    /*
+     * Debug information.
+     */
+
+    console.log(
+      "SANYUKT VAANI TTS:",
+      {
+        requestedLanguage,
+        languageId,
+        normalizedLanguage,
+        targetLocale,
       }
+    );
 
-      const utterance =
-        new SpeechSynthesisUtterance(
-          spokenText
+
+    const speakWithSelectedVoice =
+      () => {
+
+        const voices =
+          getSpeechVoices();
+
+        console.log(
+          "Available voices:",
+          voices.map(
+            (voice) => ({
+              name:
+                voice.name,
+              lang:
+                voice.lang,
+            })
+          )
         );
 
-      utterance.lang = targetLocale;
 
-      if (selectedVoice) {
-        utterance.voice = selectedVoice;
+        const selectedVoice =
+          findSpeechVoice(
+            normalizedLanguage,
+            voices
+          );
+
+
+        console.log(
+          "Selected TTS voice:",
+          selectedVoice
+            ? {
+                name:
+                  selectedVoice.name,
+                lang:
+                  selectedVoice.lang,
+              }
+            : null
+        );
+
+
+        /*
+         * Hindi and Marathi MUST have
+         * their own voice.
+         *
+         * Never use English fallback.
+         */
+
+        if (
+          (
+            normalizedLanguage === "hi" ||
+            normalizedLanguage === "mr"
+          ) &&
+          !selectedVoice
+        ) {
+          console.warn(
+            `No ${normalizedLanguage} voice available. Speech cancelled to prevent English fallback.`
+          );
+
+          return false;
+        }
+
+
+        const utterance =
+          new SpeechSynthesisUtterance(
+            spokenText
+          );
+
+
+        /*
+         * Explicit language.
+         */
+
         utterance.lang =
-          selectedVoice.lang ||
           targetLocale;
-      }
 
-      utterance.rate =
-        normalizedLanguage === "hi" ||
-        normalizedLanguage === "mr"
-          ? 0.92
-          : 0.95;
 
-      utterance.pitch = 1;
-      utterance.volume = 1;
+        /*
+         * Explicit voice.
+         */
 
-      utterance.onerror = (event) => {
-        console.warn(
-          `Speech synthesis failed for ${normalizedLanguage}:`,
-          event?.error || "unknown error"
-        );
+        if (
+          selectedVoice
+        ) {
+          utterance.voice =
+            selectedVoice;
+
+          utterance.lang =
+            selectedVoice.lang ||
+            targetLocale;
+        }
+
+
+        /*
+         * Speech speed.
+         */
+
+        utterance.rate =
+          normalizedLanguage === "hi" ||
+          normalizedLanguage === "mr"
+            ? 0.92
+            : 0.95;
+
+        utterance.pitch = 1;
+
+        utterance.volume = 1;
+
+
+        utterance.onstart =
+          () => {
+            console.log(
+              "TTS started:",
+              {
+                language:
+                  normalizedLanguage,
+                voice:
+                  selectedVoice?.name ||
+                  "browser-default",
+                locale:
+                  utterance.lang,
+              }
+            );
+          };
+
+
+        utterance.onend =
+          () => {
+            console.log(
+              "TTS finished."
+            );
+          };
+
+
+        utterance.onerror =
+          (event) => {
+            console.warn(
+              "Speech synthesis failed:",
+              {
+                language:
+                  normalizedLanguage,
+                error:
+                  event?.error ||
+                  "unknown error",
+                voice:
+                  selectedVoice?.name ||
+                  "none",
+                locale:
+                  utterance.lang,
+              }
+            );
+          };
+
+
+        try {
+          window.speechSynthesis.speak(
+            utterance
+          );
+
+          return true;
+
+        } catch (error) {
+
+          console.warn(
+            "Speech synthesis start failed:",
+            error
+          );
+
+          return false;
+        }
       };
 
-      try {
-        window.speechSynthesis.speak(
-          utterance
-        );
-        return true;
-      } catch (error) {
-        console.warn(
-          "Speech synthesis start failed:",
-          error
-        );
-        return false;
-      }
-    };
 
-    try {
-      /*
-       * Chrome/Edge can populate getVoices() asynchronously.
-       * Try immediately first.
-       */
-      if (speakWithAvailableVoice()) {
-        return true;
-      }
+    /*
+     * Browser voices may be loaded asynchronously.
+     *
+     * First attempt immediately.
+     */
 
-      /*
-       * If Hindi/Marathi voices are not loaded yet, wait for
-       * voiceschanged and retry once. This prevents the common
-       * English-fallback problem on the first TTS request.
-       */
-      if (
-        normalizedLanguage === "hi" ||
-        normalizedLanguage === "mr"
-      ) {
-        let settled = false;
+    if (
+      speakWithSelectedVoice()
+    ) {
+      return true;
+    }
 
-        const retry = () => {
+
+    /*
+     * Hindi / Marathi:
+     *
+     * Wait for voiceschanged.
+     */
+
+    if (
+      normalizedLanguage === "hi" ||
+      normalizedLanguage === "mr"
+    ) {
+
+      let settled = false;
+
+
+      const retry =
+        () => {
+
           if (settled) {
             return;
           }
 
           settled = true;
+
 
           try {
             window.speechSynthesis.removeEventListener(
@@ -2889,54 +2928,78 @@ const speechRecognitionActiveRef = useRef(false);
               retry
             );
           } catch {
-            // Ignore cleanup errors.
+            // Ignore.
           }
 
-          speakWithAvailableVoice();
+
+          speakWithSelectedVoice();
         };
 
-        try {
-          window.speechSynthesis.addEventListener(
-            "voiceschanged",
-            retry,
-            { once: true }
-          );
-        } catch {
-          // Ignore unsupported event listener errors.
-        }
 
-        window.setTimeout(() => {
+      try {
+        window.speechSynthesis.addEventListener(
+          "voiceschanged",
+          retry,
+          {
+            once: true,
+          }
+        );
+      } catch {
+        // Ignore.
+      }
+
+
+      window.setTimeout(
+        () => {
           if (!settled) {
             retry();
           }
-        }, 1500);
+        },
+        1500
+      );
 
-        return true;
-      }
 
-      /*
-       * English can safely use the browser's normal fallback if an
-       * explicit English voice is not available.
-       */
-      const utterance =
-        new SpeechSynthesisUtterance(
-          spokenText
-        );
-      utterance.lang = targetLocale;
-      utterance.rate = 0.95;
-      utterance.pitch = 1;
-      utterance.volume = 1;
+      return true;
+    }
 
+
+    /*
+     * English / other languages:
+     *
+     * Explicit voice if available,
+     * otherwise browser fallback.
+     */
+
+    const utterance =
+      new SpeechSynthesisUtterance(
+        spokenText
+      );
+
+    utterance.lang =
+      targetLocale;
+
+    utterance.rate =
+      0.95;
+
+    utterance.pitch = 1;
+
+    utterance.volume = 1;
+
+
+    try {
       window.speechSynthesis.speak(
         utterance
       );
 
       return true;
+
     } catch (error) {
+
       console.warn(
         "Speech synthesis failed:",
         error
       );
+
       return false;
     }
   };
@@ -2955,7 +3018,9 @@ const speechRecognitionActiveRef = useRef(false);
 
       setVoiceSources([]);
 
-      setVoiceAudioResponse(null);
+      setVoiceAudioResponse(
+        null
+      );
 
       setVoiceResult(null);
 
@@ -2970,129 +3035,49 @@ const speechRecognitionActiveRef = useRef(false);
   const value =
     useMemo(
       () => ({
-        /*
-         * Current language.
-         */
         language,
 
         languageId,
 
-
-        /*
-         * Voice language mode.
-         *
-         * "auto"
-         * "hi"
-         * "mr"
-         * "en"
-         */
         voiceLanguageMode,
 
-
-        /*
-         * Available languages.
-         */
         languages:
           LANGUAGES,
 
-
-        /*
-         * UI translations.
-         */
         t,
 
-
-        /*
-         * Voice transcript.
-         */
         transcript,
 
         setTranscript,
 
-
-        /*
-         * Voice answer.
-         */
         voiceAnswer,
 
-
-        /*
-         * Voice sources.
-         */
         voiceSources,
 
-
-        /*
-         * Backend-generated audio.
-         */
         voiceAudioResponse,
 
-
-        /*
-         * Complete final voice result consumed by Chat.jsx.
-         */
         voiceResult,
 
         setVoiceResult,
 
-
-        /*
-         * Recording state.
-         */
         isListening,
 
         isTranscribing,
 
-
-        /*
-         * Automatic language rotation.
-         */
         isAutoRotating,
 
-
-        /*
-         * Voice status.
-         */
         voiceMessage,
 
-
-        /*
-         * Manual language change.
-         */
         setLanguage,
 
-
-        /*
-         * Enable automatic voice detection.
-         */
         enableAutoLanguage,
 
-
-        /*
-         * Browser TTS.
-         */
         speakText,
 
-
-        /*
-         * Backend audio player.
-         */
         playBackendAudio,
 
-
-        /*
-         * Clear previous voice response.
-         */
         clearVoiceResult,
 
-
-        /*
-         * Existing Home.jsx compatibility.
-         *
-         * Home.jsx calls:
-         *
-         * detectFromSpeech()
-         */
         detectFromSpeech:
           toggleVoice,
       }),

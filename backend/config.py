@@ -21,10 +21,10 @@ class Settings:
         "",
     ).strip()
 
-    # Use the model that worked in the Gemini API test.
+    # Verified working Gemini model.
     GEMINI_MODEL: str = os.getenv(
         "GEMINI_MODEL",
-        "gemini-flash-lite-latest",
+        "gemini-3.5-flash-lite",
     ).strip()
 
     GEMINI_EMBEDDING_MODEL: str = os.getenv(

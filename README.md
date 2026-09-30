@@ -19,49 +19,49 @@ Sanyukt Vaani is a multilingual, voice-enabled AI platform designed to help citi
 
 ---
 
-## 🏗️ System Architecture
+    ## 🏗️ System Architecture
 
-```mermaid
-flowchart TD
+    ```mermaid
+    flowchart TD
 
-    U["User<br/>Voice / Text"] --> L["Language Detection<br/>+ BHASHINI ASR"]
+        U["User<br/>Voice / Text"] --> L["Language Detection<br/>+ BHASHINI ASR"]
 
-    L --> Q["Query Processing"]
+        L --> Q["Query Processing"]
 
-    Q --> E["Multilingual<br/>Query Embedding"]
+        Q --> E["Multilingual<br/>Query Embedding"]
 
-    E --> V[("Qdrant<br/>Vector Database")]
+        E --> V[("Qdrant<br/>Vector Database")]
 
-    V --> C["Retrieved Document<br/>Chunks"]
+        V --> C["Retrieved Document<br/>Chunks"]
 
-    C --> R["Jina Multilingual<br/>Reranker"]
+        C --> R["Jina Multilingual<br/>Reranker"]
 
-    R --> G["RAG Pipeline"]
+        R --> G["RAG Pipeline"]
 
-    G --> P["Prompt Engineering<br/>+ Evidence Context"]
+        G --> P["Prompt Engineering<br/>+ Evidence Context"]
 
-    P --> AI["Gemini<br/>LLM"]
+        P --> AI["Gemini<br/>LLM"]
 
-    AI --> A["Grounded Answer<br/>+ Sources"]
+        AI --> A["Grounded Answer<br/>+ Sources"]
 
-    A --> T["BHASHINI TTS<br/>Voice Output"]
+        A --> T["BHASHINI TTS<br/>Voice Output"]
 
-    A --> TX["Text Response"]
+        A --> TX["Text Response"]
 
-    KB["Official Knowledge Base<br/><br/>Government Schemes<br/>Cooperative Laws<br/>PACS Guidelines<br/>Crop Insurance<br/>Financial Literacy<br/>Government Circulars<br/>Legal Documents"] --> V
+        KB["Official Knowledge Base<br/><br/>Government Schemes<br/>Cooperative Laws<br/>PACS Guidelines<br/>Crop Insurance<br/>Financial Literacy<br/>Government Circulars<br/>Legal Documents"] --> V
 
-    O["Officer Portal"] --> KB
+        O["Officer Portal"] --> KB
 
-    S["Supabase<br/>Metadata + Application Data"] --> G
+        S["Supabase<br/>Metadata + Application Data"] --> G
 
-    F["React Frontend"] --> L
+        F["React Frontend"] --> L
 
-    B["FastAPI Backend"] --> G
+        B["FastAPI Backend"] --> G
 
-    F --> B
-```
+        F --> B
+    ```
 
----
+    ---
 
 ## 🔄 RAG Pipeline
 
