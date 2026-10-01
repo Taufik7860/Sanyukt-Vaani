@@ -15,67 +15,36 @@ import {
   CircleCheck
 } from "lucide-react";
 
-import React, { useState } from "react";
-import { createOfficerKnowledge, getOfficerKnowledge, approveOfficerKnowledge } from "../services/api";
-
-const pendingDocuments = [
-  {
-    title:
-      "PACS Loan Interest Circular 2026",
-    type: "Loan",
-    date: "Today, 4:10 PM"
-  },
-  {
-    title:
-      "Kharif Crop Insurance Update",
-    type: "Insurance",
-    date: "Today, 1:32 PM"
-  },
-  {
-    title:
-      "New Cooperative Grievance Rules",
-    type: "Policy",
-    date: "Yesterday"
-  }
-];
-
-const approvedDocuments = [
-  {
-    title:
-      "PACS Agricultural Credit Guidelines 2026",
-    authority:
-      "Cooperative Department",
-    version: "2.1",
-    date: "08 Sep 2026",
-    pages: 18
-  },
-  {
-    title:
-      "Crop Insurance Scheme – Kharif 2026",
-    authority:
-      "Agriculture Department",
-    version: "1.4",
-    date: "02 Sep 2026",
-    pages: 32
-  },
-  {
-    title:
-      "Cooperative Society Grievance Procedure",
-    authority:
-      "Cooperation Department",
-    version: "3.0",
-    date: "29 Aug 2026",
-    pages: 11
-  }
-];
+import React, { useEffect, useRef, useState } from "react";
+import {
+  approveOfficerKnowledge,
+  getOfficerKnowledge,
+  getOfficerKnowledgeDocument,
+  uploadOfficerKnowledge,
+} from "../services/api";
 
 function OfficerDashboard() {
 
   const [activeTab, setActiveTab] =
     useState("dashboard");
+  const [dashboardUpdates, setDashboardUpdates] = useState([]);
+  const [dashboardLoading, setDashboardLoading] = useState(true);
+  const [dashboardError, setDashboardError] = useState("");
 
-  const [uploadMessage, setUploadMessage] =
-    useState(false);
+  useEffect(() => {
+    getOfficerKnowledge()
+      .then((result) => setDashboardUpdates(result.items || []))
+      .catch((error) => setDashboardError(error.message))
+      .finally(() => setDashboardLoading(false));
+  }, []);
+
+  const pendingDocuments = dashboardUpdates.filter((item) => item.status === "pending");
+  const approvedDocuments = dashboardUpdates.filter((item) => item.status === "approved");
+  const archivedDocuments = dashboardUpdates.filter((item) => item.status === "archived");
+  const latestUpdate = dashboardUpdates.find((item) => item.status === "approved");
+  const coverage = dashboardUpdates.length
+    ? Math.round((approvedDocuments.length / dashboardUpdates.length) * 100)
+    : 0;
 
   if (activeTab === "knowledge") {
 
@@ -129,7 +98,7 @@ function OfficerDashboard() {
 
           <UploadCloud size={17} />
 
-          Upload New Update
+          Upload Yearly Update
 
         </button>
 
@@ -149,17 +118,16 @@ function OfficerDashboard() {
           </div>
 
           <h3>
-            One verified update can help
-            thousands of citizens.
+            Keep official documents current
+            every year.
           </h3>
 
           <p>
 
-            Upload new loans, schemes,
-            policies, rules and circulars.
-            Review them and approve them.
-            Sanyukt Vaani AI will then use the
-            approved information.
+            Upload this year's official PDF,
+            review and approve it. The previous
+            approved edition is archived and AI
+            uses the newly approved information.
 
           </p>
 
@@ -172,7 +140,7 @@ function OfficerDashboard() {
               }
             >
 
-              Manage Knowledge
+              Manage Yearly Updates
 
               <ChevronRight size={16} />
 
@@ -220,34 +188,35 @@ function OfficerDashboard() {
         <Stat
           icon={FileCheck2}
           title="Approved Sources"
-          value="128"
-          note="+12 this month"
+          value={dashboardLoading ? "…" : approvedDocuments.length}
+          note="Active in the AI knowledge base"
         />
 
         <Stat
           icon={Clock3}
           title="Pending Review"
-          value="06"
-          note="Needs your attention"
+          value={dashboardLoading ? "…" : pendingDocuments.length}
+          note={pendingDocuments.length ? "Needs your attention" : "No reviews waiting"}
           warning
         />
 
         <Stat
           icon={RefreshCw}
           title="Knowledge Updated"
-          value="2h ago"
-          note="Last sync completed"
+          value={latestUpdate ? formatDate(latestUpdate.approved_at) : "—"}
+          note="Latest approved document"
         />
 
         <Stat
           icon={MessageCircle}
-          title="AI Questions Today"
-          value="1,842"
-          note="+18.4% vs yesterday"
+          title="Archived Versions"
+          value={dashboardLoading ? "…" : archivedDocuments.length}
+          note="Superseded yearly documents"
         />
 
       </div>
 
+      {dashboardError && <div className="error-alert" role="alert">{dashboardError}</div>}
 
       <div className="two-col">
 
@@ -286,12 +255,20 @@ function OfficerDashboard() {
 
           <div className="review-list">
 
-            {pendingDocuments.map(
-              (doc, index) => (
+            {!dashboardLoading && pendingDocuments.length === 0 && (
+              <div className="knowledge-empty-state">
+                <ShieldCheck size={20} />
+                <strong>No documents awaiting review</strong>
+                <span>New uploads will appear here for approval.</span>
+              </div>
+            )}
+
+            {pendingDocuments.slice(0, 4).map(
+              (doc) => (
 
                 <div
                   className="review-row"
-                  key={index}
+                  key={doc.id}
                 >
 
                   <div className="review-file">
@@ -307,9 +284,7 @@ function OfficerDashboard() {
                     </strong>
 
                     <small>
-                      {doc.type}
-                      {" • "}
-                      {doc.date}
+                      {categoryLabel(doc.category)} • {doc.year} • {doc.file_name}
                     </small>
 
                   </div>
@@ -374,7 +349,7 @@ function OfficerDashboard() {
             <div>
 
               <strong>
-                94%
+                {coverage}%
               </strong>
 
               <span>
@@ -390,7 +365,7 @@ function OfficerDashboard() {
 
             <CheckCircle2 size={16} />
 
-            128 verified documents
+            {approvedDocuments.length} approved documents active in AI retrieval
 
             <span>
               Good
@@ -403,7 +378,7 @@ function OfficerDashboard() {
 
             <CheckCircle2 size={16} />
 
-            0 expired critical policies
+            {archivedDocuments.length} older versions archived
 
             <span>
               Good
@@ -416,7 +391,7 @@ function OfficerDashboard() {
 
             <CircleAlert size={16} />
 
-            6 documents awaiting review
+            {pendingDocuments.length} documents awaiting review
 
             <span className="warn-text">
               Review
@@ -494,10 +469,10 @@ function OfficerDashboard() {
 
             <tbody>
 
-              {approvedDocuments.map(
-                (doc, index) => (
+              {dashboardUpdates.slice(0, 6).map(
+                (doc) => (
 
-                  <tr key={index}>
+                  <tr key={doc.id}>
 
                     <td>
 
@@ -516,7 +491,7 @@ function OfficerDashboard() {
                           </strong>
 
                           <small>
-                            {doc.pages} pages
+                            {doc.page_count || "—"} pages
                           </small>
 
                         </div>
@@ -534,18 +509,16 @@ function OfficerDashboard() {
                     </td>
 
                     <td>
-                      {doc.date}
+                      {formatDate(doc.updated_at)}
                     </td>
 
                     <td>
 
-                      <span className="status approved">
+                      <span className={`status ${doc.status}`}>
 
-                        <CheckCircle2
-                          size={14}
-                        />
+                        {doc.status === "approved" ? <CheckCircle2 size={14} /> : <Clock3 size={14} />}
 
-                        Approved
+                        {doc.status}
 
                       </span>
 
@@ -553,7 +526,12 @@ function OfficerDashboard() {
 
                     <td>
 
-                      <button className="icon-btn">
+                      <button
+                        type="button"
+                        className="icon-btn"
+                        title={`Preview ${doc.title}`}
+                        onClick={() => setActiveTab("knowledge")}
+                      >
 
                         <Eye size={17} />
 
@@ -636,6 +614,8 @@ function KnowledgeCenter({
 }) {
 
   const [updates, setUpdates] = useState([]);
+  const [activeFilter, setActiveFilter] = useState("pending");
+  const [selectedFile, setSelectedFile] = useState(null);
   const [form, setForm] = useState({
     title: "",
     category: "policy",
@@ -646,38 +626,119 @@ function KnowledgeCenter({
     source_url: "",
   });
   const [formMessage, setFormMessage] = useState("");
+  const [isError, setIsError] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [approvingId, setApprovingId] = useState("");
+  const [previewUrl, setPreviewUrl] = useState("");
+  const [previewTitle, setPreviewTitle] = useState("");
+  const [previewError, setPreviewError] = useState("");
+  const fileInputRef = useRef(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     getOfficerKnowledge()
       .then((result) => setUpdates(result.items || []))
-      .catch((error) => setFormMessage(error.message));
+      .catch((error) => {
+        setFormMessage(error.message);
+        setIsError(true);
+      })
+      .finally(() => setLoading(false));
   }, []);
+
+  useEffect(() => {
+    return () => {
+      if (previewUrl) URL.revokeObjectURL(previewUrl);
+    };
+  }, [previewUrl]);
 
   const submitUpdate = async (event) => {
     event.preventDefault();
+    if (!selectedFile) {
+      setFormMessage("Choose an official PDF document to upload.");
+      setIsError(true);
+      return;
+    }
+
     setSaving(true);
     setFormMessage("");
+    setIsError(false);
     try {
-      const created = await createOfficerKnowledge({ ...form, year: Number(form.year) });
+      const payload = new FormData();
+      Object.entries({ ...form, year: Number(form.year) }).forEach(([key, value]) => {
+        payload.append(key, String(value));
+      });
+      payload.append("file", selectedFile);
+      const created = await uploadOfficerKnowledge(payload);
       setUpdates((items) => [created, ...items]);
-      setForm({ ...form, title: "", authority: "", summary: "", source_url: "" });
-      setFormMessage("Update saved and sent for verification.");
+      setForm({
+        title: "",
+        category: "policy",
+        year: new Date().getFullYear(),
+        authority: "",
+        version: "1.0",
+        summary: "",
+        source_url: "",
+      });
+      setSelectedFile(null);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+      setActiveFilter("pending");
+      setFormMessage("PDF uploaded and queued for officer verification.");
     } catch (error) {
       setFormMessage(error.message);
+      setIsError(true);
     } finally {
       setSaving(false);
     }
   };
 
   const approveUpdate = async (id) => {
+    setApprovingId(id);
+    setFormMessage("");
+    setIsError(false);
     try {
       const approved = await approveOfficerKnowledge(id);
-      setUpdates((items) => items.map((item) => item.id === id ? approved : item));
+      setUpdates((items) =>
+        items.map((item) => {
+          if (item.id === id) return approved;
+          if (
+            item.status === "approved" &&
+            item.category === approved.category &&
+            item.title.trim().toLowerCase() === approved.title.trim().toLowerCase() &&
+            Number(item.year) <= Number(approved.year)
+          ) {
+            return { ...item, status: "archived", superseded_by: approved.id };
+          }
+          return item;
+        })
+      );
+      setFormMessage("Document approved and indexed for AI answers.");
     } catch (error) {
       setFormMessage(error.message);
+      setIsError(true);
+    } finally {
+      setApprovingId("");
     }
   };
+
+  const openPreview = async (document) => {
+    setPreviewError("");
+    setPreviewTitle(document.title);
+    try {
+      const blob = await getOfficerKnowledgeDocument(document.id);
+      setPreviewUrl(URL.createObjectURL(blob));
+    } catch (error) {
+      setPreviewError(error.message);
+    }
+  };
+
+  const closePreview = () => {
+    setPreviewUrl("");
+    setPreviewTitle("");
+    setPreviewError("");
+  };
+
+  const filteredUpdates = updates.filter((item) => item.status === activeFilter);
+  const countFor = (status) => updates.filter((item) => item.status === status).length;
 
   return (
     <>
@@ -686,16 +747,16 @@ function KnowledgeCenter({
         <div>
 
           <div className="eyebrow">
-            KNOWLEDGE CENTER
+            YEARLY KNOWLEDGE UPDATES
           </div>
 
           <h2>
-            Documents & Policies
+            Annual Document Updates
           </h2>
 
           <p>
-            Upload, review, approve and
-            manage official information.
+            Upload this year's official PDF, review it,
+            then publish it to the AI knowledge base.
           </p>
 
         </div>
@@ -763,10 +824,10 @@ function KnowledgeCenter({
         <div>
 
           <h3>
-            Add a new government update
+            Upload this year's official document
           </h3>
 
-          <p>Add a yearly policy, insurance, scheme, law, farmer loan or circular update.</p>
+          <p>Upload a verified PDF. After approval, the new yearly version replaces the old one in AI search.</p>
 
         </div>
 
@@ -785,35 +846,51 @@ function KnowledgeCenter({
           <input value={form.version} onChange={(event) => setForm({ ...form, version: event.target.value })} placeholder="Version" />
           <input type="url" value={form.source_url} onChange={(event) => setForm({ ...form, source_url: event.target.value })} placeholder="Official source URL" />
           <textarea value={form.summary} onChange={(event) => setForm({ ...form, summary: event.target.value })} placeholder="Short summary for reviewers" rows="2" />
+          <label className="knowledge-file-field">
+            <span>Official PDF document <b>Required · Max 15 MB</b></span>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".pdf,application/pdf"
+              required
+              onChange={(event) => setSelectedFile(event.target.files?.[0] || null)}
+              aria-label="Choose an official PDF document"
+            />
+          </label>
         </div>
 
-        <button className="primary-btn" type="submit" disabled={saving}>
+        <button className="primary-btn upload-submit-btn" type="submit" disabled={saving}>
 
           <UploadCloud size={16} />
 
-          {saving ? "Saving..." : "Save for review"}
+          {saving ? "Uploading PDF..." : "Upload for review"}
 
         </button>
 
       </form>
 
-      {formMessage && <div className="success-alert"><CircleCheck size={19} /><span>{formMessage}</span></div>}
+      {formMessage && (
+        <div className={isError ? "error-alert" : "success-alert"} role={isError ? "alert" : "status"}>
+          {isError ? <CircleAlert size={19} /> : <CircleCheck size={19} />}
+          <span>{formMessage}</span>
+        </div>
+      )}
 
 
       <section className="panel">
 
         <div className="tabs">
 
-          <button className="tab active">
-            Pending Review <b>{updates.filter((item) => item.status === "pending").length}</b>
+          <button type="button" className={`tab ${activeFilter === "pending" ? "active" : ""}`} onClick={() => setActiveFilter("pending")}>
+            Pending Review <b>{countFor("pending")}</b>
           </button>
 
-          <button className="tab">
-            Approved <b>{updates.filter((item) => item.status === "approved").length}</b>
+          <button type="button" className={`tab ${activeFilter === "approved" ? "active" : ""}`} onClick={() => setActiveFilter("approved")}>
+            Approved <b>{countFor("approved")}</b>
           </button>
 
-          <button className="tab">
-            Archived <b>9</b>
+          <button type="button" className={`tab ${activeFilter === "archived" ? "active" : ""}`} onClick={() => setActiveFilter("archived")}>
+            Archived <b>{countFor("archived")}</b>
           </button>
 
         </div>
@@ -821,9 +898,17 @@ function KnowledgeCenter({
 
         <div className="review-list spacious">
 
-          {updates.length === 0 && <div className="knowledge-empty-state"><ShieldCheck size={20} /><strong>No yearly updates yet</strong><span>Add a policy, bima, scheme, law, farmer loan, or circular update above.</span></div>}
+          {loading && <div className="knowledge-empty-state"><RefreshCw size={20} /><strong>Loading documents</strong><span>Connecting to the officer knowledge service…</span></div>}
 
-          {updates.map(
+          {!loading && filteredUpdates.length === 0 && (
+            <div className="knowledge-empty-state">
+              <ShieldCheck size={20} />
+              <strong>{updates.length ? `No ${activeFilter} documents` : "No yearly updates yet"}</strong>
+              <span>{updates.length ? "Documents will appear in this list when their status changes." : "Upload an official PDF above to start the annual update workflow."}</span>
+            </div>
+          )}
+
+          {filteredUpdates.map(
             (doc) => (
 
               <div
@@ -844,28 +929,27 @@ function KnowledgeCenter({
                   </strong>
 
                   <small>
-                    {categoryLabel(doc.category)} • {doc.year} • {doc.authority}
+                    {categoryLabel(doc.category)} • {doc.year} • {doc.authority} • v{doc.version}
                   </small>
+                  {doc.file_name && <small className="knowledge-file-name"><FileText size={12} /> {doc.file_name} · {doc.page_count} pages</small>}
 
                   <div className="review-actions">
 
-                    <button
-                      className="outline-btn"
-                    >
+                    {doc.file_name && <button type="button" className="outline-btn" onClick={() => openPreview(doc)}>
 
                       <Eye size={15} />
 
                       Preview
 
-                    </button>
+                    </button>}
 
-                    {doc.status === "pending" && <button type="button" className="primary-btn small" onClick={() => approveUpdate(doc.id)}>
+                    {doc.status === "pending" && <button type="button" className="primary-btn small" disabled={approvingId === doc.id} onClick={() => approveUpdate(doc.id)}>
 
                       <CheckCircle2
                         size={15}
                       />
 
-                      Approve
+                      {approvingId === doc.id ? "Indexing..." : "Approve & publish"}
 
                     </button>}
 
@@ -882,6 +966,29 @@ function KnowledgeCenter({
 
       </section>
 
+      {(previewUrl || previewError) && (
+        <div className="document-preview-backdrop" onClick={closePreview}>
+          <section
+            className="document-preview-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-label={`PDF preview: ${previewTitle}`}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <header>
+              <div>
+                <strong>{previewTitle}</strong>
+                <span>Official document preview</span>
+              </div>
+              <button type="button" className="icon-btn" aria-label="Close preview" onClick={closePreview}>
+                <X size={18} />
+              </button>
+            </header>
+            {previewError ? <div className="error-alert" role="alert">{previewError}</div> : <iframe title={`PDF preview for ${previewTitle}`} src={previewUrl} />}
+          </section>
+        </div>
+      )}
+
     </>
   );
 }
@@ -896,6 +1003,17 @@ function categoryLabel(category) {
     circular: "Circular",
   };
   return labels[category] || category;
+}
+
+function formatDate(value) {
+  if (!value) return "—";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "—";
+  return new Intl.DateTimeFormat(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  }).format(date);
 }
 
 

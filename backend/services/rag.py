@@ -5,7 +5,6 @@ from typing import Any
 
 from backend.config import settings
 from backend.services.answer_generator import generate_grounded_answer
-from rag.scripts.retriever import process_query
 
 
 logger = logging.getLogger(__name__)
@@ -821,6 +820,7 @@ async def answer_with_context(
     # ========================================================
 
     try:
+        from rag.scripts.retriever import process_query
 
         retrieval_result = process_query(
             clean_query,

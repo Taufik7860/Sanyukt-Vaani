@@ -117,6 +117,39 @@ The Officer Portal allows authorized officers to update the knowledge base.
 
 ### Knowledge Update Flow
 
+Officers upload text-based PDF documents (up to 15 MB) with the issuing authority,
+category, version and applicable year. Uploaded documents stay pending until an
+officer approves them. Approval extracts and chunks the PDF text, creates
+embeddings, and indexes the new version in Qdrant. Approving a newer document
+with the same title and category archives the previously approved version and
+excludes its chunks from retrieval. Password-protected and scanned image-only
+PDFs must be unlocked or OCR-processed before upload. Uploaded PDFs and update
+records are retained under `backend/data/knowledge_documents` and
+`backend/data/knowledge_updates.json`.
+
+### Running the FastAPI backend locally
+
+The React app and FastAPI API are separate processes; Vercel serves only the
+frontend. From the repository root, install backend dependencies and start the
+API:
+
+```powershell
+python -m pip install -r backend/requirements.txt
+python -m uvicorn backend.main:app --host 127.0.0.1 --port 8001
+```
+
+Set the officer credentials and session secret in the root `.env` before using
+the local officer portal. To approve uploads and index them for AI retrieval,
+also configure `QDRANT_URL`, `QDRANT_API_KEY`, and the embedding settings.
+The development frontend uses `http://127.0.0.1:8001` by default. Its health
+endpoint is `http://127.0.0.1:8001/api/health`.
+
+For a public deployment, deploy FastAPI separately on a stable HTTPS host, set
+`VITE_API_BASE_URL` in the frontend deployment to that host, and set
+`FRONTEND_ORIGINS` in the backend to the deployed frontend origin. A temporary
+Cloudflare quick tunnel is not a permanent API address; when its tunnel stops,
+the frontend cannot sign in or load officer data.
+
 ```mermaid
 flowchart TD
 

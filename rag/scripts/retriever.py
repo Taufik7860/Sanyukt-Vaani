@@ -109,6 +109,7 @@ from sentence_transformers import (
 )
 
 from qdrant_client import QdrantClient
+from qdrant_client.models import FieldCondition, Filter, MatchAny
 
 
 # ============================================================
@@ -3247,6 +3248,15 @@ def semantic_search(
             limit=limit,
 
             with_payload=True,
+
+            query_filter=Filter(
+                must_not=[
+                    FieldCondition(
+                        key="status",
+                        match=MatchAny(any=["pending", "archived"]),
+                    )
+                ]
+            ),
 
             timeout=QDRANT_TIMEOUT,
 

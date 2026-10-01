@@ -301,9 +301,9 @@ async function apiRequest(
 
     if (error instanceof TypeError) {
       throw new Error(
-        "Unable to connect to Sanyukt Vaani backend. " +
-        "Please make sure the FastAPI server is running on " +
-        `${API_BASE_URL}.`
+        "Unable to reach the FastAPI backend at " +
+        `${API_BASE_URL}. Check that the API URL is correct, the server or ` +
+        "tunnel is running, and the frontend origin is allowed by backend CORS."
       );
     }
 
@@ -578,30 +578,53 @@ export async function getOfficerKnowledge() {
 }
 
 
-export async function createOfficerKnowledge(
-  update
-) {
-  const token = getOfficerToken();
-
-  if (!update) {
-    throw new Error(
-      "Knowledge update data is required."
-    );
+export async function uploadOfficerKnowledge(formData) {
+  if (!(formData instanceof FormData)) {
+    throw new Error("Document upload data is required.");
   }
 
+  const token = getOfficerToken();
   return apiRequest(
-    "/api/officer/knowledge",
+    "/api/officer/knowledge/upload",
     {
       method: "POST",
-
       headers: {
         Authorization: `Bearer ${token}`,
       },
-
-      body: JSON.stringify(update),
+      body: formData,
     },
-    "Unable to save knowledge update"
+    "Unable to upload knowledge document"
   );
+}
+
+
+export async function getOfficerKnowledgeDocument(updateId) {
+  if (!updateId) {
+    throw new Error("Knowledge document ID is required.");
+  }
+
+  const token = getOfficerToken();
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/api/officer/knowledge/${encodeURIComponent(updateId)}/document`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      await parseResponse(response, "Unable to preview knowledge document");
+    }
+    return await response.blob();
+  } catch (error) {
+    if (error instanceof TypeError) {
+      throw new Error("Unable to connect to the Sanyukt Vaani backend.");
+    }
+    throw error;
+  }
 }
 
 

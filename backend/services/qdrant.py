@@ -3,7 +3,15 @@ from __future__ import annotations
 from typing import Any
 
 from qdrant_client import QdrantClient
-from qdrant_client.models import Distance, PointStruct, VectorParams
+from qdrant_client.models import (
+    Distance,
+    FieldCondition,
+    Filter,
+    FilterSelector,
+    MatchValue,
+    PointStruct,
+    VectorParams,
+)
 
 from backend.config import settings
 from backend.services.embeddings import embed_text
@@ -60,6 +68,25 @@ class QdrantService:
 
         self.client.upsert(collection_name=name, points=points)
         return len(points)
+
+    def set_update_status(self, update_id: str, status: str):
+        if not self.client:
+            raise RuntimeError("QDRANT_URL is not configured.")
+
+        self.client.set_payload(
+            collection_name=settings.QDRANT_COLLECTION,
+            payload={"status": status},
+            points=FilterSelector(
+                filter=Filter(
+                    must=[
+                        FieldCondition(
+                            key="metadata.update_id",
+                            match=MatchValue(value=update_id),
+                        )
+                    ]
+                )
+            ),
+        )
 
     def search(self, query: str, collection_name: str, limit: int = 8):
         if not self.client:

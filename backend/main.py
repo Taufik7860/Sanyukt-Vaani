@@ -2,13 +2,11 @@ from fastapi import Depends, FastAPI, Header, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
-from typing import Literal
 import os
 
 from backend.config import settings
 from backend.routes.chat import router as chat_router
 from backend.routes.officer import router as officer_router
-from backend.services.knowledge import approve_update, create_update, list_updates
 from backend.services.officer_auth import (
     Officer,
     authenticate_officer,
@@ -48,18 +46,6 @@ class QueryRequest(BaseModel):
 class OfficerLoginRequest(BaseModel):
     email: str
     password: str
-
-
-class KnowledgeUpdateRequest(BaseModel):
-    title: str = Field(min_length=3, max_length=200)
-    category: Literal[
-        "policy", "insurance", "scheme", "law", "farmer_loan", "circular"
-    ]
-    year: int = Field(ge=2000, le=2100)
-    authority: str = Field(min_length=2, max_length=160)
-    version: str = Field(default="1.0", min_length=1, max_length=40)
-    summary: str = Field(default="", max_length=2000)
-    source_url: str = Field(default="", max_length=500)
 
 
 def require_officer(
@@ -128,30 +114,3 @@ async def officer_login(request: OfficerLoginRequest):
 @app.get("/api/officer/me")
 async def officer_me(officer: Officer = Depends(require_officer)):
     return {"authenticated": True, "email": officer.email}
-
-
-@app.get("/api/officer/knowledge")
-async def get_knowledge(_officer: Officer = Depends(require_officer)):
-    return {"items": list_updates()}
-
-
-@app.post("/api/officer/knowledge")
-async def add_knowledge(
-    request: KnowledgeUpdateRequest,
-    officer: Officer = Depends(require_officer),
-):
-    try:
-        return create_update(request.model_dump(), officer.email)
-    except ValueError as exc:
-        raise HTTPException(status_code=422, detail=str(exc)) from exc
-
-
-@app.post("/api/officer/knowledge/{update_id}/approve")
-async def approve_knowledge(
-    update_id: str,
-    officer: Officer = Depends(require_officer),
-):
-    item = approve_update(update_id, officer.email)
-    if not item:
-        raise HTTPException(status_code=404, detail="Knowledge update not found")
-    return item
