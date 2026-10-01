@@ -407,41 +407,97 @@ function Home({ onNavigate }) {
                 )}
               </div>
 
-              {/* Chatbot Input Bar */}
-              <div className="p-2 bg-white border-t border-slate-200 flex items-center gap-2">
-                <input
-                  type="text"
-                  value={question}
-                  onChange={handleQuestionChange}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter") {
-                      event.preventDefault();
+              {/* Chatbot Input Bar — Upgraded with textarea + proper UI/UX */}
+              <div className="px-3 pt-3 pb-2 bg-white border-t border-slate-200">
+                {/* Label row */}
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="flex items-center gap-1.5 text-[11px] font-semibold text-slate-500 uppercase tracking-wide">
+                    <User size={11} className="text-slate-400" />
+                    Your Query
+                  </label>
+                  <span
+                    className={`text-[10px] font-medium transition-colors ${
+                      question.length > 480
+                        ? "text-red-500"
+                        : question.length > 300
+                        ? "text-amber-500"
+                        : "text-slate-400"
+                    }`}
+                  >
+                    {question.length}/500
+                  </span>
+                </div>
+
+                {/* Textarea + Send button wrapper */}
+                <div
+                  className={`flex items-end gap-2 rounded-xl border bg-slate-50 transition-all duration-200 ${
+                    isListening || isProcessing
+                      ? "border-slate-200 opacity-60"
+                      : question.length > 0
+                      ? "border-blue-400 ring-2 ring-blue-100 bg-white"
+                      : "border-slate-200 hover:border-slate-300"
+                  }`}
+                >
+                  <textarea
+                    value={question}
+                    onChange={(event) => {
+                      if (event.target.value.length <= 500) {
+                        handleQuestionChange(event);
+                      }
+                      // Auto-resize
+                      event.target.style.height = "auto";
+                      event.target.style.height =
+                        Math.min(event.target.scrollHeight, 120) + "px";
+                    }}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter" && !event.shiftKey) {
+                        event.preventDefault();
+                        if (question.trim() && !isProcessing) {
+                          handleSendMessage(question);
+                        }
+                      }
+                    }}
+                    placeholder={
+                      t.placeholder ||
+                      "Type your question here… (Enter to send, Shift+Enter for new line)"
+                    }
+                    disabled={isListening || isProcessing}
+                    maxLength={500}
+                    rows={2}
+                    className="flex-1 px-3 py-2.5 text-xs bg-transparent border-none focus:outline-none text-slate-800 placeholder-slate-400 resize-none leading-relaxed"
+                    style={{
+                      minHeight: "56px",
+                      maxHeight: "120px",
+                      overflowY: "auto",
+                      scrollbarWidth: "thin",
+                      scrollbarColor: "#cbd5e1 transparent"
+                    }}
+                    aria-label="Type your question"
+                  />
+
+                  {/* Send button — pinned to bottom-right of textarea box */}
+                  <button
+                    type="button"
+                    onClick={() => {
                       if (question.trim() && !isProcessing) {
                         handleSendMessage(question);
                       }
-                    }
-                  }}
-                  placeholder={
-                    t.placeholder || "Type query here (or tap blue mic to speak)..."
-                  }
-                  disabled={isListening || isProcessing}
-                  className="flex-1 px-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 text-slate-800"
-                />
+                    }}
+                    disabled={!question.trim() || isListening || isProcessing}
+                    className="m-2 p-2 bg-blue-600 hover:bg-blue-700 active:scale-95 disabled:bg-slate-200 disabled:text-slate-400 text-white rounded-lg flex items-center justify-center transition-all duration-150 shadow-sm flex-shrink-0"
+                    title="Send Query (Enter)"
+                    aria-label="Send Query"
+                  >
+                    <Send size={14} />
+                  </button>
+                </div>
 
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (question.trim() && !isProcessing) {
-                      handleSendMessage(question);
-                    }
-                  }}
-                  disabled={!question.trim() || isListening || isProcessing}
-                  className="p-2 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 disabled:text-slate-400 text-white rounded-lg flex items-center justify-center transition shadow-sm"
-                  title="Send Query"
-                  aria-label="Send Query"
-                >
-                  <Send size={13} />
-                </button>
+                {/* Helper hint */}
+                <p className="text-[10px] text-slate-400 mt-1.5 flex items-center gap-1">
+                  <span>⏎ Enter to send</span>
+                  <span className="mx-1 text-slate-300">·</span>
+                  <span>⇧ Shift+Enter for new line</span>
+                </p>
               </div>
 
             </div>

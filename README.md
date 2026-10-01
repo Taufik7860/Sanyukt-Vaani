@@ -19,49 +19,31 @@ Sanyukt Vaani is a multilingual, voice-enabled AI platform designed to help citi
 
 ---
 
-    ## 🏗️ System Architecture
+   ## 🏗️ System Architecture
 
-    ```mermaid
-    flowchart TD
+```mermaid
+flowchart TD
+    U["User<br/>Voice / Text"] --> L["Language Detection<br/>+ BHASHINI ASR"]
+    L --> Q["Query Processing"]
+    Q --> E["Multilingual<br/>Query Embedding"]
+    E --> V[("Qdrant<br/>Vector Database")]
+    V --> C["Retrieved Document<br/>Chunks"]
+    C --> R["Jina Multilingual<br/>Reranker"]
+    R --> G["RAG Pipeline"]
+    G --> P["Prompt Engineering<br/>+ Evidence Context"]
+    P --> AI["Gemini<br/>LLM"]
+    AI --> A["Grounded Answer<br/>+ Sources"]
+    A --> T["BHASHINI TTS<br/>Voice Output"]
+    A --> TX["Text Response"]
 
-        U["User<br/>Voice / Text"] --> L["Language Detection<br/>+ BHASHINI ASR"]
+    KB["Official Knowledge Base<br/><br/>Government Schemes<br/>Cooperative Laws<br/>PACS Guidelines<br/>Crop Insurance<br/>Financial Literacy<br/>Government Circulars<br/>Legal Documents"] --> V
 
-        L --> Q["Query Processing"]
-
-        Q --> E["Multilingual<br/>Query Embedding"]
-
-        E --> V[("Qdrant<br/>Vector Database")]
-
-        V --> C["Retrieved Document<br/>Chunks"]
-
-        C --> R["Jina Multilingual<br/>Reranker"]
-
-        R --> G["RAG Pipeline"]
-
-        G --> P["Prompt Engineering<br/>+ Evidence Context"]
-
-        P --> AI["Gemini<br/>LLM"]
-
-        AI --> A["Grounded Answer<br/>+ Sources"]
-
-        A --> T["BHASHINI TTS<br/>Voice Output"]
-
-        A --> TX["Text Response"]
-
-        KB["Official Knowledge Base<br/><br/>Government Schemes<br/>Cooperative Laws<br/>PACS Guidelines<br/>Crop Insurance<br/>Financial Literacy<br/>Government Circulars<br/>Legal Documents"] --> V
-
-        O["Officer Portal"] --> KB
-
-        S["Supabase<br/>Metadata + Application Data"] --> G
-
-        F["React Frontend"] --> L
-
-        B["FastAPI Backend"] --> G
-
-        F --> B
-    ```
-
-    ---
+    O["Officer Portal"] --> KB
+    S["Supabase<br/>Metadata + Application Data"] --> G
+    F["React Frontend"] --> L
+    B["FastAPI Backend"] --> G
+    F --> B
+```
 
 ## 🔄 RAG Pipeline
 
