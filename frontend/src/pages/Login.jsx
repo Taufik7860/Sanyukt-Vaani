@@ -1,4 +1,4 @@
-    import React, { useEffect, useState } from "react";
+    import React, { useEffect, useRef, useState } from "react";
     import { useLanguage } from "../context/LanguageContext";
     import { officerLogin, getApiBaseUrl } from "../services/api";
 
@@ -318,6 +318,18 @@
       const [isLoadingAnswer, setIsLoadingAnswer] = useState(false);
       const [editableTranscript, setEditableTranscript] = useState("");
 
+      // Ref for auto-resize of query textarea
+      const textareaRef = useRef(null);
+
+      // Auto-resize textarea whenever transcript/text changes
+      useEffect(() => {
+        const el = textareaRef.current;
+        if (!el) return;
+        el.style.height = "auto";
+        const newHeight = Math.min(el.scrollHeight, 220);
+        el.style.height = newHeight + "px";
+      }, [editableTranscript]);
+
       const language =
         LANGUAGES.find((item) => item.id === detectedLanguageId) ||
         LANGUAGES[1];
@@ -596,6 +608,14 @@
                 </div>
               </div>
 
+              <figure className="login-promo-visual">
+                <img
+                  src="/voice-accessibility-banner.png"
+                  alt="People using voice, visual, listening, and writing services"
+                  loading="eager"
+                />
+              </figure>
+
               <div className="login-trust">
                 <ShieldCheck size={17} />
                 <span>{t.security}</span>
@@ -689,38 +709,123 @@
                   <div className="voice-query-response-panel">
                     {/* 1. USER QUERY INPUT */}
                     <div className="user-query-card">
+                      <svg
+                        className="user-query-farmer-art"
+                        viewBox="0 0 180 180"
+                        role="img"
+                        aria-label="Illustration of a farmer asking a question"
+                      >
+                        <circle cx="75" cy="108" r="68" fill="#d9eddf" />
+                        <path
+                          d="M84 14h75a13 13 0 0 1 13 13v29a13 13 0 0 1-13 13h-29l-15 14V69H84a13 13 0 0 1-13-13V27a13 13 0 0 1 13-13Z"
+                          fill="#fff"
+                          stroke="#39865d"
+                          strokeWidth="3"
+                          strokeLinejoin="round"
+                        />
+                        <text
+                          x="119"
+                          y="53"
+                          textAnchor="middle"
+                          fill="#39865d"
+                          fontSize="32"
+                          fontWeight="700"
+                          fontFamily="sans-serif"
+                        >
+                          ?
+                        </text>
+                        <path
+                          d="M20 177c5-34 22-51 53-51s48 17 53 51"
+                          fill="#477b56"
+                        />
+                        <path
+                          d="M45 91c0-24 12-38 29-38s29 14 29 38v10c0 20-12 34-29 34s-29-14-29-34Z"
+                          fill="#ad704c"
+                        />
+                        <path
+                          d="M37 81c4-20 18-31 37-31s33 11 37 31c-24-8-50-8-74 0Z"
+                          fill="#d5aa52"
+                        />
+                        <path
+                          d="M31 82c22-9 64-9 86 0l-5 10c-22-7-54-7-76 0Z"
+                          fill="#b98b3c"
+                        />
+                        <path
+                          d="M61 97h2m24 0h2"
+                          stroke="#49372d"
+                          strokeWidth="3.5"
+                          strokeLinecap="round"
+                        />
+                        <path
+                          d="M66 112c5 4 12 4 17 0"
+                          fill="none"
+                          stroke="#704532"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                        />
+                        <path
+                          d="M47 136l27 26 27-26"
+                          fill="#f4f1df"
+                        />
+                        <path
+                          d="M7 172c1-17 3-27 10-38m-7 23-9-8m13 0 9-9"
+                          fill="none"
+                          stroke="#69956b"
+                          strokeWidth="4"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+
                       <div className="user-query-header">
-                        <User size={13} />
-                        <span>Your Query</span>
+                        <span className="user-query-heading-icon">
+                          <User size={14} />
+                        </span>
+                        <span className="user-query-heading-copy">
+                          <strong>Your question</strong>
+                          <small>Speak or type in your language</small>
+                        </span>
+                        <span className="user-query-mode">VOICE · TEXT</span>
                       </div>
 
                       <div className="user-query-input-wrap">
-                        <input
-                          type="text"
+                        <textarea
+                          ref={textareaRef}
                           value={editableTranscript}
-                          onChange={(event) =>
-                            setEditableTranscript(event.target.value)
-                          }
+                          onChange={(event) => {
+                            if (event.target.value.length <= 500) {
+                              setEditableTranscript(event.target.value);
+                            }
+                          }}
                           onKeyDown={(event) => {
-                            if (event.key === "Enter") {
+                            if (event.key === "Enter" && !event.shiftKey) {
                               event.preventDefault();
                               if (editableTranscript.trim() && !isLoadingAnswer) {
                                 handleFetchAnswer(editableTranscript);
                               }
                             }
                           }}
-                          placeholder="Your voice will appear here..."
+                          placeholder={"Your voice question will appear here...\nYou can also type your question."}
                           className="user-query-input"
+                          maxLength={500}
+                          rows={3}
+                          aria-label="Edit your question"
                         />
+                      </div>
 
+                      <div className="user-query-footer">
+                        <p className="user-query-keyboard-hint">
+                          <span>Enter</span> to send
+                          <i aria-hidden="true">·</i>
+                          <span>Shift + Enter</span> for a new line
+                        </p>
                         <button
                           type="button"
                           onClick={() => handleFetchAnswer(editableTranscript)}
                           disabled={isLoadingAnswer || !editableTranscript.trim()}
                           className="user-query-send-btn"
                         >
-                          <Send size={13} />
-                          <span>{isLoadingAnswer ? "..." : "Send"}</span>
+                          <Send size={15} />
+                          <span>{isLoadingAnswer ? "Sending..." : "Send question"}</span>
                         </button>
                       </div>
                     </div>
@@ -729,8 +834,11 @@
                     <div className="ai-response-card">
                       <div className="ai-response-header">
                         <div className="ai-response-label">
-                          <Bot size={14} />
-                          <span>AI Response</span>
+                          <Bot size={15} />
+                          <span>
+                            <strong>AI answer</strong>
+                            <small>Verified information</small>
+                          </span>
                         </div>
 
                         {aiAnswer && !isLoadingAnswer && (
