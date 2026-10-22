@@ -3622,8 +3622,13 @@ select:focus-visible {
   }
 
   .login-promo-visual {
-    margin-top: 20px;
+    aspect-ratio: 2.15;
+    margin-top: 8px;
     border-radius: 14px;
+  }
+
+  .login-trust {
+    margin-top: 9px;
   }
 
   .voice-card {
