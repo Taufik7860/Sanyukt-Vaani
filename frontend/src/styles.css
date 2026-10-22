@@ -3622,8 +3622,9 @@ select:focus-visible {
   }
 
   .login-promo-visual {
-    aspect-ratio: 2.15;
-    margin-top: 8px;
+    aspect-ratio: 2;
+    flex: 0 0 auto;
+    margin: 8px 0 0;
     border-radius: 14px;
   }
 
